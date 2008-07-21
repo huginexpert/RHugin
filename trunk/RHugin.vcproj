@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hugin2-6.7-vc8d.lib R271.lib Rblas271.lib FP10.OBJ"
+				AdditionalDependencies="hugin2-6.7-vc8d.lib R.lib Rblas.lib FP10.OBJ"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="./WIN32;C:\Program Files\Hugin Expert\Hugin Researcher 6.9\HDE6.7C\Lib\VC8\Debug"
 				ModuleDefinitionFile=""
@@ -150,7 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hugin2-6.7-vc8.lib R271.lib Rblas271.lib FP10.OBJ"
+				AdditionalDependencies="hugin2-6.7-vc8.lib R.lib Rblas.lib FP10.OBJ"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="./WIN32;C:\Program Files\Hugin Expert\Hugin Researcher 6.9\HDE6.7C\Lib\VC8\Release"
 				ModuleDefinitionFile=""
