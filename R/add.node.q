@@ -17,6 +17,12 @@ add.node <- function(domain, name,
   RHugin.handle.error(status)
 
   if(kind == "discrete") {
+    if(subtype == "boolean") {
+      status <- .Call("RHugin_node_set_number_of_states", new.node,
+                       as.integer(2), PACKAGE = "RHugin")
+      RHugin.handle.error(status)
+    }
+
     status <- .Call("RHugin_node_set_subtype", new.node, as.character(subtype),
                      PACKAGE = "RHugin")
     RHugin.handle.error(status)
