@@ -1,11 +1,11 @@
 Package: RHugin
-Version: 0.3-1
-Date: 2008-01-07
+Version: 0.3-2
+Date: 2008-08-07
 Title: RHugin
 Author: Kjell Konis <kjell.konis@epfl.ch>,
         Hugin Expert <http://www.hugin.com>.
 Maintainer: Kjell Konis <kjell.konis@epfl.ch>
-Depends: R (>= 2.7.0)
+Depends: R (>= 2.7.1)
 Suggests: MASS
 Description: Script Hugin with R. Please note: RHugin is not \
              supported by Hugin Expert. All bug reports and feature \

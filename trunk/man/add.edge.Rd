@@ -14,7 +14,7 @@ add.edge(domain, child, parent)
 \arguments{
   \item{domain}{an RHugin domain object.}
   \item{child}{a character vector of length one containing the name of the child node.}
-  \item{parent}{a character vector of length one containing the name of the parent node.}
+  \item{parent}{a character vector specifying by name one or more parent nodes.}
 }
 
 \value{
