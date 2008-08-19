@@ -30,14 +30,11 @@ get.cases <- function(domain)
     }
   }
 
-  counts <- .Call("RHugin_domain_get_case_count", domain$pointer,
-                   as.integer(index.set), PACKAGE = "RHugin")
+  data[["Freq"]] <- .Call("RHugin_domain_get_case_count", domain$pointer,
+                           as.integer(index.set), PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  if(any(counts != 1))
-    data[["Counts"]] <- counts
-
-  as.data.frame(data, stringsAsFactors = FALSE)
+  as.data.frame(data, stringsAsFactors = TRUE)
 }
 
 

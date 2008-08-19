@@ -62,11 +62,10 @@ ChestClinic.dat <- data.frame(
   Smoking = c("no", "yes", "yes", "no", "yes", "no", "yes", "no"),
   Dyspnoea = c("no", "yes", "yes", "yes", NA, "no", "yes", "no"),
   XRay = c("no", "no", "yes", "yes", "no", NA, "yes", NA),
-  Counts = c(1, 1, 1, 1, 2, 1, 1, 1),
-  stringsAsFactors = FALSE)
+  Freq = c(1, 1, 1, 1, 2, 1, 1, 1))
 
 # Add cases
-set.cases(ChestClinic, ChestClinic.dat, "Counts")
+set.cases(ChestClinic, ChestClinic.dat, "Freq")
 }
 
 \keyword{programming}
