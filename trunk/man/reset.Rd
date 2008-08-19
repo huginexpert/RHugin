@@ -25,9 +25,6 @@ a \code{NULL} value is invisibly returned.
   \code{\link{hugin.domain}}.
 }
 
-\examples{
-}
-
 \keyword{programming}
 
 

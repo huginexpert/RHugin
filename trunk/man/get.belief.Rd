@@ -8,12 +8,13 @@ Retrieve beliefs from a node after the domain has been compiled and evidence pro
 }
 
 \usage{
-get.belief(domain, node)
+get.belief(domain, node, states = NULL)
 }
 
 \arguments{
   \item{domain}{an RHugin domain object.}
   \item{node}{a character vector of length one containing the name of the node from which the beliefs are to be retrieved.}
+  \item{states}{an optional character vector specifying the states in \sQuote{node} for which beliefs are to be retrieved.  If \code{NULL} then beliefs are retrieved for all states.}
 }
 
 \value{

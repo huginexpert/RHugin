@@ -35,8 +35,6 @@ write.hkb(domain, filename, password = NULL)
   \code{\link{error.description}}.
 }
 
-\examples{}
-
 \keyword{file}
 
 

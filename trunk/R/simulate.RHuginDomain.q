@@ -9,6 +9,7 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
   }
 
   nodes <- get.nodes(object)
+  node.summary <- summary(object)
   node.list <- list()
   ans <- list()
 
@@ -19,37 +20,27 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
     ans[[node]] <- numeric(nsim)
   }
 
-  node.index <- 1:length(node.list)
-
   for(i in 1:nsim) {
     status <- .Call("RHugin_domain_simulate", object$pointer,
                      PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    for(j in node.index) {
-      kind <- .Call("RHugin_node_get_kind", node.list[[j]], PACKAGE = "RHugin")
-      RHugin.handle.error()
-
-      if(kind == "discrete")
-        ans[[j]][i] <- .Call("RHugin_node_get_sampled_state", node.list[[j]],
-                              PACKAGE = "RHugin")
-      else
-        ans[[j]][i] <- .Call("RHugin_node_get_sampled_value", node.list[[j]],
-                              PACKAGE = "RHugin")
-
+    for(node in nodes) {
+      ans[[node]][i] <- switch(node.summary[[node]]$kind,
+        "discrete" = .Call("RHugin_node_get_sampled_state", node.list[[node]],
+                            PACKAGE = "RHugin"),
+        "continuous" = .Call("RHugin_node_get_sampled_value", node.list[[node]],
+                              PACKAGE = "RHugin"))
       RHugin.handle.error()
     }
   }
 
-  for(j in node.index) {
-    kind <- .Call("RHugin_node_get_kind", node.list[[j]], PACKAGE = "RHugin")
-    RHugin.handle.error()
-
-    if(kind == "discrete")
-      ans[[j]] <- get.states(object, nodes[j])[ans[[j]] + 1]
+  for(node in nodes) {
+    if(node.summary[[node]]$kind == "discrete")
+      ans[[node]] <- as.factor(get.states(object, node)[ans[[node]] + 1])
   }
 
-  as.data.frame(ans, stringsAsFactors = FALSE)
+  as.data.frame(ans, stringsAsFactors = TRUE)
 }
 
 

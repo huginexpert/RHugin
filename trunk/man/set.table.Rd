@@ -14,11 +14,11 @@ set.table(domain, node, data)
 \arguments{
   \item{domain}{an RHugin domain object.}
   \item{node}{a character vector of length one containing the name of a node in \code{domain}.}
-  \item{data}{a data.frame matching the structure of Hugin's internal representation of the table (see details).}
+  \item{data}{a data frame (see details).}
 }
 
 \details{
-Explain structure of the table here.
+The data frame containing the table must match Hugin's internal representation of the table data. The best way to do this is to use \code{get.table} to obtain a data frame with the proper layout, set the probabilities (frequencies) in the final column of this data frame and finally use \code{set.table} to set the table information in Hugin.  See the example.
 }
 
 \value{

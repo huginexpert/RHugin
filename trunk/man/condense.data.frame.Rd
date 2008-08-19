@@ -8,12 +8,13 @@ Compute the marginal frequencies of a subset of factor variables in a data frame
 }
 
 \usage{
-condense.data.frame(data, indices)
+condense.data.frame(data, indices, class = c("data.frame", "table"))
 }
 
 \arguments{
   \item{data}{a data frame containing multiple factor variables.}
   \item{indices}{a character vector specifying the names of the factor variables that should remain in the data frame.}
+  \item{class}{a character string specifying the class of the returned object.}
 }
 
 \details{
@@ -21,7 +22,7 @@ The last variable in the data frame must be a numeric variable containing the pr
 }
 
 \value{
-a data frame.
+a data frame or table.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}

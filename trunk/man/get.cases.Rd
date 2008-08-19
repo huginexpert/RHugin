@@ -16,7 +16,7 @@ get.cases(domain)
 }
 
 \details{
-If any of the cases has frequency other than one then a column named \code{Counts} containing the frequency of each case is appended to the output data frame.  If \code{domain} contains a node named \code{counts} there will be a conflict of names.  
+If any of the cases has frequency other than one then a column named \code{Freq} containing the frequency of each case is appended to the output data frame.  If \code{domain} contains a node named \code{counts} there will be a conflict of names.  
 }
 
 \value{
@@ -59,11 +59,10 @@ ChestClinic.dat <- data.frame(
   Smoking = c("no", "yes", "yes", "no", "yes", "no", "yes", "no"),
   Dyspnoea = c("no", "yes", "yes", "yes", NA, "no", "yes", "no"),
   XRay = c("no", "no", "yes", "yes", "no", NA, "yes", NA),
-  Counts = c(1, 1, 1, 1, 2, 1, 1, 1),
-  stringsAsFactors = FALSE)
+  Freq = c(1, 1, 1, 1, 2, 1, 1, 1))
 
 # Add cases
-set.cases(ChestClinic, ChestClinic.dat, "Counts")
+set.cases(ChestClinic, ChestClinic.dat, "Freq")
 
 # Get cases
 get.cases(ChestClinic)
