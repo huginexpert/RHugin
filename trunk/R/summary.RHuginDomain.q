@@ -21,12 +21,16 @@ summary.RHuginDomain <- function(object, nodes, ...)
       node.subtype <- .Call("RHugin_node_get_subtype", node.ptr,
                              PACKAGE = "RHugin")
       RHugin.handle.error()
+      states <- get.states(object, node)
     }
-    else
-      node.subtype <- NA
+
+    else {
+      node.subtype <- NULL
+      states <- NULL
+    }
 
     ans[[node]] <- list(category = node.category, kind = node.kind,
-                        subtype = node.subtype)
+                        subtype = node.subtype, states = states)
   }
 
   oldClass(ans) <- "summary.RHuginDomain"

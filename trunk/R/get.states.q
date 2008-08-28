@@ -11,7 +11,7 @@ get.states <- function(domain, node)
                        PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    subtype <- summary(domain, node)[[node]]$subtype
+    subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
     states <- switch(subtype,
       "labeled" = .Call("RHugin_node_get_state_label", node.ptr,
                          as.integer(0:(n.states - 1)), PACKAGE = "RHugin"),
