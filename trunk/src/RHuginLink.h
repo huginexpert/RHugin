@@ -425,3 +425,9 @@ DLLEXPORT SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_learn_class_tables(SEXP Sdomain);
 
 
+/* Section 13.2 the position of a node */
+
+DLLEXPORT SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition);
+DLLEXPORT SEXP RHugin_node_get_position(SEXP Snode);
+
+
