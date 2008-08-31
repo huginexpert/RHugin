@@ -3968,3 +3968,48 @@ SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
   return ret;
 }
 
+
+/* Section 13.2 the position of a node */
+
+SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = NULL;
+  h_status_t status;
+
+  node = nodePointerFromSEXP(Snode);
+  status = h_node_set_position(node, (h_coordinate_t) INTEGER(Sposition)[0],
+                              (h_coordinate_t) INTEGER(Sposition)[1]);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_node_get_position(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = NULL;
+  h_status_t status;
+  h_coordinate_t position[] = {0, 0};
+
+  node = nodePointerFromSEXP(Snode);
+  status = h_node_get_position(node, position, position + 1);
+
+  if(status == h_error_none) {
+    PROTECT(ret = allocVector(INTSXP, 2));
+    INTEGER(ret)[0] = (int) position[0];
+    INTEGER(ret)[1] = (int) position[1];
+    UNPROTECT(1);
+  }
+
+  return ret;
+}
+
+
+/* Section 13.3 the size of a node */
+
+

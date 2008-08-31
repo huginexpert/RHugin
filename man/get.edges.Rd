@@ -16,7 +16,7 @@ get.edges(domain)
 }
 
 \value{
-a character vector with one element for each edge in the RHugin domain.  Each element is of the form \code{"parent -> child"} where \code{parent} is the name of the parent node and \code{child} is the name of the child node.
+a list with one element for each node in \sQuote{domain}. Each element is in turn a list with a single element \sQuote{edges} which is a character vector containing the names of the node's children. An empty character vector indicates that the node has no children. This design is modeled after the edge lists used in the graph package except that RHugin refers to the children by name while graph uses their index.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
