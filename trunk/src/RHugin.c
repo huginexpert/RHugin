@@ -292,8 +292,11 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_set_max_number_of_em_iterations", (DL_FUNC) RHugin_domain_set_max_number_of_em_iterations, 2},
     {"RHugin_domain_get_max_number_of_em_iterations", (DL_FUNC) RHugin_domain_get_max_number_of_em_iterations, 1},
     {"RHugin_domain_learn_class_tables", (DL_FUNC) RHugin_domain_learn_class_tables, 1},
+    {"RHugin_node_set_position", (DL_FUNC) RHugin_node_set_position, 2},
+    {"RHugin_node_get_position", (DL_FUNC) RHugin_node_get_position, 1},
     {NULL, NULL, 0}};
 
+  /* ToDo: add these to the precious list for 2.8.0 */
   RHugin_domain_tag = install("RHUGIN_DOMAIN_TAG");
   RHugin_node_tag = install("RHUGIN_NODE_TAG");
   RHugin_table_tag = install("RHUGIN_TABLE_TAG");
