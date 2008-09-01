@@ -22,7 +22,7 @@ get.states <- function(domain, node)
                           as.integer(0:(n.states - 1)), PACKAGE = "RHugin"),
 
       "interval" = .Call("RHugin_node_get_state_value", node.ptr,
-                          as.integer(0:(n.states - 1)), PACKAGE = "RHugin")
+                          as.integer(0:(n.states)), PACKAGE = "RHugin")
     )
     RHugin.handle.error()
   }

@@ -13,23 +13,31 @@ set.states <- function(domain, node, states)
     subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
 
     if(kind == "continuous") {
-      warning(dQuote("set.states"), " has no effect on continuous nodes")
+      warning(sQuote("set.states"), " has no effect on continuous nodes")
       return(invisible(NULL))
     }
 
-    status <- .Call("RHugin_node_set_number_of_states", node.ptr,
-                     as.integer(n.states), PACKAGE = "RHugin")
-    RHugin.handle.error(status)
 
     status <- switch(subtype,
-      "labeled" = .Call("RHugin_node_set_state_label", node.ptr,
-                         as.integer(0:(n.states - 1)), as.character(states),
-                         PACKAGE = "RHugin"),
+      "labeled" = {
+        status <- .Call("RHugin_node_set_number_of_states", node.ptr,
+                         as.integer(n.states), PACKAGE = "RHugin")
+        RHugin.handle.error(status)
+
+        .Call("RHugin_node_set_state_label", node.ptr,
+               as.integer(0:(n.states - 1)), as.character(states),
+               PACKAGE = "RHugin")
+      },
 
       "numbered" = {
         states <- as.double(states)
         if(any(is.na(states)))
           stop("non numeric states supplied for numbered node")
+
+        status <- .Call("RHugin_node_set_number_of_states", node.ptr,
+                         as.integer(n.states), PACKAGE = "RHugin")
+        RHugin.handle.error(status)
+
         .Call("RHugin_node_set_state_value", node.ptr,
                as.integer(0:(n.states - 1)), states,
                PACKAGE = "RHugin")
@@ -39,6 +47,13 @@ set.states <- function(domain, node, states)
         states <- as.double(states)
         if(any(is.na(states)))
           stop("non numeric states supplied for interval node")
+        if(!identical(states, sort(states)))
+          stop("states do not appear to be disjoint intervals")
+
+        status <- .Call("RHugin_node_set_number_of_states", node.ptr,
+                         as.integer(n.states - 1), PACKAGE = "RHugin")
+        RHugin.handle.error(status)
+
         .Call("RHugin_node_set_state_value", node.ptr,
                as.integer(0:(n.states - 1)), states,
                PACKAGE = "RHugin")

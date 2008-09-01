@@ -3,7 +3,7 @@ position.nodes <- function(domain, nodes = NULL, layoutType = c("dot", "neato",
 {
   if(!is.element("package:Rgraphviz", search()))
     stop("the ", sQuote("position.nodes"), " function requires the Rgraphviz ",
-         "package - please load R graphviz and try again") 
+         "package - please load Rgraphviz and try again") 
 
   RHugin.check.args(domain, nodes, character(0), "position.nodes")
   layoutType <- match.arg(layoutType)
