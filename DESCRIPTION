@@ -1,16 +1,17 @@
 Package: RHugin
-Version: 0.4-1
-Date: 2008-09-01
+Version: 0.4-2
+Date: 2008-09-03
 Title: RHugin
 Author: Kjell Konis <kjell.konis@epfl.ch>,
         Hugin Expert <http://www.hugin.com>.
 Maintainer: Kjell Konis <kjell.konis@epfl.ch>
-Depends: R (>= 2.7.1), graph
+Depends: R (>= 2.7.2), graph
 Suggests: MASS, Rgraphviz
-Description: Script Hugin with R. Please note: RHugin is not \
-             supported by Hugin Expert. All bug reports and feature \
-             requests should be sent to the package maintainer: \
-             Kjell Konis <kjell.konis@epfl.ch>.
-License: Not Free
+Description: The RHugin package provides an R API for the Hugin Expert System. \
+             The RHugin package is free software and is made available under \
+             the terms of the LGPL. Hugin is commercial software and may be \
+             obtained from www.hugin.com. Please note that the RHugin package \
+             is not supported by Hugin Expert.
+License: LGPL
 
 
