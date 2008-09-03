@@ -872,6 +872,7 @@ dblepr_
 dcar
 dcdr
 dchdc_
+dnbinom_mu
 do_devAskNewPage
 do_set_prim_method
 do_setwinprogressbar
@@ -943,10 +944,12 @@ optif9
 optline
 optopenfile
 optread
+pnbinom_mu
 pow
 printLogicalVector
 printRawVector
 printf
+qnbinom_mu
 qsort3_
 qsort4_
 rchkusr_
@@ -956,6 +959,7 @@ realpr_
 rexit_
 rexitc_
 rmultinom
+rnbinom_mu
 rs_
 rsort_with_index
 run_Rmainloop
@@ -987,8 +991,10 @@ vprintf
 vsnprintf
 vsprintf
 wilcox_free
+windelmenus
 wtransChar
 xdr_double
 xdr_float
 xdrmem_create
 xerbla_
+
