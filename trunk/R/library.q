@@ -5,10 +5,10 @@
     if(length(grep("HDE6.7C", path)) == 0) {
       HuginVersions <- c("Hugin Researcher 6.9", "Hugin Lite 6.9")
       HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
-        "Hugin Expert",
-        HuginVersions,
-        "HDE6.7C\\Lib\\VC8\\Release\\hugin2-6.7-vc8.dll",
-        sep = "\\")
+                            "Hugin Expert",
+                             HuginVersions,
+                            "HDE6.7C\\Lib\\VC8\\Release\\hugin2-6.7-vc8.dll",
+                             sep = "\\")
 
       if(length(HuginVersion <- which(file.exists(HuginDllPaths)))) {
         HuginVersion <- HuginVersions[HuginVersion[1]]
@@ -30,8 +30,9 @@
       }
     }
   }
-  library.dynam("RHugin")
 
+  library.dynam("RHugin")
   invisible(NULL)
 }
+
 
