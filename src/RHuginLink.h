@@ -425,6 +425,12 @@ DLLEXPORT SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_learn_class_tables(SEXP Sdomain);
 
 
+/* Section 12.8 parsing NET files */
+
+DLLEXPORT SEXP RHugin_net_parse_domain(SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
+
+
 /* Section 13.2 the position of a node */
 
 DLLEXPORT SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition);
