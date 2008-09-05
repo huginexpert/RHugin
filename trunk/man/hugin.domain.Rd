@@ -18,8 +18,6 @@ an RHugin domain object.
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \seealso{
-  \code{\link{add.node}},
-  \code{\link{add.edge}}.
 }
 
 \examples{

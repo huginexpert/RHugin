@@ -32,12 +32,12 @@ a \code{NULL} value is invisibly returned.
 # Create an RHugin domain
 AppleTree <- hugin.domain()
 
-# Add the nodes without specifying states
+# Add nodes without specifying states
 add.node(AppleTree, "Sick")
 add.node(AppleTree, "Dry")
 add.node(AppleTree, "Loses")
 
-# Specify the states of the nodes
+# Specify states for each node
 set.states(AppleTree, "Sick", states = c("yes", "no"))
 set.states(AppleTree, "Dry", states = c("yes", "no"))
 set.states(AppleTree, "Loses", states = c("yes", "no"))

@@ -30,11 +30,6 @@ write.hkb(domain, filename, password = NULL)
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{error.description}}.
-}
-
 \keyword{file}
 
 

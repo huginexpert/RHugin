@@ -32,29 +32,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \examples{
-# Create a Hugin domain
-ChestClinic <- hugin.domain()
-
-# Add nodes
-add.node(ChestClinic, "Asia", states = c("yes", "no"))
-add.node(ChestClinic, "Smoking", states = c("yes", "no"))
-add.node(ChestClinic, "Tuberculosis", states = c("yes", "no"))
-add.node(ChestClinic, "LungCancer", states = c("yes", "no"))
-add.node(ChestClinic, "Bronchitis", states = c("yes", "no"))
-add.node(ChestClinic, "Either", states = c("yes", "no"))
-add.node(ChestClinic, "XRay", states = c("yes", "no"))
-add.node(ChestClinic, "Dyspnoea", states = c("yes", "no"))
-
-
-# Add edges
-add.edge(ChestClinic, "Tuberculosis", "Asia")
-add.edge(ChestClinic, "LungCancer", "Smoking")
-add.edge(ChestClinic, "Bronchitis", "Smoking")
-add.edge(ChestClinic, "Either", "Tuberculosis")
-add.edge(ChestClinic, "Either", "LungCancer")
-add.edge(ChestClinic, "XRay", "Either")
-add.edge(ChestClinic, "Dyspnoea", "Either")
-add.edge(ChestClinic, "Dyspnoea", "Bronchitis")
+demo("buildChestClinicNetwork")
 
 # The cases from example 11.1 in the Hugin API Manual
 ChestClinic.dat <- data.frame(
