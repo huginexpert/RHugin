@@ -17,9 +17,6 @@ an RHugin domain object.
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-}
-
 \examples{
 # Create an empty RHugin domain
 AppleTree <- hugin.domain()

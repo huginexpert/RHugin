@@ -94,6 +94,12 @@ h_clique_t cliquePointerFromSEXP(SEXP Sclique)
 }
 
 
+void RHuginParseNETError(h_location_t line, h_string_t message, void *data)
+{
+  Rprintf("Parse error at line %d: %s\n\n", (int) line, message);
+}
+
+
 void R_init_RHugin(DllInfo *info)
 {
   R_CallMethodDef dotCallMethods[] = {
@@ -292,6 +298,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_set_max_number_of_em_iterations", (DL_FUNC) RHugin_domain_set_max_number_of_em_iterations, 2},
     {"RHugin_domain_get_max_number_of_em_iterations", (DL_FUNC) RHugin_domain_get_max_number_of_em_iterations, 1},
     {"RHugin_domain_learn_class_tables", (DL_FUNC) RHugin_domain_learn_class_tables, 1},
+    {"RHugin_net_parse_domain", (DL_FUNC) RHugin_net_parse_domain, 1},
+    {"RHugin_domain_save_as_net", (DL_FUNC) RHugin_domain_save_as_net, 2},
     {"RHugin_node_set_position", (DL_FUNC) RHugin_node_set_position, 2},
     {"RHugin_node_get_position", (DL_FUNC) RHugin_node_get_position, 1},
     {NULL, NULL, 0}};

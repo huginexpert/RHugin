@@ -27,7 +27,6 @@ a character vector containing the names of all the nodes associated with the con
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \seealso{
-  \code{\link{hugin.domain}},
   \code{\link{get.table}},
   \code{\link{set.table}}.
 }

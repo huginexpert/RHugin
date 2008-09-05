@@ -3969,6 +3969,37 @@ SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
 }
 
 
+/* Section 12.8 parsing NET files */
+
+SEXP RHugin_net_parse_domain(SEXP Sfile_name)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = h_net_parse_domain((h_string_t) CHAR(asChar(Sfile_name)),
+                                         RHuginParseNETError,
+                                         NULL);
+
+  if(domain) {
+    ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
+    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_delete); 
+  }
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_domain_save_as_net(domain, (h_string_t) CHAR(asChar(Sfile_name)));
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
 /* Section 13.2 the position of a node */
 
 SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition)

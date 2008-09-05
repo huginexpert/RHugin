@@ -31,3 +31,8 @@ h_junction_tree_t jtPointerFromSEXP(SEXP Sjt);
 h_clique_t cliquePointerFromSEXP(SEXP Sclique);
 
 
+/* Other utility functions */
+
+void RHuginParseNETError(h_location_t line, h_string_t message, void *data);
+
+
