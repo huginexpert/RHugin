@@ -43,7 +43,7 @@ a \code{NULL} value is invisibly returned.
 # Create an RHugin domain
 AppleTree <- hugin.domain()
 
-# Add some nodes
+# Add nodes
 add.node(AppleTree, "Sick", states = c("yes", "no"))
 add.node(AppleTree, "Dry", states = c("yes", "no"))
 add.node(AppleTree, "Loses", states = c("yes", "no"))
