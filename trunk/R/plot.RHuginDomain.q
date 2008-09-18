@@ -1,5 +1,4 @@
-plot.RHuginDomain <- function(x, y, layoutType = c("dot", "neato", "twopi",
-                              "circo", "fdp"), ...)
+plot.RHuginDomain <- function(x, y, layoutType = c("dot", "neato", "fdp"), ...)
 {
   if(!is.element("package:Rgraphviz", search()))
     stop("plotting an RHugin domain requires the Rgraphviz ",

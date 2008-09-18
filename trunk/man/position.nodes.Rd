@@ -9,7 +9,7 @@ Use R graphviz to compute a 2D layout of an RHugin domain and store the position
 
 \usage{
 position.nodes(domain, nodes = NULL, layoutType = c("dot", "neato",
-               "twopi", "circo", "fdp", "manual", "none"), x, y)
+               "fdp", "manual", "none"), x, y)
 }
 
 \arguments{
