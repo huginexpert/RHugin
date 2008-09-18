@@ -8,8 +8,7 @@ Plot method for RHugin domain objects.
 }
 
 \usage{
-\method{plot}{RHuginDomain}(x, y, layoutType = c("dot", "neato", "twopi",
-                            "circo", "fdp"), ...)
+\method{plot}{RHuginDomain}(x, y, layoutType = c("dot", "neato", "fdp"), ...)
 }
 
 \arguments{

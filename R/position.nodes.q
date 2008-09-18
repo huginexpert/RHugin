@@ -1,5 +1,5 @@
 position.nodes <- function(domain, nodes = NULL, layoutType = c("dot", "neato",
-                           "twopi", "circo", "fdp", "manual", "none"), x, y)
+                           "fdp", "manual", "none"), x, y)
 {
   if(!is.element("package:Rgraphviz", search()))
     stop("the ", sQuote("position.nodes"), " function requires the Rgraphviz ",
