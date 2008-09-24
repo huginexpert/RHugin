@@ -17,15 +17,19 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
   x <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  attributes(x) <- list(dim = d, dimnames = states, class = "table")
   switch(class,
-    "data.frame" = {
-      x <- as.data.frame(x, stringsAsFactors = TRUE)
-      row.names(x) <- NULL
+    "data.frame" = cbind(expand.grid(states), x),
+
+    "table" = {
+      attributes(x) <- list(dim = d, dimnames = states, class = "table")
       x
     },
-    "table" = x,
-    "ftable" = ftable(x, row.vars = 1:length(d)))  
+
+    "ftable" = {
+      attributes(x) <- list(dim = d, dimnames = states, class = "table")
+      ftable(x, row.vars = 1:length(d))
+    }
+  )
 }
 
 
