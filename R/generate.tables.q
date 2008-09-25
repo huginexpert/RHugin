@@ -12,10 +12,8 @@ generate.tables <- function(domain, data, nodes = NULL)
   if(!is.numeric(data[[length(data)]]))
     data <- cbind(data, Freq = 1)
 
-  for(node in nodes) {
-    table.nodes <- get.table.nodes(domain, node)
-    status <- set.table(domain, node, condense.data.frame(data, table.nodes))
-  }
+  for(node in nodes)
+    status <- set.table(domain, node, data)
 
   invisible(NULL)
 }

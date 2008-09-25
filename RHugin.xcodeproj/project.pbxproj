@@ -29,7 +29,6 @@
 		DAEFA1A90DE3081A002B126B /* add.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.node.q; path = R/add.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AA0DE3081A002B126B /* clone.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.q; path = R/clone.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AB0DE3081A002B126B /* compile.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compile.q; path = R/compile.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1AC0DE3081A002B126B /* condense.data.frame.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = condense.data.frame.q; path = R/condense.data.frame.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AD0DE3081A002B126B /* delete.edge.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.q; path = R/delete.edge.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AE0DE3081A002B126B /* delete.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.q; path = R/delete.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AF0DE3081A002B126B /* error.code.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = error.code.q; path = R/error.code.q; sourceTree = SOURCE_ROOT; };
@@ -65,7 +64,6 @@
 		DAEFA1CE0DE3083A002B126B /* add.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.node.Rd; path = man/add.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1CF0DE3083A002B126B /* clone.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.Rd; path = man/clone.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D00DE3083A002B126B /* compile.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compile.Rd; path = man/compile.Rd; sourceTree = SOURCE_ROOT; };
-		DAEFA1D10DE3083A002B126B /* condense.data.frame.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = condense.data.frame.Rd; path = man/condense.data.frame.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D20DE3083A002B126B /* delete.edge.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.Rd; path = man/delete.edge.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D30DE3083A002B126B /* delete.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.Rd; path = man/delete.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D40DE3083A002B126B /* errors.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = errors.Rd; path = man/errors.Rd; sourceTree = SOURCE_ROOT; };
@@ -130,7 +128,6 @@
 				0E39E53E0E6ABC36008B7B91 /* as.graph.q */,
 				DAEFA1AA0DE3081A002B126B /* clone.node.q */,
 				DAEFA1AB0DE3081A002B126B /* compile.q */,
-				DAEFA1AC0DE3081A002B126B /* condense.data.frame.q */,
 				DAEFA1AD0DE3081A002B126B /* delete.edge.q */,
 				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
 				DAEFA1AF0DE3081A002B126B /* error.code.q */,
@@ -180,7 +177,6 @@
 				0E39E5CE0E6B0590008B7B91 /* as.graph.Rd */,
 				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
 				DAEFA1D00DE3083A002B126B /* compile.Rd */,
-				DAEFA1D10DE3083A002B126B /* condense.data.frame.Rd */,
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				DAEFA1D40DE3083A002B126B /* errors.Rd */,
