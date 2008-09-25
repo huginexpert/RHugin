@@ -17,7 +17,6 @@ set.states <- function(domain, node, states)
       return(invisible(NULL))
     }
 
-
     status <- switch(subtype,
       "labeled" = {
         status <- .Call("RHugin_node_set_number_of_states", node.ptr,
