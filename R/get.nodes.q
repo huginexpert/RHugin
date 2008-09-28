@@ -1,8 +1,8 @@
 get.nodes <- function(domain)
 {
   if(class(domain) != "RHuginDomain")
-    stop("in:", sQuote("get.nodes"), "the first argument to",
-          sQuote("get.nodes"), "does not appear to be an RHugin domain",
+    stop("in ", sQuote("get.nodes"), " the first argument to ",
+          sQuote("get.nodes"), " is not an RHugin domain",
           call. = FALSE)
 
   nodes <- character(0)
