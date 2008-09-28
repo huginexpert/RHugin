@@ -15,6 +15,7 @@
 		0E39E5CE0E6B0590008B7B91 /* as.graph.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = as.graph.Rd; path = man/as.graph.Rd; sourceTree = SOURCE_ROOT; };
 		0EA791AE0DF1755B007CDD16 /* summary.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = summary.RHuginDomain.q; path = R/summary.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0EA791CF0DF17F15007CDD16 /* print.summary.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = print.summary.RHuginDomain.q; path = R/print.summary.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
+		0EFD932D0E8FE8E000A0CDAA /* buildTestNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildTestNetwork.r; sourceTree = "<group>"; };
 		DA5E09C40E711F1B0014FAFE /* buildAppleTreeNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = buildAppleTreeNetwork.r; path = demo/buildAppleTreeNetwork.r; sourceTree = SOURCE_ROOT; };
 		DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildChestClinicNetwork.r; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
@@ -105,6 +106,7 @@
 				DA5E0A4E0E7161740014FAFE /* 00Index */,
 				DA5E09C40E711F1B0014FAFE /* buildAppleTreeNetwork.r */,
 				DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */,
+				0EFD932D0E8FE8E000A0CDAA /* buildTestNetwork.r */,
 			);
 			path = demo;
 			sourceTree = SOURCE_ROOT;
