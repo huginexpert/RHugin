@@ -27,7 +27,8 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
 
     "ftable" = {
       attributes(Freq) <- list(dim = d, dimnames = states, class = "table")
-      ftable(Freq, row.vars = 1:length(d))
+      n <- length(table.nodes)
+      ftable(Freq, row.vars = table.nodes[n], col.vars = table.nodes[-n])
     }
   )
 }
