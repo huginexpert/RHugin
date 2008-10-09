@@ -37,7 +37,7 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
 
   for(node in nodes) {
     if(node.summary[[node]]$kind == "discrete")
-      ans[[node]] <- as.factor(get.states(object, node)[ans[[node]] + 1])
+      ans[[node]] <- get.states(object, node)[ans[[node]] + 1]
   }
 
   as.data.frame(ans, stringsAsFactors = TRUE)
