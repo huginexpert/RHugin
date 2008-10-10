@@ -48,7 +48,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="C:\Program Files\Hugin Expert\Hugin Lite 6.9\HDE6.7C\Include,C:\Program Files\R\R-2.7.2\include"
+				AdditionalIncludeDirectories="C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Include,C:\Program Files\R\R-2.7.2\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -73,11 +73,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hugin2-6.7-vc8.lib R.lib Rblas.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="hugin2-7.0-vc8.lib R.lib Rblas.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\RHugin___Win32_Release/RHugin.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="WIN32,C:\Program Files\Hugin Expert\Hugin Lite 6.9\HDE6.7C\Lib\VC8\Release"
+				AdditionalLibraryDirectories="WIN32,C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Lib\VC8\Release"
 				ProgramDatabaseFile=".\RHugin___Win32_Release/RHugin.pdb"
 				ImportLibrary=".\RHugin___Win32_Release/RHugin.lib"
 				TargetMachine="1"
@@ -143,7 +143,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Program Files\Hugin Expert\Hugin Lite 6.9\HDE6.7C\Include,C:\Program Files\R\R-2.7.2\include"
+				AdditionalIncludeDirectories="C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Include,C:\Program Files\R\R-2.7.2\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -169,11 +169,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hugin2-6.7-vc8d.lib R.lib Rblas.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="hugin2-7.0-vc8d.lib R.lib Rblas.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\RHugin___Win32_Debug/RHugin.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="WIN32,C:\Program Files\Hugin Expert\Hugin Lite 6.9\HDE6.7C\Lib\VC8\Debug"
+				AdditionalLibraryDirectories="WIN32,C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Lib\VC8\Debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\RHugin___Win32_Debug/RHugin.pdb"
 				ImportLibrary=".\RHugin___Win32_Debug/RHugin.lib"
