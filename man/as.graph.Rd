@@ -12,7 +12,7 @@ as.graph(x, ...)
 }
 
 \arguments{
-  \item{x}{the object to be coerced.}
+  \item{x}{an RHugin domain object.}
   \item{\dots}{additional arguments.}
 }
 

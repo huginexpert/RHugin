@@ -8,17 +8,17 @@ Set cases in an RHugin domain object.
 }
 
 \usage{
-set.cases(domain, data, counts)
+set.cases(domain, data, Freq)
 }
 
 \arguments{
   \item{domain}{an RHugin domain object.}
   \item{data}{a data frame.}
-  \item{counts}{a numeric vector of positive values giving the multiplicity of each row of the data frame.  Alternatively \code{counts} may be the name of a variable in \code{data} containing this information.  If \code{counts} is not specified, \code{counts = 1} is assumed.}
+  \item{Freq}{a numeric vector of positive values giving the multiplicity of each row of the data frame.  Alternatively \code{Freq} may be the name of a variable in \code{data} containing this information.  If \code{Freq} is not specified, \code{Freq = 1} is assumed.}
 }
 
 \details{
-The case counts need not be integers.  
+The elements of Freq need not be integers.  
 }
 
 \value{
@@ -26,10 +26,6 @@ a \code{NULL} value is invisibly returned.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{get.cases}}.
-}
 
 \examples{
 demo("buildChestClinicNetwork")

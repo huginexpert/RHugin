@@ -21,14 +21,6 @@ A single numeric value containing the normalization constant for the domain.
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{compile}},
-  \code{\link{set.finding}},
-  \code{\link{propagate}},
-  \code{\link{retract}}.
-}
-
 \examples{
 demo("buildAppleTreeNetwork")
 

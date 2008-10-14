@@ -13,7 +13,7 @@ delete.node(domain, node)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one containing the name of the node in \code{domain} to be deleted.}
+  \item{node}{a character string specifying the name of the node in \code{domain} to be deleted.}
 }
 
 \details{
@@ -26,10 +26,6 @@ a \code{NULL} value is invisibly returned.
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{add.node}}.
-}
-
 \examples{
 # Create an RHugin domain
 AppleTree <- hugin.domain()
@@ -39,7 +35,7 @@ add.node(AppleTree, "Sick", states = c("yes", "no"))
 add.node(AppleTree, "Dry", states = c("yes", "no"))
 add.node(AppleTree, "Loses", states = c("yes", "no"))
 
-# Delete "Dry"
+# Delete the node Dry
 delete.node(AppleTree, "Dry")
 }
 

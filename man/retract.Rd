@@ -4,20 +4,20 @@
 \title{Retract Evidence}
 
 \description{
-Retract evidence from one node or all nodes in an RHugin domain.
+Retract evidence from one or more nodes in an RHugin domain.
 }
 
 \usage{
-retract(domain, node)
+retract(domain, nodes)
 }
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{an optional character vector of length one specifying the name of the node for which evidence is to be retracted.}
+  \item{nodes}{an optional character vector specifying the names of the nodes for which evidence is to be retracted.}
 }
 
 \details{
-The \code{node} argument is optional.  If only \code{domain} is given then evidence is retracted from all nodes in the domain.
+The \code{nodes} argument is optional.  If only \code{domain} is given then evidence is retracted from all nodes.
 }
 
 \value{
@@ -25,12 +25,6 @@ a \code{NULL} value is invisibly returned.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{set.finding}},
-  \code{\link{initialize.domain}}.
-}
 
 \examples{
 demo("buildAppleTreeNetwork")

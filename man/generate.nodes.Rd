@@ -26,11 +26,6 @@ a \code{NULL} value is invisibly returned.
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{generate.tables}}.
-}
-
 \examples{
 library(MASS)
 data(housing)

@@ -12,10 +12,8 @@ set.states <- function(domain, node, states)
     kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
     subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
 
-    if(kind == "continuous") {
-      warning(sQuote("set.states"), " has no effect on continuous nodes")
-      return(invisible(NULL))
-    }
+    if(kind == "continuous")
+      stop("cannot set states for continuous nodes")
 
     status <- switch(subtype,
       "labeled" = {

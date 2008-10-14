@@ -13,7 +13,7 @@ get.finding(domain, node)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one containing the name of the node from which the findings are to be retrieved.}
+  \item{node}{a character string specifying the name of the node from which the entered findings are to be retrieved.}
 }
 
 \value{
@@ -21,8 +21,6 @@ get.finding(domain, node)
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{\code{\link{set.finding}}, \code{\link{retract}}}
 
 \examples{
 demo("buildAppleTreeNetwork")

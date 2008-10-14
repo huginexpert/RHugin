@@ -1,4 +1,4 @@
-set.cases <- function(domain, data, counts)
+set.cases <- function(domain, data, Freq)
 {
   RHugin.check.args(domain, character(0), character(0), "set.cases")
 
@@ -41,12 +41,12 @@ set.cases <- function(domain, data, counts)
     RHugin.handle.error(status)
   }
 
-  if(!missing(counts)) {
-    if(is.character(counts) && !is.null(data[[counts]]))
-      counts <- data[[counts]]
+  if(!missing(Freq)) {
+    if(is.character(Freq) && !is.null(data[[Freq]]))
+      Freq <- data[[Freq]]
 
     status <- .Call("RHugin_domain_set_case_count", domain$pointer,
-                     as.integer(index.set), as.numeric(counts),
+                     as.integer(index.set), as.numeric(Freq),
                      PACKAGE = "RHugin")
     RHugin.handle.error(status)
   }

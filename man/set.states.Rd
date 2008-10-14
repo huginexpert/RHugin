@@ -13,7 +13,7 @@ set.states(domain, node, states)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one containing the name of a node in \code{domain}.}
+  \item{node}{a character string specifying the name of a node in \code{domain}.}
   \item{states}{a character vector specifying the names of the states.}
 }
 
@@ -22,11 +22,6 @@ a \code{NULL} value is invisibly returned.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{add.node}}.
-}
 
 \examples{
 # Create an RHugin domain

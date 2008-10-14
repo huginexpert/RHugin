@@ -21,11 +21,6 @@ a character vector containing the names of the nodes in the RHugin domain.
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{add.node}}.
-}
-
 \examples{
 # Create an RHugin domain
 AppleTree <- hugin.domain()

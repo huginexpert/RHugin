@@ -1,10 +1,10 @@
 \name{delete.edge}
 \alias{delete.edge}
 
-\title{Delete Edges}
+\title{Delete Edge}
 
 \description{
-Delete edges from an RHugin domain object.
+Delete an edge from an RHugin domain object.
 }
 
 \usage{
@@ -13,8 +13,8 @@ delete.edge(domain, child, parent)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{child}{a character vector of length one specifying the name of the child node in \code{domain} of the edge to be deleted.}
-  \item{parent}{a character vector of length one specifying the name of the parent node in \code{domain} of the edge to be deleted.}
+  \item{child}{a character string specifying the name of the child node in \code{domain} of the edge to be deleted.}
+  \item{parent}{a character string specifying the name of the parent node in \code{domain} of the edge to be deleted.}
 }
 
 \details{
@@ -26,12 +26,6 @@ a \code{NULL} value is invisibly returned.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{add.edge}},
-  \code{\link{get.edges}},
-  \code{\link{reverse.edge}}.
-}
 
 \examples{
 # Create an RHugin domain
@@ -46,7 +40,7 @@ add.node(AppleTree, "Loses", states = c("yes", "no"))
 add.edge(AppleTree, "Loses", "Sick")
 add.edge(AppleTree, "Loses", "Dry")
 
-# Delete an edge
+# Delete the edge pointing from Sick to Loses
 delete.edge(AppleTree, "Loses", "Sick")
 }
 

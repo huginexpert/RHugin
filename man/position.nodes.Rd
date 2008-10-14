@@ -4,7 +4,7 @@
 \title{Position Nodes}
 
 \description{
-Use R graphviz to compute a 2D layout of an RHugin domain and store the positions of the nodes in the RHugin domain object. 
+Use Rgraphviz to compute a 2D layout of an RHugin domain and store the positions of the nodes in the RHugin domain object. 
 }
 
 \usage{

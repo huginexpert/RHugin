@@ -13,7 +13,7 @@ get.states(domain, node, values = FALSE)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one containing the name of a node in \code{domain}.}
+  \item{node}{a character string specifying the name of a node in \code{domain}.}
   \item{values}{a logical value that applies to interval nodes only. If \code{TRUE} the endpoints of the intervals are returned in a numeric vector.}
 }
 
@@ -22,11 +22,6 @@ a character vector containing the names of the states of the selected node.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{add.node}}.
-}
 
 \examples{
 # Create an RHugin domain
