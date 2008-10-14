@@ -16,16 +16,10 @@ get.edges(domain)
 }
 
 \value{
-a list with one element for each node in \sQuote{domain}. Each element is in turn a list with a single element \sQuote{edges} which is a character vector containing the names of the node's children. An empty character vector indicates that the node has no children. This design is modeled after the edge lists used in the graph package except that RHugin refers to the children by name while graph uses their index.
+a list with one element for each node in \sQuote{domain}.  Each element is in turn a list with a single element \sQuote{edges} which is a character vector containing the names of the node's children.  An empty character vector indicates that the node has no children.  This design is similar to the edge lists used in the \pkg{graph} package except that RHugin refers to the children by name while \pkg{graph} package uses their index.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{add.node}},
-  \code{\link{add.edge}}.
-}
 
 \examples{
 # Create an RHugin domain

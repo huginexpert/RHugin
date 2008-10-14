@@ -23,12 +23,6 @@ depending on the value of the \code{class} argument either (1, default) a data f
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{get.table.nodes}},
-  \code{\link{set.table}}.
-}
-
 \examples{
 demo("buildAppleTreeNetwork")
 

@@ -24,12 +24,6 @@ A data frame with one column for each node in the domain (\code{object}) whose r
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{set.finding}},
-  \code{\link{initialize.domain}}.
-}
-
 \examples{
 demo("buildAppleTreeNetwork")
 

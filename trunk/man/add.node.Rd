@@ -17,11 +17,11 @@ add.node(domain, name,
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{name}{a character vector of length one specifying the name of the new node (see details).}
-  \item{category}{a character vector of length one specifying the category of the node.}
-  \item{kind}{a character vector of length one specifying the kind of the node.}
-  \item{subtype}{a character vector of length one specifying the subtype of the node.}
-  \item{states}{an optional character vector specifying the states of the node.  The states of the node may be specified later or changed using the \code{\link{set.states}} function.}
+  \item{name}{a character string specifying the name of the new node (see details).}
+  \item{category}{a character string specifying the category of the node.}
+  \item{kind}{a character string specifying the kind of the node.}
+  \item{subtype}{a character string specifying the subtype of the node.}
+  \item{states}{an optional vector of states for the node.  The type of vector should be appropriate for the subtype of the node: character for labeled node or numeric for numbered and interval nodes.  Boolean nodes automatically have their states set to \code{FALSE} and \code{TRUE}.  See the function \code{\link{set.states}} for further details.}
 }
 
 \details{
@@ -32,10 +32,13 @@ The name of the node must be a valid identifier in the C programming language.  
 a \code{NULL} value is invisibly returned.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_new_node}, \code{h_node_set_name} and \code{h_node_set_subtype}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \seealso{
-  \code{\link{hugin.domain}},
   \code{\link{set.states}}.
 }
 

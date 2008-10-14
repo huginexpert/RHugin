@@ -4,7 +4,7 @@
 \title{Clone Nodes}
 
 \description{
-Clone a node in an RHugin domain object.
+Add a copy of a node to an RHugin domain object.
 }
 
 \usage{
@@ -13,8 +13,8 @@ clone.node(domain, node, new.name)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one giving the name of the node in \code{domain} to be cloned.}
-  \item{new.name}{a character vector of length one specifying the name of the cloned node.}
+  \item{node}{a character string specifying the name of the node in \code{domain} to be cloned.}
+  \item{new.name}{a character string specifying the name of the cloned node.}
 }
 
 \details{
@@ -25,13 +25,11 @@ The components of the cloned node are identical to those of \code{node}: categor
 a \code{NULL} value is invisibly returned.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{add.node}},
-  \code{\link{get.nodes}},
-  \code{\link{delete.node}}.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_clone}.
 }
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
 # Create an RHugin domain

@@ -4,7 +4,7 @@
 \title{Adding Edges}
 
 \description{
-Add a directed edge from the node \code{parent} to the node \code{child}.
+Add a directed edge from one or more parents.
 }
 
 \usage{
@@ -13,7 +13,7 @@ add.edge(domain, child, parent)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{child}{a character vector of length one containing the name of the child node.}
+  \item{child}{a character string containing the name of the child node.}
   \item{parent}{a character vector specifying by name one or more parent nodes.}
 }
 
@@ -21,13 +21,11 @@ add.edge(domain, child, parent)
 a \code{NULL} value is invisibly returned.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{set.finding}},
-  \code{\link{propagate}}.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_add_parent}.
 }
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
 # Create an RHugin domain
