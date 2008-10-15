@@ -23,6 +23,10 @@ If any of the cases has frequency other than one then a column named \code{Freq}
 A data frame containing the cases from the specified domain.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_case_state}, \code{h_node_get_case_value} and \code{h_domain_get_case_count}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

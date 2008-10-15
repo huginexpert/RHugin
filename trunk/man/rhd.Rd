@@ -25,11 +25,15 @@ write.rhd(domain, filename, type = c("hkb", "net"), password = NULL)
   \item{write.rhd}{an integer vector of length one containing the Hugin error code is invisibly returned.  A value of \code{0} indicates that the file was successfully written.}
 }
 
-\seealso{
-  The \code{\link{position.nodes}} function to automatically layout a network.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_kb_load_domain}, \code{h_net_parse_domain}, \code{h_domain_save_as_kb} and \code{h_domain_save_as_net}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
+
+\seealso{
+  The \code{\link{position.nodes}} function to automatically layout a network.
+}
 
 \keyword{file}
 

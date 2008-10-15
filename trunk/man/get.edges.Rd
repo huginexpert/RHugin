@@ -19,6 +19,10 @@ get.edges(domain)
 a list with one element for each node in \sQuote{domain}.  Each element is in turn a list with a single element \sQuote{edges} which is a character vector containing the names of the node's children.  An empty character vector indicates that the node has no children.  This design is similar to the edge lists used in the \pkg{graph} package except that RHugin refers to the children by name while \pkg{graph} package uses their index.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_children}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

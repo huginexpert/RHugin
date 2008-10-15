@@ -25,6 +25,10 @@ When an edge is removed, the table of \code{child} is adjusted as follows.  If \
 a \code{NULL} value is invisibly returned.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_remove_parent}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

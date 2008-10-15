@@ -19,6 +19,10 @@ get.nodes(domain)
 a character vector containing the names of the nodes in the RHugin domain.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_get_first_node}, \code{h_node_get_next} and \code{h_node_get_name}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

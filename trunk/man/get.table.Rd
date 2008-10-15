@@ -21,6 +21,10 @@ get.table(domain, node, class = c("data.frame", "table", "ftable"))
 depending on the value of the \code{class} argument either (1, default) a data frame with one factor column for each node associated with the table and a numeric column containing the table probabilities or frequencies (modeled on the housing data in the MASS package), (2) a table or (3) a flat table (formatted to look like the tables in the Hugin GUI).
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_get_data}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
