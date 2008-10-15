@@ -24,6 +24,10 @@ Explain the structure of a table and how the node order corresponds.
 a character vector containing the names of all the nodes associated with the conditional probability table of \code{node}.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_get_nodes}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

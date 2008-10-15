@@ -19,6 +19,10 @@ reset(domain)
 a \code{NULL} value is invisibly returned.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_reset_inference_engine}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \keyword{programming}

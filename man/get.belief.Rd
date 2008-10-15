@@ -21,6 +21,10 @@ get.belief(domain, node, states = NULL)
 a numeric vector containing the beliefs in the specified states.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_belief}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

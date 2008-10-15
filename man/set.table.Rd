@@ -25,6 +25,10 @@ The data frame containing the table must match Hugin's internal representation o
 a \code{NULL} value is invisibly returned.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_set_data} and \code{h_node_touch_table}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

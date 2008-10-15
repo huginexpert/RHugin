@@ -32,6 +32,10 @@ An error code of \code{0} indicates that the most recent Hugin API call was succ
   \item{RHugin.handle.error}{a \code{NULL} value is invisibly returned.}
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_error_code}, \code{h_error_name} and \code{h_error_description}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

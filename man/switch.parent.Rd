@@ -26,6 +26,10 @@ Substitute \code{new.parent} for \code{parent} as the parent of \code{child} whi
 a \code{NULL} value is invisibly returned.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_switch_parent}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{

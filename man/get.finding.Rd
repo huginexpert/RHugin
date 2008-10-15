@@ -20,6 +20,10 @@ get.finding(domain, node)
   a numeric vector containing the entered likelihood for each state in \code{node}.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_entered_finding}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
