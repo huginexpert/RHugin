@@ -12,9 +12,9 @@ extern SEXP RHugin_junction_tree_tag;
 extern SEXP RHugin_clique_tag;
 
 
-/************************************************************************************
+/*******************************************************************************
   * The Hugin API 
-************************************************************************************/
+*******************************************************************************/
 
 /* Section 1.6 Errors */
 
@@ -3483,7 +3483,6 @@ SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_status_t status = (h_status_t) 0;
-  h_index_t state_index = (h_index_t) -1;
   int i = 0;
 
   node = nodePointerFromSEXP(Snode);
@@ -3492,12 +3491,8 @@ SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate)
   INTEGER(ret)[0] = 0;
 
   for(i = 0; i < LENGTH(Scase_index); i++) {
-    if(STRING_ELT(Sstate, i) == NA_STRING)
-      status = h_node_unset_case(node, (size_t) INTEGER(Scase_index)[i]);
-    else {
-      state_index = h_node_get_state_index_from_label(node, (h_string_t) CHAR(STRING_ELT(Sstate, i)));
-      status = h_node_set_case_state(node, (size_t) INTEGER(Scase_index)[i], state_index);
-    }
+    status = h_node_set_case_state(node, (size_t) INTEGER(Scase_index)[i],
+                                   (size_t) INTEGER(Sstate)[i]);
 
     if(status != 0) {
       INTEGER(ret)[0] = (int) status;
@@ -3505,7 +3500,7 @@ SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate)
       return ret;
     }
   }
-  
+
   UNPROTECT(1);
 
   return ret;
