@@ -3511,20 +3511,17 @@ SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_index)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_index_t state_index = (h_index_t) -1;
   int i = 0;
 
   node = nodePointerFromSEXP(Snode);
 
-  PROTECT(ret = allocVector(STRSXP, LENGTH(Scase_index)));
+  PROTECT(ret = allocVector(INTSXP, LENGTH(Scase_index)));
   for(i = 0; i < LENGTH(Scase_index); i++) {
-    if(h_node_case_is_set(node, (size_t) INTEGER(Scase_index)[i])) {
-      state_index = h_node_get_case_state(node, (size_t) INTEGER(Scase_index)[i]);
-      SET_STRING_ELT(ret, i, mkChar( (char*) h_node_get_state_label(node, (size_t) state_index)));
-    }
-    else
-      SET_STRING_ELT(ret, i, NA_STRING);
+    INTEGER(ret)[i] = h_node_case_is_set(node, (size_t) INTEGER(Scase_index)[i]) ?
+                      (int) h_node_get_case_state(node, (size_t) INTEGER(Scase_index)[i]) :
+                      NA_INTEGER;
   }
+
   UNPROTECT(1);
 
   return ret;

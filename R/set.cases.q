@@ -7,15 +7,15 @@ set.cases <- function(domain, data, Freq)
   nodes <- intersect(get.nodes(domain), data.names)
   node.summary <- summary(domain, nodes = nodes)
 
-  status <- .Call("RHugin_domain_set_number_of_cases", domain$pointer,
+  status <- .Call("RHugin_domain_set_number_of_cases", domain,
                    as.integer(0), PACKAGE = "RHugin")
   RHugin.handle.error(status)
-  status <- .Call("RHugin_domain_set_number_of_cases", domain$pointer,
+  status <- .Call("RHugin_domain_set_number_of_cases", domain,
                    as.integer(n), PACKAGE = "RHugin")
   RHugin.handle.error(status)
 
   for(node in nodes) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                        PACKAGE = "RHugin")
     RHugin.handle.error()
 
@@ -44,12 +44,12 @@ set.cases <- function(domain, data, Freq)
       Freq <- data[[Freq]]
 
     if(length(Freq) != n) {
-      .Call("RHugin_domain_set_number_of_cases", domain$pointer,
-             as.integer(0), PACKAGE = "RHugin")
+      .Call("RHugin_domain_set_number_of_cases", domain, as.integer(0),
+             PACKAGE = "RHugin")
       stop(sQuote("Freq"), " is not the correct length")
     }
 
-    status <- .Call("RHugin_domain_set_case_count", domain$pointer,
+    status <- .Call("RHugin_domain_set_case_count", domain,
                      as.integer(0:(n - 1)), as.numeric(Freq),
                      PACKAGE = "RHugin")
     RHugin.handle.error(status)

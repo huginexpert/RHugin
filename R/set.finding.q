@@ -1,5 +1,14 @@
-set.finding <- function(domain, node, finding)
+set.finding <- function(domain, node, finding, case = NULL)
 {
+  if(!is.null(case)) {
+    RHugin.check.args(domain, character(0), character(0), "set.finding")
+
+    status <- .Call("RHugin_domain_enter_case", domain, as.integer(case - 1),
+                     PACKAGE = "RHugin")
+    RHugin.handle.error(status)
+    return(invisible(NULL))
+  }
+
   RHugin.check.args(domain, node, character(0), "set.finding")
 
   node.summary <- summary(domain, node)[[node]]
@@ -10,7 +19,7 @@ set.finding <- function(domain, node, finding)
   if(kind != "discrete" || (category != "chance" && category != "decision"))
     stop(dQuote(node), " is not a discrete chance or decision node")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
 
   if(length(finding) == 1) {

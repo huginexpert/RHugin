@@ -2,7 +2,7 @@ clone.node <- function(domain, node, new.name)
 {
   RHugin.check.args(domain, node, new.name, "clone.node")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
   new.node <- .Call("RHugin_node_clone", node.ptr, PACKAGE = "RHugin")

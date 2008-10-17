@@ -3,7 +3,7 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
   RHugin.check.args(object, character(0), character(0), "simulate.RHuginDomain")
 
   if(!is.null(seed)) {
-    .Call("RHugin_domain_seed_random", object$pointer, as.integer(abs(seed)),
+    .Call("RHugin_domain_seed_random", object, as.integer(abs(seed)),
            PACKAGE = "RHugin")
     RHugin.handle.error()
   }
@@ -14,15 +14,14 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
   ans <- list()
 
   for(node in nodes) {
-    node.list[[node]] <- .Call("RHugin_domain_get_node_by_name", object$pointer,
+    node.list[[node]] <- .Call("RHugin_domain_get_node_by_name", object,
                                 node, PACKAGE = "RHugin")
     RHugin.handle.error()
     ans[[node]] <- numeric(nsim)
   }
 
   for(i in 1:nsim) {
-    status <- .Call("RHugin_domain_simulate", object$pointer,
-                     PACKAGE = "RHugin")
+    status <- .Call("RHugin_domain_simulate", object, PACKAGE = "RHugin")
     RHugin.handle.error()
 
     for(node in nodes) {

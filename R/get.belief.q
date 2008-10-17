@@ -17,7 +17,7 @@ get.belief <- function(domain, node, states = NULL)
     states.idx <- states.idx - 1
   }
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
 

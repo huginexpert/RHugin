@@ -2,7 +2,7 @@ get.states <- function(domain, node, values = FALSE)
 {
   RHugin.check.args(domain, node, character(0), "get.states")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
 

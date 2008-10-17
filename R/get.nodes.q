@@ -6,7 +6,7 @@ get.nodes <- function(domain)
           call. = FALSE)
 
   nodes <- character(0)
-  node.ptr <- .Call("RHugin_domain_get_first_node", domain$pointer,
+  node.ptr <- .Call("RHugin_domain_get_first_node", domain,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
 

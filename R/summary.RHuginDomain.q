@@ -8,7 +8,7 @@ summary.RHuginDomain <- function(object, nodes, ...)
   ans <- list()
 
   for(node in nodes) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", object$pointer, node,
+    node.ptr <- .Call("RHugin_domain_get_node_by_name", object, node,
                        PACKAGE = "RHugin")
     RHugin.handle.error()
     node.category <- .Call("RHugin_node_get_category", node.ptr,
