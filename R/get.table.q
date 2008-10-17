@@ -1,4 +1,5 @@
-get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
+get.table <- function(domain, node, class = c("data.frame", "table", "ftable",
+                      "numeric"))
 {
   RHugin.check.args(domain, node, character(0), "get.table")
   class <- match.arg(class)
@@ -29,7 +30,9 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
       attributes(Freq) <- list(dim = d, dimnames = states, class = "table")
       n <- length(table.nodes)
       ftable(Freq, row.vars = table.nodes[n], col.vars = table.nodes[-n])
-    }
+    },
+
+    "numeric" = Freq
   )
 }
 
