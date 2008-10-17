@@ -4,7 +4,7 @@ set.states <- function(domain, node, states)
 
   n.states <- length(states)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
 

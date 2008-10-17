@@ -23,7 +23,7 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL)
   )
 
   RHugin.handle.error()
-  if(is.null(domain$pointer))
+  if(is.null(domain))
     stop("failed to read file")
 
   oldClass(domain) <- "RHuginDomain"

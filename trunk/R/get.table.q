@@ -9,7 +9,7 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
   states <- rev(states)
   d <- sapply(states, length)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
   table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")

@@ -29,7 +29,7 @@ position.nodes <- function(domain, nodes = NULL, layoutType = c("dot", "neato",
     }
 
     for(i in 1:n) {
-      node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer,
+      node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
                          nodes[i], PACKAGE = "RHugin")
       RHugin.handle.error()
       .Call("RHugin_node_set_position", node.ptr, as.integer(X[i, ]),
@@ -44,7 +44,7 @@ position.nodes <- function(domain, nodes = NULL, layoutType = c("dot", "neato",
   dimnames(position) <- list(nodes, c("x", "y"))
 
   for(i in 1:n) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer,
+    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
                        nodes[i], PACKAGE = "RHugin")
     RHugin.handle.error()
     position[i, ] <- .Call("RHugin_node_get_position", node.ptr,

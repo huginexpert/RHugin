@@ -4,9 +4,9 @@ get.normalization.constant <- function(domain, log = FALSE)
                    "get.normalization.constant")
   const <- ifelse(log,
                   .Call("RHugin_domain_get_log_normalization_constant",
-                         domain$pointer, PACKAGE = "RHugin"),
+                         domain, PACKAGE = "RHugin"),
                   .Call("RHugin_domain_get_normalization_constant",
-                         domain$pointer, PACKAGE = "RHugin"))
+                         domain, PACKAGE = "RHugin"))
   RHugin.handle.error()
   const
 }

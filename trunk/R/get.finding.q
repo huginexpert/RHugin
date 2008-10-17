@@ -10,7 +10,7 @@ get.finding <- function(domain, node)
   if(kind != "discrete" || (category != "chance" && category != "decision"))
     stop(dQuote(node), " is not a discrete chance or decision node")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
                      as.character(node), PACKAGE = "RHugin")
 
   finding <- .Call("RHugin_node_get_entered_finding", node.ptr,

@@ -15,7 +15,7 @@ set.table <- function(domain, node, data)
   Freq <- as.vector(tapply(Freq, indices, sum))
   Freq[is.na(Freq)] <- 0
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
   table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")

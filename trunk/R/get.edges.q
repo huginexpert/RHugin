@@ -6,7 +6,7 @@ get.edges <- function(domain)
   edges <- list()
 
   for(node in nodes) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                        PACKAGE = "RHugin")
     RHugin.handle.error()
 

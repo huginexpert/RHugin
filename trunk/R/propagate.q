@@ -5,7 +5,7 @@ propagate <- function(domain, equilibrium = c("sum", "max"),
   equilibrium <- match.arg(equilibrium)
   mode <- match.arg(mode)
 
-  status <- .Call("RHugin_domain_propagate", domain$pointer, equilibrium, mode,
+  status <- .Call("RHugin_domain_propagate", domain, equilibrium, mode,
                    PACKAGE = "RHugin")
   RHugin.handle.error(status)
 
