@@ -3,7 +3,6 @@ set.table <- function(domain, node, data)
   RHugin.check.args(domain, node, character(0), "set.table")
 
   Freq <- switch(class(data),
-
     "data.frame" = {
       Freq <- as.numeric(data[[length(data)]])
 
@@ -32,8 +31,13 @@ set.table <- function(domain, node, data)
       as.vector(data)
     },
 
-    "numeric" = data
+    "numeric" = data,
+
+    NULL
   )
+
+  if(is.null(Freq))
+    stop("could not interpret ", deparse(substitute(data)), " as table")
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
