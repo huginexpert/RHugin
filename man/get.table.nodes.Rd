@@ -31,7 +31,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildAppleTreeNetwork")
+RHExample("buildAppleTreeNetwork")
 
 # Get the nodes associated with the CPT of the node "Loses"
 get.table.nodes(AppleTree, "Loses")

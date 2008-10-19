@@ -34,7 +34,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 }
 
 \examples{
-demo("buildAppleTreeNetwork")
+RHExample("buildAppleTreeNetwork")
 
 # Compile the domain
 compile(AppleTree)
