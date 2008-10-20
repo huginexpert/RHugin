@@ -4,7 +4,10 @@ set.table <- function(domain, node, data)
 
   Freq <- switch(class(data),
     "data.frame" = {
-      Freq <- as.numeric(data[[length(data)]])
+      Freq <- data[["Freq"]]
+
+      if(is.null(Freq))
+        Freq <- rep(1, dim(data)[1])
 
       table.nodes <- rev(get.table.nodes(domain, node))
       states <- lapply(table.nodes, function(u) get.states(domain, u))
@@ -14,7 +17,7 @@ set.table <- function(domain, node, data)
       for(i in table.nodes)
         indices[[i]] <- factor(indices[[i]], levels = states[[i]])
 
-      Freq <- as.vector(tapply(Freq, indices, sum))
+      Freq <- as.vector(tapply(Freq, indices, sum), mode = "numeric")
       Freq[is.na(Freq)] <- 0
       Freq
     },
