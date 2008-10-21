@@ -3,7 +3,7 @@
   if(Sys.info()["sysname"] == "Windows") {
     path <- Sys.getenv("PATH")
     if(length(grep("HDE7.0C", path)) == 0) {
-      HuginVersions <- c("Hugin Researcher 7.0")
+      HuginVersions <- c("Hugin Researcher 7.0", "Hugin Lite 7.0")
       HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
                             "Hugin Expert",
                              HuginVersions,

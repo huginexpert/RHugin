@@ -1,4 +1,4 @@
 PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGINHOME)/include -I$(HUGINHOME)/Headers
 PKG_LIBS=-L$(HUGINHOME)/lib -L$(HUGINHOME)/Libraries -lhugin2 -lm -lz \
-         -lpthread $(BLAS_LIBS) $(FLIBS)
+         -lpthread -lcrypt $(BLAS_LIBS) $(FLIBS)
 
