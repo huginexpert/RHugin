@@ -5,7 +5,6 @@
 #include "R_ext/libextern.h"
 #include "R_ext/BLAS.h"
 #include "hugin.h"
-#include <string.h>
 
 
 #ifdef WIN32
