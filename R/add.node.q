@@ -10,8 +10,8 @@ add.node <- function(domain, name,
   kind <- match.arg(kind)
   subtype <- match.arg(subtype)
 
-  new.node <- .Call("RHugin_domain_new_node", domain, category, kind,
-                     PACKAGE = "RHugin")
+  new.node <- .Call("RHugin_domain_new_node", domain, as.character(category),
+                     as.character(kind), PACKAGE = "RHugin")
   RHugin.handle.error()
   status <- .Call("RHugin_node_set_name", new.node, name, PACKAGE = "RHugin")
   RHugin.handle.error(status)
