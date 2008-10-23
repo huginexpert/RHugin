@@ -26,6 +26,92 @@ extern SEXP RHUGIN_BOOLEAN;
 extern SEXP RHUGIN_NUMBERED;
 extern SEXP RHUGIN_INTERVAL;
 
+extern SEXP RHUGIN_OPERATOR_ADD;
+extern SEXP RHUGIN_OPERATOR_SUBTRACT;
+extern SEXP RHUGIN_OPERATOR_MULTIPLY;
+extern SEXP RHUGIN_OPERATOR_DIVIDE;
+extern SEXP RHUGIN_OPERATOR_POWER;
+
+extern SEXP RHUGIN_OPERATOR_NEGATE;
+
+extern SEXP RHUGIN_OPERATOR_EQUALS;
+extern SEXP RHUGIN_OPERATOR_LESS_THAN;
+extern SEXP RHUGIN_OPERATOR_GREATER_THAN;
+extern SEXP RHUGIN_OPERATOR_NOT_EQUALS;
+extern SEXP RHUGIN_OPERATOR_LESS_THAN_OR_EQUALS;
+extern SEXP RHUGIN_OPERATOR_GREATER_THAN_OR_EQUALS;
+
+extern SEXP RHUGIN_OPERATOR_NORMAL;
+extern SEXP RHUGIN_OPERATOR_LOGNORMAL;
+extern SEXP RHUGIN_OPERATOR_BETA;
+extern SEXP RHUGIN_OPERATOR_GAMMA;
+extern SEXP RHUGIN_OPERATOR_EXPONENTIAL;
+extern SEXP RHUGIN_OPERATOR_WEIBULL;
+extern SEXP RHUGIN_OPERATOR_UNIFORM;
+extern SEXP RHUGIN_OPERATOR_TRIANGULAR;
+extern SEXP RHUGIN_OPERATOR_PERT;
+
+extern SEXP RHUGIN_OPERATOR_BINOMIAL;
+extern SEXP RHUGIN_OPERATOR_POISSON;
+extern SEXP RHUGIN_OPERATOR_NEGATIVEBINOMIAL;
+extern SEXP RHUGIN_OPERATOR_GEOMETRIC;
+extern SEXP RHUGIN_OPERATOR_DISTRIBUTION;
+extern SEXP RHUGIN_OPERATOR_NOISYOR;
+
+extern SEXP RHUGIN_OPERATOR_TRUNCATE;
+
+extern SEXP RHUGIN_OPERATOR_MIN;
+extern SEXP RHUGIN_OPERATOR_MAX;
+
+extern SEXP RHUGIN_OPERATOR_LOG;
+extern SEXP RHUGIN_OPERATOR_LOG2;
+extern SEXP RHUGIN_OPERATOR_LOG10;
+extern SEXP RHUGIN_OPERATOR_EXP;
+extern SEXP RHUGIN_OPERATOR_SIN;
+extern SEXP RHUGIN_OPERATOR_COS;
+extern SEXP RHUGIN_OPERATOR_TAN;
+extern SEXP RHUGIN_OPERATOR_SINH;
+extern SEXP RHUGIN_OPERATOR_COSH;
+extern SEXP RHUGIN_OPERATOR_TANH;
+extern SEXP RHUGIN_OPERATOR_SQRT;
+extern SEXP RHUGIN_OPERATOR_ABS;
+
+extern SEXP RHUGIN_OPERATOR_FLOOR;
+extern SEXP RHUGIN_OPERATOR_CEIL;
+
+extern SEXP RHUGIN_OPERATOR_MOD;
+
+extern SEXP RHUGIN_OPERATOR_IF;
+extern SEXP RHUGIN_OPERATOR_AND;
+extern SEXP RHUGIN_OPERATOR_OR;
+extern SEXP RHUGIN_OPERATOR_NOT;
+
+extern SEXP RHUGIN_OPERATOR_LABEL;
+extern SEXP RHUGIN_OPERATOR_NUMBER;
+extern SEXP RHUGIN_OPERATOR_BOOLEAN;
+extern SEXP RHUGIN_OPERATOR_NODE;
+
+extern SEXP RHUGIN_OPERATOR_ERROR;
+
+extern SEXP RHUGIN_TM_CLIQUE_SIZE;
+extern SEXP RHUGIN_TM_CLIQUE_WEIGHT;
+extern SEXP RHUGIN_TM_FILL_IN_SIZE;
+extern SEXP RHUGIN_TM_FILL_IN_WEIGHT;
+extern SEXP RHUGIN_TM_TOTAL_WEIGHT;
+
+extern SEXP RHUGIN_EQUILIBRIUM_SUM;
+extern SEXP RHUGIN_EQUILIBRIUM_MAX;
+
+extern SEXP RHUGIN_MODE_NORMAL;
+extern SEXP RHUGIN_MODE_FAST_RETRACTION;
+
+extern SEXP RHUGIN_CONSTRAINT_NONE;
+extern SEXP RHUGIN_CONSTRAINT_EDGE_REQUIRED;
+extern SEXP RHUGIN_CONSTRAINT_EDGE_FORBIDDEN;
+extern SEXP RHUGIN_CONSTRAINT_FORWARD_EDGE_REQUIRED;
+extern SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_REQUIRED;
+extern SEXP RHUGIN_CONSTRAINT_FORWARD_EDGE_FORBIDDEN;
+extern SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN;
 
 
 /*******************************************************************************
@@ -983,7 +1069,7 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
   subtype = h_node_get_subtype(node);
 
   if(asChar(Ssubtype) == RHUGIN_LABELED)
-    subtype = h_subtype_labeled;
+    subtype = h_subtype_label;
   else if(asChar(Ssubtype) == RHUGIN_NUMBERED)
     subtype = h_subtype_number;
   else if(asChar(Ssubtype) == RHUGIN_BOOLEAN)
@@ -1116,126 +1202,127 @@ SEXP RHugin_make_composite_expression(SEXP Soperator, SEXP Sarguments)
   h_expression_t expression = NULL;
   int i = 0, n = -1;
 
-  if(strncmp(CHAR(asChar(Soperator)), "+", 1) == 0)
+  if(asChar(Soperator) == RHUGIN_OPERATOR_ADD)
     operator = h_operator_add;
-  else if(strncmp(CHAR(asChar(Soperator)), "-", 1) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_SUBTRACT)
     operator = h_operator_subtract;
-  else if(strncmp(CHAR(asChar(Soperator)), "*", 1) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_MULTIPLY)
     operator = h_operator_multiply;
-  else if(strncmp(CHAR(asChar(Soperator)), "/", 1) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_DIVIDE)
     operator = h_operator_divide;
-  else if(strncmp(CHAR(asChar(Soperator)), "^", 1) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_POWER)
     operator = h_operator_power;
-  else if(strncmp(CHAR(asChar(Soperator)), "<", 1) == 0)
-    operator = h_operator_less_than;
-  else if(strncmp(CHAR(asChar(Soperator)), ">", 1) == 0)
-    operator = h_operator_greater_than;
 
-  else if(strncmp(CHAR(asChar(Soperator)), "==", 2) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NEGATE)
+    operator = h_operator_negate;
+
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_EQUALS)
     operator = h_operator_equals;
-  else if(strncmp(CHAR(asChar(Soperator)), "!=", 2) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LESS_THAN)
+    operator = h_operator_less_than;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_GREATER_THAN)
+    operator = h_operator_greater_than;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NOT_EQUALS)
     operator = h_operator_not_equals;
-  else if(strncmp(CHAR(asChar(Soperator)), "<=", 2) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LESS_THAN_OR_EQUALS)
     operator = h_operator_less_than_or_equals;
-  else if(strncmp(CHAR(asChar(Soperator)), ">=", 2) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_GREATER_THAN_OR_EQUALS)
     operator = h_operator_greater_than_or_equals;
-  else if(strncmp(CHAR(asChar(Soperator)), "if", 2) == 0)
-    operator = h_operator_if;
-  else if(strncmp(CHAR(asChar(Soperator)), "or", 2) == 0)
-    operator = h_operator_or;
 
-  else if(strncmp(CHAR(asChar(Soperator)), "min", 3) == 0)
-    operator = h_operator_min;
-  else if(strncmp(CHAR(asChar(Soperator)), "max", 3) == 0)
-    operator = h_operator_max;
-  else if(strncmp(CHAR(asChar(Soperator)), "exp", 3) == 0)
-    operator = h_operator_exp;
-  else if(strncmp(CHAR(asChar(Soperator)), "sin", 3) == 0)
-    operator = h_operator_sin;
-  else if(strncmp(CHAR(asChar(Soperator)), "cos", 3) == 0)
-    operator = h_operator_cos;
-  else if(strncmp(CHAR(asChar(Soperator)), "tan", 3) == 0)
-    operator = h_operator_tan;
-  else if(strncmp(CHAR(asChar(Soperator)), "log", 3) == 0)
-    operator = h_operator_log;
-  else if(strncmp(CHAR(asChar(Soperator)), "abs", 3) == 0)
-    operator = h_operator_abs;
-  else if(strncmp(CHAR(asChar(Soperator)), "mod", 3) == 0)
-    operator = h_operator_mod;
-  else if(strncmp(CHAR(asChar(Soperator)), "and", 3) == 0)
-    operator = h_operator_and;
-  else if(strncmp(CHAR(asChar(Soperator)), "not", 3) == 0)
-    operator = h_operator_not;
-
-  else if(strncmp(CHAR(asChar(Soperator)), "beta", 4) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NORMAL)
+    operator = h_operator_Normal;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LOGNORMAL)
+    operator = h_operator_LogNormal;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_BETA)
     operator = h_operator_Beta;
-  else if(strncmp(CHAR(asChar(Soperator)), "log2", 4) == 0)
-    operator = h_operator_log2;
-  else if(strncmp(CHAR(asChar(Soperator)), "sinh", 4) == 0)
-    operator = h_operator_sinh;
-  else if(strncmp(CHAR(asChar(Soperator)), "cosh", 4) == 0)
-    operator = h_operator_cosh;
-  else if(strncmp(CHAR(asChar(Soperator)), "tanh", 4) == 0)
-    operator = h_operator_tanh;
-  else if(strncmp(CHAR(asChar(Soperator)), "sqrt", 4) == 0)
-    operator = h_operator_sqrt;
-  else if(strncmp(CHAR(asChar(Soperator)), "node", 4) == 0)
-    operator = h_operator_node;
-  else if(strncmp(CHAR(asChar(Soperator)), "ceil", 4) == 0)
-    operator = h_operator_ceil;
-  else if(strncmp(CHAR(asChar(Soperator)), "pert", 4) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_GAMMA)
+    operator = h_operator_Gamma;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_EXPONENTIAL)
+    operator = h_operator_Exponential;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_WEIBULL)
+    operator = h_operator_Weibull;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_UNIFORM)
+    operator = h_operator_Uniform;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_TRIANGULAR)
+    operator = h_operator_Triangular;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_PERT)
     operator = h_operator_PERT;
 
-  else if(strncmp(CHAR(asChar(Soperator)), "gamma", 5) == 0)
-    operator = h_operator_Gamma;
-  else if(strncmp(CHAR(asChar(Soperator)), "log10", 5) == 0)
-    operator = h_operator_log10;
-  else if(strncmp(CHAR(asChar(Soperator)), "floor", 5) == 0)
-    operator = h_operator_floor;
-  else if(strncmp(CHAR(asChar(Soperator)), "label", 5) == 0)
-    operator = h_operator_label;
-
-  else if(strncmp(CHAR(asChar(Soperator)), "negate", 6) == 0)
-    operator = h_operator_negate;
-  else if(strncmp(CHAR(asChar(Soperator)), "normal", 6) == 0)
-    operator = h_operator_Normal;
-  else if(strncmp(CHAR(asChar(Soperator)), "number", 6) == 0)
-    operator = h_operator_number;
-
-  else if(strncmp(CHAR(asChar(Soperator)), "weibull", 7) == 0)
-    operator = h_operator_Weibull;
-  else if(strncmp(CHAR(asChar(Soperator)), "uniform", 7) == 0)
-    operator = h_operator_Uniform;
-  else if(strncmp(CHAR(asChar(Soperator)), "poisson", 7) == 0)
-    operator = h_operator_Poisson;
-  else if(strncmp(CHAR(asChar(Soperator)), "noisyor", 7) == 0)
-    operator = h_operator_NoisyOR;
-  else if(strncmp(CHAR(asChar(Soperator)), "boolean", 7) == 0)
-    operator = h_operator_boolean;
-
-  else if(strncmp(CHAR(asChar(Soperator)), "binomial", 8) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_BINOMIAL)
     operator = h_operator_Binomial;
-  else if(strncmp(CHAR(asChar(Soperator)), "truncate", 8) == 0)
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_POISSON)
+    operator = h_operator_Poisson;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NEGATIVEBINOMIAL)
+    operator = h_operator_NegativeBinomial;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_GEOMETRIC)
+    operator = h_operator_Geometric;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_DISTRIBUTION)
+    operator = h_operator_Distribution;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NOISYOR)
+    operator = h_operator_NoisyOR;
+
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_TRUNCATE)
     operator = h_operator_truncate;
 
-  else if(strncmp(CHAR(asChar(Soperator)), "geometric", 9) == 0)
-    operator = h_operator_Geometric;
-  else if(strncmp(CHAR(asChar(Soperator)), "lognormal", 9) == 0)
-    operator = h_operator_LogNormal;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_MIN)
+    operator = h_operator_min;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_MAX)
+    operator = h_operator_max;
 
-  else if(strncmp(CHAR(asChar(Soperator)), "Triangular", 10) == 0)
-    operator = h_operator_Triangular;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LOG)
+    operator = h_operator_log;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LOG2)
+    operator = h_operator_log2;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LOG10)
+    operator = h_operator_log10;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_EXP)
+    operator = h_operator_exp;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_SIN)
+    operator = h_operator_sin;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_COS)
+    operator = h_operator_cos;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_TAN)
+    operator = h_operator_tan;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_SINH)
+    operator = h_operator_sinh;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_COSH)
+    operator = h_operator_cosh;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_TANH)
+    operator = h_operator_tanh;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_SQRT)
+    operator = h_operator_sqrt;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_ABS)
+    operator = h_operator_abs;
 
-  else if(strncmp(CHAR(asChar(Soperator)), "exponential", 11) == 0)
-    operator = h_operator_Exponential;
-  else if(strncmp(CHAR(asChar(Soperator)), "distribution", 12) == 0)
-    operator = h_operator_Distribution;
-  else if(strncmp(CHAR(asChar(Soperator)), "negativebinomial", 16) == 0)
-    operator = h_operator_NegativeBinomial;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_FLOOR)
+    operator = h_operator_floor;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_CEIL)
+    operator = h_operator_ceil;
+
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_MOD)
+    operator = h_operator_mod;
+
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_IF)
+    operator = h_operator_if;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_AND)
+    operator = h_operator_and;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_OR)
+    operator = h_operator_or;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NOT)
+    operator = h_operator_not;
+
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_LABEL)
+    operator = h_operator_label;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NUMBER)
+    operator = h_operator_number;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_BOOLEAN)
+    operator = h_operator_boolean;
+  else if(asChar(Soperator) == RHUGIN_OPERATOR_NODE)
+    operator = h_operator_node;
 
   n = LENGTH(Sarguments);
 
-  arguments = (h_expression_t*) R_alloc(n+1, sizeof(h_expression_t*));
+  arguments = (h_expression_t*) R_alloc(n + 1, sizeof(h_expression_t*));
   for(i = 0; i < n; i++)
     arguments[i] = expressionPointerFromSEXP(VECTOR_ELT(Sarguments, i));
   arguments[n] = NULL;
@@ -1281,219 +1368,219 @@ SEXP RHugin_expression_get_operator(SEXP Sexpression)
 
   switch(operator) {
     case h_operator_add:
-      SET_STRING_ELT(ret, 0, mkChar("+"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_ADD);
       break;
 
     case h_operator_subtract:
-      SET_STRING_ELT(ret, 0, mkChar("-"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_SUBTRACT);
       break;
 
     case h_operator_multiply:
-      SET_STRING_ELT(ret, 0, mkChar("*"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_MULTIPLY);
       break;
 
     case h_operator_divide:
-      SET_STRING_ELT(ret, 0, mkChar("/"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_DIVIDE);
       break;
 
     case h_operator_power:
-      SET_STRING_ELT(ret, 0, mkChar("^"));
-      break;
-
-    case h_operator_less_than:
-      SET_STRING_ELT(ret, 0, mkChar("<"));
-      break;
-
-    case h_operator_greater_than:
-      SET_STRING_ELT(ret, 0, mkChar(">"));
-      break;
-
-    case h_operator_equals:
-      SET_STRING_ELT(ret, 0, mkChar("=="));
-      break;
-
-    case h_operator_not_equals:
-      SET_STRING_ELT(ret, 0, mkChar("!="));
-      break;
-
-    case h_operator_less_than_or_equals:
-      SET_STRING_ELT(ret, 0, mkChar("<="));
-      break;
-
-    case h_operator_greater_than_or_equals:
-      SET_STRING_ELT(ret, 0, mkChar(">="));
-      break;
-
-    case h_operator_if:
-      SET_STRING_ELT(ret, 0, mkChar("if"));
-      break;
-
-    case h_operator_or:
-      SET_STRING_ELT(ret, 0, mkChar("or"));
-      break;
-
-    case h_operator_min:
-      SET_STRING_ELT(ret, 0, mkChar("min"));
-      break;
-
-    case h_operator_max:
-      SET_STRING_ELT(ret, 0, mkChar("max"));
-      break;
-
-    case h_operator_exp:
-      SET_STRING_ELT(ret, 0, mkChar("exp"));
-      break;
-
-    case h_operator_sin:
-      SET_STRING_ELT(ret, 0, mkChar("sin"));
-      break;
-
-    case h_operator_cos:
-      SET_STRING_ELT(ret, 0, mkChar("cos"));
-      break;
-
-    case h_operator_tan:
-      SET_STRING_ELT(ret, 0, mkChar("tan"));
-      break;
-
-    case h_operator_log:
-      SET_STRING_ELT(ret, 0, mkChar("log"));
-      break;
-
-    case h_operator_abs:
-      SET_STRING_ELT(ret, 0, mkChar("abs"));
-      break;
-
-    case h_operator_mod:
-      SET_STRING_ELT(ret, 0, mkChar("mod"));
-      break;
-
-    case h_operator_and:
-      SET_STRING_ELT(ret, 0, mkChar("and"));
-      break;
-
-    case h_operator_not:
-      SET_STRING_ELT(ret, 0, mkChar("not"));
-      break;
-
-    case h_operator_Beta:
-      SET_STRING_ELT(ret, 0, mkChar("beta"));
-      break;
-
-    case h_operator_log2:
-      SET_STRING_ELT(ret, 0, mkChar("log2"));
-      break;
-
-    case h_operator_sinh:
-      SET_STRING_ELT(ret, 0, mkChar("sinh"));
-      break;
-
-    case h_operator_cosh:
-      SET_STRING_ELT(ret, 0, mkChar("cosh"));
-      break;
-
-    case h_operator_tanh:
-      SET_STRING_ELT(ret, 0, mkChar("tanh"));
-      break;
-
-    case h_operator_sqrt:
-      SET_STRING_ELT(ret, 0, mkChar("sqrt"));
-      break;
-
-    case h_operator_node:
-      SET_STRING_ELT(ret, 0, mkChar("node"));
-      break;
-
-    case h_operator_ceil:
-      SET_STRING_ELT(ret, 0, mkChar("ceil"));
-      break;
-
-    case h_operator_PERT:
-      SET_STRING_ELT(ret, 0, mkChar("pert"));
-      break;
-
-    case h_operator_Gamma:
-      SET_STRING_ELT(ret, 0, mkChar("gamma"));
-      break;
-
-    case h_operator_log10:
-      SET_STRING_ELT(ret, 0, mkChar("log10"));
-      break;
-
-    case h_operator_floor:
-      SET_STRING_ELT(ret, 0, mkChar("floor"));
-      break;
-
-    case h_operator_label:
-      SET_STRING_ELT(ret, 0, mkChar("label"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_POWER);
       break;
 
     case h_operator_negate:
-      SET_STRING_ELT(ret, 0, mkChar("negate"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NEGATE);
+      break;
+
+    case h_operator_equals:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_EQUALS);
+      break;
+
+    case h_operator_less_than:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LESS_THAN);
+      break;
+
+    case h_operator_greater_than:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_GREATER_THAN);
+      break;
+
+    case h_operator_not_equals:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NOT_EQUALS);
+      break;
+
+    case h_operator_less_than_or_equals:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LESS_THAN_OR_EQUALS);
+      break;
+
+    case h_operator_greater_than_or_equals:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_GREATER_THAN_OR_EQUALS);
       break;
 
     case h_operator_Normal:
-      SET_STRING_ELT(ret, 0, mkChar("normal"));
-      break;
-
-    case h_operator_number:
-      SET_STRING_ELT(ret, 0, mkChar("number"));
-      break;
-
-    case h_operator_Weibull:
-      SET_STRING_ELT(ret, 0, mkChar("weibull"));
-      break;
-
-    case h_operator_Uniform:
-      SET_STRING_ELT(ret, 0, mkChar("uniform"));
-      break;
-
-    case h_operator_Poisson:
-      SET_STRING_ELT(ret, 0, mkChar("poisson"));
-      break;
-
-    case h_operator_NoisyOR:
-      SET_STRING_ELT(ret, 0, mkChar("noisyor"));
-      break;
-
-    case h_operator_boolean:
-      SET_STRING_ELT(ret, 0, mkChar("boolean"));
-      break;
-
-    case h_operator_Binomial:
-      SET_STRING_ELT(ret, 0, mkChar("binomial"));
-      break;
-
-    case h_operator_truncate:
-      SET_STRING_ELT(ret, 0, mkChar("truncate"));
-      break;
-
-    case h_operator_Geometric:
-      SET_STRING_ELT(ret, 0, mkChar("geometric"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NORMAL);
       break;
 
     case h_operator_LogNormal:
-      SET_STRING_ELT(ret, 0, mkChar("lognormal"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LOGNORMAL);
       break;
 
-    case h_operator_Triangular:
-      SET_STRING_ELT(ret, 0, mkChar("triangular"));
+    case h_operator_Beta:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_BETA);
+      break;
+
+    case h_operator_Gamma:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_GAMMA);
       break;
 
     case h_operator_Exponential:
-      SET_STRING_ELT(ret, 0, mkChar("exponential"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_EXPONENTIAL);
+      break;
+
+    case h_operator_Weibull:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_WEIBULL);
+      break;
+
+    case h_operator_Uniform:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_UNIFORM);
+      break;
+
+    case h_operator_Triangular:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_TRIANGULAR);
+      break;
+
+    case h_operator_PERT:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_PERT);
+      break;
+
+    case h_operator_Poisson:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_POISSON);
+      break;
+
+    case h_operator_NoisyOR:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NOISYOR);
+      break;
+
+    case h_operator_Binomial:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_BINOMIAL);
+      break;
+
+    case h_operator_Geometric:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_GEOMETRIC);
       break;
 
     case h_operator_Distribution:
-      SET_STRING_ELT(ret, 0, mkChar("distribution"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_DISTRIBUTION);
       break;
 
     case h_operator_NegativeBinomial:
-      SET_STRING_ELT(ret, 0, mkChar("negativebinomial"));
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NEGATIVEBINOMIAL);
       break;
 
-    case h_operator_error:
-      SET_STRING_ELT(ret, 0, mkChar("error"));
+    case h_operator_truncate:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_TRUNCATE);
+      break;
+
+    case h_operator_min:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_MIN);
+      break;
+
+    case h_operator_max:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_MAX);
+      break;
+
+    case h_operator_log:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LOG);
+      break;
+
+    case h_operator_log2:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LOG2);
+      break;
+
+    case h_operator_log10:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LOG10);
+      break;
+
+    case h_operator_exp:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_EXP);
+      break;
+
+    case h_operator_sin:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_SIN);
+      break;
+
+    case h_operator_cos:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_COS);
+      break;
+
+    case h_operator_tan:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_TAN);
+      break;
+
+    case h_operator_sinh:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_SINH);
+      break;
+
+    case h_operator_cosh:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_COSH);
+      break;
+
+    case h_operator_tanh:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_TANH);
+      break;
+
+    case h_operator_sqrt:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_SQRT);
+      break;
+
+    case h_operator_abs:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_ABS);
+      break;
+
+    case h_operator_floor:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_FLOOR);
+      break;
+
+    case h_operator_ceil:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_CEIL);
+      break;
+
+    case h_operator_mod:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_MOD);
+      break;
+
+    case h_operator_if:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_IF);
+      break;
+
+    case h_operator_and:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_AND);
+      break;
+
+    case h_operator_or:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_OR);
+      break;
+
+    case h_operator_not:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NOT);
+      break;
+
+    case h_operator_label:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_LABEL);
+      break;
+
+    case h_operator_number:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NUMBER);
+      break;
+
+    case h_operator_boolean:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_BOOLEAN);
+      break;
+
+    case h_operator_node:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_NODE);
+      break;
+
+    default:
+      SET_STRING_ELT(ret, 0, RHUGIN_OPERATOR_ERROR);
       break;
   }
 
@@ -2053,21 +2140,19 @@ SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
 {
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
-  h_triangulation_method_t method = h_tm_clique_size;
+  h_triangulation_method_t method = h_tm_fill_in_weight;
   h_status_t status = (h_status_t) 0;
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(strncmp(CHAR(asChar(Smethod)), "clique.size", 11) == 0)
+  if(asChar(Smethod) == RHUGIN_TM_CLIQUE_SIZE)
     method = h_tm_clique_size;
-  else if(strncmp(CHAR(asChar(Smethod)), "fill.in.size", 12) == 0)
+  else if(asChar(Smethod) == RHUGIN_TM_CLIQUE_WEIGHT)
     method = h_tm_fill_in_weight;
-  else if(strncmp(CHAR(asChar(Smethod)), "total.weight", 12) == 0)
-    method = h_tm_total_weight;
-  else if(strncmp(CHAR(asChar(Smethod)), "clique.weight", 13) == 0)
+  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_SIZE)
     method = h_tm_clique_weight;
-  else if(strncmp(CHAR(asChar(Smethod)), "fill.in.weight", 14) == 0)
-    method = h_tm_fill_in_weight;
+  else if(asChar(Smethod) == RHUGIN_TM_TOTAL_WEIGHT)
+    method = h_tm_total_weight;
 
   status = h_domain_triangulate(domain, method);
 
@@ -2846,15 +2931,15 @@ SEXP RHugin_domain_propagate(SEXP Sdomain, SEXP Sequilibrium, SEXP Smode)
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
   h_equilibrium_t equilibrium = h_equilibrium_sum;
-  h_evidence_mode_t mode = h_mode_fast_retraction;
+  h_evidence_mode_t mode = h_mode_normal;
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(strncmp(CHAR(asChar(Sequilibrium)), "max", 3) == 0)
-    equilibrium = h_equilibrium_sum;
+  if(asChar(Sequilibrium) == RHUGIN_EQUILIBRIUM_MAX)
+    equilibrium = h_equilibrium_max;
 
-  if(strncmp(CHAR(asChar(Smode)), "normal", 6) == 0)
-    mode = h_mode_normal;
+  if(asChar(Smode) == RHUGIN_MODE_FAST_RETRACTION)
+    mode = h_mode_fast_retraction;
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_propagate(domain, equilibrium, mode);
@@ -2869,15 +2954,15 @@ SEXP RHugin_jt_propagate(SEXP Sjt, SEXP Sequilibrium, SEXP Smode)
   SEXP ret = R_NilValue;
   h_junction_tree_t jt = NULL;
   h_equilibrium_t equilibrium = h_equilibrium_sum;
-  h_evidence_mode_t mode = h_mode_fast_retraction;
+  h_evidence_mode_t mode = h_mode_normal;
 
   jt = jtPointerFromSEXP(Sjt);
 
-  if(strncmp(CHAR(asChar(Sequilibrium)), "max", 3) == 0)
-    equilibrium = h_equilibrium_sum;
+  if(asChar(Sequilibrium) == RHUGIN_EQUILIBRIUM_MAX)
+    equilibrium = h_equilibrium_max;
 
-  if(strncmp(CHAR(asChar(Smode)), "normal", 6) == 0)
-    mode = h_mode_normal;
+  if(asChar(Smode) == RHUGIN_MODE_FAST_RETRACTION)
+    mode = h_mode_fast_retraction;
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_jt_propagate(jt, equilibrium, mode);
@@ -3008,8 +3093,8 @@ SEXP RHugin_domain_equilibrium_is(SEXP Sdomain, SEXP Sequilibrium)
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(strncmp(CHAR(asChar(Sequilibrium)), "max", 3) == 0)
-    equilibrium = h_equilibrium_sum;
+  if(asChar(Sequilibrium) == RHUGIN_EQUILIBRIUM_MAX)
+    equilibrium = h_equilibrium_max;
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_domain_equilibrium_is(domain, equilibrium);
@@ -3027,8 +3112,8 @@ SEXP RHugin_jt_equilibrium_is(SEXP Sjt, SEXP Sequilibrium)
 
   jt = jtPointerFromSEXP(Sjt);
 
-  if(strncmp(CHAR(asChar(Sequilibrium)), "max", 3) == 0)
-    equilibrium = h_equilibrium_sum;
+  if(asChar(Sequilibrium) == RHUGIN_EQUILIBRIUM_MAX)
+    equilibrium = h_equilibrium_max;
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_jt_equilibrium_is(jt, equilibrium);
@@ -3042,12 +3127,12 @@ SEXP RHugin_domain_evidence_mode_is(SEXP Sdomain, SEXP Smode)
 {
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
-  h_evidence_mode_t mode = h_mode_fast_retraction;
+  h_evidence_mode_t mode = h_mode_normal;
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(strncmp(CHAR(asChar(Smode)), "normal", 6) == 0)
-    mode = h_mode_normal;
+  if(asChar(Smode) == RHUGIN_MODE_FAST_RETRACTION)
+    mode = h_mode_fast_retraction;
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_domain_evidence_mode_is(domain, mode);
@@ -3061,12 +3146,12 @@ SEXP RHugin_jt_evidence_mode_is(SEXP Sjt, SEXP Smode)
 {
   SEXP ret = R_NilValue;
   h_junction_tree_t jt = NULL;
-  h_evidence_mode_t mode = h_mode_fast_retraction;
+  h_evidence_mode_t mode = h_mode_normal;
 
   jt = jtPointerFromSEXP(Sjt);
 
-  if(strncmp(CHAR(asChar(Smode)), "normal", 6) == 0)
-    mode = h_mode_normal;
+  if(asChar(Smode) == RHUGIN_MODE_FAST_RETRACTION)
+    mode = h_mode_fast_retraction;
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_jt_evidence_mode_is(jt, mode);
@@ -3811,19 +3896,19 @@ SEXP RHugin_node_set_edge_constraint(SEXP Sa, SEXP Sb, SEXP Sconstraint)
   a = nodePointerFromSEXP(Sa);
   b = nodePointerFromSEXP(Sb);
 
-  if(strncmp(CHAR(asChar(Sconstraint)), "none", 4) == 0)
+  if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_NONE)
     constraint = h_constraint_none;
-  else if(strncmp(CHAR(asChar(Sconstraint)), "edge.required", 13) == 0)
+  else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_EDGE_REQUIRED)
     constraint = h_constraint_edge_required;
-  else if(strncmp(CHAR(asChar(Sconstraint)), "edge.forbidden", 14) == 0)
+  else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_EDGE_FORBIDDEN)
     constraint = h_constraint_edge_forbidden;
-  else if(strncmp(CHAR(asChar(Sconstraint)), "forward.edge.required", 21) == 0)
+  else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_FORWARD_EDGE_REQUIRED)
     constraint = h_constraint_forward_edge_required;
-  else if(strncmp(CHAR(asChar(Sconstraint)), "backward.edge.required", 22) == 0)
+  else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_BACKWARD_EDGE_REQUIRED)
     constraint = h_constraint_backward_edge_required;
-  else if(strncmp(CHAR(asChar(Sconstraint)), "forward.edge.forbidden", 22) == 0)
+  else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_FORWARD_EDGE_FORBIDDEN)
     constraint = h_constraint_forward_edge_forbidden;
-  else if(strncmp(CHAR(asChar(Sconstraint)), "backward.edge.forbidden", 23) == 0)
+  else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN)
     constraint = h_constraint_backward_edge_forbidden;
 
   PROTECT(ret = allocVector(INTSXP, 1));
