@@ -9,6 +9,21 @@ SEXP RHugin_model_tag;
 SEXP RHugin_junction_tree_tag;
 SEXP RHugin_clique_tag;
 
+SEXP RHUGIN_ERROR;
+
+SEXP RHUGIN_CHANCE;
+SEXP RHUGIN_UTILITY;
+SEXP RHUGIN_DECISION;
+SEXP RHUGIN_INSTANCE;
+
+SEXP RHUGIN_DISCRETE;
+SEXP RHUGIN_CONTINUOUS;
+
+SEXP RHUGIN_LABELED;
+SEXP RHUGIN_BOOLEAN;
+SEXP RHUGIN_NUMBERED;
+SEXP RHUGIN_INTERVAL;
+
 
 h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 {
@@ -102,6 +117,49 @@ void RHuginParseNETError(h_location_t line, h_string_t message, void *data)
 
 void R_init_RHugin(DllInfo *info)
 {
+  /* ToDo: add these to the precious list for 2.8.0 */
+  RHugin_domain_tag = install("RHUGIN_DOMAIN_TAG");
+  R_PreserveObject(RHugin_domain_tag);
+  RHugin_node_tag = install("RHUGIN_NODE_TAG");
+  R_PreserveObject(RHugin_node_tag);
+  RHugin_table_tag = install("RHUGIN_TABLE_TAG");
+  R_PreserveObject(RHugin_table_tag);
+  RHugin_expression_tag = install("RHUGIN_EXPRESSION_TAG");
+  R_PreserveObject(RHugin_expression_tag);
+  RHugin_model_tag = install("RHUGIN_MODEL_TAG");
+  R_PreserveObject(RHugin_model_tag);
+  RHugin_junction_tree_tag = install("RHUGIN_JUNCTION_TREE_TAG");
+  R_PreserveObject(RHugin_junction_tree_tag);
+  RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
+  R_PreserveObject(RHugin_clique_tag);
+
+  RHUGIN_ERROR = mkChar("error");
+  R_PreserveObject(RHUGIN_CHANCE);
+
+  RHUGIN_CHANCE = mkChar("chance");
+  R_PreserveObject(RHUGIN_CHANCE);
+  RHUGIN_UTILITY = mkChar("utility");
+  R_PreserveObject(RHUGIN_UTILITY);
+  RHUGIN_DECISION = mkChar("decision");
+  R_PreserveObject(RHUGIN_DECISION);
+  RHUGIN_INSTANCE = mkChar("instance");
+  R_PreserveObject(RHUGIN_INSTANCE);
+
+  RHUGIN_DISCRETE = mkChar("discrete");
+  R_PreserveObject(RHUGIN_DISCRETE);
+  RHUGIN_CONTINUOUS = mkChar("continuous");
+  R_PreserveObject(RHUGIN_CONTINUOUS);
+
+  RHUGIN_LABELED = mkChar("labeled");
+  R_PreserveObject(RHUGIN_LABELED);
+  RHUGIN_BOOLEAN = mkChar("boolean");
+  R_PreserveObject(RHUGIN_BOOLEAN);
+  RHUGIN_NUMBERED = mkChar("numbered");
+  R_PreserveObject(RHUGIN_NUMBERED);
+  RHUGIN_INTERVAL = mkChar("interval");
+  R_PreserveObject(RHUGIN_INTERVAL);
+
+
   R_CallMethodDef dotCallMethods[] = {
     {"RHugin_error_code", (DL_FUNC) RHugin_error_code, 0},
     {"RHugin_error_name", (DL_FUNC) RHugin_error_name, 1},
@@ -303,15 +361,6 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_set_position", (DL_FUNC) RHugin_node_set_position, 2},
     {"RHugin_node_get_position", (DL_FUNC) RHugin_node_get_position, 1},
     {NULL, NULL, 0}};
-
-  /* ToDo: add these to the precious list for 2.8.0 */
-  RHugin_domain_tag = install("RHUGIN_DOMAIN_TAG");
-  RHugin_node_tag = install("RHUGIN_NODE_TAG");
-  RHugin_table_tag = install("RHUGIN_TABLE_TAG");
-  RHugin_expression_tag = install("RHUGIN_EXPRESSION_TAG");
-  RHugin_model_tag = install("RHUGIN_MODEL_TAG");
-  RHugin_junction_tree_tag = install("RHUGIN_JUNCTION_TREE_TAG");
-  RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
 
   R_registerRoutines(info, NULL, dotCallMethods, NULL, NULL);
 }

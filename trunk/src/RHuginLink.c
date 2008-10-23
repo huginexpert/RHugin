@@ -11,6 +11,22 @@ extern SEXP RHugin_model_tag;
 extern SEXP RHugin_junction_tree_tag;
 extern SEXP RHugin_clique_tag;
 
+extern SEXP RHUGIN_ERROR;
+
+extern SEXP RHUGIN_CHANCE;
+extern SEXP RHUGIN_UTILITY;
+extern SEXP RHUGIN_DECISION;
+extern SEXP RHUGIN_INSTANCE;
+
+extern SEXP RHUGIN_DISCRETE;
+extern SEXP RHUGIN_CONTINUOUS;
+
+extern SEXP RHUGIN_LABELED;
+extern SEXP RHUGIN_BOOLEAN;
+extern SEXP RHUGIN_NUMBERED;
+extern SEXP RHUGIN_INTERVAL;
+
+
 
 /*******************************************************************************
   * The Hugin API 
@@ -162,20 +178,20 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(strncmp(CHAR(asChar(Scategory)), "chance", 6) == 0)
+  if(asChar(Scategory) == RHUGIN_CHANCE)
     category = h_category_chance;
-  else if(strncmp(CHAR(asChar(Scategory)), "utility", 7) == 0)
+  else if(asChar(Scategory) == RHUGIN_UTILITY)
     category = h_category_utility;
-  else if(strncmp(CHAR(asChar(Scategory)), "decision", 8) == 0)
+  else if(asChar(Scategory) == RHUGIN_DECISION)
     category = h_category_decision;
-  else if(strncmp(CHAR(asChar(Scategory)), "instance", 8) == 0)
+  else if(asChar(Scategory) == RHUGIN_INSTANCE)
     category = h_category_instance;
   else
     category = h_category_error;
 
-  if(strncmp(CHAR(asChar(Skind)), "discrete", 8) == 0)
+  if(asChar(Skind) == RHUGIN_DISCRETE)
     kind = h_kind_discrete;
-  else if(strncmp(CHAR(asChar(Skind)), "continuous", 10) == 0)
+  else if(asChar(Skind) == RHUGIN_CONTINUOUS)
     kind = h_kind_continuous;
   else
     kind = h_kind_error;
@@ -196,7 +212,7 @@ SEXP RHugin_node_get_category(SEXP Snode)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_node_category_t category;
+  h_node_category_t category = h_category_error;
 
   node = nodePointerFromSEXP(Snode);
   category = h_node_get_category(node);
@@ -204,24 +220,24 @@ SEXP RHugin_node_get_category(SEXP Snode)
   PROTECT(ret = allocVector(STRSXP, 1));
 
   switch(category) {
-    case h_category_decision:
-      SET_STRING_ELT(ret, 0, mkChar("decision"));
-      break;
-
-    case h_category_instance:
-      SET_STRING_ELT(ret, 0, mkChar("instance"));
+    case h_category_chance:
+      SET_STRING_ELT(ret, 0, RHUGIN_CHANCE);
       break;
 
     case h_category_utility:
-      SET_STRING_ELT(ret, 0, mkChar("utility"));
+      SET_STRING_ELT(ret, 0, RHUGIN_UTILITY);
       break;
 
-    case h_category_chance:
-      SET_STRING_ELT(ret, 0, mkChar("chance"));
+    case h_category_decision:
+      SET_STRING_ELT(ret, 0, RHUGIN_DECISION);
+      break;
+
+    case h_category_instance:
+      SET_STRING_ELT(ret, 0, RHUGIN_INSTANCE);
       break;
 
     case h_category_error:
-      SET_STRING_ELT(ret, 0, mkChar("error"));
+      SET_STRING_ELT(ret, 0, RHUGIN_ERROR);
       break;
   }
 
@@ -234,7 +250,7 @@ SEXP RHugin_node_get_kind(SEXP Snode)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_node_kind_t kind;
+  h_node_kind_t kind = h_kind_error;
 
   node = nodePointerFromSEXP(Snode);
   kind = h_node_get_kind(node);
@@ -243,15 +259,15 @@ SEXP RHugin_node_get_kind(SEXP Snode)
 
   switch(kind) {
     case h_kind_continuous:
-      SET_STRING_ELT(ret, 0, mkChar("continuous"));
+      SET_STRING_ELT(ret, 0, RHUGIN_CONTINUOUS);
       break;
 
     case h_kind_discrete:
-      SET_STRING_ELT(ret, 0, mkChar("discrete"));
+      SET_STRING_ELT(ret, 0, RHUGIN_DISCRETE);
       break;
 
     case h_kind_error:
-      SET_STRING_ELT(ret, 0, mkChar("error"));
+      SET_STRING_ELT(ret, 0, RHUGIN_ERROR);
       break;
   }
 
@@ -960,22 +976,22 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_node_subtype_t subtype;
-  h_status_t status;
+  h_node_subtype_t subtype = h_subtype_error;
+  h_status_t status = (h_status_t) 0;
 
   node = nodePointerFromSEXP(Snode);
   subtype = h_node_get_subtype(node);
 
-  if(strncmp(CHAR(asChar(Ssubtype)), "error", 5) == 0)
-    subtype = h_subtype_error;
-  else if(strncmp(CHAR(asChar(Ssubtype)), "labeled", 7) == 0)
-    subtype = h_subtype_label;
-  else if(strncmp(CHAR(asChar(Ssubtype)), "boolean", 7) == 0)
-    subtype = h_subtype_boolean;
-  else if(strncmp(CHAR(asChar(Ssubtype)), "numbered", 8) == 0)
+  if(asChar(Ssubtype) == RHUGIN_LABELED)
+    subtype = h_subtype_labeled;
+  else if(asChar(Ssubtype) == RHUGIN_NUMBERED)
     subtype = h_subtype_number;
-  else if(strncmp(CHAR(asChar(Ssubtype)), "interval", 8) == 0)
+  else if(asChar(Ssubtype) == RHUGIN_BOOLEAN)
+    subtype = h_subtype_boolean;
+  else if(asChar(Ssubtype) == RHUGIN_INTERVAL)
     subtype = h_subtype_interval;
+  else
+    subtype = h_subtype_error;
 
   status = h_node_set_subtype(node, subtype);
 
