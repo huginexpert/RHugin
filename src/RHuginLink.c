@@ -3451,6 +3451,68 @@ SEXP RHugin_node_get_mutual_information(SEXP Snode, SEXP Sother)
 }
 
 
+/* Section 9.9 Sensitivity analyis */
+
+SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = nodePointerFromSEXP(Snode);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_node_compute_sensitivity_data(node, (size_t) INTEGER(Sstate)[0]);
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_node_get_sensitivity_constants(SEXP Snode, SEXP Sindex)
+{
+  SEXP ret = R_NilValue;
+  h_status_t status = (h_status_t) 0;
+  h_number_t *pret = NULL;
+  h_node_t node = nodePointerFromSEXP(Snode);
+
+  PROTECT(ret = allocVector(REALSXP, 4));
+  pret = REAL(ret);
+  status =  h_node_get_sensitivity_constants(node, (size_t) INTEGER(Sindex)[0],
+             (h_number_t*) pret, (h_number_t*) (pret + 1), (h_number_t*) (pret + 2),
+             (h_number_t*) (pret + 3));
+  pret = NULL;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  h_domain_t domain = NULL;
+  h_node_t *sensitivity_set = NULL, *pnode = NULL;
+  int i = 0, n = 0;
+
+  domain = domainPointerFromSEXP(Sdomain);
+  sensitivity_set = h_domain_get_sensitivity_set(domain);
+  if(!sensitivity_set)
+    return ret;
+
+  for(pnode = sensitivity_set; *pnode != NULL; pnode++)
+    n++;
+
+  PROTECT(ret = allocVector(VECSXP, n));
+  PROTECT(dimnames = allocVector(STRSXP, n));
+  for(i = 0; i < n; i++) {
+    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(sensitivity_set[i], RHugin_node_tag, R_NilValue));
+    SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(sensitivity_set[i])));
+  }
+  setAttrib(ret, R_NamesSymbol, dimnames);
+  UNPROTECT(2);
+
+  return ret;
+}
+
+
 /* Section 10.1 Experience counts and fading factors */
 
 SEXP RHugin_node_get_experience_table(SEXP Snode)
