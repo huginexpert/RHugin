@@ -36,8 +36,6 @@
 		DAEFA1AE0DE3081A002B126B /* delete.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.q; path = R/delete.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AF0DE3081A002B126B /* error.code.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = error.code.q; path = R/error.code.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B00DE3081A002B126B /* error.description.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = error.description.q; path = R/error.description.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1B10DE3081A002B126B /* generate.nodes.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = generate.nodes.q; path = R/generate.nodes.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1B20DE3081B002B126B /* generate.tables.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = generate.tables.q; path = R/generate.tables.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B30DE3081B002B126B /* get.belief.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.belief.q; path = R/get.belief.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B40DE3081B002B126B /* get.cases.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.cases.q; path = R/get.cases.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B50DE3081B002B126B /* get.edges.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.edges.q; path = R/get.edges.q; sourceTree = SOURCE_ROOT; };
@@ -70,8 +68,6 @@
 		DAEFA1D20DE3083A002B126B /* delete.edge.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.Rd; path = man/delete.edge.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D30DE3083A002B126B /* delete.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.Rd; path = man/delete.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D40DE3083A002B126B /* errors.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = errors.Rd; path = man/errors.Rd; sourceTree = SOURCE_ROOT; };
-		DAEFA1D50DE3083A002B126B /* generate.nodes.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = generate.nodes.Rd; path = man/generate.nodes.Rd; sourceTree = SOURCE_ROOT; };
-		DAEFA1D60DE3083A002B126B /* generate.tables.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = generate.tables.Rd; path = man/generate.tables.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D70DE3083A002B126B /* get.belief.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.belief.Rd; path = man/get.belief.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D80DE3083A002B126B /* get.cases.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.cases.Rd; path = man/get.cases.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D90DE3083B002B126B /* get.edges.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.edges.Rd; path = man/get.edges.Rd; sourceTree = SOURCE_ROOT; };
@@ -136,8 +132,6 @@
 				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
 				DAEFA1AF0DE3081A002B126B /* error.code.q */,
 				DAEFA1B00DE3081A002B126B /* error.description.q */,
-				DAEFA1B10DE3081A002B126B /* generate.nodes.q */,
-				DAEFA1B20DE3081B002B126B /* generate.tables.q */,
 				DAEFA1B30DE3081B002B126B /* get.belief.q */,
 				DAEFA1B40DE3081B002B126B /* get.cases.q */,
 				DAEFA1B50DE3081B002B126B /* get.edges.q */,
@@ -185,8 +179,6 @@
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				DAEFA1D40DE3083A002B126B /* errors.Rd */,
-				DAEFA1D50DE3083A002B126B /* generate.nodes.Rd */,
-				DAEFA1D60DE3083A002B126B /* generate.tables.Rd */,
 				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
 				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,
 				DAEFA1D90DE3083B002B126B /* get.edges.Rd */,

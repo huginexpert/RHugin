@@ -384,7 +384,7 @@ void R_init_RHugin(DllInfo *info)
 
   RHUGIN_MODE_NORMAL = mkChar("normal");
   R_PreserveObject(RHUGIN_MODE_NORMAL);
-  RHUGIN_MODE_FAST_RETRACTION = mkChar("fast_retraction");
+  RHUGIN_MODE_FAST_RETRACTION = mkChar("fast");
   R_PreserveObject(RHUGIN_MODE_FAST_RETRACTION);
 
   RHUGIN_CONSTRAINT_NONE = mkChar("none");
