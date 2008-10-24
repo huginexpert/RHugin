@@ -359,6 +359,13 @@ DLLEXPORT SEXP RHugin_node_get_entropy(SEXP Snode);
 DLLEXPORT SEXP RHugin_node_get_mutual_information(SEXP Snode, SEXP Sother);
 
 
+/* Section 9.9 Sensitivity analyis */
+
+DLLEXPORT SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate);
+DLLEXPORT SEXP RHugin_node_get_sensitivity_constants(SEXP Snode, SEXP Sindex);
+DLLEXPORT SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain);
+
+
 /* Section 10.1 Experience counts and fading factors */
 
 DLLEXPORT SEXP RHugin_node_get_experience_table(SEXP Snode);
