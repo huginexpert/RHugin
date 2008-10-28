@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.sensitivity.Rd; path = man/get.sensitivity.Rd; sourceTree = "<group>"; };
 		0E39E53E0E6ABC36008B7B91 /* as.graph.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = as.graph.q; path = R/as.graph.q; sourceTree = "<group>"; };
 		0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.q; path = R/plot.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E39E5650E6AF2F9008B7B91 /* position.nodes.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = position.nodes.q; path = R/position.nodes.q; sourceTree = SOURCE_ROOT; };
@@ -187,6 +188,7 @@
 				DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */,
 				DAEFA1DA0DE3083B002B126B /* get.nodes.Rd */,
 				DAEFA1DB0DE3083B002B126B /* get.normalization.constant.Rd */,
+				0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */,
 				DAEFA1DC0DE3083B002B126B /* get.states.Rd */,
 				DAEFA1DD0DE3083B002B126B /* get.table.nodes.Rd */,
 				DAEFA1DE0DE3083B002B126B /* get.table.Rd */,
