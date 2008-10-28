@@ -468,7 +468,7 @@ SEXP RHugin_node_reverse_edge(SEXP Snode1, SEXP Snode2)
 
 SEXP RHugin_node_get_parents(SEXP Snode)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_node_t node = NULL;
   h_node_t *parents = NULL, *parent = NULL;
   int i = 0, n = 0;
@@ -481,12 +481,12 @@ SEXP RHugin_node_get_parents(SEXP Snode)
 
   if(n > 0) {
     PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(dimnames = allocVector(STRSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
     for(i = 0; i < n; i++) {
       SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(parents[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(parents[i])));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(parents[i])));
     }
-    setAttrib(ret, R_NamesSymbol, dimnames);
+    setAttrib(ret, R_NamesSymbol, names);
 
     UNPROTECT(2);
   }
@@ -497,7 +497,7 @@ SEXP RHugin_node_get_parents(SEXP Snode)
 
 SEXP RHugin_node_get_children(SEXP Snode)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_node_t node = NULL;
   h_node_t *children = NULL, *child = NULL;
   int i = 0, n = 0;
@@ -509,12 +509,12 @@ SEXP RHugin_node_get_children(SEXP Snode)
     n++;
 
   PROTECT(ret = allocVector(VECSXP, n));
-  PROTECT(dimnames = allocVector(STRSXP, n));
+  PROTECT(names = allocVector(STRSXP, n));
   for(i = 0; i < n; i++) {
     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(children[i], RHugin_node_tag, R_NilValue));
-    SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(children[i])));
+    SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(children[i])));
   }
-  setAttrib(ret, R_NamesSymbol, dimnames);
+  setAttrib(ret, R_NamesSymbol, names);
 
   UNPROTECT(2);
   return ret;
@@ -863,7 +863,7 @@ SEXP RHugin_kb_load_domain(SEXP Sfile_name, SEXP Spassword)
 
 SEXP RHugin_table_get_nodes(SEXP Stable)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_table_t table = NULL;
   h_node_t *nodes = NULL, *node = NULL;
   int i = 0, n = 0;
@@ -875,12 +875,12 @@ SEXP RHugin_table_get_nodes(SEXP Stable)
     n++;
 
   PROTECT(ret = allocVector(VECSXP, n));
-  PROTECT(dimnames = allocVector(STRSXP, n));
+  PROTECT(names = allocVector(STRSXP, n));
   for(i = 0; i < n; i++) {
     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
-    SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(nodes[i])));
+    SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(nodes[i])));
   }
-  setAttrib(ret, R_NamesSymbol, dimnames);
+  setAttrib(ret, R_NamesSymbol, names);
 
   UNPROTECT(2);
   return ret;
@@ -2193,7 +2193,7 @@ SEXP RHugin_domain_triangulate_with_order(SEXP Sdomain, SEXP Sorder)
 
 SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_domain_t domain = NULL;
   h_node_t *order = NULL, *pnode = NULL;
   int i = 0, n = 0;
@@ -2206,12 +2206,12 @@ SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 
   if(n > 0) {
     PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(dimnames = allocVector(STRSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
     for(i = 0; i < n; i++) {
       SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(order[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(order[i])));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(order[i])));
     }
-    setAttrib(ret, R_NamesSymbol, dimnames);
+    setAttrib(ret, R_NamesSymbol, names);
 
     UNPROTECT(2);
   }
@@ -2423,7 +2423,7 @@ SEXP RHugin_jt_get_root(SEXP Sjt)
 
 SEXP RHugin_clique_get_members(SEXP Sclique)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_clique_t clique = NULL;
   h_node_t *node = NULL, *nodes = NULL;
   int i = 0, n = 0;
@@ -2436,12 +2436,12 @@ SEXP RHugin_clique_get_members(SEXP Sclique)
 
   if(n > 0) {
     PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(dimnames = allocVector(STRSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
     for(i = 0; i < n; i++) {
       SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(nodes[i])));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(nodes[i])));
     }
-    setAttrib(ret, R_NamesSymbol, dimnames);
+    setAttrib(ret, R_NamesSymbol, names);
 
     UNPROTECT(2);
   }
@@ -2561,7 +2561,7 @@ SEXP RHugin_domain_retract_findings(SEXP Sdomain)
 
 SEXP RHugin_domain_get_d_connected_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard, SEXP Ssoft)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_domain_t domain = NULL;
   h_node_t *source = NULL, *hard = NULL, *soft = NULL, *d_connected = NULL, *node = NULL;
   int i = 0, n = 0;
@@ -2596,12 +2596,12 @@ SEXP RHugin_domain_get_d_connected_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
   if(n > 0) {
     PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(dimnames = allocVector(STRSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
     for(i = 0; i < n; i++) {
       SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(d_connected[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(d_connected[i])));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(d_connected[i])));
     }
-    setAttrib(ret, R_NamesSymbol, dimnames);
+    setAttrib(ret, R_NamesSymbol, names);
 
     UNPROTECT(2);
   }
@@ -2612,7 +2612,7 @@ SEXP RHugin_domain_get_d_connected_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
 SEXP RHugin_domain_get_d_separated_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard, SEXP Ssoft)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_domain_t domain = NULL;
   h_node_t *source = NULL, *hard = NULL, *soft = NULL, *d_separated = NULL, *node = NULL;
   int i = 0, n = 0;
@@ -2647,12 +2647,12 @@ SEXP RHugin_domain_get_d_separated_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
   if(n > 0) {
     PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(dimnames = allocVector(STRSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
     for(i = 0; i < n; i++) {
       SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(d_separated[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(d_separated[i])));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(d_separated[i])));
     }
-    setAttrib(ret, R_NamesSymbol, dimnames);
+    setAttrib(ret, R_NamesSymbol, names);
     UNPROTECT(2);
   }
 
@@ -3468,18 +3468,24 @@ SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate)
 
 SEXP RHugin_node_get_sensitivity_constants(SEXP Snode, SEXP Sindex)
 {
-  SEXP ret = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_status_t status = (h_status_t) 0;
   h_number_t *pret = NULL;
   h_node_t node = nodePointerFromSEXP(Snode);
 
   PROTECT(ret = allocVector(REALSXP, 4));
+  PROTECT(names = allocVector(STRSXP, 4));
   pret = REAL(ret);
   status =  h_node_get_sensitivity_constants(node, (size_t) INTEGER(Sindex)[0],
              (h_number_t*) pret, (h_number_t*) (pret + 1), (h_number_t*) (pret + 2),
              (h_number_t*) (pret + 3));
   pret = NULL;
-  UNPROTECT(1);
+  SET_STRING_ELT(names, 0, mkChar("alpha"));
+  SET_STRING_ELT(names, 1, mkChar("beta"));
+  SET_STRING_ELT(names, 2, mkChar("gamma"));
+  SET_STRING_ELT(names, 3, mkChar("delta"));
+  setAttrib(ret, R_NamesSymbol, names);
+  UNPROTECT(2);
 
   return ret;
 }
@@ -3487,7 +3493,7 @@ SEXP RHugin_node_get_sensitivity_constants(SEXP Snode, SEXP Sindex)
 
 SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue, dimnames = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_domain_t domain = NULL;
   h_node_t *sensitivity_set = NULL, *pnode = NULL;
   int i = 0, n = 0;
@@ -3501,12 +3507,12 @@ SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
     n++;
 
   PROTECT(ret = allocVector(VECSXP, n));
-  PROTECT(dimnames = allocVector(STRSXP, n));
+  PROTECT(names = allocVector(STRSXP, n));
   for(i = 0; i < n; i++) {
     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(sensitivity_set[i], RHugin_node_tag, R_NilValue));
-    SET_STRING_ELT(dimnames, i, mkChar( (char*) h_node_get_name(sensitivity_set[i])));
+    SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(sensitivity_set[i])));
   }
-  setAttrib(ret, R_NamesSymbol, dimnames);
+  setAttrib(ret, R_NamesSymbol, names);
   UNPROTECT(2);
 
   return ret;
