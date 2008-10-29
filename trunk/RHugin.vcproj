@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="RHugin"
 	ProjectGUID="{C8F1D94F-C410-46E0-A9A6-CB490613FC6C}"
+	RootNamespace="RHugin"
 	>
 	<Platforms>
 		<Platform
@@ -48,7 +49,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Include,C:\Program Files\R\R-2.7.2\include"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Include&quot;;&quot;C:\Program Files\R\R-2.8.0\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -143,7 +144,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Include,C:\Program Files\R\R-2.7.2\include"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\Hugin Expert\Hugin Researcher 7.0\HDE7.0C\Include&quot;;&quot;C:\Program Files\R\R-2.8.0\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

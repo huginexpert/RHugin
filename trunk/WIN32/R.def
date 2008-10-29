@@ -358,7 +358,6 @@ R_subassign3_dflt
 R_system
 R_tabulate
 R_taskCallbackRoutine
-R_tcldo
 R_tmpnam
 R_traceOnOff
 R_tryEval
@@ -375,15 +374,14 @@ Rconsolecmd
 Rdqagi
 Rdqags
 RestoreAction
-Rf_AdobeSymbol2ucs2
 Rf_AdobeSymbol2utf8
 Rf_CleanEd
 Rf_CreateAtVector
 Rf_CreateTag
-Rf_CurrentDevice
 Rf_DropDims
 Rf_EncodeComplex
 Rf_EncodeElement
+Rf_EncodeEnvironment
 Rf_EncodeInteger
 Rf_EncodeLogical
 Rf_EncodeRaw
@@ -432,7 +430,6 @@ Rf_GSymbol
 Rf_GText
 Rf_GetArrayDimnames
 Rf_GetColNames
-Rf_GetDevice
 Rf_GetMatrixDimnames
 Rf_GetOption
 Rf_GetOptionDeviceAsk
@@ -441,7 +438,6 @@ Rf_GetOptionWidth
 Rf_GetRowNames
 Rf_InitNames
 Rf_KillAllDevices
-Rf_KillDevice
 Rf_NewEnvironment
 Rf_NewFrameConfirm
 Rf_NoDevices
@@ -468,10 +464,10 @@ Rf_StringTrue
 Rf_VectorToPairList
 Rf_WarningMessage
 Rf_acopy_string
-Rf_addDevice
 Rf_addTaskCallback
 Rf_alloc3DArray
 Rf_allocArray
+Rf_allocCharsxp
 Rf_allocList
 Rf_allocMatrix
 Rf_allocS4Object
@@ -498,7 +494,6 @@ Rf_choose
 Rf_classgets
 Rf_coerceVector
 Rf_col2name
-Rf_con_close
 Rf_conformable
 Rf_cons
 Rf_copyGPar
@@ -516,7 +511,6 @@ Rf_defineVar
 Rf_deparse1
 Rf_deparse1line
 Rf_desc2GEDesc
-Rf_devNumber
 Rf_dexp
 Rf_df
 Rf_dgamma
@@ -647,6 +641,7 @@ Rf_mbrtowc
 Rf_mkChar
 Rf_mkCharCE
 Rf_mkCharLen
+Rf_mkCharLenCE
 Rf_mkFalse
 Rf_mkString
 Rf_mkTrue
@@ -727,7 +722,6 @@ Rf_rbinom
 Rf_rcauchy
 Rf_rchisq
 Rf_reEnc
-Rf_regfree
 Rf_removeTaskCallbackByIndex
 Rf_removeTaskCallbackByName
 Rf_revsort
@@ -810,6 +804,7 @@ SETLENGTH
 SETLEVELS
 SET_ATTRIB
 SET_BODY
+SET_CACHED
 SET_CLOENV
 SET_CXTAIL
 SET_DDVAL
@@ -858,6 +853,10 @@ User_norm_fun
 User_unif_init
 VECTOR_ELT
 VECTOR_PTR
+_pcre_ucd_records
+_pcre_ucd_stage1
+_pcre_ucd_stage2
+_pcre_ucp_gentype
 balanc_
 balbak_
 call_R
@@ -867,13 +866,21 @@ call_dqags
 cgmin
 chol_
 cmdlineoptions
+cpuLimit
+cpuLimit2
+cpuLimitValue
 d1mach_
 dblepr_
 dcar
 dcdr
 dchdc_
 dnbinom_mu
+do_ICUset
+do_capabilitiesX11
 do_devAskNewPage
+do_interruptsSuspended
+do_rawconnection
+do_rawconvalue
 do_set_prim_method
 do_setwinprogressbar
 dpbfa_
@@ -898,6 +905,9 @@ dtype
 dummy_fgetc
 dummy_vfprintf
 duplicated3
+elapsedLimit
+elapsedLimit2
+elapsedLimitValue
 elmhes_
 eltran_
 end_Rmainloop
@@ -969,6 +979,7 @@ samin
 saveConsoleTitle
 seed_in
 seed_out
+set_R_Tcldo
 setulb
 setup_Rmainloop
 setup_term_ui
@@ -981,6 +992,7 @@ trio_sprintf
 trio_vsnprintf
 trio_vsprintf
 unif_rand
+unset_R_Tcldo
 utf8locale
 vasprintf
 vfprintf
