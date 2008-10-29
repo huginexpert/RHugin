@@ -8,7 +8,12 @@ Create an RHugin domain object.
 }
 
 \usage{
-hugin.domain()
+hugin.domain(graph, data)
+}
+
+\arguments{
+  \item{graph}{not implemented yet.  A DAG describing the structure of the belief network.}
+  \item{data}{an optional data frame used to create an initial set of nodes for the domain.  Presently only discrete chance nodes are created.  The subtype of each node is determined by the class of the variable in the data frame: a numeric or integer variable results in a numbered node whose states are the sorted unique values of the variable, a logical variable results in a boolean node, and all other variables are coerced to factors and result in a labeled node with states equal to the levels of the factor.  If the data frame contains a variable named \dQuote(Freq) it will be ignored.}
 }
 
 \value{
@@ -23,7 +28,12 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 
 \examples{
 # Create an empty RHugin domain
-AppleTree <- hugin.domain()
+hd <- hugin.domain()
+
+# Creade an RHugin domain using the housing data to generate the nodes
+library(MASS)
+data(housing)
+hd <- hugin.domain(data = housing)
 }
 
 \keyword{programming}
