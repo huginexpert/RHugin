@@ -28,7 +28,7 @@ where \eqn{E} is the evidence, \eqn{A} is the node \code{output}, \eqn{a} is a s
 }
 
 \value{
-When \code{set = FALSE} a matrix with one row for each \code{\dots} argument and columns \code{\alpha}, \code{\beta}, \code{\gamma} and \code{\delta}.  Otherwise a character vector containing the names of the nodes in the sensitivity set of \code{output}.
+When \code{set = FALSE} a matrix with one row for each \code{\dots} argument and columns \code{alpha}, \code{beta}, \code{gamma} and \code{delta}.  Otherwise a character vector containing the names of the nodes in the sensitivity set of \code{output}.
 }
 
 \references{
