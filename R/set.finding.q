@@ -11,7 +11,7 @@ set.finding <- function(domain, node, finding, case = NULL)
 
   RHugin.check.args(domain, node, character(0), "set.finding")
 
-  node.summary <- summary(domain, node)[[node]]
+  node.summary <- summary(domain, node)$nodes[[node]]
   category <- node.summary$category
   kind <- node.summary$kind
   states <- get.states(domain, node)
@@ -23,7 +23,7 @@ set.finding <- function(domain, node, finding, case = NULL)
                      PACKAGE = "RHugin")
 
   if(length(finding) == 1) {
-    state.index <- switch(summary(domain, node)[[node]]$subtype,
+    state.index <- switch(node.summary$subtype,
       "boolean" = ifelse(as.logical(finding), 1, 0),
       "labeled" = .Call("RHugin_node_get_state_index_from_label", node.ptr,
                          as.character(finding), PACKAGE = "RHugin"),

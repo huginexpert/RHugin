@@ -2,7 +2,7 @@ get.finding <- function(domain, node)
 {
   RHugin.check.args(domain, node, character(0), "get.finding")
 
-  node.summary <- summary(domain, node)[[node]]
+  node.summary <- summary(domain, node)$nodes[[node]]
   category <- node.summary$category
   kind <- node.summary$kind
   states <- get.states(domain, node)
