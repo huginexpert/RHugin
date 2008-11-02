@@ -9,7 +9,7 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
   }
 
   nodes <- get.nodes(object)
-  node.summary <- summary(object)
+  node.summary <- summary(object, nodes = TRUE)$nodes
   node.list <- list()
   ans <- list()
 

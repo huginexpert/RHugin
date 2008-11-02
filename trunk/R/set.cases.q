@@ -5,7 +5,7 @@ set.cases <- function(domain, data, Freq)
   n <- nrow(data)
   data.names <- names(data)
   nodes <- intersect(get.nodes(domain), data.names)
-  node.summary <- summary(domain, nodes = nodes)
+  node.summary <- summary(domain, nodes)$nodes
 
   status <- .Call("RHugin_domain_set_number_of_cases", domain,
                    as.integer(0), PACKAGE = "RHugin")

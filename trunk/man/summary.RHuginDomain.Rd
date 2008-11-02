@@ -8,17 +8,36 @@ Summary method for RHugin domain objects.
 }
 
 \usage{
-\method{summary}{RHuginDomain}(object, nodes, ...)
+\method{summary}{RHuginDomain}(object, nodes = FALSE, ...)
 }
 
 \arguments{
   \item{object}{an RHugin domain object.}
-  \item{nodes}{optional, a character vector containing the names of one or more of the nodes in \code{object}.  If present, the summary is only generated for the specified nodes.  If \code{nodes} is missing then the summary is generated for all the nodes in \code{object}.}
+  \item{nodes}{a logical value or a character vector containing the names of one or more nodes in \code{object}.  The default value \code{FALSE} skips the node summary.  Alternatively, \code{TRUE} causes a summary to be computed for all nodes in \code{object}.}
   \item{\dots}{additional arguments are ignored.}
 }
 
 \value{
-  a list with class \code{summary.RHuginDomain}.  The list has one named element for each node in the RHuginDomain \code{object} (unless \code{nodes} was given).  Each element is in turn a list containing the category, kind, subtype and (if applicable) states of the node.
+a list with class \code{summary.RHuginDomain}.
+
+\item{node.names}{a character vector containing the names of the nodes in \code{object}.}
+
+\item{edge.list}{a list describing the edges in \code{object}.  See \code{\link{get.edges}} for details.}
+
+\item{domain}{a list containing the following elements:
+  \describe{
+    \item{compiled}{a logical value indicating whether \code{object} is compiled.}
+    \item{equilibrium}{a character string, either \dQuote{sum} or \dQuote{max}, indicating the type of equilibrium used in the most recent propagation.}
+    \item{evidence.mode}{a character string, either \dQuote{normal} or \dQuote{fast}, indicating the evidence mode used in the most recent propagation.}
+    \item{evidence.propagated}{a logical value, \code{TRUE} if \code{object} has evidence propagated.}
+    \item{L.evidence.propagated}{a logical value, \code{TRUE} if \code{object} has likelihood evidence propagated.}
+    \item{GC.evidence.propagated}{a logical value, \code{TRUE} if \code{object} has conditional Gaussian evidence propagated.}
+    \item{evidence.to.propagate}{a logical value, \code{TRUE} if any evidence has been entered since the last propagation.}
+    \item{tables.to.propagate}{a logical value, \code{TRUE} if any table data has changed since the last propagation.}
+  }
+}
+
+\item{nodes}{the presence of this element depends on the value of \code{nodes} in the call.  A list whose elements are in turn lists containing the category, kind, subtype and (if applicable) states of the nodes specified in \code{nodes}.}
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
