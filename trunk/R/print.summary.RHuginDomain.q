@@ -12,7 +12,7 @@ print.summary.RHuginDomain <- function(x, ...)
     }
 
     else
-      cat("  8No evidence has been propagated.\n")
+      cat("  *No evidence has been propagated.\n")
 
     if(x$domain$evidence.to.propagate)
       cat("  *Evidence has been entered since the last propagation.\n")
