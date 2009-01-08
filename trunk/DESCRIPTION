@@ -1,11 +1,11 @@
 Package: RHugin
-Version: 0.5-3
-Date: 2008-10-23
+Version: 0.5-4
+Date: 2009-01-05
 Title: RHugin
 Author: Kjell Konis <kjell.konis@epfl.ch>,
         Hugin Expert <http://www.hugin.com>.
 Maintainer: Kjell Konis <kjell.konis@epfl.ch>
-Depends: R (>= 2.8.0), graph
+Depends: R (>= 2.8.1), graph, gRain
 Suggests: MASS, Rgraphviz
 Description: The RHugin package provides an R API for the Hugin Expert System. \
              The RHugin package is free software and is made available under \

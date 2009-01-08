@@ -30,7 +30,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \seealso{
-  \code{\link{compile}}.
+  \code{\link{compile.RHuginDomain}}.
 }
 
 \examples{

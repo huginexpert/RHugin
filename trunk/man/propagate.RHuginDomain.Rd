@@ -1,5 +1,5 @@
-\name{propagate}
-\alias{propagate}
+\name{propagate.RHuginDomain}
+\alias{propagate.RHuginDomain}
 
 \title{Propagation}
 
@@ -8,13 +8,14 @@ Establish the specified equilibrium using the evidence mode indicated for the in
 }
 
 \usage{
-propagate(domain, equilibrium = c("sum", "max"), mode = c("normal", "fast"))
+\method{propagate}{RHuginDomain}(object, equilibrium = c("sum", "max"), mode = c("normal", "fast"), ...)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{object}{an RHugin domain object.}
   \item{equilibrium}{a character string specifying the equilibrium method.}
   \item{mode}{a character string specifying the evidence mode.}
+  \item{\dots}{additional arguments are ignored.}
 }
 
 \value{
