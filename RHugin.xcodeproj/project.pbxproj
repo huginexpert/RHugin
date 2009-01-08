@@ -8,6 +8,10 @@
 
 /* Begin PBXFileReference section */
 		0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.sensitivity.Rd; path = man/get.sensitivity.Rd; sourceTree = "<group>"; };
+		0E1A4FE20F1299E100128DF6 /* compile.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compile.RHuginDomain.q; path = R/compile.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
+		0E1A4FE30F1299E100128DF6 /* propagate.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = propagate.RHuginDomain.q; path = R/propagate.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
+		0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compile.RHuginDomain.Rd; path = man/compile.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
+		0E1A4FE90F129ADE00128DF6 /* propagate.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = propagate.RHuginDomain.Rd; path = man/propagate.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
 		0E39E53E0E6ABC36008B7B91 /* as.graph.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = as.graph.q; path = R/as.graph.q; sourceTree = "<group>"; };
 		0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.q; path = R/plot.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E39E5650E6AF2F9008B7B91 /* position.nodes.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = position.nodes.q; path = R/position.nodes.q; sourceTree = SOURCE_ROOT; };
@@ -35,7 +39,6 @@
 		DAEFA1A80DE3081A002B126B /* add.edge.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.edge.q; path = R/add.edge.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1A90DE3081A002B126B /* add.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.node.q; path = R/add.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AA0DE3081A002B126B /* clone.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.q; path = R/clone.node.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1AB0DE3081A002B126B /* compile.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compile.q; path = R/compile.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AD0DE3081A002B126B /* delete.edge.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.q; path = R/delete.edge.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AE0DE3081A002B126B /* delete.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.q; path = R/delete.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AF0DE3081A002B126B /* error.code.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = error.code.q; path = R/error.code.q; sourceTree = SOURCE_ROOT; };
@@ -52,7 +55,6 @@
 		DAEFA1BC0DE3081B002B126B /* initialize.domain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = initialize.domain.q; path = R/initialize.domain.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1BD0DE3081B002B126B /* library.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = library.q; path = R/library.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1BE0DE3081B002B126B /* print.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = print.RHuginDomain.q; path = R/print.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1BF0DE3081B002B126B /* propagate.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = propagate.q; path = R/propagate.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C00DE3081B002B126B /* read.rhd.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = read.rhd.q; path = R/read.rhd.q; sourceTree = "<group>"; };
 		DAEFA1C10DE3081B002B126B /* reset.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = reset.q; path = R/reset.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C20DE3081B002B126B /* retract.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = retract.q; path = R/retract.q; sourceTree = SOURCE_ROOT; };
@@ -68,7 +70,6 @@
 		DAEFA1CD0DE3083A002B126B /* add.edge.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.edge.Rd; path = man/add.edge.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1CE0DE3083A002B126B /* add.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.node.Rd; path = man/add.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1CF0DE3083A002B126B /* clone.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.Rd; path = man/clone.node.Rd; sourceTree = SOURCE_ROOT; };
-		DAEFA1D00DE3083A002B126B /* compile.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compile.Rd; path = man/compile.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D20DE3083A002B126B /* delete.edge.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.Rd; path = man/delete.edge.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D30DE3083A002B126B /* delete.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.Rd; path = man/delete.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D40DE3083A002B126B /* errors.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = errors.Rd; path = man/errors.Rd; sourceTree = SOURCE_ROOT; };
@@ -83,7 +84,6 @@
 		DAEFA1DF0DE3083B002B126B /* rhd.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rhd.Rd; path = man/rhd.Rd; sourceTree = "<group>"; };
 		DAEFA1E00DE3083B002B126B /* hugin.domain.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hugin.domain.Rd; path = man/hugin.domain.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1E10DE3083B002B126B /* initialize.domain.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = initialize.domain.Rd; path = man/initialize.domain.Rd; sourceTree = SOURCE_ROOT; };
-		DAEFA1E30DE3083B002B126B /* propagate.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = propagate.Rd; path = man/propagate.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1E40DE3083B002B126B /* reset.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = reset.Rd; path = man/reset.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1E50DE3083B002B126B /* retract.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = retract.Rd; path = man/retract.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1E60DE3083B002B126B /* reverse.edge.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = reverse.edge.Rd; path = man/reverse.edge.Rd; sourceTree = SOURCE_ROOT; };
@@ -131,7 +131,7 @@
 				DAEFA1A90DE3081A002B126B /* add.node.q */,
 				0E39E53E0E6ABC36008B7B91 /* as.graph.q */,
 				DAEFA1AA0DE3081A002B126B /* clone.node.q */,
-				DAEFA1AB0DE3081A002B126B /* compile.q */,
+				0E1A4FE20F1299E100128DF6 /* compile.RHuginDomain.q */,
 				DAEFA1AD0DE3081A002B126B /* delete.edge.q */,
 				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
 				DAEFA1AF0DE3081A002B126B /* error.code.q */,
@@ -154,7 +154,7 @@
 				0E39E5650E6AF2F9008B7B91 /* position.nodes.q */,
 				DAEFA1BE0DE3081B002B126B /* print.RHuginDomain.q */,
 				0EA791CF0DF17F15007CDD16 /* print.summary.RHuginDomain.q */,
-				DAEFA1BF0DE3081B002B126B /* propagate.q */,
+				0E1A4FE30F1299E100128DF6 /* propagate.RHuginDomain.q */,
 				DAEFA1C00DE3081B002B126B /* read.rhd.q */,
 				DAEFA1C10DE3081B002B126B /* reset.q */,
 				DAEFA1C20DE3081B002B126B /* retract.q */,
@@ -181,7 +181,7 @@
 				DAEFA1CE0DE3083A002B126B /* add.node.Rd */,
 				0E39E5CE0E6B0590008B7B91 /* as.graph.Rd */,
 				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
-				DAEFA1D00DE3083A002B126B /* compile.Rd */,
+				0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */,
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				DAEFA1D40DE3083A002B126B /* errors.Rd */,
@@ -202,7 +202,7 @@
 				0E39E5860E6AF895008B7B91 /* position.nodes.Rd */,
 				DAD83CF20E1A5620005C9495 /* print.RHuginDomain.Rd */,
 				DAD83CF30E1A5620005C9495 /* print.summary.RHuginDomain.Rd */,
-				DAEFA1E30DE3083B002B126B /* propagate.Rd */,
+				0E1A4FE90F129ADE00128DF6 /* propagate.RHuginDomain.Rd */,
 				DAEFA1E40DE3083B002B126B /* reset.Rd */,
 				DAEFA1E50DE3083B002B126B /* retract.Rd */,
 				DAEFA1E60DE3083B002B126B /* reverse.edge.Rd */,

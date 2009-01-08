@@ -1,5 +1,5 @@
-\name{compile}
-\alias{compile}
+\name{compile.RHuginDomain}
+\alias{compile.RHuginDomain}
 
 \title{Compile an RHugin Domain}
 
@@ -8,12 +8,13 @@ Compile an RHugin domain using the default triangulation method (unless the doma
 }
 
 \usage{
-compile(domain, save = FALSE)
+\method{compile}{RHuginDomain}(object, save = FALSE, ...)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{object}{an RHugin domain object.}
   \item{save}{a logical value.  If \code{TRUE} then copies of the initial belief and junction tree tables of \code{domain} are stored.}
+  \item{\dots}{additional arguments are ignored.}
 }
 
 \details{
