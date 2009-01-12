@@ -18,6 +18,12 @@ Simulate cases with respect to the conditional distribution for the evidence.
   \item{\dots}{any additional arguments are ignored.}
 }
 
+\details{
+If \code{object} is compiled, \code{simulate} computes \code{nsim} sample configurations with respect to the current distribution on the junction tree(s).  The distribution must be in sum-equilibrium with evidence incorporated in \sQuote{normal} mode.  Only propagated evidence is taken into account; unpropagated evidence and tables that have changed since the most recent propagation are ignored.
+
+If \code{object} is not compiled, \code{simulate} computes \code{nsim} sample configurations with respect to the distribution determined by the tables associated with the nodes of \code{object}.
+}
+
 \value{
 A data frame with one column for each node in the domain (\code{object}) whose rows contain the simulated cases.
 }
