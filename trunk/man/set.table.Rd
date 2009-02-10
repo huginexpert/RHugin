@@ -48,6 +48,22 @@ add.edge(AppleTree, "Loses", "Dry")
 sick.table <- get.table(AppleTree, "Sick")
 sick.table$Freq <- c(0.1, 0.9)
 set.table(AppleTree, "Sick", sick.table)
+
+
+# Set the CPTs for all nodes in a domain using the marginal counts from  a
+# data frame
+
+library(MASS)
+data(housing)
+
+# First build the network
+hd <- hugin.domain(data = housing)
+add.edge(hd, "Cont", "Type")
+add.edge(hd, "Sat", "Cont")
+add.edge(hd, "Sat", "Infl")
+
+# Then set the CPTs
+for(node in get.nodes(hd)) set.table(hd, node, housing)
 }
 
 \keyword{programming}

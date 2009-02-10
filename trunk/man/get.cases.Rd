@@ -4,7 +4,7 @@
 \title{Get Cases}
 
 \description{
-Retrieve the cases data from an RHugin domain object as a data frame.
+Retrieve case data from an RHugin domain object.
 }
 
 \usage{

@@ -4204,4 +4204,42 @@ SEXP RHugin_node_get_position(SEXP Snode)
 
 /* Section 13.3 the size of a node */
 
+SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = NULL;
+  h_status_t status;
+
+  domain = domainPointerFromSEXP(Sdomain);
+  status = h_domain_set_node_size(domain, (size_t) INTEGER(Ssize)[0],
+                                  (size_t) INTEGER(Ssize)[1]);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_node_size(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = NULL;
+  h_status_t status;
+  size_t size[] = {0, 0};
+
+  domain = domainPointerFromSEXP(Sdomain);
+  status = h_domain_get_node_size(domain, size, size+1);
+
+  if(status == h_error_none) {
+    PROTECT(ret = allocVector(INTSXP, 2));
+    INTEGER(ret)[0] = (int) size[0];
+    INTEGER(ret)[1] = (int) size[1];
+    UNPROTECT(1);
+  }
+
+  return ret;
+}
+
 

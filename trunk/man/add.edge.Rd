@@ -1,7 +1,7 @@
 \name{add.edge}
 \alias{add.edge}
 
-\title{Adding Edges}
+\title{Add Edge}
 
 \description{
 Add a directed edge from one or more parents.

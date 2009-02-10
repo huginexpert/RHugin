@@ -1,7 +1,7 @@
 \name{as.graph}
 \alias{as.graph}
 
-\title{Coerce to a Graph}
+\title{Coerce to Graph}
 
 \description{
 Coerce an RHugin domain object to a graph.
