@@ -1,10 +1,10 @@
 \name{get.normalization.constant}
 \alias{get.normalization.constant}
 
-\title{The Normalization Constant}
+\title{Get Normalization Constant}
 
 \description{
-Get the normalization constant from an RHugin domain object.
+Retrieve the normalization constant from an RHugin domain object.
 }
 
 \usage{

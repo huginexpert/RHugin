@@ -25,7 +25,7 @@ An error code of \code{0} indicates that the most recent Hugin API call was succ
 }
 
 \value{
-  \item{error.code}{an integer vector of length one containing a Hugin error code.}
+  \item{error.code}{an integer value containing the Hugin error code.}
 
   \item{error.description}{a list with two elements containing respectively the name and description of the error that occured.}
 

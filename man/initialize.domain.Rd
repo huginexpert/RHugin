@@ -1,7 +1,7 @@
 \name{initialize.domain}
 \alias{initialize.domain}
 
-\title{Initialize a Domain}
+\title{Initialize Domain}
 
 \description{
 Establish the initial values for all evidence, belief and junction tree tables in an RHugin domain.

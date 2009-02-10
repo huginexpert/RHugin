@@ -444,3 +444,9 @@ DLLEXPORT SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition);
 DLLEXPORT SEXP RHugin_node_get_position(SEXP Snode);
 
 
+/* Section 13.3 the size of a node */
+
+DLLEXPORT SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize);
+DLLEXPORT SEXP RHugin_domain_get_node_size(SEXP Sdomain);
+
+

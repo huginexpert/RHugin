@@ -1,7 +1,7 @@
 \name{clone.node}
 \alias{clone.node}
 
-\title{Clone Nodes}
+\title{Clone Node}
 
 \description{
 Add a copy of a node to an RHugin domain object.

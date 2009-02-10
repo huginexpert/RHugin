@@ -30,7 +30,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 # Create an empty RHugin domain
 hd <- hugin.domain()
 
-# Creade an RHugin domain using the housing data to generate the nodes
+# Create an RHugin domain using a data frame to generate initial nodes
 library(MASS)
 data(housing)
 hd <- hugin.domain(data = housing)

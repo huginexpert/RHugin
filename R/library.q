@@ -31,6 +31,24 @@
     }
   }
 
+  else if(Sys.info()["sysname"] == "Darwin") {
+    if(nchar(Sys.getenv("HUGINHOME")) == 0) {
+      HuginVersions <- c("HDE7.0-researcher", "HDE7.0-lite")
+      HuginHomes <- paste("/Applications", HuginVersions, sep = "/")
+
+      if(length(HuginVersion <- which(file.exists(HuginHomes)))) {
+        HuginHome <- HuginHomes[HuginVersion[1]]
+        Sys.setenv(HUGINHOME = HuginHome)
+      }
+
+      else {
+        detach("package:RHugin")
+        stop("auto-detection of Hugin failed", "\n",
+             "set the HUGINHOME environment variable (see Hugin Documentation)")
+      }
+    }
+  }
+
   library.dynam("RHugin")
   invisible(NULL)
 }

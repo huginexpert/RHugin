@@ -1,7 +1,7 @@
 \name{add.node}
 \alias{add.node}
 
-\title{Add Nodes}
+\title{Add Node}
 
 \description{
 Add a node to an RHugin domain object.

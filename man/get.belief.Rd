@@ -1,10 +1,10 @@
 \name{get.belief}
 \alias{get.belief}
 
-\title{Retrieving Beliefs}
+\title{Retrieve Beliefs}
 
 \description{
-Retrieve beliefs from a node after the domain has been compiled and evidence propagated.
+Retrieve beliefs from a node in an RHugin domain object.
 }
 
 \usage{
