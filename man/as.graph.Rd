@@ -1,5 +1,5 @@
-\name{as.graph}
-\alias{as.graph}
+\name{as.graph.RHuginDomain}
+\alias{as.graph.RHuginDomain}
 
 \title{Coerce to Graph}
 
@@ -8,7 +8,7 @@ Coerce an RHugin domain object to a graph.
 }
 
 \usage{
-as.graph(x, ...)
+as.graph.RHuginDomain(x, ...)
 }
 
 \arguments{
