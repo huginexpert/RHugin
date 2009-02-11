@@ -1,4 +1,4 @@
-as.graph <- function(x, ...)
+as.graph.RHuginDomain <- function(x, ...)
 {
   nodes <- get.nodes(x)
   edge.list <- get.edges(x)
