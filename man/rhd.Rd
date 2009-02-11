@@ -32,7 +32,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \seealso{
-  The \code{\link{position.nodes}} function to automatically layout a network.
+  The \code{\link{layoutRHugin}} function to automatically layout a network.
 }
 
 \keyword{file}
