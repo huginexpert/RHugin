@@ -2,13 +2,14 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
 {
   RHugin.check.args(object, character(0), character(0), "simulate.RHuginDomain")
 
-  prop.info <- summary(object)$domain[c("equilibrium", "evidence.mode")]
-  if(prop.info[1] != "sum")
+  if(summary(object)$domain["equilibrium"] != "sum")
     stop("the domain ", deparse(substitute(object)),
          " is not in sum-equilibrium")
-  if(prop.info[2] != "normal")
+  if(!.Call("RHugin_domain_evidence_mode_is", object, "normal",
+            PACKAGE = "RHugin"))
     stop("the evidence in ", deparse(substitute(object)), " was not",
          " incorporated in ", sQuote("normal"), " mode")
+  RHugin.handle.error()
 
   if(!is.null(seed)) {
     .Call("RHugin_domain_seed_random", object, as.integer(abs(seed)),
