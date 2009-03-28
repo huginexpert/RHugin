@@ -17,9 +17,13 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
                               "max", PACKAGE = "RHugin"),
                         "max", "sum")
 
-  evidence.mode <- ifelse(.Call("RHugin_domain_evidence_mode_is", object,
-                                "fast", PACKAGE = "RHugin"),
-                          "fast", "normal")
+  evidence.normal <- .Call("RHugin_domain_evidence_mode_is", object,
+                           "normal", PACKAGE = "RHugin")
+
+  evidence.fast <- .Call("RHugin_domain_evidence_mode_is", object,
+                         "fast", PACKAGE = "RHugin")
+
+  evidence.mode <- c("normal", "fast")[c(evidence.normal, evidence.fast)]
 
   evidence.propagated <- .Call("RHugin_domain_evidence_is_propagated", object,
                                 PACKAGE = "RHugin")

@@ -8,7 +8,8 @@ print.summary.RHuginDomain <- function(x, ...)
     if(x$domain$evidence.propagated) {
       cat("  *Evidence has been propagated.\n")
       cat("    *The equilibrium is ", x$domain$equilibrium, ".\n", sep = "")
-      cat("    *The evidence mode is ", x$domain$evidence.mode, ".\n", sep = "")
+      cat("    *The evidence mode is ", x$domain$evidence.mode[1], ".\n",
+          sep = "")
     }
 
     else

@@ -28,7 +28,7 @@ a list with class \code{summary.RHuginDomain}.
   \describe{
     \item{compiled}{a logical value indicating whether \code{object} is compiled.}
     \item{equilibrium}{a character string, either \dQuote{sum} or \dQuote{max}, indicating the type of equilibrium used in the most recent propagation.}
-    \item{evidence.mode}{a character string, either \dQuote{normal} or \dQuote{fast}, indicating the evidence mode used in the most recent propagation.}
+    \item{evidence.mode}{a character vector with elements \dQuote{normal} and/or \dQuote{fast} indicating the evidence incorporation modes that could have generated the current equilibrium.  If no evidence has been incorporated then there is no difference between the equilibrium produced by a \dQuote{normal} propagation and the equilibrium produced by a \dQuote{fast-retraction} propagation.  In this case, \sQuote{evidence.mode} will list both possible modes.}
     \item{evidence.propagated}{a logical value, \code{TRUE} if \code{object} has evidence propagated.}
     \item{L.evidence.propagated}{a logical value, \code{TRUE} if \code{object} has likelihood evidence propagated.}
     \item{GC.evidence.propagated}{a logical value, \code{TRUE} if \code{object} has conditional Gaussian evidence propagated.}
