@@ -2,12 +2,12 @@
 {
   if(Sys.info()["sysname"] == "Windows") {
     path <- Sys.getenv("PATH")
-    if(length(grep("HDE7.0C", path)) == 0) {
-      HuginVersions <- c("Hugin Researcher 7.0", "Hugin Lite 7.0")
+    if(length(grep("HDE7.1C", path)) == 0) {
+      HuginVersions <- c("Hugin Researcher 7.1", "Hugin Lite 7.1")
       HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
                             "Hugin Expert",
                              HuginVersions,
-                            "HDE7.0C\\Lib\\VC8\\Release\\hugin2-7.0-vc8.dll",
+                            "HDE7.1C\\Lib\\VC8\\Release\\hugin2-7.1-vc8.dll",
                              sep = "\\")
 
       if(length(HuginVersion <- which(file.exists(HuginDllPaths)))) {
@@ -15,7 +15,7 @@
         HuginPath <- paste(Sys.getenv("PROGRAMFILES"),
                           "Hugin Expert",
                            HuginVersion,
-                          "HDE7.0C\\Lib\\VC8\\Release",
+                          "HDE7.1C\\Lib\\VC8\\Release",
                            sep = "\\")
 
         Sys.setenv(PATH = paste(path, HuginPath, sep= ";"))
@@ -25,7 +25,7 @@
         detach("package:RHugin")
         stop("auto-detection of Hugin failed", "\n",
              "add the folder containing the file ",
-              dQuote("hugin2-7.0-vc8.dll"),
+              dQuote("hugin2-7.1-vc8.dll"),
              " to the Windows path")
       }
     }
@@ -33,7 +33,7 @@
 
   else if(Sys.info()["sysname"] == "Darwin") {
     if(nchar(Sys.getenv("HUGINHOME")) == 0) {
-      HuginVersions <- c("HDE7.0-researcher", "HDE7.0-lite")
+      HuginVersions <- c("HDE7.1-researcher", "HDE7.1-lite")
       HuginHomes <- paste("/Applications", HuginVersions, sep = "/")
 
       if(length(HuginVersion <- which(file.exists(HuginHomes)))) {
@@ -48,6 +48,15 @@
       }
     }
   }
+
+#  if(Sys.info()["sysname"] != "Windows") {
+#    dyldLibraryPath <- Sys.getenv("DYLD_LIBRARY_PATH")
+#    on.exit(Sys.setenv(DYLD_LIBRARY_PATH = dyldLibraryPath))
+#    HuginHome <- Sys.getenv("HUGINHOME")
+#    lib.dir <- intersect(c("lib", "lib64", "Libraries"), list.files(HuginHome))
+#    Sys.setenv(DYLD_LIBRARY_PATH = paste(paste(HuginHome, lib.dir, sep = "/"),
+#                                         dyldLibraryPath, sep = ":"))
+#  }
 
   library.dynam("RHugin")
   invisible(NULL)
