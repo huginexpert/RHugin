@@ -1,5 +1,0 @@
-PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGINHOME)/include
-PKG_LIBS=-L$(HUGINHOME)/lib64 -lhugin2 -Wl,-rpath=$(HUGINHOME)/lib64 \
-         -lm -lz -lpthread -lcrypt $(BLAS_LIBS) $(FLIBS)
-
-

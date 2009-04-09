@@ -13,8 +13,6 @@
 		0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compile.RHuginDomain.Rd; path = man/compile.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
 		0E1A4FE90F129ADE00128DF6 /* propagate.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = propagate.RHuginDomain.Rd; path = man/propagate.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
 		0E22C1D30F7F98BB00312AAF /* Makevars.osx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Makevars.osx; path = src/Makevars.osx; sourceTree = SOURCE_ROOT; };
-		0E22C1D40F7F98BB00312AAF /* Makevars.ux32 */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Makevars.ux32; path = src/Makevars.ux32; sourceTree = SOURCE_ROOT; };
-		0E22C1D50F7F98BB00312AAF /* Makevars.ux64 */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Makevars.ux64; path = src/Makevars.ux64; sourceTree = SOURCE_ROOT; };
 		0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.q; path = R/plot.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E39E5850E6AF895008B7B91 /* plot.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.Rd; path = man/plot.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
 		0E9E4E270EAB90A600AAA7D7 /* RHExample.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = RHExample.q; path = R/RHExample.q; sourceTree = SOURCE_ROOT; };
@@ -28,6 +26,7 @@
 		DA5E09C40E711F1B0014FAFE /* buildAppleTreeNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = buildAppleTreeNetwork.r; path = demo/buildAppleTreeNetwork.r; sourceTree = SOURCE_ROOT; };
 		DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildChestClinicNetwork.r; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
+		DAA2C39A0F8E34F6004C7606 /* Makevars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makevars; path = src/Makevars; sourceTree = SOURCE_ROOT; };
 		DAD83CD30E1A3764005C9495 /* set.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.finding.q; path = R/set.finding.q; sourceTree = "<group>"; };
 		DAD83CD40E1A4044005C9495 /* get.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.q; path = R/get.finding.q; sourceTree = SOURCE_ROOT; };
 		DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.Rd; path = man/get.finding.Rd; sourceTree = SOURCE_ROOT; };
@@ -225,9 +224,8 @@
 		DAEFA1A70DE307F2002B126B /* src */ = {
 			isa = PBXGroup;
 			children = (
+				DAA2C39A0F8E34F6004C7606 /* Makevars */,
 				0E22C1D30F7F98BB00312AAF /* Makevars.osx */,
-				0E22C1D40F7F98BB00312AAF /* Makevars.ux32 */,
-				0E22C1D50F7F98BB00312AAF /* Makevars.ux64 */,
 				DAEFA1EF0DE30860002B126B /* RHugin.c */,
 				DAEFA1F00DE30860002B126B /* RHugin.h */,
 				DAEFA1F10DE30860002B126B /* RHuginLink.c */,
