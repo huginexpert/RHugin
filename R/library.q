@@ -31,33 +31,6 @@
     }
   }
 
-  else if(Sys.info()["sysname"] == "Darwin") {
-    if(nchar(Sys.getenv("HUGINHOME")) == 0) {
-      HuginVersions <- c("HDE7.1-researcher", "HDE7.1-lite")
-      HuginHomes <- paste("/Applications", HuginVersions, sep = "/")
-
-      if(length(HuginVersion <- which(file.exists(HuginHomes)))) {
-        HuginHome <- HuginHomes[HuginVersion[1]]
-        Sys.setenv(HUGINHOME = HuginHome)
-      }
-
-      else {
-        detach("package:RHugin")
-        stop("auto-detection of Hugin failed", "\n",
-             "set the HUGINHOME environment variable (see Hugin Documentation)")
-      }
-    }
-  }
-
-#  if(Sys.info()["sysname"] != "Windows") {
-#    dyldLibraryPath <- Sys.getenv("DYLD_LIBRARY_PATH")
-#    on.exit(Sys.setenv(DYLD_LIBRARY_PATH = dyldLibraryPath))
-#    HuginHome <- Sys.getenv("HUGINHOME")
-#    lib.dir <- intersect(c("lib", "lib64", "Libraries"), list.files(HuginHome))
-#    Sys.setenv(DYLD_LIBRARY_PATH = paste(paste(HuginHome, lib.dir, sep = "/"),
-#                                         dyldLibraryPath, sep = ":"))
-#  }
-
   library.dynam("RHugin")
   invisible(NULL)
 }
