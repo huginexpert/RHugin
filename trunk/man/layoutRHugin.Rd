@@ -35,7 +35,7 @@ library(Rgraphviz)
 # function to add layout information then saves the domain as a net
 # file.  Open "ChestClinic.net" using the Hugin GUI to see the layout.
 
-RHExample("buildChestClinicNetwork")
+demo("buildChestClinicNetwork", echo = FALSE)
 layoutRHugin(x = as.graph.RHuginDomain(ChestClinic), domain = ChestClinic)
 write.rhd(ChestClinic, file = "ChestClinic.net", type = "net") 
 }
