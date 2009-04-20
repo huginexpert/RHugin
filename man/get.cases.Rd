@@ -30,7 +30,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-RHExample("buildChestClinicNetwork")
+demo("buildChestClinicNetwork", echo = FALSE)
 
 # The cases from example 11.1 in the Hugin API Manual
 ChestClinic.dat <- data.frame(

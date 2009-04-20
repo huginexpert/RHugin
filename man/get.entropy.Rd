@@ -32,7 +32,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-RHExample("buildChestClinicNetwork")
+demo("buildChestClinicNetwork", echo = FALSE)
 compile(ChestClinic)
 set.finding(ChestClinic, "Asia", "yes")
 propagate(ChestClinic)

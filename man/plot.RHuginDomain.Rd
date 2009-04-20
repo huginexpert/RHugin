@@ -30,7 +30,7 @@ the rendered \sQuote{graph} object is invisibly returned.
 \examples{
 library(Rgraphviz)
 
-RHExample("buildChestClinicNetwork")
+demo("buildChestClinicNetwork", echo = FALSE)
 plot(ChestClinic)
 write.rhd(ChestClinic, file = "ChestClinic.net", type = "net")
 

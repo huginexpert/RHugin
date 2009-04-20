@@ -29,7 +29,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-RHExample("buildAppleTreeNetwork")
+demo("buildAppleTreeNetwork", echo = FALSE)
 
 # Compile the domain
 compile(AppleTree)
