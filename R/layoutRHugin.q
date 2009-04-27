@@ -6,7 +6,7 @@ layoutRHugin <- function(x, domain, ...)
   RHugin.handle.error()
 
   if(all(size == 0)) {
-    x <- layoutGraph(x, ...)
+    x <- layoutGraph(x)
     nodeX <- x@renderInfo@nodes$nodeX
     nodeY <- x@renderInfo@nodes$nodeY
 
