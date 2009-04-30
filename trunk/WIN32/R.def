@@ -223,6 +223,9 @@ R_OpenCompiledFile
 R_Outputfile
 R_PV
 R_PackageEnvName
+R_ParseContextLine
+R_ParseErrorCol
+R_ParseRd
 R_ParseVector
 R_PosInf
 R_PreserveObject
@@ -308,6 +311,7 @@ R_gc
 R_getClassDef
 R_getDllInfo
 R_getEmbeddingDllInfo
+R_getS4DataSlot
 R_getTaskCallbackNames
 R_get_arith_function
 R_get_primname
@@ -449,6 +453,7 @@ Rf_PrintWarnings
 Rf_RGBpar
 Rf_RGBpar3
 Rf_ReplIteration
+Rf_S3Class
 Rf_ScalarComplex
 Rf_ScalarInteger
 Rf_ScalarLogical
@@ -476,6 +481,7 @@ Rf_allocVector
 Rf_applyClosure
 Rf_arraySubscript
 Rf_asChar
+Rf_asCharacterFactor
 Rf_asComplex
 Rf_asInteger
 Rf_asLogical
@@ -878,11 +884,18 @@ dnbinom_mu
 do_ICUset
 do_capabilitiesX11
 do_devAskNewPage
+do_dirchmod
+do_filecopy
+do_inspect
 do_interruptsSuspended
+do_msgwindow
+do_parseRd
 do_rawconnection
 do_rawconvalue
 do_set_prim_method
 do_setwinprogressbar
+do_unzip
+do_withVisible
 dpbfa_
 dpbsl_
 dpoco_
@@ -912,15 +925,23 @@ elmhes_
 eltran_
 end_Rmainloop
 exp_rand
+fclose_file_func
 fdhess
+ferror_file_func
 fft_factor
 fft_work
 filenameToWchar
+fill_fopen_filefunc
 findInterval
 find_interv_vec
 fixup_NaRm
+fopen_file_func
 formatError
 fprintf
+fread_file_func
+fseek_file_func
+ftell_file_func
+fwrite_file_func
 gc_inhibit_torture
 getDLLVersion
 getRHOME
@@ -930,6 +951,7 @@ get_R_HOME
 gl_hist_init
 gl_loadhistory
 gl_savehistory
+guiColors
 hqr2_
 i1mach_
 interv_
@@ -991,6 +1013,7 @@ snprintf
 sprintf
 trio_snprintf
 trio_sprintf
+trio_strerror
 trio_vsnprintf
 trio_vsprintf
 unif_rand
@@ -1004,6 +1027,8 @@ vmmin
 vprintf
 vsnprintf
 vsprintf
+wgl_loadhistoryW
+wgl_savehistoryW
 wilcox_free
 windelmenus
 wtransChar
@@ -1011,4 +1036,5 @@ xdr_double
 xdr_float
 xdrmem_create
 xerbla_
+yydebug
 
