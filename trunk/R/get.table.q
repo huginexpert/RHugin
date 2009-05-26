@@ -6,7 +6,7 @@ get.table <- function(domain, node,
 
   table.nodes <- get.table.nodes(domain, node)
   node.summary <- summary(domain, nodes = table.nodes)$nodes
-  tab <- NULL
+  table <- NULL
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
@@ -23,7 +23,7 @@ get.table <- function(domain, node,
     Freq <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    tab <- switch(class,
+    table <- switch(class,
       "data.frame" = cbind(expand.grid(states), Freq = Freq),
 
       "table" = {
@@ -84,21 +84,21 @@ get.table <- function(domain, node,
     RHugin.handle.error()
 
     if(length(beta))
-      tab <- as.vector(t(cbind(alpha, as.data.frame(beta), gamma)))
+      table <- as.vector(t(cbind(alpha, as.data.frame(beta), gamma)))
     else
-      tab <- as.vector(t(cbind(alpha, gamma)))
+      table <- as.vector(t(cbind(alpha, gamma)))
 
     if(length(states)) {
-      tab <- cbind(expand.grid(states), rep(components, temp), tab)
-      names(tab) <- c(names(states), node, "Value")
+      table <- cbind(expand.grid(states), rep(components, temp), table)
+      names(table) <- c(names(states), node, "Value")
     }
     else {
-      tab <- data.frame(components, tab)
-      names(tab) <- c(node, "Value")
+      table <- data.frame(components, table)
+      names(table) <- c(node, "Value")
     }
   }
 
-  tab
+  table
 }
 
 
