@@ -56,15 +56,15 @@ get.table <- function(domain, node,
 
     components <- c("(Intercept)", continuous.parents, "(Variance)")
     states <- character(0)
-    temp <- 1
+    n.state.space <- 1
     i <- 0
 
     if(length(discrete.parents)) {
       states <- lapply(discrete.parents, function(u) get.states(domain, u))
       names(states) <- discrete.parents
       states <- rev(states)
-      temp <- prod(sapply(states, length))
-      i <- 0:(temp - 1)
+      n.state.space <- prod(sapply(states, length))
+      i <- 0:(n.state.space - 1)
     }
 
     alpha <- .Call("RHugin_node_get_alpha", node.ptr, as.integer(i),
@@ -88,14 +88,43 @@ get.table <- function(domain, node,
     else
       table <- as.vector(t(cbind(alpha, gamma)))
 
-    if(length(states)) {
-      table <- cbind(expand.grid(states), rep(components, temp), table)
-      names(table) <- c(names(states), node, "Value")
-    }
-    else {
-      table <- data.frame(components, table)
-      names(table) <- c(node, "Value")
-    }
+    table <- switch(class,
+      "data.frame" = {
+        if(length(states)) {
+          states <- expand.grid(states)
+          states <- states[rep(1:n.state.space, each = length(components)), , drop = FALSE]
+          states[[node]] <- rep(components, n.state.space)
+          table <- cbind(states, Value = table)
+          row.names(table) <- NULL
+        }
+        else {
+          table <- data.frame(components, table)
+          names(table) <- c(node, "Value")
+        }
+
+        table
+      },
+
+      "table" = {
+        dn <- list()
+        dn[[node]] <- components
+        dn <- c(dn, states)
+        attributes(table) <- list(dim = sapply(dn, length), dimnames = dn,
+                                  class = "table")
+        table
+      },
+
+      "ftable" = {
+        dn <- list()
+        dn[[node]] <- components
+        dn <- c(dn, states)
+        attributes(table) <- list(dim = sapply(dn, length), dimnames = dn,
+                                  class = "table")
+        ftable(table, row.vars = node, col.vars = discrete.parents)
+      },
+
+      "numeric" = table
+    )
   }
 
   table

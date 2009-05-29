@@ -32,7 +32,7 @@ set.cases <- function(domain, data, Freq)
       },
 
       "continuous" = .Call("RHugin_node_set_case_value", node.ptr,
-                            as.integer(index.set), as.numeric(data[[node]]),
+                            as.integer(index.set), as.double(data[[node]]),
                             PACKAGE = "RHugin")
     )
 
@@ -50,7 +50,7 @@ set.cases <- function(domain, data, Freq)
     }
 
     status <- .Call("RHugin_domain_set_case_count", domain,
-                     as.integer(0:(n - 1)), as.numeric(Freq),
+                     as.integer(0:(n - 1)), as.double(Freq),
                      PACKAGE = "RHugin")
     RHugin.handle.error(status)
   }
