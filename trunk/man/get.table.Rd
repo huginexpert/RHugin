@@ -22,7 +22,7 @@ depending on the value of the \code{class} argument either (1, default) a data f
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_get_data}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_get_data} and for continuous nodes \code{h_node_get_alpha}, \code{h_node_get_beta} and \code{h_node_get_gamma}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
