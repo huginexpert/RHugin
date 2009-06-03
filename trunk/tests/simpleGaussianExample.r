@@ -26,4 +26,6 @@ propagate(simpleGaussianExample)
 X.belief <- get.belief(simpleGaussianExample, "X")
 Y.belief <- get.belief(simpleGaussianExample, "Y")
 
+rm(simpleGaussianExample, X.table, Y.table, Z.table)
+
 
