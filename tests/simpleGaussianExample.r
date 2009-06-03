@@ -1,3 +1,5 @@
+options(useFancyQuotes = FALSE)
+
 simpleGaussianExample <- hugin.domain()
 
 add.node(simpleGaussianExample, "X", kind = "continuous")
@@ -23,9 +25,7 @@ compile(simpleGaussianExample)
 set.finding(simpleGaussianExample, "Z", 1.5)
 propagate(simpleGaussianExample)
 
-X.belief <- get.belief(simpleGaussianExample, "X")
-Y.belief <- get.belief(simpleGaussianExample, "Y")
-
-rm(simpleGaussianExample, X.table, Y.table, Z.table)
+get.belief(simpleGaussianExample, "X")
+get.belief(simpleGaussianExample, "Y")
 
 
