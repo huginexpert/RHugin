@@ -5,18 +5,30 @@ get.finding <- function(domain, node)
   node.summary <- summary(domain, node)$nodes[[node]]
   category <- node.summary$category
   kind <- node.summary$kind
-  states <- get.states(domain, node)
-
-  if(kind != "discrete" || (category != "chance" && category != "decision"))
-    stop(dQuote(node), " is not a discrete chance or decision node")
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
                      as.character(node), PACKAGE = "RHugin")
+  RHugin.handle.error(status)
 
-  finding <- .Call("RHugin_node_get_entered_finding", node.ptr,
-                    as.integer(0:(length(states) - 1)), PACKAGE = "RHugin")
+  if(kind == "discrete") {
+    if(category != "chance" && category != "decision")
+      stop(dQuote(node), " is not a discrete chance or decision node")
 
-  names(finding) <- states
+    states <- get.states(domain, node)
+
+    finding <- .Call("RHugin_node_get_entered_finding", node.ptr,
+                      as.integer(0:(length(states) - 1)), PACKAGE = "RHugin")
+    RHugin.handle.error()
+
+    names(finding) <- states
+  }
+
+  if(kind == "continuous") {
+    finding <- .Call("RHugin_node_get_entered_value", node.ptr,
+                      PACKAGE = "RHugin")
+    RHugin.handle.error()
+  }
+
   finding
 }
 
