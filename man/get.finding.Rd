@@ -4,7 +4,7 @@
 \title{Get Entered Finding}
 
 \description{
-Retrieve entered findings from a node in an RHugin domain object.
+Retrieve the entered finding from a node in an RHugin domain object.
 }
 
 \usage{
@@ -17,7 +17,7 @@ get.finding(domain, node)
 }
 
 \value{
-  a numeric vector containing the entered likelihood for each state in \code{node}.
+  for discrete nodes: a numeric vector containing the entered likelihood for each state in \code{node}; for continuous nodes a single numeric value containing the entered finding.
 }
 
 \references{

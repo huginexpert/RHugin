@@ -25,6 +25,8 @@
 		DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildChestClinicNetwork.r; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
 		DAA2C39A0F8E34F6004C7606 /* Makevars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makevars; path = src/Makevars; sourceTree = SOURCE_ROOT; };
+		DAB78ADC0FD6A953006F5363 /* simpleGaussianExample.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = simpleGaussianExample.r; sourceTree = "<group>"; };
+		DAB78ADD0FD6B6D4006F5363 /* appleTree.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = appleTree.r; sourceTree = "<group>"; };
 		DAD83CD30E1A3764005C9495 /* set.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.finding.q; path = R/set.finding.q; sourceTree = "<group>"; };
 		DAD83CD40E1A4044005C9495 /* get.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.q; path = R/get.finding.q; sourceTree = SOURCE_ROOT; };
 		DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.Rd; path = man/get.finding.Rd; sourceTree = SOURCE_ROOT; };
@@ -112,14 +114,24 @@
 			path = demo;
 			sourceTree = SOURCE_ROOT;
 		};
+		DAB78AD80FD6A7FC006F5363 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				DAB78ADD0FD6B6D4006F5363 /* appleTree.r */,
+				DAB78ADC0FD6A953006F5363 /* simpleGaussianExample.r */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
 		DAEFA1960DE30792002B126B = {
 			isa = PBXGroup;
 			children = (
 				DAEFA1F70DE30880002B126B /* DESCRIPTION */,
 				DAEFA1A40DE307D8002B126B /* R */,
-				DAEFA1A50DE307DF002B126B /* man */,
 				DA5E09C30E711F1B0014FAFE /* demo */,
+				DAEFA1A50DE307DF002B126B /* man */,
 				DAEFA1A70DE307F2002B126B /* src */,
+				DAB78AD80FD6A7FC006F5363 /* tests */,
 			);
 			sourceTree = "<group>";
 		};

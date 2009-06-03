@@ -17,7 +17,7 @@ set.finding <- function(domain, node, finding, case = NULL)
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
-  RHugin.handle.error(status)
+  RHugin.handle.error()
 
   if(kind == "discrete") {
     if(category != "chance" && category != "decision")

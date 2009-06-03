@@ -38,7 +38,7 @@ get.belief <- function(domain, node, states = NULL)
     RHugin.handle.error()
     belief[2] <- .Call("RHugin_node_get_variance", node.ptr, PACKAGE = "RHugin")
     RHugin.handle.error()
-    names(belief) <- c("(Intercept)", "(Variance)")
+    names(belief) <- c("(Mean)", "(Variance)")
   }
 
   belief

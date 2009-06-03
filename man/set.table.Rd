@@ -18,7 +18,7 @@ set.table(domain, node, data)
 }
 
 \details{
-The data frame containing the table must match Hugin's internal representation of the table data. The best way to do this is to use \code{get.table} to obtain a data frame with the proper layout, set the probabilities (frequencies) in the final column of this data frame and finally use \code{set.table} to set the table information in Hugin.  See the example.
+The data frame containing the table must match Hugin's internal representation of the table data. The best way to do this is to use \code{get.table} to obtain a data frame with the proper layout, set the probabilities (frequencies) in the final column of this data frame and finally use \code{set.table} to set the table information in the Hugin domain.  See the example.
 }
 
 \value{
@@ -26,7 +26,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_set_data} and \code{h_node_touch_table}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_set_data} and \code{h_node_touch_table} and for continuous nodes \code{h_node_set_alpha}, \code{h_node_set_beta} and \code{h_node_set_gamma}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
