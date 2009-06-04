@@ -15,6 +15,12 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+> library(RHugin, lib.loc = "../")
+Loading required package: graph
+Loading required package: gRain
+Loading required package: gRbase
+Loading required package: MASS
+Loading required package: RBGL
 > asia <- hugin.domain()
 > 
 > nodes <- c("Asia", "Smoking", "Tuberculosis", "LungCancer",
