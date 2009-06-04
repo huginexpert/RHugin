@@ -1,0 +1,97 @@
+
+R version 2.9.0 (2009-04-17)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> asia <- hugin.domain()
+> 
+> nodes <- c("Asia", "Smoking", "Tuberculosis", "LungCancer",
++             "Bronchitis", "Either", "XRay", "Dyspnoea")
+> for(node in nodes)
++   add.node(asia, node, states = c("yes", "no"))
+> 
+> add.edge(asia, "Tuberculosis", "Asia")
+> add.edge(asia, "LungCancer", "Smoking")
+> add.edge(asia, "Bronchitis", "Smoking")
+> add.edge(asia, "Either", c("Tuberculosis", "LungCancer"))
+> add.edge(asia, "XRay", "Either")
+> add.edge(asia, "Dyspnoea", c("Either", "Bronchitis"))
+> 
+> Asia.table <- get.table(asia, "Asia")
+> Asia.table[["Freq"]] <- c(0.01, 0.99)
+> set.table(asia, "Asia", Asia.table)
+> 
+> Smoking.table <- get.table(asia, "Smoking")
+> Smoking.table[["Freq"]] <- c(0.5, 0.5)
+> set.table(asia, "Smoking", Smoking.table)
+> 
+> Tuberculosis.table <- get.table(asia, "Tuberculosis")
+> Tuberculosis.table[["Freq"]] <- c(0.05, 0.95, 0.01, 0.99)
+> set.table(asia, "Tuberculosis", Tuberculosis.table)
+> 
+> LungCancer.table <- get.table(asia, "LungCancer")
+> LungCancer.table[["Freq"]] <- c(0.1, 0.9, 0.01, 0.99)
+> set.table(asia, "LungCancer", LungCancer.table)
+> 
+> Bronchitis.table <- get.table(asia, "Bronchitis")
+> Bronchitis.table[["Freq"]] <- c(0.6, 0.4, 0.3, 0.7)
+> set.table(asia, "Bronchitis", Bronchitis.table)
+> 
+> Either.table <- get.table(asia, "Either")
+> Either.table[["Freq"]] <- c(1, 0, 1, 0, 1, 0, 0, 1)
+> set.table(asia, "Either", Either.table)
+> 
+> XRay.table <- get.table(asia, "XRay")
+> XRay.table[["Freq"]] <- c(0.98, 0.02, 0.05, 0.95)
+> set.table(asia, "XRay", XRay.table)
+> 
+> Dyspnoea.table <- get.table(asia, "Dyspnoea")
+> Dyspnoea.table[["Freq"]] <- c(0.9, 0.1, 0.8, 0.2, 0.7, 0.3, 0.1, 0.9)
+> set.table(asia, "Dyspnoea", Dyspnoea.table)
+> 
+> compile(asia)
+> 
+> set.finding(asia, "Asia", "yes")
+> set.finding(asia, "Dyspnoea", "yes")
+> 
+> propagate(asia)
+> 
+> get.belief(asia, "Asia")
+yes  no 
+  1   0 
+> get.belief(asia, "Smoking")
+      yes        no 
+0.6259199 0.3740801 
+> get.belief(asia, "Tuberculosis")
+       yes         no 
+0.08775096 0.91224904 
+> get.belief(asia, "LungCancer")
+       yes         no 
+0.09952515 0.90047485 
+> get.belief(asia, "Bronchitis")
+      yes        no 
+0.8114021 0.1885979 
+> get.belief(asia, "Either")
+      yes        no 
+0.1822999 0.8177001 
+> get.belief(asia, "XRay")
+      yes        no 
+0.2195389 0.7804611 
+> get.belief(asia, "Dyspnoea")
+yes  no 
+  1   0 
+> 
+> 
+> 
