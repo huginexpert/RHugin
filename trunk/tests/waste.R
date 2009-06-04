@@ -1,5 +1,4 @@
-options(useFancyQuotes = FALSE)
-
+library(RHugin, lib.loc = "../")
 waste <- hugin.domain()
 
 add.node(waste, "Type", states = c("industrial", "household"))

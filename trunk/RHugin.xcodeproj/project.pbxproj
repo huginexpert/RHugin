@@ -20,15 +20,19 @@
 		0EE02C580EC36B4700F321DA /* get.entropy.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.q; path = R/get.entropy.q; sourceTree = SOURCE_ROOT; };
 		0EE02C630EC38E2700F321DA /* get.entropy.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.Rd; path = man/get.entropy.Rd; sourceTree = SOURCE_ROOT; };
 		0EFD932D0E8FE8E000A0CDAA /* buildTestNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildTestNetwork.r; sourceTree = "<group>"; };
-		DA4709390FD8028F001CB5BF /* waste.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = waste.r; sourceTree = "<group>"; };
-		DA47093A0FD811D1001CB5BF /* asia.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = asia.r; sourceTree = "<group>"; };
+		DA47098D0FD82B5E001CB5BF /* appleTree.R */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = appleTree.R; path = tests/appleTree.R; sourceTree = "<group>"; };
+		DA47098E0FD82B5E001CB5BF /* asia.R */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = asia.R; path = tests/asia.R; sourceTree = "<group>"; };
+		DA47098F0FD82B5E001CB5BF /* simpleGaussianExample.R */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = simpleGaussianExample.R; path = tests/simpleGaussianExample.R; sourceTree = "<group>"; };
+		DA4709900FD82B5E001CB5BF /* waste.R */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = waste.R; path = tests/waste.R; sourceTree = "<group>"; };
+		DA4709AA0FD82EBC001CB5BF /* appleTree.Rout.save */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = appleTree.Rout.save; path = tests/appleTree.Rout.save; sourceTree = SOURCE_ROOT; };
+		DA4709AB0FD82EBC001CB5BF /* asia.Rout.save */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = asia.Rout.save; path = tests/asia.Rout.save; sourceTree = SOURCE_ROOT; };
+		DA4709AC0FD82EBC001CB5BF /* simpleGaussianExample.Rout.save */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simpleGaussianExample.Rout.save; path = tests/simpleGaussianExample.Rout.save; sourceTree = SOURCE_ROOT; };
+		DA4709AD0FD82EBC001CB5BF /* waste.Rout.save */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = waste.Rout.save; path = tests/waste.Rout.save; sourceTree = SOURCE_ROOT; };
 		DA4C81C40EB2054F00834BEA /* get.sensitivity.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.sensitivity.q; path = R/get.sensitivity.q; sourceTree = "<group>"; };
 		DA5E09C40E711F1B0014FAFE /* buildAppleTreeNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = buildAppleTreeNetwork.r; path = demo/buildAppleTreeNetwork.r; sourceTree = SOURCE_ROOT; };
 		DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildChestClinicNetwork.r; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
 		DAA2C39A0F8E34F6004C7606 /* Makevars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makevars; path = src/Makevars; sourceTree = SOURCE_ROOT; };
-		DAB78ADC0FD6A953006F5363 /* simpleGaussianExample.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = simpleGaussianExample.r; sourceTree = "<group>"; };
-		DAB78ADD0FD6B6D4006F5363 /* appleTree.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = appleTree.r; sourceTree = "<group>"; };
 		DAD83CD30E1A3764005C9495 /* set.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.finding.q; path = R/set.finding.q; sourceTree = "<group>"; };
 		DAD83CD40E1A4044005C9495 /* get.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.q; path = R/get.finding.q; sourceTree = SOURCE_ROOT; };
 		DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.Rd; path = man/get.finding.Rd; sourceTree = SOURCE_ROOT; };
@@ -105,6 +109,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		DA4709910FD82B69001CB5BF /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				DA47098D0FD82B5E001CB5BF /* appleTree.R */,
+				DA4709AA0FD82EBC001CB5BF /* appleTree.Rout.save */,
+				DA47098E0FD82B5E001CB5BF /* asia.R */,
+				DA4709AB0FD82EBC001CB5BF /* asia.Rout.save */,
+				DA47098F0FD82B5E001CB5BF /* simpleGaussianExample.R */,
+				DA4709AC0FD82EBC001CB5BF /* simpleGaussianExample.Rout.save */,
+				DA4709900FD82B5E001CB5BF /* waste.R */,
+				DA4709AD0FD82EBC001CB5BF /* waste.Rout.save */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
 		DA5E09C30E711F1B0014FAFE /* demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,17 +135,6 @@
 			path = demo;
 			sourceTree = SOURCE_ROOT;
 		};
-		DAB78AD80FD6A7FC006F5363 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				DAB78ADD0FD6B6D4006F5363 /* appleTree.r */,
-				DAB78ADC0FD6A953006F5363 /* simpleGaussianExample.r */,
-				DA4709390FD8028F001CB5BF /* waste.r */,
-				DA47093A0FD811D1001CB5BF /* asia.r */,
-			);
-			path = tests;
-			sourceTree = "<group>";
-		};
 		DAEFA1960DE30792002B126B = {
 			isa = PBXGroup;
 			children = (
@@ -135,7 +143,7 @@
 				DA5E09C30E711F1B0014FAFE /* demo */,
 				DAEFA1A50DE307DF002B126B /* man */,
 				DAEFA1A70DE307F2002B126B /* src */,
-				DAB78AD80FD6A7FC006F5363 /* tests */,
+				DA4709910FD82B69001CB5BF /* tests */,
 			);
 			sourceTree = "<group>";
 		};

@@ -1,5 +1,4 @@
-options(useFancyQuotes = FALSE)
-
+library(RHugin, lib.loc = "../")
 AppleTree <- hugin.domain()
 
 add.node(AppleTree, "Sick", states = c("yes", "no"))

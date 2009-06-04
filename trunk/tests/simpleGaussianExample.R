@@ -1,5 +1,4 @@
-options(useFancyQuotes = FALSE)
-
+library(RHugin, lib.loc = "../")
 simpleGaussianExample <- hugin.domain()
 
 add.node(simpleGaussianExample, "X", kind = "continuous")

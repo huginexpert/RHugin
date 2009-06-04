@@ -1,5 +1,4 @@
-options(useFancyQuotes = FALSE)
-
+library(RHugin, lib.loc = "../")
 asia <- hugin.domain()
 
 nodes <- c("Asia", "Smoking", "Tuberculosis", "LungCancer",
