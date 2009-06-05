@@ -1,7 +1,7 @@
 add.node <- function(domain, name,
-                     category = c("chance", "decision", "utility", "instance"),
+                     category = c("chance", "decision", "utility"),
                      kind = c("discrete", "continuous"),
-                     subtype = c("labeled", "boolean", "numbered", "interval"),
+                     #subtype = c("labeled", "boolean", "numbered", "interval"),
                      states)
 {
   RHugin.check.args(domain, character(0), name, "add.node")
@@ -16,19 +16,20 @@ add.node <- function(domain, name,
   status <- .Call("RHugin_node_set_name", new.node, name, PACKAGE = "RHugin")
   RHugin.handle.error(status)
 
-  if(kind == "discrete") {
-    if(subtype == "boolean") {
-      status <- .Call("RHugin_node_set_number_of_states", new.node,
-                       as.integer(2), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-    }
+#  if((category == "chance" && kind == "discrete") || category == "decision") {
+#    if(subtype == "boolean") {
+#      status <- .Call("RHugin_node_set_number_of_states", new.node,
+#                       as.integer(2), PACKAGE = "RHugin")
+#      RHugin.handle.error(status)
+#    }
+#
+#    status <- .Call("RHugin_node_set_subtype", new.node, as.character(subtype),
+#                     PACKAGE = "RHugin")
+#    RHugin.handle.error(status)
+#  }
 
-    status <- .Call("RHugin_node_set_subtype", new.node, as.character(subtype),
-                     PACKAGE = "RHugin")
-    RHugin.handle.error(status)
-  }
-
-  if(kind == "discrete" && !missing(states)) {
+  if(((category == "chance" && kind == "discrete") || category == "decision") &&
+      !missing(states)) {
     status <- set.states(domain, name, states)
     RHugin.handle.error(status)
   }
