@@ -33,12 +33,15 @@ print.summary.RHuginDomain <- function(x, ...)
 
   for(name in names(x$nodes)) {
     cat(name, ":\n", sep = "")
-    cat("      kind: ", x$nodes[[name]]$kind, "\n", sep = "")
     cat("  category: ", x$nodes[[name]]$category, "\n", sep = "")
-    cat("   subtype: ", x$nodes[[name]]$subtype, "\n", sep = "")
+    if(!is.null(x$nodes[[name]]$kind))
+      cat("      kind: ", x$nodes[[name]]$kind, "\n", sep = "")
+    if(!is.null(x$nodes[[name]]$subtype))
+      cat("   subtype: ", x$nodes[[name]]$subtype, "\n", sep = "")
     if(!is.null(x$nodes[[name]]$states))
       cat("    states: ", "{", paste(x$nodes[[name]]$states, collapse = ", "),
-          "}\n\n", sep = "")
+          "}\n", sep = "")
+    cat("\n")
   }
 
   invisible(x)

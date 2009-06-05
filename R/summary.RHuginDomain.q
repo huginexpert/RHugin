@@ -49,30 +49,40 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
                          evidence.to.propagate = evidence.to.propagate,
                          tables.to.propagate = tables.to.propagate)
 
-
   node.summary <- list()
 
   for(node in nodes) {
     node.ptr <- .Call("RHugin_domain_get_node_by_name", object, node,
                        PACKAGE = "RHugin")
     RHugin.handle.error()
+
     node.category <- .Call("RHugin_node_get_category", node.ptr,
                             PACKAGE = "RHugin")
     RHugin.handle.error()
-    node.kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
 
-    if(node.kind == "discrete") {
-      node.subtype <- .Call("RHugin_node_get_subtype", node.ptr,
-                             PACKAGE = "RHugin")
+    if(node.category == "chance" || node.category == "decision") {
+      node.kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
       RHugin.handle.error()
-      states <- get.states(object, node)
+
+      if(node.kind == "discrete") {
+        node.subtype <- .Call("RHugin_node_get_subtype", node.ptr,
+                               PACKAGE = "RHugin")
+        RHugin.handle.error()
+        states <- get.states(object, node)
+      }
+
+      else {
+        node.subtype <- NULL
+        states <- NULL
+      }
     }
 
     else {
+      node.kind <- NULL
       node.subtype <- NULL
       states <- NULL
     }
+
 
     node.summary[[node]] <- list(category = node.category, kind = node.kind,
                                  subtype = node.subtype, states = states)
