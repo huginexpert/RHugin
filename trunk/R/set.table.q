@@ -32,7 +32,7 @@ set.table <- function(domain, node, data)
       "data.frame" = {
         if(category == "utility")
           table <- data[["Utility"]]
-        if(category == "decision")
+        else if(category == "decision")
           table <- data[["Cost"]]
         else
           table <- data[["Freq"]]

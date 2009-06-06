@@ -8,17 +8,16 @@ Retrieve beliefs from a node in an RHugin domain object.
 }
 
 \usage{
-get.belief(domain, node, states = NULL)
+get.belief(domain, node)
 }
 
 \arguments{
   \item{domain}{an RHugin domain object.}
   \item{node}{a character string specifying the name of the node from which the beliefs are to be retrieved.}
-  \item{states}{an optional vector specifying the states of \sQuote{node} for which beliefs are to be retrieved.  If \code{NULL} then beliefs are retrieved for all states.  This argument is ignored if \code{node} is continuous.}
 }
 
 \value{
-for discrete nodes: a numeric vector containing the beliefs in the specified states; for continuous nodes: a numeric vector of length two containing the mean and the variance of the marginal distribution.
+for discrete nodes: a numeric vector containing the belief for each state in \code{node}; for continuous nodes: a numeric vector of length two containing the mean and the variance of the marginal distribution.
 }
 
 \references{
