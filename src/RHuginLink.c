@@ -2766,7 +2766,7 @@ SEXP RHugin_node_get_expected_utility(SEXP Snode, SEXP Sstate)
   if(LENGTH(Sstate) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Sstate)));
     for(i = 0; i < LENGTH(Sstate); i++)
-      REAL(ret)[0] = (double) h_node_get_expected_utility(node, (size_t) INTEGER(Sstate)[i]);
+      REAL(ret)[i] = (double) h_node_get_expected_utility(node, (size_t) INTEGER(Sstate)[i]);
     UNPROTECT(1);
   }
 

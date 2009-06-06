@@ -14,13 +14,13 @@ hugin.domain <- function(graph, data)
 
     for(node in node.names) {
       status <- switch(class(data[[node]])[1],
-        "integer" = add.node(domain, name = node, subtype = "numbered",
-                              states = sort(unique(data[[node]]))),
+        "integer" = add.node(domain, name = node,
+                             states = as.numeric(sort(unique(data[[node]])))),
 
-        "numeric" = add.node(domain, name = node, subtype = "numbered",
-                              states = sort(unique(data[[node]]))),
+        "numeric" = add.node(domain, name = node,
+                             states = as.numeric(sort(unique(data[[node]])))),
 
-        "logical" = add.node(domain, name = node, subtype = "boolean"),
+        "logical" = add.node(domain, name = node, states = c(FALSE, TRUE)),
 
         {
           x <- as.factor(data[[node]])
