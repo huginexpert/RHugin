@@ -5,10 +5,10 @@ layoutRHugin <- function(x, domain, ...)
   size <- .Call("RHugin_domain_get_node_size", domain, PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  if(all(size == 0)) {
+  if(abs(prod(size)) < 1e-3) {
     x <- layoutGraph(x)
-    nodeX <- x@renderInfo@nodes$nodeX
-    nodeY <- x@renderInfo@nodes$nodeY
+    nodeX <- nodeRenderInfo(x)$nodeX
+    nodeY <- nodeRenderInfo(x)$nodeY
 
     for(node in nodes) {
       node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
@@ -39,18 +39,15 @@ layoutRHugin <- function(x, domain, ...)
   height <- rep(as.integer(size[2]), n.nodes)
   nodeX <- as.integer(nodeX + width[1] + 5)
   nodeY <- as.integer(nodeY + ceiling(height[1] / 2) + 5)
-  #shape <- rep("ellipse", n.nodes)
-  #names(width) <- names(height) <- names(shape) <- nodes
   names(width) <- names(height) <- nodes
   names(nodeX) <- names(nodeY) <- nodes
 
-  #nodeRenderInfo <- list(rWidth = width, lWidth = width, height = height,
-  #                       nodeX = nodeX, nodeY = nodeY, labelX = nodeX,
-  #                       labelY = nodeY, shape = shape, label = nodes)
-
-  nodeRenderInfo <- list(rWidth = width, lWidth = width, height = height,
-                         nodeX = nodeX, nodeY = nodeY, labelX = nodeX,
-                         labelY = nodeY, label = nodes)
+  NRIx <- nodeRenderInfo(x)
+  NRIx[["rWidth"]] <- NRIx[["lWidth"]] <- width
+  NRIx[["height"]] <- height
+  NRIx[["nodeX"]] <- NRIx[["labelX"]] <- nodeX
+  NRIx[["nodeY"]] <- NRIx[["labelY"]] <- nodeY
+  nodeRenderInfo(x) <- NRIx
 
   edge.list <- get.edges(domain)
   edges <- character(0)
@@ -62,31 +59,65 @@ layoutRHugin <- function(x, domain, ...)
         this.edge <- paste(parent, child, sep = "~")
         edges <- c(edges, this.edge)
 
-        h1 <- nodeX[parent]
-        k1 <- nodeY[parent]
-        h2 <- nodeX[child]
-        k2 <- nodeY[child]
+        px <- nodeX[parent]
+        py <- nodeY[parent]
+        parent.shape <- NRIx$shape[parent]
+        if(is.na(parent.shape))
+          parent.shape <- "ellipse"
+
+        cx <- nodeX[child]
+        cy <- nodeY[child]
+        child.shape <- NRIx$shape[child]
+        if(is.na(child.shape))
+          child.shape <- "ellipse"
+
         a <- width[1]
         b <- as.integer(ceiling(height[1] / 2))
+        ac <- round(1.25 * a)
+        bc <- round(1.25 * b)
 
-        if(h2 == h1) {
-          if(k2 > k1) {
-            x1 <- x2 <- h1
-            y2 <- k2 - b
-            y1 <- k1 + b
-          }
-          else {
-            x1 <- x2 <- h1
-            y2 <- k2 + b
-            y1 <- k1 - b
-          }
+        if(cx == px) {
+          x1 <- x2 <- px
+          y2 <- cy - ifelse(cy > py, bc, -bc)
+          y1 <- py + ifelse(cy > py, b, -b)
         }
+
         else {
-          m <- (k2 - k1) / (h2 - h1)
-          x1 <- h1 + sign(h2 - h1) * sqrt(1.0 / (1 / a^2 + m^2 / b^2))
-          y1 <- k1 + m * (x1 - h1)
-          x2 <- h2 + sign(h1 - h2) * sqrt(1.0 / (1 / a^2 + m^2 / b^2))
-          y2 <- k2 + m * (x2 - h2)
+          m <- (cy - py) / (cx - px)
+
+          if(parent.shape == "rectangle") {
+            if(abs(m) < b/a) {
+              x1 <- px + sign(cx - px) * a
+              y1 <- py + m * sign(cx - px) * a
+            }
+
+            else {
+              x1 <- (sign(cy - py) * b) / m + px
+              y1 <- py + sign(cy - py) * b
+            }
+          }
+
+          else {
+            x1 <- px + sign(cx - px) * sqrt(1.0 / (1 / a^2 + m^2 / b^2))
+            y1 <- py + m * (x1 - px)
+          }
+
+          if(child.shape == "rectangle") {
+            if(abs(m) < b/a) {
+              x2 <- cx + sign(px - cx) * ac
+              y2 <- cy + m * sign(px - cx) * ac
+            }
+
+            else {
+              x2 <- (sign(py - cy) * bc) / m + cx
+              y2 <- cy + sign(py - cy) * bc
+            }
+          }
+
+          else {
+            x2 <- cx + sign(px - cx) * sqrt(1.0 / (1 / ac^2 + m^2 / bc^2))
+            y2 <- cy + m * (x2 - cx)
+          }
         }
 
         h <- new("xyPoint", x = as.integer(x1), y = as.integer(y1))
@@ -105,18 +136,23 @@ layoutRHugin <- function(x, domain, ...)
   direction <- rep("forward", n.edges)
   names(arrowhead) <- names(arrowtail) <- names(direction) <- edges
 
-  edgeRenderInfo <- list(splines = splines, labelX = NAvec, labelY = NAvec,
-                         label = NAvec, arrowhead = arrowhead,
-                         arrowtail = arrowtail, direction = direction)
+  ERIx <- edgeRenderInfo(x)
+  ERIx[["splines"]] <- splines
+  ERIx[["labelX"]] <- ERIx[["labelY"]] <- ERIx[["label"]] <- NAvec
+  ERIx[["arrowhead"]] <- arrowhead
+  ERIx[["arrowtail"]] <- arrowtail
+  ERIx[["direction"]] <- direction
+  edgeRenderInfo(x) <- ERIx
 
   boundingBox <- matrix(c(0, max(nodeX) + width[1] + 5, 0,
                           max(nodeY) + ceiling(height[1] / 2) + 5),
                         2, 2)
 
-  graph <- list(bbox = boundingBox, laidout = TRUE, recipEdges = "combined")
-
-  x@renderInfo <- new("renderInfo", nodes = nodeRenderInfo,
-                       edges = edgeRenderInfo, graph = graph)
+  gRIx <- graphRenderInfo(x)
+  gRIx[["bbox"]] <- boundingBox
+  gRIx[["laidout"]] <- TRUE
+  gRIx[["recipEdges"]] <- "combined"
+  graphRenderInfo(x) <- gRIx
 
   invisible(x)
 }
