@@ -17,10 +17,10 @@ plot.RHuginDomain <- function(x, y, ...)
     }
     else if(node.summary[[node]]$category == "utility") {
       fill[node] <- "green"
-      shape[node] <- "circle"
+      shape[node] <- "rectangle"
     }
     else {
-      fill[node] <- "lightyellow"
+      fill[node] <- "yellow"
       shape[node] <- "ellipse"
     }
   }
@@ -29,13 +29,9 @@ plot.RHuginDomain <- function(x, y, ...)
   nodeRenderInfo(gx) <- list(fill = fill, shape = shape, lwd = 3)
   edgeRenderInfo(gx) <- list(lwd = 2)
   gx <- layoutGraph(gx, layoutFun = layoutRHugin, domain = x)
-
-  #gx@renderInfo@nodes$rWidth <- round(2 * gx@renderInfo@nodes$rWidth)
-  #gx@renderInfo@nodes$lWidth <- round(2 * gx@renderInfo@nodes$lWidth)
-  #gx@renderInfo@nodes$height <- round(1.5 * gx@renderInfo@nodes$height)
-
   renderGraph(gx)
-  invisible(x)
+
+  invisible(gx)
 }
 
 
