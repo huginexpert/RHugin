@@ -23,7 +23,7 @@ add.node(domain, name,
 }
 
 \details{
-The name of the node must be a valid identifier in the C programming language.  In particular the name must start with a letter and contain no white space.
+The name of the node must be a valid identifier in the C programming language.  In particular the name must start with a letter and contain no white space.  Additionally, the words \dQuote{Freq}, \dQuote{Value}, \dQuote{Cost} and \dQuote{Utility} are reserved and cannot be used as the name of a node.
 }
 
 \value{
