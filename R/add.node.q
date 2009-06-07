@@ -7,7 +7,9 @@ add.node <- function(domain, name,
 
   category <- match.arg(category)
   kind <- match.arg(kind)
-  #subtype <- match.arg(subtype)
+
+  if(is.element(name, c("Freq", "Value", "Cost", "Utility")))
+    stop("invalid name: ", dQuote(name), " is a reserved word in RHugin")
 
   new.node <- .Call("RHugin_domain_new_node", domain, as.character(category),
                      as.character(kind), PACKAGE = "RHugin")
