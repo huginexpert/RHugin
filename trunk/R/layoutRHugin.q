@@ -39,13 +39,18 @@ layoutRHugin <- function(x, domain, ...)
   height <- rep(as.integer(size[2]), n.nodes)
   nodeX <- as.integer(nodeX + width[1] + 5)
   nodeY <- as.integer(nodeY + ceiling(height[1] / 2) + 5)
-  shape <- rep("ellipse", n.nodes)
-  names(width) <- names(height) <- names(shape) <- nodes
+  #shape <- rep("ellipse", n.nodes)
+  #names(width) <- names(height) <- names(shape) <- nodes
+  names(width) <- names(height) <- nodes
   names(nodeX) <- names(nodeY) <- nodes
+
+  #nodeRenderInfo <- list(rWidth = width, lWidth = width, height = height,
+  #                       nodeX = nodeX, nodeY = nodeY, labelX = nodeX,
+  #                       labelY = nodeY, shape = shape, label = nodes)
 
   nodeRenderInfo <- list(rWidth = width, lWidth = width, height = height,
                          nodeX = nodeX, nodeY = nodeY, labelX = nodeX,
-                         labelY = nodeY, shape = shape, label = nodes)
+                         labelY = nodeY, label = nodes)
 
   edge.list <- get.edges(domain)
   edges <- character(0)
