@@ -21,19 +21,31 @@ set.cases <- function(domain, data, Freq)
 
     status <- switch(node.summary[[node]]$kind,
       "discrete" = {
-        states <- get.states(domain, node)
-        state.indices <- match(data[[node]], states, nomatch = NA)
+        if(is.element(node.summary[[node]]$subtype, c("labeled", "boolean"))) {
+          states <- get.states(domain, node)
+          state.indices <- match(data[[node]], states, nomatch = NA) - 1
+        }
+        else {
+          state.indices <- .Call("RHugin_node_get_state_index_from_value",
+                                  node.ptr, as.double(data[[node]]),
+                                  PACKAGE = "RHugin")
+          state.indices[state.indices == -1] <- NA
+        }
+
         index.set <- which(!is.na(state.indices))
         state.indices <- state.indices[index.set]
 
         .Call("RHugin_node_set_case_state", node.ptr,
-               as.integer(index.set - 1), as.integer(state.indices - 1),
+               as.integer(index.set - 1), as.integer(state.indices),
                PACKAGE = "RHugin")
       },
 
-      "continuous" = .Call("RHugin_node_set_case_value", node.ptr,
-                            as.integer(index.set), as.double(data[[node]]),
-                            PACKAGE = "RHugin")
+      "continuous" = {
+        index.set <- which(is.finite(data[[node]]))
+        .Call("RHugin_node_set_case_value", node.ptr,
+               as.integer(index.set - 1), as.double(data[[node]][index.set]),
+               PACKAGE = "RHugin")
+      }
     )
 
     RHugin.handle.error(status)
