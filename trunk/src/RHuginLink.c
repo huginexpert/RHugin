@@ -1932,6 +1932,7 @@ SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalue)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
+  h_double_t value = 0.0;
   int i = 0;
 
   node = nodePointerFromSEXP(Snode);
@@ -1939,8 +1940,16 @@ SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalue)
   if(LENGTH(Svalue) > 0) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Svalue)));
 
-    for(i = 0; i < LENGTH(Svalue); i++)
-      INTEGER(ret)[i] = (int) h_node_set_state_value(node, (size_t) INTEGER(Ss)[i], (h_double_t) REAL(Svalue)[i]);
+    for(i = 0; i < LENGTH(Svalue); i++) {
+      if(REAL(Svalue)[i] == R_PosInf)
+        value = h_infinity;
+      else if(REAL(Svalue)[i] == R_NegInf)
+        value = -h_infinity;
+      else
+        value = (h_double_t) REAL(Svalue)[i];
+
+      INTEGER(ret)[i] = (int) h_node_set_state_value(node, (size_t) INTEGER(Ss)[i], value);
+    }
 
     UNPROTECT(1);
   }
@@ -1953,6 +1962,7 @@ SEXP RHugin_node_get_state_value(SEXP Snode, SEXP Ss)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
+  h_double_t value = 0.0;
   int i = 0;
 
   node = nodePointerFromSEXP(Snode);
@@ -1960,8 +1970,15 @@ SEXP RHugin_node_get_state_value(SEXP Snode, SEXP Ss)
   if(LENGTH(Ss) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Ss)));
 
-    for(i = 0; i < LENGTH(Ss); i++)
-      REAL(ret)[i] = (double) h_node_get_state_value(node, (size_t) INTEGER(Ss)[i]);
+    for(i = 0; i < LENGTH(Ss); i++) {
+      value = h_node_get_state_value(node, (size_t) INTEGER(Ss)[i]);
+      if(value == h_infinity)
+        REAL(ret)[i] = R_PosInf;
+      else if(value == -h_infinity)
+        REAL(ret)[i] = R_NegInf;
+      else
+        REAL(ret)[i] = (double) value;
+    }
 
     UNPROTECT(1);
   }
@@ -1981,8 +1998,12 @@ SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue)
   if(LENGTH(Svalue) > 0) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Svalue)));
 
-    for(i = 0; i < LENGTH(Svalue); i++)
-      INTEGER(ret)[i] = (int) h_node_get_state_index_from_value(node, (h_double_t) REAL(Svalue)[i]);
+    for(i = 0; i < LENGTH(Svalue); i++) {
+      if(!R_FINITE(REAL(Svalue)[i]))
+        INTEGER(ret)[i] = -1;
+      else
+        INTEGER(ret)[i] = (int) h_node_get_state_index_from_value(node, (h_double_t) REAL(Svalue)[i]);
+    }
 
     UNPROTECT(1);
   }
@@ -3701,25 +3722,16 @@ SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_index, SEXP Svalue)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_status_t status = (h_status_t) 0;
   int i = 0;
 
   node = nodePointerFromSEXP(Snode);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = 0;
+  PROTECT(ret = allocVector(INTSXP, LENGTH(Scase_index)));
 
   for(i = 0; i < LENGTH(Scase_index); i++) {
-    if(ISNA(REAL(Svalue)[i]))
-      status = h_node_unset_case(node, (size_t) INTEGER(Scase_index)[i]);
+    if(!R_FINITE(REAL(Svalue)[i]))
+      INTEGER(ret)[i] = (int) h_node_unset_case(node, (size_t) INTEGER(Scase_index)[i]);
     else
-      status = h_node_set_case_value(node, (size_t) INTEGER(Scase_index)[i], REAL(Svalue)[i]);
-
-    if(status != 0) {
-      INTEGER(ret)[0] = (int) status;
-      UNPROTECT(1);
-      return ret;
-    }
+      INTEGER(ret)[i] = (int) h_node_set_case_value(node, (size_t) INTEGER(Scase_index)[i], REAL(Svalue)[i]);
   }
   
   UNPROTECT(1);

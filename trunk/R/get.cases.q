@@ -25,7 +25,15 @@ get.cases <- function(domain)
                               as.integer(index.set), PACKAGE = "RHugin")
       RHugin.handle.error()
 
-      data[[node]] <- get.states(domain, node)[state.indices + 1]
+      subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
+      RHugin.handle.error()
+
+      states <- get.states(domain, node)
+
+      if(is.element(subtype, c("labeled", "interval")))
+        data[[node]] <- factor(states[state.indices + 1], levels = states)
+      else
+        data[[node]] <- states[state.indices + 1]
     }
 
     else {
@@ -39,7 +47,7 @@ get.cases <- function(domain)
                            as.integer(index.set), PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  as.data.frame(data, stringsAsFactors = TRUE)
+  as.data.frame(data)
 }
 
 

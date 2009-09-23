@@ -26,11 +26,22 @@ get.states <- function(domain, node, values = FALSE)
                       as.integer(0:(n.states)), PACKAGE = "RHugin")
 
         if(!values) {
+          infinite <- is.infinite(c(pts[1], pts[length(pts)]))
           pts <- format(pts, trim = TRUE, digits = 3, justify = "none")
           pts <- paste(pts[-length(pts)], pts[-1], sep = ",")
-          pts[1] <- paste("[", pts[1], "]", sep = "")
-          if(length(pts) > 1)
-            pts[-1] <- paste("(", pts[-1], "]", sep = "")
+          l.pts <- length(pts)
+          if(l.pts == 1)
+            pts <- paste(ifelse(infinite[1], "(", "["), pts,
+                         ifelse(infinite[2], ")", "]"), sep = "")
+          else {
+            pts[1] <- paste(ifelse(infinite[1], "(", "["), pts[1], ")",
+                            sep = "")
+            pts[l.pts] <- paste("[", pts[l.pts], ifelse(infinite[2], ")", "]"),
+                                sep = "")
+            if(l.pts > 2)
+              pts[2:(l.pts - 1)] <- paste("[", pts[2:(l.pts - 1)], ")",
+                                          sep = "")
+          }
         }
 
         pts

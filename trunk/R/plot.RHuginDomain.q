@@ -17,11 +17,21 @@ plot.RHuginDomain <- function(x, y, ...)
     }
     else if(node.summary[[node]]$category == "utility") {
       fill[node] <- "green"
+      ## diamond not yet supported by Rgraphviz ##
+      #shape[node] <- "diamond"
       shape[node] <- "rectangle"
     }
     else {
-      fill[node] <- "yellow"
-      shape[node] <- "ellipse"
+      if(!is.null(node.summary[[node]]$kind) &&
+          node.summary[[node]]$kind == "discrete")
+      {
+        fill[node] <- "yellow"
+        shape[node] <- "ellipse"
+      }
+      else {
+        fill[node] <- "orange"
+        shape[node] <- "ellipse"
+      }
     }
   }
 
