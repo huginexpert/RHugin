@@ -137,19 +137,7 @@ DLLEXPORT SEXP RHugin_node_get_subtype(SEXP Snode);
 
 /* Section 5.2 Expressions */
 
-DLLEXPORT SEXP RHugin_node_make_expression(SEXP Snode);
-DLLEXPORT SEXP RHugin_label_make_expression(SEXP Slabel);
-DLLEXPORT SEXP RHugin_boolean_make_expression(SEXP Sboolean);
-DLLEXPORT SEXP RHugin_number_make_expression(SEXP Snumber);
-DLLEXPORT SEXP RHugin_make_composite_expression(SEXP Soperator, SEXP Sarguments);
-DLLEXPORT SEXP RHugin_expression_is_composite(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_get_operator(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_get_operands(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_get_node(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_get_number(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_get_label(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_clone(SEXP Sexpression);
-DLLEXPORT SEXP RHugin_expression_delete(SEXP Sexpression);
+// Removed by Kjell Konis 16.10.2009
 
 
 /* Section 5.3 Syntax for expression */
@@ -160,13 +148,7 @@ DLLEXPORT SEXP RHugin_expression_delete(SEXP Sexpression);
 
 /* Section 5.4 Creating and maintaining models */
 
-DLLEXPORT SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes);
-DLLEXPORT SEXP RHugin_node_get_model(SEXP Snode);
-DLLEXPORT SEXP RHugin_model_delete(SEXP Smodel);
-DLLEXPORT SEXP RHugin_model_get_nodes(SEXP Smodel);
-DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodel);
-DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression);
-DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex);
+// Removed by Kjell Konis 16.10.2009
 
 
 /* Section 5.5 State labels */
@@ -185,16 +167,12 @@ DLLEXPORT SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue);
 
 /* Section 5.8 Generating tables */
 
-DLLEXPORT SEXP RHugin_node_generate_table(SEXP Snode);
-DLLEXPORT SEXP RHugin_domain_generate_tables(SEXP Sdomain);
-// SEXP RHugin_class_generate_tables(SEXP Sclass);
-// SEXP RHugin_class_set_log_file(SEXP Sclass, SEXP Slog_file);
+// Removed by Kjell Konis 16.10.2009
 
 
 /* Section 5.9 How the computations are done */
 
-DLLEXPORT SEXP RHugin_model_set_number_of_samples_per_interval(SEXP Smodel, SEXP Scount);
-DLLEXPORT SEXP RHugin_model_get_number_of_samples_per_interval(SEXP Smodel);
+// Removed by Kjell Konis 16.10.2009
 
 
 /* Section 6.2 Compilation */
