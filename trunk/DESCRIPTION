@@ -1,6 +1,6 @@
 Package: RHugin
-Version: 0.7-3
-Date: 2009-09-23
+Version: 0.7-5
+Date: 2009-
 Title: RHugin
 Author: Kjell Konis <kjell.konis@epfl.ch>,
         Hugin Expert <http://www.hugin.com>.
@@ -13,5 +13,5 @@ Description: The RHugin package provides an R API for the Hugin Expert System. \
              obtained from www.hugin.com. Please note that the RHugin package \
              is not supported by Hugin Expert A/S.
 License: LGPL-2.1
-
+URL: http://rhugin.r-forge.r-project.org
 

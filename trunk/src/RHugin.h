@@ -24,8 +24,6 @@ DLLEXPORT void R_init_RHugin(DllInfo *info);
 h_domain_t domainPointerFromSEXP(SEXP Sdomain);
 h_node_t nodePointerFromSEXP(SEXP Snode);
 h_table_t tablePointerFromSEXP(SEXP Stable);
-h_expression_t expressionPointerFromSEXP(SEXP Sexpression);
-h_model_t modelPointerFromSEXP(SEXP Smodel);
 h_junction_tree_t jtPointerFromSEXP(SEXP Sjt);
 h_clique_t cliquePointerFromSEXP(SEXP Sclique);
 
