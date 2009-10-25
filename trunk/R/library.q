@@ -57,6 +57,11 @@
         stop("auto-detection of Hugin failed", "\n",
              "set the HUGINHOME environment variable (see Hugin Documentation)")
       }
+
+      dyld <- Sys.getenv("DYLD_LIBRARY_PATH")
+      hugin.dyld <- paste(Sys.getenv("HUGINHOME"), "Libraries", sep = "/")
+      Sys.setenv(DYLD_LIBRARY_PATH = paste(dyld, hugin.dyld, sep = ""))
+      on.exit(Sys.setenv(DYLD_LIBRARY_PATH = dyld))
     }
   }
 
