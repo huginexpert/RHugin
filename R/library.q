@@ -76,6 +76,12 @@
              "set the HUGINHOME environment variable")
       }
     }
+
+    lib <- list.files(Sys.getenv("HUGINHOME"), pattern = "lib")[1]
+    dyld <- Sys.getenv("DYLD_LIBRARY_PATH")
+    hugin.dyld <- paste(Sys.getenv("HUGINHOME"), lib, sep = "/")
+    Sys.setenv(DYLD_LIBRARY_PATH = paste(dyld, hugin.dyld, sep = ""))
+    on.exit(Sys.setenv(DYLD_LIBRARY_PATH = dyld))
   }
 
   library.dynam("RHugin")
