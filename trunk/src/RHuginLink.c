@@ -948,13 +948,26 @@ SEXP RHugin_table_get_size(SEXP Stable)
 {
   SEXP ret = R_NilValue;
   h_table_t table = NULL;
-  size_t size;
 
   table = tablePointerFromSEXP(Stable);
-  size = h_table_get_size(table);
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) size;
+  INTEGER(ret)[0] = (int) h_table_get_size(table);
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_table_get_cg_size(SEXP Stable)
+{
+  SEXP ret = R_NilValue;
+  h_table_t table = NULL;
+
+  table = tablePointerFromSEXP(Stable);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_table_get_cg_size(table);
   UNPROTECT(1);
 
   return ret;

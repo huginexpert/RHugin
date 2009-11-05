@@ -159,6 +159,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_table_get_variance", (DL_FUNC) RHugin_table_get_variance, 3},
     {"RHugin_table_delete", (DL_FUNC) RHugin_table_delete, 1},
     {"RHugin_table_get_size", (DL_FUNC) RHugin_table_get_size, 1},
+    {"RHugin_table_get_cg_size", (DL_FUNC) RHugin_table_get_cg_size, 1},
     {"RHugin_table_reorder_nodes", (DL_FUNC) RHugin_table_reorder_nodes, 2},
     {"RHugin_node_set_subtype", (DL_FUNC) RHugin_node_set_subtype, 2},
     {"RHugin_node_get_subtype", (DL_FUNC) RHugin_node_get_subtype, 1},
