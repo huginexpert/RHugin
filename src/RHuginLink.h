@@ -122,7 +122,7 @@ DLLEXPORT SEXP RHugin_table_delete(SEXP Stable);
 /* Section 4.4 The size of a table */
 
 DLLEXPORT SEXP RHugin_table_get_size(SEXP Stable);
-
+DLLEXPORT SEXP RHugin_table_get_cg_size(SEXP Stable);
 
 /* Section 4.5 Rearranging the contents of a table */
 

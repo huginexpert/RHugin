@@ -56,36 +56,43 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
                        PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    node.category <- .Call("RHugin_node_get_category", node.ptr,
-                            PACKAGE = "RHugin")
+    category <- .Call("RHugin_node_get_category", node.ptr,
+                       PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    if(node.category == "chance" || node.category == "decision") {
-      node.kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+    if(category == "chance" || category == "decision") {
+      kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
       RHugin.handle.error()
 
-      if(node.kind == "discrete") {
-        node.subtype <- .Call("RHugin_node_get_subtype", node.ptr,
+      if(kind == "discrete") {
+        subtype <- .Call("RHugin_node_get_subtype", node.ptr,
                                PACKAGE = "RHugin")
         RHugin.handle.error()
         states <- get.states(object, node)
       }
 
       else {
-        node.subtype <- NULL
+        subtype <- NULL
         states <- NULL
       }
     }
 
     else {
-      node.kind <- NULL
-      node.subtype <- NULL
+      kind <- NULL
+      subtype <- NULL
       states <- NULL
     }
 
+    experience.table <- .Call("RHugin_node_has_experience_table", node.ptr,
+                               PACKAGE = "RHugin")
 
-    node.summary[[node]] <- list(category = node.category, kind = node.kind,
-                                 subtype = node.subtype, states = states)
+    fading.table <- .Call("RHugin_node_has_fading_table", node.ptr,
+                           PACKAGE = "RHugin")
+
+    node.summary[[node]] <- list(category = category, kind = kind,
+                                 subtype = subtype, states = states,
+                                 experience.table = experience.table,
+                                 fading.table = fading.table)
   }
 
   ans <- list(node.names = get.nodes(object), edge.list = get.edges(object),

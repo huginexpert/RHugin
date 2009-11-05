@@ -1,75 +1,41 @@
-get.table <- function(domain, node,
+get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
                       class = c("data.frame", "table", "ftable", "numeric"))
 {
   RHugin.check.args(domain, node, character(0), "get.table")
+  type <- match.arg(type)
   class <- match.arg(class)
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")
+  category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
+  kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+
+  table.ptr <- switch(type,
+    cpt = .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin"),
+    experience = .Call("RHugin_node_get_experience_table", node.ptr,
+                        PACKAGE = "RHugin"),
+    fading = .Call("RHugin_node_get_fading_table", node.ptr,
+                    PACKAGE = "RHugin"))
   RHugin.handle.error()
 
   table.nodes <- names(.Call("RHugin_table_get_nodes", table.ptr,
                               PACKAGE = "RHugin"))
   RHugin.handle.error()
 
-  node.summary <- summary(domain, nodes = table.nodes)$nodes
-  table <- NULL
-
-  category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
-
-  if(category == "chance") {
-    kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
-  }
-
-  else
-    kind <- NULL
-
-  if((category == "chance" && kind == "discrete") || (category == "utility") ||
-      category == "decision") {
-    states <- lapply(table.nodes, function(u) get.states(domain, u))
-    names(states) <- table.nodes
-    states <- rev(states)
-    d <- sapply(states, length)
-
-    table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
-    table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
-
-    table <- switch(class,
-      "data.frame" = {
-        table <- cbind(expand.grid(states), table)
-        if(category == "utility")
-          names(table)[length(table)] <- "Utility"
-        else if(category == "decision")
-          names(table)[length(table)] <- "Cost"
-        else
-          names(table)[length(table)] <- "Freq"
-        table
-      },
-
-      "table" = {
-        attributes(table) <- list(dim = d, dimnames = states, class = "table")
-        table
-      },
-
-      "ftable" = {
-        attributes(table) <- list(dim = d, dimnames = states, class = "table")
-        n <- length(table.nodes)
-        ftable(table, row.vars = table.nodes[n], col.vars = table.nodes[-n])
-      },
-
-      "numeric" = table
-    )
-  }
-
-  if(category == "chance" && kind == "continuous") {
+  if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
-    parent.kinds <- sapply(node.summary[parent.nodes], function(u) u$kind)
+    parent.kinds <- character(0)
+
+    for(n in parent.nodes) {
+      parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, n,
+                           PACKAGE = "RHugin")
+      RHugin.handle.error()
+      parent.kinds[n] <- .Call("RHugin_node_get_kind", parent.ptr,
+                                PACKAGE = "RHugin")
+    }
+
     discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
     continuous.parent.ptrs <- list()
@@ -114,44 +80,49 @@ get.table <- function(domain, node,
     else
       table <- as.vector(t(cbind(alpha, gamma)))
 
-    table <- switch(class,
-      "data.frame" = {
-        if(length(states)) {
-          states <- expand.grid(states)
-          states <- states[rep(1:n.state.space, each = length(components)), , drop = FALSE]
-          states[[node]] <- rep(components, n.state.space)
-          table <- cbind(states, Value = table)
-          row.names(table) <- NULL
-        }
-        else {
-          table <- data.frame(components, table)
-          names(table) <- c(node, "Value")
-        }
-
-        table
-      },
-
-      "table" = {
-        dn <- list()
-        dn[[node]] <- components
-        dn <- c(dn, states)
-        attributes(table) <- list(dim = sapply(dn, length), dimnames = dn,
-                                  class = "table")
-        table
-      },
-
-      "ftable" = {
-        dn <- list()
-        dn[[node]] <- components
-        dn <- c(dn, states)
-        attributes(table) <- list(dim = sapply(dn, length), dimnames = dn,
-                                  class = "table")
-        ftable(table, row.vars = node, col.vars = discrete.parents)
-      },
-
-      "numeric" = table
-    )
+    states <- c(list(components), states)
+    names(states)[1] <- node
   }
+
+  else {
+    states <- lapply(table.nodes, function(u) get.states(domain, u))
+    names(states) <- table.nodes
+    states <- rev(states)
+
+    table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
+    RHugin.handle.error()
+  }
+
+  table <- switch(class,
+    "data.frame" = {
+      table <- cbind(expand.grid(states), table)
+      if(category == "utility")
+        names(table)[length(table)] <- "Utility"
+      else if(category == "decision")
+        names(table)[length(table)] <- "Cost"
+      else {
+        if(kind == "continuous")
+          names(table)[length(table)] <- "Value"
+        else
+          names(table)[length(table)] <- "Freq"
+      }
+      table
+    },
+
+    "table" = {
+      attributes(table) <- list(dim = sapply(states, length), dimnames = states,
+                                class = "table")
+      table
+    },
+
+    "ftable" = {
+      attributes(table) <- list(dim = sapply(states, length), dimnames = states,
+                                class = "table")
+      ftable(table, row.vars = node)
+    },
+
+    "numeric" = table
+  )
 
   table
 }

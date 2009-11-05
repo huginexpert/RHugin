@@ -41,6 +41,10 @@ print.summary.RHuginDomain <- function(x, ...)
     if(!is.null(x$nodes[[name]]$states))
       cat("    states: ", "{", paste(x$nodes[[name]]$states, collapse = ", "),
           "}\n", sep = "")
+    if(x$nodes[[name]]$experience.table)
+      cat("  *", name, " has an experience table.\n", sep = "")
+    if(x$nodes[[name]]$fading.table)
+      cat("  *", name, " has a fading table.\n", sep = "")
     cat("\n")
   }
 
