@@ -23,15 +23,18 @@ set.table <- function(domain, node, data,
                               PACKAGE = "RHugin"))
   RHugin.handle.error()
 
+
+
+
+  if(class(data) == "numeric") {
+
+## set table and return ##
+
+  }
+
+
+
   if(kind == "continuous" && type == "cpt") {
-    if(class(data) != "data.frame")
-      stop("the data argument must be a data frame for continuous nodes")
-
-    Value <- data[["Value"]]
-
-    if(is.null(Value))
-      stop("no data given")
-
     parent.nodes <- table.nodes[table.nodes != node]
     parent.kinds <- character(0)
 
@@ -43,7 +46,8 @@ set.table <- function(domain, node, data,
                                 PACKAGE = "RHugin")
     }
 
-    discrete.parents <- rev(parent.nodes[parent.kinds == "discrete"])
+    #discrete.parents <- rev(parent.nodes[parent.kinds == "discrete"])
+    discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
     continuous.parent.ptrs <- list()
 
@@ -54,22 +58,67 @@ set.table <- function(domain, node, data,
     }
 
     components <- c("(Intercept)", continuous.parents, "(Variance)")
-
     states <- lapply(discrete.parents, function(u) get.states(domain, u))
     names(states) <- discrete.parents
-    n.states <- sapply(states, length)
+    states[[node]] <- components
+    states <- rev(states)
+  }
+
+  else {
+    table.nodes <- rev(table.nodes)
+    states <- lapply(table.nodes, function(u) get.states(domain, u))
+    names(states) <- table.nodes
+  }
+
+  table <- switch(class(data),
+    "data.frame" = {
+      if(category == "utility")
+        table <- data[["Utility"]]
+      else if(category == "decision")
+        table <- data[["Cost"]]
+      else {
+        if(kind == "continuous")
+          table <- data[["Value"]]
+        else
+          table <- data[["Freq"]]
+      }
+
+      if(is.null(table))
+        table <- rep(1, dim(data)[1])
+
+      #table.nodes <- rev(table.nodes)
+      #states <- lapply(table.nodes, function(u) get.states(domain, u))
+      #names(states) <- table.nodes
+
+      indices <- as.list(data[names(states)])
+      for(i in names(states))
+        indices[[i]] <- factor(indices[[i]], levels = states[[i]])
+
+      table <- as.vector(tapply(table, indices, sum), mode = "numeric")
+      table[is.na(table)] <- 0.0
+      table
+    },
+
+    "table" = {
+      #states <- lapply(table.nodes, function(u) get.states(domain, u))
+      #names(states) <- table.nodes
+      #states <- rev(states)
+
+      if(!isTRUE(all.equal(dimnames(data), states)))
+        stop("table dimnames do not match node states")
+
+      as.vector(data)
+    })
+
+browser()
+return(table)
+
+
+  if(kind == "continuous" && type == "cpt") {
+    n.states <- sapply(states[-1], length)
     n.state.space <- ifelse(length(n.states), prod(n.states), 1)
 
-    indices <- as.list(data[c(node, discrete.parents)])
-    for(i in discrete.parents)
-      indices[[i]] <- factor(indices[[i]], levels = states[[i]])
-    indices[[node]] <- factor(indices[[node]], levels = components)
-
-    Value <- as.vector(tapply(Value, indices, function(u) u), mode = "numeric")
-    if(any(is.na(Value)))
-      stop("mising values in table")
-
-    components <- rep(components, n.state.space)
+    components <- rep(states[[node]], n.state.space)
     i <- 0:(n.state.space - 1)
 
     alpha <- .Call("RHugin_node_set_alpha", node.ptr,
