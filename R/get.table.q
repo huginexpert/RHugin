@@ -96,7 +96,9 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
   table <- switch(class,
     "data.frame" = {
       table <- cbind(expand.grid(states), table)
-      if(category == "utility")
+      if(is.element(type, c("experience", "fading")))
+        names(table)[length(table)] <- "Counts"
+      else if(category == "utility")
         names(table)[length(table)] <- "Utility"
       else if(category == "decision")
         names(table)[length(table)] <- "Cost"

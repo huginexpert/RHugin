@@ -510,13 +510,11 @@ SEXP RHugin_node_touch_table(SEXP Snode)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_status_t status;
 
   node = nodePointerFromSEXP(Snode);
-  status = h_node_touch_table(node);
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  INTEGER(ret)[0] = (int) h_node_touch_table(node);
   UNPROTECT(1);
 
   return ret;
