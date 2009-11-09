@@ -2774,8 +2774,8 @@ SEXP RHugin_domain_adapt(SEXP Sdomain)
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(LGLSXP, 1));
-  LOGICAL(ret)[0] = (int) h_domain_adapt(domain);
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_domain_adapt(domain);
   UNPROTECT(1);
 
   return ret;
