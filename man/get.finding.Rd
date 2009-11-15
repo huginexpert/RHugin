@@ -4,7 +4,7 @@
 \title{Get Entered Finding}
 
 \description{
-Retrieve the entered finding from a node in an RHugin domain object.
+Retrieve the entered finding from a node in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.finding(domain, node)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of the node from which the entered findings are to be retrieved.}
 }
 

@@ -4,7 +4,7 @@
 \title{Coerce to Graph}
 
 \description{
-Coerce an RHugin domain object to a graph.
+Coerce an RHugin domain to a graph.
 }
 
 \usage{
@@ -12,7 +12,7 @@ as.graph.RHuginDomain(x, ...)
 }
 
 \arguments{
-  \item{x}{an RHugin domain object.}
+  \item{x}{an RHugin domain.}
   \item{\dots}{additional arguments.}
 }
 

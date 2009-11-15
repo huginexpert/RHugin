@@ -12,7 +12,7 @@ retract(domain, nodes)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{nodes}{an optional character vector specifying the names of the nodes for which evidence is to be retracted.}
 }
 

@@ -20,9 +20,14 @@
 		0E39E5850E6AF895008B7B91 /* plot.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.Rd; path = man/plot.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
 		0E84068010A8BBBF00E3E8D6 /* adapt.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.q; path = R/adapt.q; sourceTree = SOURCE_ROOT; };
 		0E84068110A8BBBF00E3E8D6 /* delete.table.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = delete.table.q; path = R/delete.table.q; sourceTree = SOURCE_ROOT; };
+		0E94569C10B0433000B5B510 /* buildLimidNetwork.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = buildLimidNetwork.r; sourceTree = "<group>"; };
+		0E94569D10B0433100B5B510 /* buildWasteNetwork.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = buildWasteNetwork.r; sourceTree = "<group>"; };
+		0E9456AC10B045B300B5B510 /* buildSimpleGaussianNetwork.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = buildSimpleGaussianNetwork.r; path = demo/buildSimpleGaussianNetwork.r; sourceTree = SOURCE_ROOT; };
 		0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.marginal.q; path = R/get.marginal.q; sourceTree = SOURCE_ROOT; };
 		0EA791AE0DF1755B007CDD16 /* summary.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = summary.RHuginDomain.q; path = R/summary.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0EA791CF0DF17F15007CDD16 /* print.summary.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = print.summary.RHuginDomain.q; path = R/print.summary.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
+		0EC2510410AAF5B80092BC73 /* adapt.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.Rd; path = man/adapt.Rd; sourceTree = SOURCE_ROOT; };
+		0EC2510510AAF5B80092BC73 /* delete.table.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = delete.table.Rd; path = man/delete.table.Rd; sourceTree = SOURCE_ROOT; };
 		0EE02C580EC36B4700F321DA /* get.entropy.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.q; path = R/get.entropy.q; sourceTree = SOURCE_ROOT; };
 		0EE02C630EC38E2700F321DA /* get.entropy.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.Rd; path = man/get.entropy.Rd; sourceTree = SOURCE_ROOT; };
 		0EFD932D0E8FE8E000A0CDAA /* buildTestNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildTestNetwork.r; sourceTree = "<group>"; };
@@ -136,7 +141,10 @@
 				DA5E0A4E0E7161740014FAFE /* 00Index */,
 				DA5E09C40E711F1B0014FAFE /* buildAppleTreeNetwork.r */,
 				DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */,
+				0E94569C10B0433000B5B510 /* buildLimidNetwork.r */,
+				0E9456AC10B045B300B5B510 /* buildSimpleGaussianNetwork.r */,
 				0EFD932D0E8FE8E000A0CDAA /* buildTestNetwork.r */,
+				0E94569D10B0433100B5B510 /* buildWasteNetwork.r */,
 			);
 			path = demo;
 			sourceTree = SOURCE_ROOT;
@@ -208,6 +216,7 @@
 		DAEFA1A50DE307DF002B126B /* man */ = {
 			isa = PBXGroup;
 			children = (
+				0EC2510410AAF5B80092BC73 /* adapt.Rd */,
 				DAEFA1CD0DE3083A002B126B /* add.edge.Rd */,
 				DAEFA1CE0DE3083A002B126B /* add.node.Rd */,
 				DADF9F980F42DAAA00946D22 /* as.graph.RHuginDomain.Rd */,
@@ -215,6 +224,7 @@
 				0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */,
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
+				0EC2510510AAF5B80092BC73 /* delete.table.Rd */,
 				DAEFA1D40DE3083A002B126B /* errors.Rd */,
 				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
 				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,

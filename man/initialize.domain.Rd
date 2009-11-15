@@ -12,7 +12,7 @@ initialize.domain(domain)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
 }
 
 \details{

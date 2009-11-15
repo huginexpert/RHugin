@@ -12,7 +12,7 @@ Establish the specified equilibrium using the evidence mode indicated for the in
 }
 
 \arguments{
-  \item{object}{an RHugin domain object.}
+  \item{object}{an RHugin domain.}
   \item{equilibrium}{a character string specifying the equilibrium method.}
   \item{mode}{a character string specifying the evidence mode.}
   \item{\dots}{additional arguments are ignored.}

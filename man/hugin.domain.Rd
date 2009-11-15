@@ -4,7 +4,7 @@
 \title{Create an RHugin Domain Object}
 
 \description{
-Create an RHugin domain object.
+Create an RHugin domain.
 }
 
 \usage{
@@ -17,7 +17,7 @@ hugin.domain(graph, data)
 }
 
 \value{
-an RHugin domain object.
+an RHugin domain.
 }
 
 \references{

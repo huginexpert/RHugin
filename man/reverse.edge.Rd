@@ -4,7 +4,7 @@
 \title{Reverse An Edge}
 
 \description{
-Reverse the directed edge between two nodes in an RHugin domain object.
+Reverse the directed edge between two nodes in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ reverse.edge(domain, node1, node2)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node1}{a character string specifying the name of the node in \code{domain} at one end of the edge.}
   \item{node2}{a character string specifying the name of the node in \code{domain} at the other end of the edge.}
 }

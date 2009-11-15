@@ -4,7 +4,7 @@
 \title{Get Normalization Constant}
 
 \description{
-Retrieve the normalization constant from an RHugin domain object.
+Retrieve the normalization constant from an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.normalization.constant(domain, log = FALSE)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{log}{a logical value.  If \code{TRUE} then the log of the normalization constant is returned.}
 }
 

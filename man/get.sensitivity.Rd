@@ -12,7 +12,7 @@ get.sensitivity(domain, output, state, ..., set = FALSE)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{output}{a character string specifying the name of the output node.}
   \item{state}{a state of \code{output}.}
   \item{\dots}{one or more inputs of the form \code{node = state} where \code{node} is a node in \code{domain} and \code{state} is a state of that node.  Alternatively a list containing the inputs in this form may be provided.}

@@ -4,7 +4,7 @@
 \title{Set Cases}
 
 \description{
-Set cases in an RHugin domain object.
+Set cases in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ set.cases(domain, data, Freq)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{data}{a data frame.}
   \item{Freq}{a numeric vector of positive values giving the multiplicity of each row of the data frame.  Alternatively \code{Freq} may be the name of a variable in \code{data} containing this information.  If \code{Freq} is not specified, \code{Freq = 1} is assumed.}
 }

@@ -12,7 +12,7 @@ Simulate cases with respect to the conditional distribution for the evidence.
 }
 
 \arguments{
-  \item{object}{an RHugin domain object.}
+  \item{object}{an RHugin domain.}
   \item{nsim}{a single integer value specifying the number of cases to simulate.}
   \item{seed}{a single positive integer value used to seed Hugin's (NOT R's) random number generator.  If \code{NULL} then the current state for the random number generator is used.}
   \item{\dots}{any additional arguments are ignored.}

@@ -4,7 +4,7 @@
 \title{Add Node}
 
 \description{
-Add a node to an RHugin domain object.
+Add a node to an RHugin domain.
 }
 
 \usage{
@@ -15,7 +15,7 @@ add.node(domain, name,
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{name}{a character string specifying the name of the new node (see details).}
   \item{category}{a character string specifying the category of the node.}
   \item{kind}{a character string specifying the kind of the node.}

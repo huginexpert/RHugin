@@ -12,7 +12,7 @@ Compile an RHugin domain using the default triangulation method (unless the doma
 }
 
 \arguments{
-  \item{object}{an RHugin domain object.}
+  \item{object}{an RHugin domain.}
   \item{save}{a logical value.  If \code{TRUE} then copies of the initial belief and junction tree tables of \code{domain} are stored.}
   \item{\dots}{additional arguments are ignored.}
 }
