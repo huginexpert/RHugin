@@ -12,7 +12,7 @@ get.states(domain, node, values = FALSE)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of a node in \code{domain}.}
   \item{values}{a logical value that applies to interval nodes only. If \code{TRUE} the endpoints of the intervals are returned in a numeric vector.}
 }

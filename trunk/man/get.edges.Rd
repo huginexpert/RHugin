@@ -4,7 +4,7 @@
 \title{Get Edges}
 
 \description{
-List the edges in an RHugin domain object.
+List the edges in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.edges(domain)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
 }
 
 \value{

@@ -4,7 +4,7 @@
 \title{Retrieve Beliefs}
 
 \description{
-Retrieve beliefs from a node in an RHugin domain object.
+Retrieve beliefs from a node in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.belief(domain, node)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of the node from which the beliefs are to be retrieved.}
 }
 

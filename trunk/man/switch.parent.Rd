@@ -4,7 +4,7 @@
 \title{Switch Parent}
 
 \description{
-Switch parents for a node in an RHugin domain object.
+Switch parents for a node in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ switch.parent(domain, child, parent, new.parent)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{child}{a character string specifying the name of a child node in \code{domain}.}
   \item{parent}{a character string specifying the name of a current parent node of \code{child}.}
   \item{new.parent}{a character string specifying the name of a node in \code{domain} that is to be the new parent of \code{child}.}

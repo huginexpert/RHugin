@@ -4,7 +4,7 @@
 \title{Get Entropy}
 
 \description{
-Compute the entropy of a node or the mutual information between a pair of nodes in an RHugin domain object.
+Compute the entropy of a node or the mutual information between a pair of nodes in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.entropy(domain, node, other = NULL)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character vector specifying the nodes for which to compute the entropy.}
   \item{other}{optional. If \code{NULL} (the default) then the entropy is computed for each node specified in \code{node}. Alternatively, a character vector the same length as \code{node} in which case the mutual information between \code{node[i]} and \code{other[i]} is computed.}
 }

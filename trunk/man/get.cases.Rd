@@ -4,7 +4,7 @@
 \title{Get Cases}
 
 \description{
-Retrieve case data from an RHugin domain object.
+Retrieve case data from an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.cases(domain)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
 }
 
 \details{

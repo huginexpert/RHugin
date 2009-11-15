@@ -4,21 +4,22 @@
 \title{Set Table}
 
 \description{
-Set the conditional probability table (CPT) of a node in an RHugin domain.
+Set the conditional probability table (CPT), experience table or fading table of a node in an RHugin domain.
 }
 
 \usage{
-set.table(domain, node, data)
+set.table(domain, node, data, type = c("cpt", "experience", "fading"))
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of a node in \code{domain}.}
-  \item{data}{a data frame (see details).}
+  \item{data}{a data frame, table or numeric vector (see details).}
+  \item{type}{a character string specifying the type of table to set.}
 }
 
 \details{
-The data frame containing the table must match Hugin's internal representation of the table data. The best way to do this is to use \code{get.table} to obtain a data frame with the proper layout, set the probabilities (frequencies) in the final column of this data frame and finally use \code{set.table} to set the table information in the Hugin domain.  See the example.
+The \code{data} argument may be a data frame, table, or (for discrete nodes) a numeric vector.  When \code{data} is a data frame, RHugin attempts to rearrange its rows and columns so that it matches Hugin's internal representation of the table data.  A side effect is that RHugin will compute the appropriate marginal table when the data frame provided in \code{data} has more variables than the actual table of \code{node}.  See the example.  When \code{data} is a table, the dimension and dimnames attribute must match those of the table of \code{node}.  When \code{data} is a numeric vector the user is responsible for having the table data in the correct order.
 }
 
 \value{
@@ -26,12 +27,14 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_set_data} and \code{h_node_touch_table} and for continuous nodes \code{h_node_set_alpha}, \code{h_node_set_beta} and \code{h_node_set_gamma}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_get_data}, \code{h_node_touch_table}, \code{h_node_set_alpha}, \code{h_node_set_beta} and \code{h_node_set_gamma}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
+# (1) Set the CPT of a single node
+
 # Create an RHugin domain
 AppleTree <- hugin.domain()
 
@@ -50,8 +53,8 @@ sick.table$Freq <- c(0.1, 0.9)
 set.table(AppleTree, "Sick", sick.table)
 
 
-# Set the CPTs for all nodes in a domain using the marginal counts from  a
-# data frame
+# (2) Set the CPTs for all nodes in a domain using the
+# marginal counts from a data frame
 
 library(MASS)
 data(housing)
@@ -64,6 +67,19 @@ add.edge(hd, "Sat", "Infl")
 
 # Then set the CPTs
 for(node in get.nodes(hd)) set.table(hd, node, housing)
+
+
+# (3) RHugin reorders the rows and columns of the data frame
+# to match Hugin's internal representation of the table data
+
+Cont.table <- get.table(hd, "Cont")
+set.seed(10)
+temp <- Cont.table[sample(8), ]
+temp <- temp[c("Type", "Cont", "Freq")]
+temp
+
+set.table(hd, "Cont", temp)
+all.equal(Cont.table, get.table(hd, "Cont"))
 }
 
 \keyword{programming}

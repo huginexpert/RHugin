@@ -13,7 +13,7 @@ set.states(domain, node, states, subtype = c("auto", "labeled",
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of a node in \code{domain}.}
   \item{states}{a vector containing the states.}
   \item{subtype}{the default choice \dQuote{auto} sets the subtype of the node to match the class of \code{states}: numeric and integer vectors result in a numbered node, logical vectors result in a boolean node, and all other vector types result in labeled nodes.  Otherwise the specified subtype is used and \code{states} is coerced as appropriate.}

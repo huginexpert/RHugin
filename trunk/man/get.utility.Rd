@@ -4,7 +4,7 @@
 \title{Retrieve Expected Utility}
 
 \description{
-Retrieve the expected utility from a node in an RHugin domain object.
+Retrieve the expected utility from a node in an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ get.utility(domain, node)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of the node from which the expected utilities are to be retrieved.}
 }
 

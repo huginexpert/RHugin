@@ -58,10 +58,12 @@
              "set the HUGINHOME environment variable (see Hugin Documentation)")
       }
     }
-
     wd <- getwd()
     setwd(paste(Sys.getenv("HUGINHOME"), "Libraries", sep = "/"))
-    library.dynam("RHugin")
+    if(file.exists(lc <- paste(wd, libname, sep = "/")))
+      library.dynam("RHugin", lib.loc = c(lc, .libPaths()))
+    else
+      library.dynam("RHugin")
     setwd(wd)
     return(invisible(NULL))
   }

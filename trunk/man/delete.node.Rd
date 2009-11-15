@@ -4,7 +4,7 @@
 \title{Delete Node}
 
 \description{
-Delete a node from an RHugin domain object.
+Delete a node from an RHugin domain.
 }
 
 \usage{
@@ -12,7 +12,7 @@ delete.node(domain, node)
 }
 
 \arguments{
-  \item{domain}{an RHugin domain object.}
+  \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of the node in \code{domain} to be deleted.}
 }
 

@@ -12,7 +12,7 @@ Summary method for RHugin domain objects.
 }
 
 \arguments{
-  \item{object}{an RHugin domain object.}
+  \item{object}{an RHugin domain.}
   \item{nodes}{a logical value or a character vector containing the names of one or more nodes in \code{object}.  The default value \code{FALSE} skips the node summary.  Alternatively, \code{TRUE} causes a summary to be computed for all nodes in \code{object}.}
   \item{\dots}{additional arguments are ignored.}
 }
