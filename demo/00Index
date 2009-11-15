@@ -1,5 +1,8 @@
-buildAppleTreeNetwork     Apple Tree Tutorial
-buildChestClinicNetwork   Chest Clinic Tutorial
-buildTestNetwork          Test
+buildAppleTreeNetwork       Apple Tree Tutorial
+buildChestClinicNetwork     Chest Clinic Tutorial
+buildLimidNetwork           Limited Memory Influence Diagram Tutorial
+buildSimpleGaussianNetwork  Simple Gaussian Network Tutorial
+buildTestNetwork            Test Network
+buildWasteNetwork           Waste Network Tutorial
 
 
