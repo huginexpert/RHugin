@@ -16,12 +16,12 @@ CLOENV
 COMPLEX
 CharacterMode
 DDVAL
-DEBUG
 DUPLICATE_ATTRIB
 ENCLOS
 ENVFLAGS
 FORMALS
 FRAME
+FixupProb
 GECircle
 GEExpressionHeight
 GEExpressionWidth
@@ -103,6 +103,8 @@ PRIMVAL
 PRINTNAME
 PRSEEN
 PRVALUE
+PrintClosure
+PrintLanguage
 PutRNGstate
 RAW
 RC_addToCConverter
@@ -113,10 +115,13 @@ RC_getToCConverterByDescription
 RC_getToCConverterByIndex
 RC_removeToCConverter
 RConsole
+RDEBUG
 REAL
 REprintf
 REvprintf
 RFrame
+RSTEP
+RTRACE
 R_AccuracyInfo
 R_BaseEnv
 R_BaseNamespace
@@ -144,6 +149,7 @@ R_Consolefile
 R_CurrentExpr
 R_Decode2Long
 R_DefParams
+R_DeviceSymbol
 R_DimNamesSymbol
 R_DimSymbol
 R_DirtyImage
@@ -160,6 +166,7 @@ R_ExternalPtrTag
 R_FTPClose
 R_FTPOpen
 R_FTPRead
+R_FinalizeSrcRefState
 R_FindNamespace
 R_FindPackageEnv
 R_FindSymbol
@@ -190,6 +197,7 @@ R_InitFileInPStream
 R_InitFileOutPStream
 R_InitInPStream
 R_InitOutPStream
+R_InitSrcRefState
 R_Interactive
 R_IsNA
 R_IsNaN
@@ -197,6 +205,7 @@ R_IsNamespaceEnv
 R_IsPackageEnv
 R_Is_Running
 R_JumpToToplevel
+R_LastvalueSymbol
 R_LevelsSymbol
 R_LockBinding
 R_LockEnvironment
@@ -212,7 +221,9 @@ R_ModeSymbol
 R_NaInt
 R_NaN
 R_NaReal
+R_NaRmSymbol
 R_NaString
+R_NameSymbol
 R_NamesSymbol
 R_NamespaceEnvSpec
 R_NamespaceRegistry
@@ -223,6 +234,7 @@ R_OpenCompiledFile
 R_Outputfile
 R_PV
 R_PackageEnvName
+R_PackageSymbol
 R_ParseVector
 R_PosInf
 R_PreserveObject
@@ -231,6 +243,7 @@ R_ProcessEvents
 R_PromiseExpr
 R_PromptString
 R_ProtectWithIndex
+R_QuoteSymbol
 R_ReadConsole
 R_RegisterCCallable
 R_RegisterCFinalizer
@@ -267,6 +280,8 @@ R_ShowMessage
 R_SignalHandlers
 R_SizeFromEnv
 R_Slave
+R_SourceSymbol
+R_Srcref
 R_Suicide
 R_TempDir
 R_Toplevel
@@ -473,6 +488,8 @@ Rf_allocMatrix
 Rf_allocS4Object
 Rf_allocSExp
 Rf_allocVector
+Rf_any_duplicated
+Rf_any_duplicated3
 Rf_applyClosure
 Rf_arraySubscript
 Rf_asChar
@@ -501,6 +518,7 @@ Rf_copyGPar
 Rf_copyMatrix
 Rf_copyMostAttrib
 Rf_copyVector
+Rf_countContexts
 Rf_curDevice
 Rf_currentFigureLocation
 Rf_dbeta
@@ -594,6 +612,7 @@ Rf_isLogical
 Rf_isMatrix
 Rf_isNewList
 Rf_isNull
+Rf_isNumber
 Rf_isNumeric
 Rf_isObject
 Rf_isOrdered
@@ -645,6 +664,7 @@ Rf_mkCharCE
 Rf_mkCharLen
 Rf_mkCharLenCE
 Rf_mkFalse
+Rf_mkNamed
 Rf_mkString
 Rf_mkTrue
 Rf_namesgets
@@ -771,6 +791,7 @@ Rf_unprotect
 Rf_unprotect_ptr
 Rf_usemethod
 Rf_utf8towcs
+Rf_vectorIndex
 Rf_warning
 Rf_warningcall
 Rf_warningcall_immediate
@@ -809,7 +830,6 @@ SET_BODY
 SET_CLOENV
 SET_CXTAIL
 SET_DDVAL
-SET_DEBUG
 SET_ENCLOS
 SET_ENVFLAGS
 SET_FORMALS
@@ -827,11 +847,13 @@ SET_PRIMFUN
 SET_PRINTNAME
 SET_PRSEEN
 SET_PRVALUE
+SET_RDEBUG
+SET_RSTEP
+SET_RTRACE
 SET_S4_OBJECT
 SET_STRING_ELT
 SET_SYMVALUE
 SET_TAG
-SET_TRACE
 SET_TRUELENGTH
 SET_TYPEOF
 SET_VECTOR_ELT
@@ -842,7 +864,6 @@ S_alloc
 S_realloc
 SaveAction
 TAG
-TRACE
 TRUELENGTH
 TYPEOF
 UNIMPLEMENTED
@@ -863,9 +884,6 @@ call_dqags
 cgmin
 chol_
 cmdlineoptions
-cpuLimit
-cpuLimit2
-cpuLimitValue
 d1mach_
 dblepr_
 dcar
@@ -873,7 +891,9 @@ dcdr
 dchdc_
 dnbinom_mu
 do_devAskNewPage
-do_inspect
+do_memCompress
+do_memDecompress
+do_readlink
 do_set_prim_method
 dpbfa_
 dpbsl_
@@ -897,9 +917,6 @@ dtype
 dummy_fgetc
 dummy_vfprintf
 duplicated3
-elapsedLimit
-elapsedLimit2
-elapsedLimitValue
 elmhes_
 eltran_
 end_Rmainloop
@@ -921,15 +938,18 @@ gl_hist_init
 gl_loadhistory
 hqr2_
 i1mach_
+init_crc64_table
 interv_
 intpr_
 lbfgsb
 libintl_dcgettext
 libintl_dgettext
+libintl_dngettext
 libintl_gettext
 locale2charset
 localeCP
 machar
+main
 match4
 mbcsToUcs2
 mbcsValid
@@ -999,5 +1019,4 @@ xdr_double
 xdr_float
 xdrmem_create
 xerbla_
-yydebug
 
