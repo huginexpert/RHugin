@@ -29,11 +29,7 @@
       }
 
       else {
-        detach("package:RHugin")
-        stop("auto-detection of Hugin failed", "\n",
-             "add the folder containing the file ",
-              dQuote("hugin2-7.1-vc8.dll"),
-             " to the Windows path")
+        warning("RHugin did not find Hugin in the expected location")
       }
     }
   }
@@ -42,30 +38,21 @@
 
     if(nchar(Sys.getenv("HUGINHOME")) == 0) {
 
-      HuginVersions <- c("HDE7.1-researcher",
-                         "HDE7.1-lite")
+      files <- list.files("/Applications")
 
-      HuginHomes <- paste("/Applications", HuginVersions, sep = "/")
+      if(length(HuginDir <- files[grep("HDE", files)])) {
+        HuginHome <- paste("/Applications", HuginDir[1], sep = "/")
 
-      if(length(HuginVersion <- which(file.exists(HuginHomes)))) {
-        HuginHome <- HuginHomes[HuginVersion[1]]
+        if(length(HuginDir) >= 2)
+          warning("using HUGINHOME:", HuginHome)
+
         Sys.setenv(HUGINHOME = HuginHome)
       }
 
       else {
-        detach("package:RHugin")
-        stop("auto-detection of Hugin failed", "\n",
-             "set the HUGINHOME environment variable (see Hugin Documentation)")
+        warning("RHugin did not find Hugin in the expected location")
       }
     }
-    wd <- getwd()
-    setwd(paste(Sys.getenv("HUGINHOME"), "Libraries", sep = "/"))
-    if(file.exists(lc <- paste(wd, libname, sep = "/")))
-      library.dynam("RHugin", lib.loc = c(lc, .libPaths()))
-    else
-      library.dynam("RHugin")
-    setwd(wd)
-    return(invisible(NULL))
   }
 
   else {
@@ -74,9 +61,7 @@
         Sys.setenv(HUGINHOME = "/usr/local/hugin")
 
       else {
-        detach("package:RHugin")
-        stop("auto-detection of Hugin failed - ",
-             "set the HUGINHOME environment variable")
+        warning("RHugin did not find Hugin in the expected location")
       }
     }
   }
