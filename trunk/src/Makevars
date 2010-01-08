@@ -2,7 +2,7 @@ ifeq ($(shell uname),Darwin)
   RHUGIN_LIBCRYPT=
   HUGIN_INCLUDE_DIR=$(HUGINHOME)/Headers
   HUGIN_LIB_DIR=$(HUGINHOME)/Libraries
-  HUGIN_RPATH=
+  HUGIN_RPATH=-Wl,-rpath,$(HUGINHOME)/Libraries
 else
   RHUGIN_LIBCRYPT=-lcrypt
   HUGIN_INCLUDE_DIR=$(HUGINHOME)/include

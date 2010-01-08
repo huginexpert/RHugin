@@ -29,28 +29,61 @@ get.marginal <- function(domain, nodes,
   discrete <- nodes[kinds == "discrete"]
   continuous <- nodes[kinds == "continuous"]
 
-  if(length(continuous))
-    stop("no support for continuous nodes yet")
-
   nodes <- c(discrete, continuous)
   node.ptrs <- node.ptrs[nodes]
 
   table.ptr <- .Call("RHugin_domain_get_marginal", domain, node.ptrs,
                       PACKAGE = "RHugin")
   RHugin.handle.error()
+
   on.exit(.Call("RHugin_table_delete", table.ptr, PACKAGE = "RHugin"))
 
-  table.nodes <- names(.Call("RHugin_table_get_nodes", table.ptr,
-                              PACKAGE = "RHugin"))
-  RHugin.handle.error()
-
-  states <- lapply(nodes, function(u) get.states(domain, u))
-  names(states) <- nodes
+  states <- lapply(discrete, function(u) get.states(domain, u))
+  names(states) <- discrete
   states <- rev(states)
   d <- sapply(states, length)
 
   table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
   RHugin.handle.error()
+
+  n.continuous <- length(continuous)
+  n.table <- length(table)
+
+  mean <- NA
+  cov <- NA
+
+  if(n.continuous) {
+    mean <- matrix(0.0, nrow = n.table, ncol = n.continuous)
+    dimnames(mean) <- list(1:n.table, continuous)
+    cov <- list()
+
+    for(j in 1:n.continuous)
+      mean[ , j] <- .Call("RHugin_table_get_mean", table.ptr,
+                           as.integer(0:(n.table - 1)),
+                           node.ptrs[[continuous[j]]],
+                           PACKAGE = "RHugin")
+
+    for(k in 1:n.table) {
+      tmp <- matrix(0.0, n.continuous, n.continuous)
+      dimnames(tmp) <- list(continuous, continuous)
+      for(i in 1:n.continuous)
+        tmp[i, i] <- .Call("RHugin_table_get_variance", table.ptr,
+                            as.integer(k - 1), node.ptrs[[continuous[i]]],
+                            PACKAGE = "RHugin")
+
+      if(n.continuous > 1) {
+        for(i in 2:n.continuous) {
+          for(j in 1:(i - 1))
+            tmp[i, j] <- tmp[j, i] <- .Call("RHugin_table_get_covariance",
+                                             table.ptr, as.integer(k - 1),
+                                             node.ptrs[[continuous[i]]],
+                                             node.ptrs[[continuous[j]]],
+                                             PACKAGE = "RHugin")
+        }
+      }
+    cov[[k]] <- tmp  
+    }
+  }
 
   table <- switch(class,
     "data.frame" = {
@@ -73,7 +106,7 @@ get.marginal <- function(domain, nodes,
     "numeric" = table
   )
 
-  table
+  list(discrete = table, mean = mean, cov = cov)
 }
 
 

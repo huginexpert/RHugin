@@ -1,8 +1,8 @@
 plot.RHuginDomain <- function(x, y, ...)
 {
-  if(!is.element("package:Rgraphviz", search()))
+  if(!require(Rgraphviz))
     stop("plotting an RHugin domain requires the Rgraphviz ",
-         "package - please load Rgraphviz and try again")
+         "package - please install Rgraphviz and try again")
 
   nodes <- get.nodes(x)
   node.summary <- summary(x, nodes = nodes)$nodes
