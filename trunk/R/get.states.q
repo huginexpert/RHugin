@@ -4,7 +4,6 @@ get.states <- function(domain, node, values = FALSE)
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   if(!is.null(node.ptr)) {
     n.states <- .Call("RHugin_node_get_number_of_states", node.ptr,

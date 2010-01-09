@@ -215,8 +215,11 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 
   newNode = h_domain_new_node(domain, category, kind);
 
-  if(newNode)
-    ret = R_MakeExternalPtr(newNode, RHugin_node_tag, R_NilValue);
+  if(newNode) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(newNode, RHugin_node_tag, R_NilValue));
+    UNPROTECT(1);
+  }
 
   return ret;
 }
@@ -225,83 +228,99 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 // SEXP RHugin_node_get_domain(SEXP Snode)
 
 
-SEXP RHugin_node_get_category(SEXP Snode)
+SEXP RHugin_node_get_category(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_node_category_t category = h_category_error;
+  int i = 0, n = LENGTH(Snodes);
 
-  node = nodePointerFromSEXP(Snode);
-  category = h_node_get_category(node);
+  PROTECT(ret = allocVector(STRSXP, n));
 
-  PROTECT(ret = allocVector(STRSXP, 1));
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    category = h_node_get_category(node);
 
-  switch(category) {
-    case h_category_chance:
-      SET_STRING_ELT(ret, 0, RHUGIN_CHANCE);
-      break;
+    switch(category) {
+      case h_category_chance:
+        SET_STRING_ELT(ret, i, RHUGIN_CHANCE);
+        break;
 
-    case h_category_utility:
-      SET_STRING_ELT(ret, 0, RHUGIN_UTILITY);
-      break;
+      case h_category_utility:
+        SET_STRING_ELT(ret, i, RHUGIN_UTILITY);
+        break;
 
-    case h_category_decision:
-      SET_STRING_ELT(ret, 0, RHUGIN_DECISION);
-      break;
+      case h_category_decision:
+        SET_STRING_ELT(ret, i, RHUGIN_DECISION);
+        break;
 
-    case h_category_instance:
-      SET_STRING_ELT(ret, 0, RHUGIN_INSTANCE);
-      break;
+      case h_category_instance:
+        SET_STRING_ELT(ret, i, RHUGIN_INSTANCE);
+        break;
 
-    case h_category_error:
-      SET_STRING_ELT(ret, 0, RHUGIN_ERROR);
-      break;
+      case h_category_error:
+        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
+        break;
+    }
   }
+
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
 
   UNPROTECT(1);
   return ret;
 }
 
 
-SEXP RHugin_node_get_kind(SEXP Snode)
+SEXP RHugin_node_get_kind(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_node_kind_t kind = h_kind_error;
+  int i = 0, n = LENGTH(Snodes);
 
-  node = nodePointerFromSEXP(Snode);
-  kind = h_node_get_kind(node);
+  PROTECT(ret = allocVector(STRSXP, n));
 
-  PROTECT(ret = allocVector(STRSXP, 1));
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    kind = h_node_get_kind(node);
 
-  switch(kind) {
-    case h_kind_continuous:
-      SET_STRING_ELT(ret, 0, RHUGIN_CONTINUOUS);
-      break;
+    switch(kind) {
+      case h_kind_continuous:
+        SET_STRING_ELT(ret, i, RHUGIN_CONTINUOUS);
+        break;
 
-    case h_kind_discrete:
-      SET_STRING_ELT(ret, 0, RHUGIN_DISCRETE);
-      break;
+      case h_kind_discrete:
+        SET_STRING_ELT(ret, i, RHUGIN_DISCRETE);
+        break;
 
-    case h_kind_error:
-      SET_STRING_ELT(ret, 0, RHUGIN_ERROR);
-      break;
+      case h_kind_error:
+        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
+        break;
+    }
   }
+
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
 
   UNPROTECT(1);
   return ret;
 }
 
 
-SEXP RHugin_node_delete(SEXP Snode)
+SEXP RHugin_node_delete(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = nodePointerFromSEXP(Snode);
+  h_node_t node = NULL;
+  int *status = NULL;
+  int i = 0, n = LENGTH(Snodes);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_node_delete(node);
+  PROTECT(ret = allocVector(INTSXP, n));
+
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    status[i] = (int) h_node_delete(node);
+  }
+
   UNPROTECT(1);
-
   return ret;
 }
 
@@ -309,14 +328,16 @@ SEXP RHugin_node_delete(SEXP Snode)
 SEXP RHugin_node_clone(SEXP Snode)
 {
   SEXP ret = R_NilValue;
-  h_node_t newNode = NULL;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
-  newNode = h_node_clone(node);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  node = h_node_clone(node);
 
-  if(newNode)
-    ret = R_MakeExternalPtr(newNode, RHugin_node_tag, R_NilValue);
+  if(node) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));
+    UNPROTECT(1);
+  }
 
   return ret;
 }
@@ -324,20 +345,26 @@ SEXP RHugin_node_clone(SEXP Snode)
 
 /* Section 2.4 The links of the network */
 
-SEXP RHugin_node_add_parent(SEXP Schild, SEXP Sparent)
+SEXP RHugin_node_add_parent(SEXP Schild, SEXP Sparents)
 {
   SEXP ret = R_NilValue;
   h_node_t child = NULL, parent = NULL;
-  h_status_t status;
+  int *status = NULL;
+  int i = 0, n = LENGTH(Sparents);
 
-  child = nodePointerFromSEXP(Schild);
-  parent = nodePointerFromSEXP(Sparent);
-  status = h_node_add_parent(child, parent);
+  child = nodePointerFromSEXP(VECTOR_ELT(Schild, 0));
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
-  UNPROTECT(1);
+  if(child) {
+    PROTECT(ret = allocVector(INTSXP, n));
+    status = INTEGER(ret);
 
+    for(i = 0; i < n; i++) {
+      parent = nodePointerFromSEXP(VECTOR_ELT(Sparents, i));
+      status[i] = (int) h_node_add_parent(child, parent);
+    }
+
+    UNPROTECT(1);
+  }
   return ret;
 }
 
@@ -346,14 +373,12 @@ SEXP RHugin_node_remove_parent(SEXP Snode, SEXP Sparent)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL, parent = NULL;
-  h_status_t status;
 
-  node = nodePointerFromSEXP(Snode);
-  parent = nodePointerFromSEXP(Sparent);
-  status = h_node_remove_parent(node, parent);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  parent = nodePointerFromSEXP(VECTOR_ELT(Sparent, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  INTEGER(ret)[0] = (int) h_node_remove_parent(node, parent);
   UNPROTECT(1);
 
   return ret;
@@ -366,9 +391,9 @@ SEXP RHugin_node_switch_parent(SEXP Snode, SEXP Sold_parent, SEXP Snew_parent)
   h_node_t node = NULL, old_parent = NULL, new_parent = NULL;
   h_status_t status;
 
-  node = nodePointerFromSEXP(Snode);
-  old_parent = nodePointerFromSEXP(Sold_parent);
-  new_parent = nodePointerFromSEXP(Snew_parent);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  old_parent = nodePointerFromSEXP(VECTOR_ELT(Sold_parent, 0));
+  new_parent = nodePointerFromSEXP(VECTOR_ELT(Snew_parent, 0));
   status = h_node_switch_parent(node, old_parent, new_parent);
 
   PROTECT(ret = allocVector(INTSXP, 1));
@@ -385,8 +410,8 @@ SEXP RHugin_node_reverse_edge(SEXP Snode1, SEXP Snode2)
   h_node_t node1 = NULL, node2 = NULL;
   h_status_t status;
 
-  node1 = nodePointerFromSEXP(Snode1);
-  node2 = nodePointerFromSEXP(Snode2);
+  node1 = nodePointerFromSEXP(VECTOR_ELT(Snode1, 0));
+  node2 = nodePointerFromSEXP(VECTOR_ELT(Snode2, 0));
   status = h_node_reverse_edge(node1, node2);
 
   PROTECT(ret = allocVector(INTSXP, 1));
@@ -404,7 +429,7 @@ SEXP RHugin_node_get_parents(SEXP Snode)
   h_node_t *parents = NULL, *parent = NULL;
   int i = 0, n = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   parents = h_node_get_parents(node);
 
   for(parent = parents; *parent != NULL; parent++)
@@ -426,28 +451,38 @@ SEXP RHugin_node_get_parents(SEXP Snode)
 }
 
 
-SEXP RHugin_node_get_children(SEXP Snode)
+SEXP RHugin_node_get_children(SEXP Snodes)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
+  SEXP ret = R_NilValue, parent = R_NilValue, names = R_NilValue;
   h_node_t node = NULL;
   h_node_t *children = NULL, *child = NULL;
-  int i = 0, n = 0;
-
-  node = nodePointerFromSEXP(Snode);
-  children = h_node_get_children(node);
-
-  for(child = children; *child != NULL; child++)
-    n++;
+  int i = 0, j = 0, n_children = 0, n = LENGTH(Snodes);
 
   PROTECT(ret = allocVector(VECSXP, n));
-  PROTECT(names = allocVector(STRSXP, n));
-  for(i = 0; i < n; i++) {
-    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(children[i], RHugin_node_tag, R_NilValue));
-    SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(children[i])));
-  }
-  setAttrib(ret, R_NamesSymbol, names);
 
-  UNPROTECT(2);
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    children = h_node_get_children(node);
+
+    n_children = 0;
+    for(child = children; *child != NULL; child++)
+      n_children++;
+
+    PROTECT(parent = allocVector(VECSXP, n_children));
+    PROTECT(names = allocVector(STRSXP, n_children));
+
+    for(j = 0; j < n_children; j++) {
+      SET_VECTOR_ELT(parent, j, R_MakeExternalPtr(children[j], RHugin_node_tag, R_NilValue));
+      SET_STRING_ELT(names, j, mkChar( (char*) h_node_get_name(children[j])));
+    }
+    setAttrib(parent, R_NamesSymbol, names);
+
+    SET_VECTOR_ELT(ret, i, parent);
+  }
+
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
+
+  UNPROTECT(2*n + 1);
   return ret;
 }
 
@@ -461,7 +496,7 @@ SEXP RHugin_node_set_number_of_states(SEXP Snode, SEXP Sstates)
   int states = 0;
   h_status_t status;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   states = INTEGER(Sstates)[0];
   status = h_node_set_number_of_states(node, states);
 
@@ -479,7 +514,7 @@ SEXP RHugin_node_get_number_of_states(SEXP Snode)
   h_node_t node = NULL;
   int states = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   states = (int) h_node_get_number_of_states(node);
 
   PROTECT(ret = allocVector(INTSXP, 1));
@@ -498,7 +533,7 @@ SEXP RHugin_node_get_table(SEXP Snode)
   h_node_t node = NULL;
   h_table_t table = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   table = h_node_get_table(node);
 
   ret = R_MakeExternalPtr(table, RHugin_table_tag, R_NilValue);
@@ -511,7 +546,7 @@ SEXP RHugin_node_touch_table(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_node_touch_table(node);
@@ -527,7 +562,7 @@ SEXP RHugin_node_set_alpha(SEXP Snode, SEXP Salpha, SEXP Si)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Salpha) == LENGTH(Si)) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Salpha)));
@@ -549,8 +584,8 @@ SEXP RHugin_node_set_beta(SEXP Snode, SEXP Sbeta, SEXP Sparent, SEXP Si)
   h_node_t node = NULL, parent = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
-  parent = nodePointerFromSEXP(Sparent);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  parent = nodePointerFromSEXP(VECTOR_ELT(Sparent, 0));
 
   if(LENGTH(Sbeta) == LENGTH(Si)) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Sbeta)));
@@ -572,7 +607,7 @@ SEXP RHugin_node_set_gamma(SEXP Snode, SEXP Sgamma, SEXP Si)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Sgamma) == LENGTH(Si)) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Sgamma)));
@@ -594,7 +629,7 @@ SEXP RHugin_node_get_alpha(SEXP Snode, SEXP Si)
   h_node_t node = NULL;
   int i = 0, n = -1;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   n = LENGTH(Si);
 
   if(n > 0) {
@@ -614,8 +649,8 @@ SEXP RHugin_node_get_beta(SEXP Snode, SEXP Sparent, SEXP Si)
   h_node_t node = NULL, parent = NULL;
   int i = 0, n = -1;
 
-  node = nodePointerFromSEXP(Snode);
-  parent = nodePointerFromSEXP(Sparent);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  parent = nodePointerFromSEXP(VECTOR_ELT(Sparent, 0));
   n = LENGTH(Si);
 
   if(n > 0) {
@@ -635,7 +670,7 @@ SEXP RHugin_node_get_gamma(SEXP Snode, SEXP Si)
   h_node_t node = NULL;
   int i = 0, n = -1;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   n = LENGTH(Si);
 
   if(n > 0) {
@@ -657,7 +692,7 @@ SEXP RHugin_node_set_name(SEXP Snode, SEXP Sname)
   h_node_t node = NULL;
   h_status_t status;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   status = h_node_set_name(node, (h_string_t) CHAR(asChar(Sname)));
 
   PROTECT(ret = allocVector(INTSXP, 1));
@@ -673,7 +708,7 @@ SEXP RHugin_node_get_name(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(STRSXP, 1));
   SET_STRING_ELT(ret, 0, mkChar( (char*) h_node_get_name(node)));
@@ -683,18 +718,27 @@ SEXP RHugin_node_get_name(SEXP Snode)
 }
 
 
-SEXP RHugin_domain_get_node_by_name(SEXP Sdomain, SEXP Sname)
+SEXP RHugin_domain_get_node_by_name(SEXP Sdomain, SEXP Snames)
 {
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
   h_node_t node = NULL;
+  int i = 0, n = LENGTH(Snames);
 
   domain = domainPointerFromSEXP(Sdomain);
-  node = h_domain_get_node_by_name(domain, (h_string_t) CHAR(asChar(Sname)));
+  PROTECT(ret = allocVector(VECSXP, n));
 
-  if(node)
-    ret = R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue);
+  for(i = 0; i < n; i++) {
+    node = h_domain_get_node_by_name(domain, (h_string_t) CHAR(STRING_ELT(Snames, i)));
+    if(node)
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
 
+  setAttrib(ret, R_NamesSymbol, Snames);
+
+  UNPROTECT(1);
   return ret;
 }
 
@@ -703,15 +747,21 @@ SEXP RHugin_domain_get_node_by_name(SEXP Sdomain, SEXP Sname)
 
 SEXP RHugin_domain_get_first_node(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_domain_t domain = NULL;
   h_node_t node = NULL;
 
   domain = domainPointerFromSEXP(Sdomain);
   node = h_domain_get_first_node(domain);
 
-  if(node)
-    ret = R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue);
+  if(node) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    PROTECT(names = allocVector(STRSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));
+    SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(node)));
+    setAttrib(ret, R_NamesSymbol, names);
+    UNPROTECT(2);
+  }
 
   return ret;
 }
@@ -719,14 +769,20 @@ SEXP RHugin_domain_get_first_node(SEXP Sdomain)
 
 SEXP RHugin_node_get_next(SEXP Snode)
 {
-  SEXP ret = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
   h_node_t node = NULL, next = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   next = h_node_get_next(node);
 
-  if(next)
-    ret = R_MakeExternalPtr(next, RHugin_node_tag, R_NilValue);
+  if(next) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    PROTECT(names = allocVector(STRSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(next, RHugin_node_tag, R_NilValue));
+    SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(next)));
+    setAttrib(ret, R_NamesSymbol, names);
+    UNPROTECT(2);
+  }
 
   return ret;
 }
@@ -864,7 +920,7 @@ SEXP RHugin_table_get_mean(SEXP Stable, SEXP Si, SEXP Snode)
   h_table_t table = NULL;
   int i = 0, n = -1;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   table = tablePointerFromSEXP(Stable);
   n = LENGTH(Si);
 
@@ -886,8 +942,8 @@ SEXP RHugin_table_get_covariance(SEXP Stable, SEXP Si, SEXP Snode1, SEXP Snode2)
   h_table_t table = NULL;
   int i = 0, n = -1;
 
-  node1 = nodePointerFromSEXP(Snode1);
-  node2 = nodePointerFromSEXP(Snode2);
+  node1 = nodePointerFromSEXP(VECTOR_ELT(Snode1, 0));
+  node2 = nodePointerFromSEXP(VECTOR_ELT(Snode2, 0));
   table = tablePointerFromSEXP(Stable);
   n = LENGTH(Si);
 
@@ -910,7 +966,7 @@ SEXP RHugin_table_get_variance(SEXP Stable, SEXP Si, SEXP Snode)
   h_table_t table = NULL;
   int i = 0, n = -1;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   table = tablePointerFromSEXP(Stable);
   n = LENGTH(Si);
 
@@ -1007,8 +1063,7 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
   h_node_subtype_t subtype = h_subtype_error;
   h_status_t status = (h_status_t) 0;
 
-  node = nodePointerFromSEXP(Snode);
-  subtype = h_node_get_subtype(node);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(asChar(Ssubtype) == RHUGIN_LABELED)
     subtype = h_subtype_label;
@@ -1031,41 +1086,45 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
 }
 
 
-SEXP RHugin_node_get_subtype(SEXP Snode)
+SEXP RHugin_node_get_subtype(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_node_subtype_t subtype;
+  int i = 0, n = LENGTH(Snodes);
 
-  node = nodePointerFromSEXP(Snode);
-  subtype = h_node_get_subtype(node);
+  PROTECT(ret = allocVector(STRSXP, n));
 
-  PROTECT(ret = allocVector(STRSXP, 1));
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    subtype = h_node_get_subtype(node);
 
-  switch(subtype) {
-    case h_subtype_label:
-      SET_STRING_ELT(ret, 0, mkChar("labeled"));
-      break;
+    switch(subtype) {
+      case h_subtype_label:
+        SET_STRING_ELT(ret, i, RHUGIN_LABELED);
+        break;
 
-    case h_subtype_error:
-      SET_STRING_ELT(ret, 0, mkChar("error"));
-      break;
+      case h_subtype_number:
+        SET_STRING_ELT(ret, i, RHUGIN_NUMBERED);
+        break;
 
-    case h_subtype_number:
-      SET_STRING_ELT(ret, 0, mkChar("numbered"));
-      break;
+      case h_subtype_boolean:
+        SET_STRING_ELT(ret, i, RHUGIN_BOOLEAN);
+        break;
 
-    case h_subtype_boolean:
-      SET_STRING_ELT(ret, 0, mkChar("boolean"));
-      break;
+      case h_subtype_interval:
+        SET_STRING_ELT(ret, i, RHUGIN_INTERVAL);
+        break;
 
-    case h_subtype_interval:
-      SET_STRING_ELT(ret, 0, mkChar("interval"));
-      break;
+      case h_subtype_error:
+        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
+        break;
+    }
   }
 
-  UNPROTECT(1);
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
 
+  UNPROTECT(1);
   return ret;
 }
 
@@ -1095,7 +1154,7 @@ SEXP RHugin_node_set_state_label(SEXP Snode, SEXP Ss, SEXP Slabel)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Ss) == LENGTH(Slabel)) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Ss)));
@@ -1117,7 +1176,7 @@ SEXP RHugin_node_get_state_label(SEXP Snode, SEXP Ss)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Ss) > 0) {
     PROTECT(ret = allocVector(STRSXP, LENGTH(Ss)));
@@ -1138,7 +1197,7 @@ SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabel)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Slabel) > 0) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Slabel)));
@@ -1162,7 +1221,7 @@ SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalue)
   h_double_t value = 0.0;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Svalue) > 0) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Svalue)));
@@ -1192,7 +1251,7 @@ SEXP RHugin_node_get_state_value(SEXP Snode, SEXP Ss)
   h_double_t value = 0.0;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Ss) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Ss)));
@@ -1220,7 +1279,7 @@ SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Svalue) > 0) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Svalue)));
@@ -1551,7 +1610,7 @@ SEXP RHugin_node_get_junction_tree(SEXP Snode)
   h_node_t node = NULL;
   h_junction_tree_t jt = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   jt = h_node_get_junction_tree(node);
 
   if(jt)
@@ -1663,7 +1722,7 @@ SEXP RHugin_node_select_state(SEXP Snode, SEXP Sstate)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_node_select_state(node, (size_t) INTEGER(Sstate)[0]);
@@ -1677,14 +1736,18 @@ SEXP RHugin_node_enter_finding(SEXP Snode, SEXP Sstate, SEXP Svalue)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  int i = 0;
+  int i = 0, *state = NULL, *status = NULL;
+  double *value = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Sstate) == LENGTH(Svalue)) {
     PROTECT(ret = allocVector(INTSXP, LENGTH(Sstate)));
+    status = INTEGER(ret);
+    state = INTEGER(Sstate);
+    value = REAL(Svalue);
     for(i = 0; i < LENGTH(Sstate); i++)
-      INTEGER(ret)[i] = (int) h_node_enter_finding(node, (size_t) INTEGER(Sstate)[i], (h_number_t) REAL(Svalue)[i]);
+      status[i] = (int) h_node_enter_finding(node, (size_t) state[i], (h_number_t) value[i]);
     UNPROTECT(1);
   }
 
@@ -1697,7 +1760,7 @@ SEXP RHugin_node_enter_value(SEXP Snode, SEXP Svalue)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_node_enter_value(node, REAL(Svalue)[0]);
@@ -1714,7 +1777,7 @@ SEXP RHugin_node_retract_findings(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_node_retract_findings(node);
@@ -1848,14 +1911,17 @@ SEXP RHugin_node_get_belief(SEXP Snode, SEXP Sstate)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  int i = 0;
+  int i = 0, *state = NULL;
+  double *belief = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Sstate) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Sstate)));
+    belief = REAL(ret);
+    state = INTEGER(Sstate);
     for(i = 0; i < LENGTH(Sstate); i++)
-      REAL(ret)[i] = (double) h_node_get_belief(node, (size_t) INTEGER(Sstate)[i]);
+      belief[i] = (double) h_node_get_belief(node, (size_t) state[i]);
     UNPROTECT(1);
   }
 
@@ -1868,7 +1934,7 @@ SEXP RHugin_node_get_mean(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_mean(node);
@@ -1883,7 +1949,7 @@ SEXP RHugin_node_get_variance(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_variance(node);
@@ -1925,7 +1991,7 @@ SEXP RHugin_node_get_distribution(SEXP Snode)
   h_node_t node = NULL;
   h_table_t table = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   table = h_node_get_distribution(node);
 
   if(table)
@@ -1943,7 +2009,7 @@ SEXP RHugin_node_get_expected_utility(SEXP Snode, SEXP Sstate)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Sstate) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Sstate)));
@@ -1964,7 +2030,7 @@ SEXP RHugin_node_get_entered_finding(SEXP Snode, SEXP Sstate)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Sstate) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Sstate)));
@@ -1983,7 +2049,7 @@ SEXP RHugin_node_get_propagated_finding(SEXP Snode, SEXP Sstate)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(LENGTH(Sstate) > 0) {
     PROTECT(ret = allocVector(REALSXP, LENGTH(Sstate)));
@@ -2001,7 +2067,7 @@ SEXP RHugin_node_get_entered_value(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_entered_value(node);
@@ -2016,7 +2082,7 @@ SEXP RHugin_node_get_propagated_value(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_propagated_value(node);
@@ -2031,7 +2097,7 @@ SEXP RHugin_node_evidence_is_entered(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_evidence_is_entered(node);
@@ -2046,7 +2112,7 @@ SEXP RHugin_node_likelihood_is_entered(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_likelihood_is_entered(node);
@@ -2061,7 +2127,7 @@ SEXP RHugin_node_evidence_is_propagated(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_evidence_is_propagated(node);
@@ -2076,7 +2142,7 @@ SEXP RHugin_node_likelihood_is_propagated(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_likelihood_is_propagated(node);
@@ -2468,7 +2534,7 @@ SEXP RHugin_node_evidence_to_propagate(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_evidence_to_propagate(node);
@@ -2530,7 +2596,7 @@ SEXP RHugin_node_get_sampled_state(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_node_get_sampled_state(node);
@@ -2545,7 +2611,7 @@ SEXP RHugin_node_get_sampled_value(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_sampled_value(node);
@@ -2607,7 +2673,7 @@ SEXP RHugin_node_get_entropy(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_entropy(node);
@@ -2622,8 +2688,8 @@ SEXP RHugin_node_get_mutual_information(SEXP Snode, SEXP Sother)
   SEXP ret = R_NilValue;
   h_node_t node = NULL, other = NULL;
 
-  node = nodePointerFromSEXP(Snode);
-  other = nodePointerFromSEXP(Sother);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  other = nodePointerFromSEXP(VECTOR_ELT(Sother, 0));
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_node_get_mutual_information(node, other);
@@ -2638,7 +2704,7 @@ SEXP RHugin_node_get_mutual_information(SEXP Snode, SEXP Sother)
 SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = nodePointerFromSEXP(Snode);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_node_compute_sensitivity_data(node, (size_t) INTEGER(Sstate)[0]);
@@ -2653,7 +2719,7 @@ SEXP RHugin_node_get_sensitivity_constants(SEXP Snode, SEXP Sindex)
   SEXP ret = R_NilValue, names = R_NilValue;
   h_status_t status = (h_status_t) 0;
   h_number_t *pret = NULL;
-  h_node_t node = nodePointerFromSEXP(Snode);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, 4));
   PROTECT(names = allocVector(STRSXP, 4));
@@ -2709,7 +2775,7 @@ SEXP RHugin_node_get_experience_table(SEXP Snode)
   h_node_t node = NULL;
   h_table_t table = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   table = h_node_get_experience_table(node);
 
   if(table)
@@ -2724,7 +2790,7 @@ SEXP RHugin_node_has_experience_table(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_has_experience_table(node);
@@ -2740,7 +2806,7 @@ SEXP RHugin_node_get_fading_table(SEXP Snode)
   h_node_t node = NULL;
   h_table_t table = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   table = h_node_get_fading_table(node);
 
   if(table)
@@ -2755,7 +2821,7 @@ SEXP RHugin_node_has_fading_table(SEXP Snode)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = (int) h_node_has_fading_table(node);
@@ -2836,7 +2902,7 @@ SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate)
   h_status_t status = (h_status_t) 0;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = 0;
@@ -2864,7 +2930,7 @@ SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_index)
   h_node_t node = NULL;
   int i = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, LENGTH(Scase_index)));
   for(i = 0; i < LENGTH(Scase_index); i++) {
@@ -2883,16 +2949,21 @@ SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_index, SEXP Svalue)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  int i = 0;
+  int i = 0, *case_index = NULL, *status = NULL;
+  double *value = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+
   PROTECT(ret = allocVector(INTSXP, LENGTH(Scase_index)));
+  value = REAL(Svalue);
+  case_index = INTEGER(Scase_index);
+  status = INTEGER(ret);
 
   for(i = 0; i < LENGTH(Scase_index); i++) {
-    if(!R_FINITE(REAL(Svalue)[i]))
-      INTEGER(ret)[i] = (int) h_node_unset_case(node, (size_t) INTEGER(Scase_index)[i]);
+    if(!R_FINITE(value[i]))
+      status[i] = (int) h_node_unset_case(node, (size_t) case_index[i]);
     else
-      INTEGER(ret)[i] = (int) h_node_set_case_value(node, (size_t) INTEGER(Scase_index)[i], REAL(Svalue)[i]);
+      status[i] = (int) h_node_set_case_value(node, (size_t) case_index[i], value[i]);
   }
   
   UNPROTECT(1);
@@ -2904,16 +2975,20 @@ SEXP RHugin_node_get_case_value(SEXP Snode, SEXP Scase_index)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  int i = 0;
+  int i = 0, *case_index = NULL;
+  double *value = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(REALSXP, LENGTH(Scase_index)));
+  case_index = INTEGER(Scase_index);
+  value = REAL(ret);
+
   for(i = 0; i < LENGTH(Scase_index); i++) {
-    if(h_node_case_is_set(node, (size_t) INTEGER(Scase_index)[i]))
-      REAL(ret)[i] = (double) h_node_get_case_value(node, (size_t) INTEGER(Scase_index)[i]);
+    if(h_node_case_is_set(node, (size_t) case_index[i]))
+      value[i] = (double) h_node_get_case_value(node, (size_t) case_index[i]);
     else
-      REAL(ret)[i] = NA_REAL;
+      value[i] = NA_REAL;
   }
 
   UNPROTECT(1);
@@ -2926,15 +3001,16 @@ SEXP RHugin_node_unset_case(SEXP Snode, SEXP Scase_index)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_status_t status = (h_status_t) 0;
-  int i = 0;
+  int i = 0, *case_index = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = 0;
+  case_index = INTEGER(Scase_index);
 
   for(i = 0; i < LENGTH(Scase_index); i++) {
-    status = h_node_unset_case(node, (size_t) INTEGER(Scase_index)[0]);
+    status = h_node_unset_case(node, (size_t) case_index[i]);
 
     if(status != 0) {
       INTEGER(ret)[0] = (int) status;
@@ -2952,13 +3028,16 @@ SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_index)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  int i = 0;
+  int i = 0, *case_index = NULL, *status = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(LGLSXP, LENGTH(Scase_index)));
+  case_index = INTEGER(Scase_index);
+  status = LOGICAL(ret);
+
   for(i = 0; i < LENGTH(Scase_index); i++)
-    LOGICAL(ret)[i] = (int) h_node_case_is_set(node, (size_t) INTEGER(Scase_index)[i]);
+    status[i] = (int) h_node_case_is_set(node, (size_t) case_index[i]);
 
   UNPROTECT(1);
   return ret;
@@ -3134,8 +3213,8 @@ SEXP RHugin_node_set_edge_constraint(SEXP Sa, SEXP Sb, SEXP Sconstraint)
   h_node_t a = NULL, b = NULL;
   h_edge_constraint_t constraint = h_constraint_error;
 
-  a = nodePointerFromSEXP(Sa);
-  b = nodePointerFromSEXP(Sb);
+  a = nodePointerFromSEXP(VECTOR_ELT(Sa, 0));
+  b = nodePointerFromSEXP(VECTOR_ELT(Sb, 0));
 
   if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_NONE)
     constraint = h_constraint_none;
@@ -3166,8 +3245,8 @@ SEXP RHugin_node_get_edge_constraint(SEXP Sa, SEXP Sb)
   h_node_t a = NULL, b = NULL;
   h_edge_constraint_t constraint = h_constraint_error;
 
-  a = nodePointerFromSEXP(Sa);
-  b = nodePointerFromSEXP(Sb);
+  a = nodePointerFromSEXP(VECTOR_ELT(Sa, 0));
+  b = nodePointerFromSEXP(VECTOR_ELT(Sb, 0));
   constraint = h_node_get_edge_constraint(a, b);
 
   PROTECT(ret = allocVector(STRSXP, 1));
@@ -3342,7 +3421,7 @@ SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition)
   h_node_t node = NULL;
   h_status_t status;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   status = h_node_set_position(node, (h_coordinate_t) INTEGER(Sposition)[0],
                               (h_coordinate_t) INTEGER(Sposition)[1]);
 
@@ -3361,7 +3440,7 @@ SEXP RHugin_node_get_position(SEXP Snode)
   h_status_t status;
   h_coordinate_t position[] = {0, 0};
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   status = h_node_get_position(node, position, position + 1);
 
   if(status == h_error_none) {
