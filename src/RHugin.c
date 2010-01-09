@@ -43,6 +43,15 @@ SEXP RHUGIN_CONSTRAINT_FORWARD_EDGE_FORBIDDEN;
 SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN;
 
 
+void RHugin_handle_error()
+{
+  h_error_t code = h_error_code();
+  if(code != h_error_none)
+    error("Hugin Error Code: %d\nName: %s\nDescription: %s\n", (int) code,
+           h_error_name(code), h_error_description(code));
+}
+
+
 h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 {
   if(R_ExternalPtrAddr(Sdomain) == NULL)
@@ -58,10 +67,10 @@ h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 h_node_t nodePointerFromSEXP(SEXP Snode)
 {
   if(R_ExternalPtrAddr(Snode) == NULL)
-    error("NULL value passed as node");
+    return NULL;
 
   if(TYPEOF(Snode) != EXTPTRSXP || R_ExternalPtrTag(Snode) != RHugin_node_tag)
-    error("the node argument does not appear to be a valid Hugin node");
+    return NULL;
 
   return (h_node_t) R_ExternalPtrAddr(Snode);
 }

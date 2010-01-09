@@ -4,17 +4,13 @@ add.edge <- function(domain, child, parent)
 
   child <- .Call("RHugin_domain_get_node_by_name", domain, child,
                   PACKAGE = "RHugin")
-  RHugin.handle.error()
 
-  for(node in parent) {
-    node <- .Call("RHugin_domain_get_node_by_name", domain, node,
+  parent <- .Call("RHugin_domain_get_node_by_name", domain, parent,
                    PACKAGE = "RHugin")
-    RHugin.handle.error()
-    status <- .Call("RHugin_node_add_parent", child, node, PACKAGE = "RHugin")
-    RHugin.handle.error(status)
-  }
+
+  status <- .Call("RHugin_node_add_parent", child, parent, PACKAGE = "RHugin")
  
-  invisible(NULL)
+  invisible(status)
 }
 
 

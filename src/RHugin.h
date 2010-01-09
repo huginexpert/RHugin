@@ -19,6 +19,11 @@
 DLLEXPORT void R_init_RHugin(DllInfo *info);
 
 
+/* Error handling */
+
+void RHugin_handle_error();
+
+
 /* Safe accessor methods for Hugin objects */
 
 h_domain_t domainPointerFromSEXP(SEXP Sdomain);

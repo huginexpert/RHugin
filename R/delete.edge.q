@@ -4,15 +4,12 @@ delete.edge <- function(domain, child, parent)
 
   child.ptr <- .Call("RHugin_domain_get_node_by_name", domain, child,
                       PACKAGE = "RHugin")
-  RHugin.handle.error()
   parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, parent,
                        PACKAGE = "RHugin")
-  RHugin.handle.error()
   status <- .Call("RHugin_node_remove_parent", child.ptr, parent.ptr,
                    PACKAGE = "RHugin")
-  RHugin.handle.error(status)
 
-  invisible(NULL)
+  invisible(status)
 }
 
 

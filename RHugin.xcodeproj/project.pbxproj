@@ -30,6 +30,10 @@
 		0EC2510510AAF5B80092BC73 /* delete.table.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = delete.table.Rd; path = man/delete.table.Rd; sourceTree = SOURCE_ROOT; };
 		0EE02C580EC36B4700F321DA /* get.entropy.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.q; path = R/get.entropy.q; sourceTree = SOURCE_ROOT; };
 		0EE02C630EC38E2700F321DA /* get.entropy.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.Rd; path = man/get.entropy.Rd; sourceTree = SOURCE_ROOT; };
+		0EECF5C810F8A70100247A90 /* get.distribution.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.distribution.q; path = R/get.distribution.q; sourceTree = SOURCE_ROOT; };
+		0EECF5DF10F8B75300247A90 /* get.category.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.category.q; path = R/get.category.q; sourceTree = SOURCE_ROOT; };
+		0EECF5E010F8B75300247A90 /* get.kind.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.kind.q; path = R/get.kind.q; sourceTree = SOURCE_ROOT; };
+		0EECF61910F8E0B400247A90 /* get.subtype.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.subtype.q; path = R/get.subtype.q; sourceTree = SOURCE_ROOT; };
 		0EFD932D0E8FE8E000A0CDAA /* buildTestNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildTestNetwork.r; sourceTree = "<group>"; };
 		DA47098D0FD82B5E001CB5BF /* appleTree.R */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = appleTree.R; path = tests/appleTree.R; sourceTree = "<group>"; };
 		DA47098E0FD82B5E001CB5BF /* asia.R */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = asia.R; path = tests/asia.R; sourceTree = "<group>"; };
@@ -177,14 +181,18 @@
 				DAEFA1B00DE3081A002B126B /* error.description.q */,
 				DAEFA1B30DE3081B002B126B /* get.belief.q */,
 				DAEFA1B40DE3081B002B126B /* get.cases.q */,
+				0EECF5DF10F8B75300247A90 /* get.category.q */,
+				0EECF5C810F8A70100247A90 /* get.distribution.q */,
 				DAEFA1B50DE3081B002B126B /* get.edges.q */,
 				0EE02C580EC36B4700F321DA /* get.entropy.q */,
 				DAD83CD40E1A4044005C9495 /* get.finding.q */,
+				0EECF5E010F8B75300247A90 /* get.kind.q */,
 				0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */,
 				DAEFA1B60DE3081B002B126B /* get.nodes.q */,
 				DAEFA1B70DE3081B002B126B /* get.normalization.constant.q */,
 				DA4C81C40EB2054F00834BEA /* get.sensitivity.q */,
 				DAEFA1B80DE3081B002B126B /* get.states.q */,
+				0EECF61910F8E0B400247A90 /* get.subtype.q */,
 				DAEFA1BA0DE3081B002B126B /* get.table.q */,
 				0E2569B60FDA93BF008C9DED /* get.utility.q */,
 				DAEFA1BB0DE3081B002B126B /* hugin.domain.q */,

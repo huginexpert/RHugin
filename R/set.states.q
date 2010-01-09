@@ -6,10 +6,8 @@ set.states <- function(domain, node, states, subtype = c("auto", "labeled",
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   if(category != "chance" && category != "decision") {
     warning("this function has no effect on ", category, " nodes")
@@ -17,7 +15,6 @@ set.states <- function(domain, node, states, subtype = c("auto", "labeled",
   }
 
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   if(kind == "continuous") {
     warning("this function has no effect on continuous nodes")

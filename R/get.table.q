@@ -7,7 +7,6 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
 
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")

@@ -8,13 +8,13 @@ Add a copy of a node to an RHugin domain.
 }
 
 \usage{
-clone.node(domain, node, new.name)
+clone.node(domain, node, name)
 }
 
 \arguments{
   \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of the node in \code{domain} to be cloned.}
-  \item{new.name}{a character string specifying the name of the cloned node.}
+  \item{name}{a character string specifying the name of the clone.}
 }
 
 \details{
