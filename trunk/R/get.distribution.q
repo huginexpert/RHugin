@@ -8,6 +8,10 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
                      PACKAGE = "RHugin")
   RHugin.handle.error()
 
+  kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+  if(kind[node] != "continuous")
+    stop(node, " is not a conditional Gaussian (CG) node")
+
   table.ptr <- .Call("RHugin_node_get_distribution", node.ptr,
                       PACKAGE = "RHugin")
   RHugin.handle.error()
@@ -17,16 +21,8 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
   node.ptrs <- .Call("RHugin_table_get_nodes", table.ptr, PACKAGE = "RHugin")
   nodes <- names(node.ptrs)
 
-  kinds <- character()
-
-  for(node in nodes) {
-    kinds[node] <- .Call("RHugin_node_get_kind", node.ptrs[[node]],
-                          PACKAGE = "RHugin")
-    RHugin.handle.error()
-  }
-
+  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
   discrete <- nodes[kinds == "discrete"]
-  continuous <- nodes[kinds == "continuous"]
 
   states <- lapply(discrete, function(u) get.states(domain, u))
   names(states) <- discrete
@@ -36,44 +32,21 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
   table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  n.continuous <- length(continuous)
   n.table <- length(table)
 
-  mean <- NA
-  cov <- NA
+  mean <- matrix(0.0, nrow = n.table, ncol = 1)
+  dimnames(mean) <- list(1:n.table, node)
+  cov <- list()
 
-  if(n.continuous) {
-    mean <- matrix(0.0, nrow = n.table, ncol = n.continuous)
-    dimnames(mean) <- list(1:n.table, continuous)
-    cov <- list()
+  mean[ , 1] <- .Call("RHugin_table_get_mean", table.ptr,
+                       as.integer(0:(n.table - 1)),
+                       node.ptrs[node],
+                       PACKAGE = "RHugin")
 
-    for(j in 1:n.continuous)
-      mean[ , j] <- .Call("RHugin_table_get_mean", table.ptr,
-                           as.integer(0:(n.table - 1)),
-                           node.ptrs[[continuous[j]]],
-                           PACKAGE = "RHugin")
-
-    for(k in 1:n.table) {
-      tmp <- matrix(0.0, n.continuous, n.continuous)
-      dimnames(tmp) <- list(continuous, continuous)
-      for(i in 1:n.continuous)
-        tmp[i, i] <- .Call("RHugin_table_get_variance", table.ptr,
-                            as.integer(k - 1), node.ptrs[[continuous[i]]],
-                            PACKAGE = "RHugin")
-
-      if(n.continuous > 1) {
-        for(i in 2:n.continuous) {
-          for(j in 1:(i - 1))
-            tmp[i, j] <- tmp[j, i] <- .Call("RHugin_table_get_covariance",
-                                             table.ptr, as.integer(k - 1),
-                                             node.ptrs[[continuous[i]]],
-                                             node.ptrs[[continuous[j]]],
-                                             PACKAGE = "RHugin")
-        }
-      }
-    cov[[k]] <- tmp  
-    }
-  }
+  for(k in 1:n.table)
+    cov[[k]] <- .Call("RHugin_table_get_variance", table.ptr,
+                       as.integer(k - 1), node.ptrs[node],
+                       PACKAGE = "RHugin")
 
   table <- switch(class,
     "data.frame" = {

@@ -314,6 +314,7 @@ SEXP RHugin_node_delete(SEXP Snodes)
   int i = 0, n = LENGTH(Snodes);
 
   PROTECT(ret = allocVector(INTSXP, n));
+  status = INTEGER(ret);
 
   for(i = 0; i < n; i++) {
     node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
@@ -2668,31 +2669,43 @@ SEXP RHugin_domain_get_normal_deviate(SEXP Sdomain, SEXP Smean, SEXP Svariance)
 
 /* Section 9.8 Value of information analysis */
 
-SEXP RHugin_node_get_entropy(SEXP Snode)
+SEXP RHugin_node_get_entropy(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
+  int i = 0, n = LENGTH(Snodes);
+  double *entropy = NULL;
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(ret = allocVector(REALSXP, n));
+  entropy = REAL(ret);
 
-  PROTECT(ret = allocVector(REALSXP, 1));
-  REAL(ret)[0] = (double) h_node_get_entropy(node);
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    entropy[i] = (double) h_node_get_entropy(node);
+  }
+
   UNPROTECT(1);
 
   return ret;
 }
 
 
-SEXP RHugin_node_get_mutual_information(SEXP Snode, SEXP Sother)
+SEXP RHugin_node_get_mutual_information(SEXP Snodes, SEXP Sothers)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL, other = NULL;
+  int i = 0, n = LENGTH(Snodes);
+  double *mi = NULL;
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  other = nodePointerFromSEXP(VECTOR_ELT(Sother, 0));
+  PROTECT(ret = allocVector(REALSXP, n));
+  mi = REAL(ret);
 
-  PROTECT(ret = allocVector(REALSXP, 1));
-  REAL(ret)[0] = (double) h_node_get_mutual_information(node, other);
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    other = nodePointerFromSEXP(VECTOR_ELT(Sothers, i));
+    mi[i] = (double) h_node_get_mutual_information(node, other);
+  }
+
   UNPROTECT(1);
 
   return ret;
