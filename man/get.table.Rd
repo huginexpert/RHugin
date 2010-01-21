@@ -40,7 +40,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 \examples{
 demo("buildAppleTreeNetwork", echo = FALSE)
 
-# Get the nodes associated with the CPT of the node "Loses"
+# Get the CPT of the node "Loses"
 get.table(AppleTree, "Loses")
 }
 

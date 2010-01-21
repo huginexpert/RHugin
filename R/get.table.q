@@ -5,9 +5,8 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
   type <- match.arg(type)
   class <- match.arg(class)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                     PACKAGE = "RHugin")
-
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
+                     as.character(node[1]), PACKAGE = "RHugin")
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
 

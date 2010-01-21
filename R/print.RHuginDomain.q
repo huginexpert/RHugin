@@ -16,10 +16,10 @@ print.RHuginDomain <- function(x, ...)
         edges <- c(edges, paste(node, edge.list[[node]]$edges, sep = " -> "))
 
     cat("A Hugin domain\n")
-    cat("Node set: ")
+    cat("Nodes: ")
     cat(nodes)
     cat("\n")
-    cat("Edge Set:\n")
+    cat("Edges:\n")
     for(edge in edges) {
       cat("  ")
       cat(edge)
