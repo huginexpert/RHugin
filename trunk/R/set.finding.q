@@ -11,13 +11,11 @@ set.finding <- function(domain, node, finding, case = NULL)
 
   RHugin.check.args(domain, node, character(0), "set.finding")
 
-  node.summary <- summary(domain, node)$nodes[[node]]
-  category <- node.summary$category
-  kind <- node.summary$kind
-
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                     PACKAGE = "RHugin")
-  RHugin.handle.error()
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
+                      as.character(node[1]), PACKAGE = "RHugin")
+  category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
+  kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+  subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
 
   if(kind == "discrete") {
     if(category != "chance" && category != "decision")
@@ -26,11 +24,13 @@ set.finding <- function(domain, node, finding, case = NULL)
     states <- get.states(domain, node)
 
     if(length(finding) == 1) {
-      state.index <- switch(node.summary$subtype,
+      state.index <- switch(subtype,
         "boolean" = ifelse(as.logical(finding), 1, 0),
         "labeled" = .Call("RHugin_node_get_state_index_from_label", node.ptr,
                            as.character(finding), PACKAGE = "RHugin"),
         "numbered" = .Call("RHugin_node_get_state_index_from_value", node.ptr,
+                            as.double(finding), PACKAGE = "RHugin"),
+        "interval" = .Call("RHugin_node_get_state_index_from_value", node.ptr,
                             as.double(finding), PACKAGE = "RHugin"),
         -1)
 

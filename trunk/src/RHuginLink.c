@@ -1773,15 +1773,20 @@ SEXP RHugin_node_enter_value(SEXP Snode, SEXP Svalue)
 
 /* Section 8.3 Retracting evidence */
 
-SEXP RHugin_node_retract_findings(SEXP Snode)
+SEXP RHugin_node_retract_findings(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  int i = 0, n = LENGTH(Snodes), *status = NULL;
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_node_retract_findings(node);
+  status = INTEGER(ret);
+
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    status[i] = (int) h_node_retract_findings(node);
+  }
+
   UNPROTECT(1);
 
   return ret;

@@ -10,16 +10,15 @@ retract <- function(domain, nodes)
   else {
     RHugin.check.args(domain, nodes, character(0), "retract")
 
-    for(node in nodes) {
-      node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                         PACKAGE = "RHugin")
-      RHugin.handle.error()
-      status <- .Call("RHugin_node_retract_findings", node.ptr,
-                       PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-    }
+    node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
+                        as.character(nodes), PACKAGE = "RHugin")
+    RHugin.handle.error()
+    status <- .Call("RHugin_node_retract_findings", node.ptrs,
+                     PACKAGE = "RHugin")
+    RHugin.handle.error(status)
   }
 
   invisible(NULL)
 }
+
 

@@ -2,8 +2,8 @@ get.utility <- function(domain, node)
 {
   RHugin.check.args(domain, node, character(0), "get.utility")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                     PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
+                     as.character(node[1]), PACKAGE = "RHugin")
   RHugin.handle.error()
 
   states <- get.states(domain, node)

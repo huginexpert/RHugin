@@ -5,7 +5,11 @@ set.cases <- function(domain, data, Freq)
   n <- nrow(data)
   data.names <- names(data)
   nodes <- intersect(get.nodes(domain), data.names)
-  node.summary <- summary(domain, nodes)$nodes
+
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
+                      as.character(nodes), PACKAGE = "RHugin")
+  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
+  subtypes <- .Call("RHugin_node_get_subtype", node.ptrs, PACKAGE = "RHugin")
 
   status <- .Call("RHugin_domain_set_number_of_cases", domain,
                    as.integer(0), PACKAGE = "RHugin")
@@ -15,19 +19,15 @@ set.cases <- function(domain, data, Freq)
   RHugin.handle.error(status)
 
   for(node in nodes) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                       PACKAGE = "RHugin")
-    RHugin.handle.error()
-
-    status <- switch(node.summary[[node]]$kind,
+    status <- switch(kinds[node],
       "discrete" = {
-        if(is.element(node.summary[[node]]$subtype, c("labeled", "boolean"))) {
+        if(is.element(subtypes[node], c("labeled", "boolean"))) {
           states <- get.states(domain, node)
           state.indices <- match(data[[node]], states, nomatch = NA) - 1
         }
         else {
           state.indices <- .Call("RHugin_node_get_state_index_from_value",
-                                  node.ptr, as.double(data[[node]]),
+                                  node.ptrs[node], as.double(data[[node]]),
                                   PACKAGE = "RHugin")
           state.indices[state.indices == -1] <- NA
         }
@@ -35,14 +35,14 @@ set.cases <- function(domain, data, Freq)
         index.set <- which(!is.na(state.indices))
         state.indices <- state.indices[index.set]
 
-        .Call("RHugin_node_set_case_state", node.ptr,
+        .Call("RHugin_node_set_case_state", node.ptrs[node],
                as.integer(index.set - 1), as.integer(state.indices),
                PACKAGE = "RHugin")
       },
 
       "continuous" = {
         index.set <- which(is.finite(data[[node]]))
-        .Call("RHugin_node_set_case_value", node.ptr,
+        .Call("RHugin_node_set_case_value", node.ptrs[node],
                as.integer(index.set - 1), as.double(data[[node]][index.set]),
                PACKAGE = "RHugin")
       }

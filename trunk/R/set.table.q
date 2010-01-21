@@ -6,11 +6,11 @@ set.table <- function(domain, node, data,
 
   class <- class(data)
   if(!is.element(class, c("data.frame", "table", "numeric")))
-    stop("the", sQuote("data"), "argument must be a data frame,",
+    stop("the ", sQuote("data"), " argument must be a data frame, ",
          "table or numeric vector")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                     PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
+                     as.character(node[1]), PACKAGE = "RHugin")
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
@@ -43,25 +43,31 @@ set.table <- function(domain, node, data,
 
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
-    parent.kinds <- character(0)
 
-    for(n in parent.nodes) {
-      parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, n,
+#    for(n in parent.nodes) {
+#      parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, n,
+#                           PACKAGE = "RHugin")
+#      RHugin.handle.error()
+#      parent.kinds[n] <- .Call("RHugin_node_get_kind", parent.ptr,
+#                                PACKAGE = "RHugin")
+#    }
+
+    parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
+                          as.character(parent.nodes), PACKAGE = "RHugin")
+    parent.kinds <- .Call("RHugin_node_get_kind", parent.ptrs,
                            PACKAGE = "RHugin")
-      RHugin.handle.error()
-      parent.kinds[n] <- .Call("RHugin_node_get_kind", parent.ptr,
-                                PACKAGE = "RHugin")
-    }
 
     discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
-    continuous.parent.ptrs <- list()
+#    continuous.parent.ptrs <- list()
 
-    for(n in continuous.parents) {
-      continuous.parent.ptrs[[n]] <- .Call("RHugin_domain_get_node_by_name",
-                                            domain, n, PACKAGE = "RHugin")
-      RHugin.handle.error()
-    }
+#    for(n in continuous.parents) {
+#      continuous.parent.ptrs[[n]] <- .Call("RHugin_domain_get_node_by_name",
+#                                            domain, n, PACKAGE = "RHugin")
+#      RHugin.handle.error()
+#    }
+
+    continuous.parent.ptrs <- parent.ptrs[continuous.parents]
 
     components <- c("(Intercept)", continuous.parents, "(Variance)")
     states <- lapply(discrete.parents, function(u) get.states(domain, u))
@@ -79,8 +85,10 @@ set.table <- function(domain, node, data,
   table <- switch(class(data),
     "data.frame" = {
       table <- NULL
-      if(is.element(type, c("experience", "fading")))
+      if(type == "experience")
          table <- data[["Counts"]]
+      else if(type == "fading")
+         table <- data[["Lambda"]]
       else if(category == "utility")
         table <- data[["Utility"]]
       else if(category == "decision")
@@ -135,7 +143,7 @@ set.table <- function(domain, node, data,
     for(n in continuous.parents) {
       beta[[n]] <- .Call("RHugin_node_set_beta", node.ptr,
                           as.double(table[components == n]),
-                          continuous.parent.ptrs[[n]], as.integer(i),
+                          continuous.parent.ptrs[n], as.integer(i),
                           PACKAGE = "RHugin")
       RHugin.handle.error()
     }

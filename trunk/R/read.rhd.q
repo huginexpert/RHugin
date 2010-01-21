@@ -12,12 +12,13 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL)
   }
 
   domain <- switch(type,
-    "hkb" = .Call("RHugin_kb_load_domain", filename, password,
-                   PACKAGE = "RHugin"),
+    "hkb" = .Call("RHugin_kb_load_domain", as.character(filename),
+                   as.character(password), PACKAGE = "RHugin"),
     "net" = {
       if(!is.null(password))
         warning(sQuote("password"), " not used in NET file")
-      .Call("RHugin_net_parse_domain", filename, PACKAGE = "RHugin")
+      .Call("RHugin_net_parse_domain", as.character(filename),
+             PACKAGE = "RHugin")
     }
   )
 

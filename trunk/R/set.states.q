@@ -4,8 +4,8 @@ set.states <- function(domain, node, states, subtype = c("auto", "labeled",
   RHugin.check.args(domain, node, character(0), "set.states")
   subtype <- match.arg(subtype)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                     PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
+                     as.character(node[1]), PACKAGE = "RHugin")
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
 
@@ -69,7 +69,7 @@ set.states <- function(domain, node, states, subtype = c("auto", "labeled",
       RHugin.handle.error(status)
 
       .Call("RHugin_node_set_state_value", node.ptr,
-             as.integer(0:(length(states) - 1)), states,
+             as.integer(0:(length(states) - 1)), as.double(states),
              PACKAGE = "RHugin")
     },
 
@@ -82,14 +82,14 @@ set.states <- function(domain, node, states, subtype = c("auto", "labeled",
       if(any(is.na(states)))
         stop("non numeric states supplied for interval node")
       if(!identical(states, sort(states)))
-        stop("states do not appear to be disjoint intervals")
+        stop("states are not disjoint intervals")
 
       status <- .Call("RHugin_node_set_number_of_states", node.ptr,
                        as.integer(length(states) - 1), PACKAGE = "RHugin")
       RHugin.handle.error(status)
 
       .Call("RHugin_node_set_state_value", node.ptr,
-             as.integer(0:(length(states) - 1)), states,
+             as.integer(0:(length(states) - 1)), as.double(states),
              PACKAGE = "RHugin")
     }
   )

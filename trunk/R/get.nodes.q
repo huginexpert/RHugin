@@ -12,7 +12,7 @@ get.nodes <- function(domain)
 
   while(!is.null(node.ptr)) {
     nodes <- c(.Call("RHugin_node_get_name", node.ptr, PACKAGE = "RHugin"),
-                nodes)
+               nodes)
     RHugin.handle.error()
     node.ptr <- .Call("RHugin_node_get_next", node.ptr, PACKAGE = "RHugin")
     RHugin.handle.error()

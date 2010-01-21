@@ -12,32 +12,27 @@ get.cases <- function(domain)
 
   index.set <- as.integer(0:(n-1))
 
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
+                      as.character(nodes), PACKAGE = "RHugin")
+  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
+  subtypes <- .Call("RHugin_node_get_subtype", node.ptrs, PACKAGE = "RHugin")
+
   for(node in nodes) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                       PACKAGE = "RHugin")
-    RHugin.handle.error()
-
-    kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
-
-    if(kind  == "discrete") {
-      state.indices <- .Call("RHugin_node_get_case_state", node.ptr,
+    if(kinds[node]  == "discrete") {
+      state.indices <- .Call("RHugin_node_get_case_state", node.ptrs[node],
                               as.integer(index.set), PACKAGE = "RHugin")
-      RHugin.handle.error()
-
-      subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
       RHugin.handle.error()
 
       states <- get.states(domain, node)
 
-      if(is.element(subtype, c("labeled", "interval")))
+      if(is.element(subtypes[node], c("labeled", "interval")))
         data[[node]] <- factor(states[state.indices + 1], levels = states)
       else
         data[[node]] <- states[state.indices + 1]
     }
 
     else {
-      data[[node]] <- .Call("RHugin_node_get_case_value", node.ptr,
+      data[[node]] <- .Call("RHugin_node_get_case_value", node.ptrs[node],
                              as.integer(index.set), PACKAGE = "RHugin")
       RHugin.handle.error()
     }
