@@ -57,6 +57,8 @@
 		DADF9F980F42DAAA00946D22 /* as.graph.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = as.graph.RHuginDomain.Rd; path = man/as.graph.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
 		DADF9FBB0F4306B300946D22 /* layoutRHugin.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = layoutRHugin.q; path = R/layoutRHugin.q; sourceTree = "<group>"; };
 		DADF9FC50F4308B900946D22 /* layoutRHugin.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = layoutRHugin.Rd; path = man/layoutRHugin.Rd; sourceTree = SOURCE_ROOT; };
+		DAE0997811173B0C007BA905 /* get.dconnected.nodes.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.dconnected.nodes.q; path = R/get.dconnected.nodes.q; sourceTree = SOURCE_ROOT; };
+		DAE0997911173B0C007BA905 /* get.dseparated.nodes.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.dseparated.nodes.q; path = R/get.dseparated.nodes.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1A80DE3081A002B126B /* add.edge.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.edge.q; path = R/add.edge.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1A90DE3081A002B126B /* add.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = add.node.q; path = R/add.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AA0DE3081A002B126B /* clone.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.q; path = R/clone.node.q; sourceTree = SOURCE_ROOT; };
@@ -166,6 +168,8 @@
 		DAEFA1A40DE307D8002B126B /* R */ = {
 			isa = PBXGroup;
 			children = (
+				DAE0997811173B0C007BA905 /* get.dconnected.nodes.q */,
+				DAE0997911173B0C007BA905 /* get.dseparated.nodes.q */,
 				0E84068010A8BBBF00E3E8D6 /* adapt.q */,
 				DAEFA1A80DE3081A002B126B /* add.edge.q */,
 				DAEFA1A90DE3081A002B126B /* add.node.q */,

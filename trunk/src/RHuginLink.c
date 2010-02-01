@@ -1842,7 +1842,7 @@ SEXP RHugin_domain_get_d_connected_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
   d_connected = h_domain_get_d_connected_nodes(domain, source, hard, soft);
 
-  for(node = d_connected; *node != NULL; node++)
+  for(node = d_connected; node != NULL; node++)
     n++;
 
   if(n > 0) {
@@ -1893,7 +1893,10 @@ SEXP RHugin_domain_get_d_separated_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
   d_separated = h_domain_get_d_connected_nodes(domain, source, hard, soft);
 
-  for(node = d_separated; *node != NULL; node++)
+  if(d_separated == NULL)
+    Rprintf("d_separated is NULL\n");
+
+  for(node = d_separated; node != NULL; node++)
     n++;
 
   if(n > 0) {
