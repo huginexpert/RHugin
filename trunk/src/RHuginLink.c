@@ -1819,30 +1819,24 @@ SEXP RHugin_domain_get_d_connected_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(LENGTH(Ssource) > 0) {
-    source = (h_node_t*) R_alloc(1 + LENGTH(Ssource), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Ssource); i++)
-      source[i] = nodePointerFromSEXP(VECTOR_ELT(Ssource, i));
-    source[LENGTH(Ssource)] = NULL;
-  }
+  source = (h_node_t*) R_alloc(1 + LENGTH(Ssource), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Ssource); i++)
+    source[i] = nodePointerFromSEXP(VECTOR_ELT(Ssource, i));
+  source[LENGTH(Ssource)] = NULL;
 
-  if(LENGTH(Shard) > 0) {
-    hard = (h_node_t*) R_alloc(1 + LENGTH(Shard), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Shard); i++)
-      hard[i] = nodePointerFromSEXP(VECTOR_ELT(Shard, i));
-    hard[LENGTH(Shard)] = NULL;
-  }
+  hard = (h_node_t*) R_alloc(1 + LENGTH(Shard), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Shard); i++)
+    hard[i] = nodePointerFromSEXP(VECTOR_ELT(Shard, i));
+  hard[LENGTH(Shard)] = NULL;
 
-  if(LENGTH(Ssoft) > 0) {
-    soft = (h_node_t*) R_alloc(1 + LENGTH(Ssoft), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Ssoft); i++)
-      soft[i] = nodePointerFromSEXP(VECTOR_ELT(Ssoft, i));
-    soft[LENGTH(Ssoft)] = NULL;
-  }
+  soft = (h_node_t*) R_alloc(1 + LENGTH(Ssoft), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Ssoft); i++)
+    soft[i] = nodePointerFromSEXP(VECTOR_ELT(Ssoft, i));
+  soft[LENGTH(Ssoft)] = NULL;
 
   d_connected = h_domain_get_d_connected_nodes(domain, source, hard, soft);
 
-  for(node = d_connected; node != NULL; node++)
+  for(node = d_connected; *node != NULL; node++)
     n++;
 
   if(n > 0) {
@@ -1870,33 +1864,24 @@ SEXP RHugin_domain_get_d_separated_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 
   domain = domainPointerFromSEXP(Sdomain);
 
-  if(LENGTH(Ssource) > 0) {
-    source = (h_node_t*) R_alloc(1 + LENGTH(Ssource), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Ssource); i++)
-      source[i] = nodePointerFromSEXP(VECTOR_ELT(Ssource, i));
-    source[LENGTH(Ssource)] = NULL;
-  }
+  source = (h_node_t*) R_alloc(1 + LENGTH(Ssource), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Ssource); i++)
+    source[i] = nodePointerFromSEXP(VECTOR_ELT(Ssource, i));
+  source[LENGTH(Ssource)] = NULL;
 
-  if(LENGTH(Shard) > 0) {
-    hard = (h_node_t*) R_alloc(1 + LENGTH(Shard), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Shard); i++)
-      hard[i] = nodePointerFromSEXP(VECTOR_ELT(Shard, i));
-    hard[LENGTH(Shard)] = NULL;
-  }
+  hard = (h_node_t*) R_alloc(1 + LENGTH(Shard), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Shard); i++)
+    hard[i] = nodePointerFromSEXP(VECTOR_ELT(Shard, i));
+  hard[LENGTH(Shard)] = NULL;
 
-  if(LENGTH(Ssoft) > 0) {
-    soft = (h_node_t*) R_alloc(1 + LENGTH(Ssoft), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Ssoft); i++)
-      soft[i] = nodePointerFromSEXP(VECTOR_ELT(Ssoft, i));
-    soft[LENGTH(Ssoft)] = NULL;
-  }
+  soft = (h_node_t*) R_alloc(1 + LENGTH(Ssoft), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Ssoft); i++)
+    soft[i] = nodePointerFromSEXP(VECTOR_ELT(Ssoft, i));
+  soft[LENGTH(Ssoft)] = NULL;
 
-  d_separated = h_domain_get_d_connected_nodes(domain, source, hard, soft);
+  d_separated = h_domain_get_d_separated_nodes(domain, source, hard, soft);
 
-  if(d_separated == NULL)
-    Rprintf("d_separated is NULL\n");
-
-  for(node = d_separated; node != NULL; node++)
+  for(node = d_separated; *node != NULL; node++)
     n++;
 
   if(n > 0) {
