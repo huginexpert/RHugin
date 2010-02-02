@@ -83,6 +83,18 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
       states <- NULL
     }
 
+    evidence.is.entered <- .Call("RHugin_node_evidence_is_entered", node.ptr,
+                                  PACKAGE = "RHugin")
+
+    likelihood.is.entered <- .Call("RHugin_node_likelihood_is_entered",
+                                    node.ptr, PACKAGE = "RHugin")
+
+    evidence.is.propagated <- .Call("RHugin_node_evidence_is_propagated",
+                                     node.ptr, PACKAGE = "RHugin")
+
+    likelihood.is.propagated <- .Call("RHugin_node_likelihood_is_propagated",
+                                       node.ptr, PACKAGE = "RHugin")
+
     experience.table <- .Call("RHugin_node_has_experience_table", node.ptr,
                                PACKAGE = "RHugin")
 
@@ -91,6 +103,10 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
 
     node.summary[[node]] <- list(category = category, kind = kind,
                                  subtype = subtype, states = states,
+                                 evidence.is.entered = evidence.is.entered,
+                                 likelihood.is.entered = likelihood.is.entered,
+                                 evidence.is.propagated = evidence.is.propagated,
+                                 likelihood.is.propagated = likelihood.is.propagated,
                                  experience.table = experience.table,
                                  fading.table = fading.table)
   }
