@@ -168,8 +168,6 @@
 		DAEFA1A40DE307D8002B126B /* R */ = {
 			isa = PBXGroup;
 			children = (
-				DAE0997811173B0C007BA905 /* get.dconnected.nodes.q */,
-				DAE0997911173B0C007BA905 /* get.dseparated.nodes.q */,
 				0E84068010A8BBBF00E3E8D6 /* adapt.q */,
 				DAEFA1A80DE3081A002B126B /* add.edge.q */,
 				DAEFA1A90DE3081A002B126B /* add.node.q */,
@@ -184,7 +182,9 @@
 				DAEFA1B30DE3081B002B126B /* get.belief.q */,
 				DAEFA1B40DE3081B002B126B /* get.cases.q */,
 				0EECF5DF10F8B75300247A90 /* get.category.q */,
+				DAE0997811173B0C007BA905 /* get.dconnected.nodes.q */,
 				0EECF5C810F8A70100247A90 /* get.distribution.q */,
+				DAE0997911173B0C007BA905 /* get.dseparated.nodes.q */,
 				DAEFA1B50DE3081B002B126B /* get.edges.q */,
 				0EE02C580EC36B4700F321DA /* get.entropy.q */,
 				DAD83CD40E1A4044005C9495 /* get.finding.q */,
