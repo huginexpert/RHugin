@@ -8,12 +8,12 @@ Delete an edge from an RHugin domain.
 }
 
 \usage{
-delete.edge(domain, child, parent)
+delete.edge(domain, node, parent)
 }
 
 \arguments{
   \item{domain}{an RHugin domain.}
-  \item{child}{a character string specifying the name of the child node in \code{domain} of the edge to be deleted.}
+  \item{node}{a character string specifying the name of the child node in \code{domain} of the edge to be deleted.}
   \item{parent}{a character string specifying the name of the parent node in \code{domain} of the edge to be deleted.}
 }
 

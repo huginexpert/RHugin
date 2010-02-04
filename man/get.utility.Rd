@@ -26,9 +26,6 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\examples{
-}
-
 \keyword{programming}
 
 

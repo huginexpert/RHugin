@@ -48,6 +48,9 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
                        as.integer(k - 1), node.ptrs[node],
                        PACKAGE = "RHugin")
 
+  if(!length(states))
+    class <- "numeric"
+
   table <- switch(class,
     "data.frame" = {
       table <- cbind(expand.grid(states), table)
@@ -61,9 +64,9 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
     },
 
     "ftable" = {
-      attributes(table) <- list(dim = d, dimnames = states, class = "table")
-      n <- length(table.nodes)
-      ftable(table, row.vars = table.nodes[n], col.vars = table.nodes[-n])
+      attributes(table) <- list(dim = sapply(states, length), dimnames = states,
+                                class = "table")
+      ftable(table, row.vars = node)
     },
 
     "numeric" = table

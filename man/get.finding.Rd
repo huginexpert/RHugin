@@ -1,19 +1,20 @@
 \name{get.finding}
 \alias{get.finding}
 
-\title{Get Entered Finding}
+\title{Get Finding}
 
 \description{
-Retrieve the entered finding from a node in an RHugin domain.
+Retrieve the entered or propagated finding from a node in an RHugin domain.
 }
 
 \usage{
-get.finding(domain, node)
+get.finding(domain, node, type = c("entered", "propagated"))
 }
 
 \arguments{
   \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of the node from which the entered findings are to be retrieved.}
+  \item{type}{a character string specifying whether the entered finding or the propagated finding is returned.}
 }
 
 \value{
@@ -21,7 +22,7 @@ get.finding(domain, node)
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_entered_finding}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_entered_finding}, \code{RHugin_node_get_entered_value}, \code{RHugin_node_get_propagated_finding} and \code{RHugin_node_get_propagated_value}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
