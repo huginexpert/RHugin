@@ -875,6 +875,7 @@ User_norm_fun
 User_unif_init
 VECTOR_ELT
 VECTOR_PTR
+_pcre_find_bracket
 balanc_
 balbak_
 call_R
