@@ -37,7 +37,20 @@ a list with class \code{summary.RHuginDomain}.
   }
 }
 
-\item{nodes}{the presence of this element depends on the value of \code{nodes} in the call.  A list whose elements are in turn lists containing the category, kind, subtype and (if applicable) states of the nodes specified in \code{nodes}.}
+\item{nodes}{a list of node summaries. Each node summary is a list with the following elements:
+  \describe{
+    \item{category}{a character string indicating the category of the node.}
+    \item{kind}{a character string indicating the kind of the node.}
+    \item{subtype}{a character string indicating the subtype of the node.}
+    \item{states}{a vector listing the states of the node.}
+    \item{evidence.is.entered}{a logical value indicating whether evidence has been entered for the node.}
+    \item{likelihood.is.entered}{a logical value indicating whether likelihood evidence has been entered for the node.}
+    \item{evidence.is.propagated}{a logical value indicating whether evidence has been propagated for the node.}
+    \item{likelihood.is.propagated}{a logical value indicating whether likelihood evidence has been propagated for the node.}
+    \item{experience.table}{a logical value indicating whether the node has an experience table.}
+    \item{fading.table}{a logical value indicating whether the node has an fading table.}
+  }
+}
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
