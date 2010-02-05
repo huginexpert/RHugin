@@ -1,0 +1,25 @@
+RHugin to do list:
+
+6.3 triangulation
+6.4 compilation log
+6.5 uncompilation (is this necessary)
+6.6 compression
+6.7 approximation
+
+7.2 junction trees
+7.3 cliques
+
+8.8 case files
+
+9.2 junction tree propagation
+9.3 conflict of evidence
+9.6 query inference engine (API relating to junction trees)
+
+10.x example
+
+11.2 scoring of graphical models
+11.3 data files
+11.4 learning network structure
+11.5 domain knowledge
+11.6 learning CPTs
+
