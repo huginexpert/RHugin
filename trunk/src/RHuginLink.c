@@ -1495,9 +1495,7 @@ SEXP RHugin_domain_uncompile(SEXP Sdomain)
 SEXP RHugin_domain_compress(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_compress(domain);
@@ -1510,14 +1508,10 @@ SEXP RHugin_domain_compress(SEXP Sdomain)
 SEXP RHugin_domain_is_compressed(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_boolean_t boolean = (h_boolean_t) 0;
-
-  domain = domainPointerFromSEXP(Sdomain);
-  boolean = h_domain_is_compressed(domain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(LGLSXP, 1));
-  LOGICAL(ret)[0] = (int) boolean;
+  LOGICAL(ret)[0] = (int) h_domain_is_compressed(domain);
   UNPROTECT(1);
 
   return ret;
@@ -1529,9 +1523,7 @@ SEXP RHugin_domain_is_compressed(SEXP Sdomain)
 SEXP RHugin_domain_approximate(SEXP Sdomain, SEXP Sepsilon)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
   
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_approximate(domain, (h_double_t) REAL(Sepsilon)[0]);
@@ -1544,9 +1536,7 @@ SEXP RHugin_domain_approximate(SEXP Sdomain, SEXP Sepsilon)
 SEXP RHugin_domain_get_approximation_constant(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_approximation_constant(domain);
