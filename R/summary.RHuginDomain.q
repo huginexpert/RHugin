@@ -20,6 +20,8 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
   evidence.normal <- .Call("RHugin_domain_evidence_mode_is", object,
                            "normal", PACKAGE = "RHugin")
 
+  compressed <- .Call("RHugin_domain_is_compressed", object, PACKAGE = "RHugin")
+
   evidence.fast <- .Call("RHugin_domain_evidence_mode_is", object,
                          "fast", PACKAGE = "RHugin")
 
@@ -43,6 +45,7 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
   domain.summary <- list(compiled = compiled,
                          equilibrium = equilibrium,
                          evidence.mode = evidence.mode,
+                         compressed = compressed,
                          evidence.propagated = evidence.propagated,
                          L.evidence.propagated = L.evidence.propagated,
                          GC.evidence.propagated = GC.evidence.propagated,
