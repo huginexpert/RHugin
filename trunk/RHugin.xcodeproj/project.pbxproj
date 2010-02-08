@@ -49,6 +49,8 @@
 		DA5E09C40E711F1B0014FAFE /* buildAppleTreeNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = buildAppleTreeNetwork.r; path = demo/buildAppleTreeNetwork.r; sourceTree = SOURCE_ROOT; };
 		DA5E09D70E7128940014FAFE /* buildChestClinicNetwork.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = buildChestClinicNetwork.r; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
+		DA8FAFC911204A0B0013CA86 /* compress.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compress.Rd; path = man/compress.Rd; sourceTree = SOURCE_ROOT; };
+		DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.approximation.constant.Rd; path = man/get.approximation.constant.Rd; sourceTree = SOURCE_ROOT; };
 		DAA2C39A0F8E34F6004C7606 /* Makevars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makevars; path = src/Makevars; sourceTree = SOURCE_ROOT; };
 		DAD83CD30E1A3764005C9495 /* set.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.finding.q; path = R/set.finding.q; sourceTree = "<group>"; };
 		DAD83CD40E1A4044005C9495 /* get.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.q; path = R/get.finding.q; sourceTree = SOURCE_ROOT; };
@@ -235,10 +237,12 @@
 				DADF9F980F42DAAA00946D22 /* as.graph.RHuginDomain.Rd */,
 				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
 				0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */,
+				DA8FAFC911204A0B0013CA86 /* compress.Rd */,
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				0EC2510510AAF5B80092BC73 /* delete.table.Rd */,
 				DAEFA1D40DE3083A002B126B /* errors.Rd */,
+				DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */,
 				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
 				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,
 				DA12B61511185E8200125A4C /* get.dconnected.nodes.Rd */,
