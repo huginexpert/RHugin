@@ -1,0 +1,40 @@
+\name{uncompile}
+\alias{uncompile}
+
+\title{Uncompile}
+
+\description{
+Remove the data structures produced by the compile and triangulate functions.
+}
+
+\usage{
+uncompile(domain)
+}
+
+\arguments{
+  \item{domain}{an RHugin domain.}
+}
+
+\value{
+a \code{NULL} value is invisibly returned.
+}
+
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_uncompile}.
+}
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+
+\examples{
+demo("buildAppleTreeNetwork", echo = FALSE)
+
+# Compile the domain
+compile(AppleTree)
+
+# Uncompile the domain
+uncompile(AppleTree)
+}
+
+\keyword{programming}
+
+
