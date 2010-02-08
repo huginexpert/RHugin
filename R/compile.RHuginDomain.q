@@ -9,6 +9,7 @@ compile.RHuginDomain <- function(object, save = FALSE, approximate = NULL, ...)
     factor <- .Call("RHugin_domain_approximate", object, as.double(approximate),
                      PACKAGE = "RHugin")
     RHugin.handle.error()
+    factor <- compress(object)
   }
 
   if(save) {
