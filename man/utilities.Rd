@@ -29,6 +29,6 @@ Undocumented.
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
-\keyword{utilities}
+\keyword{programming}
 
 

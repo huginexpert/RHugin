@@ -382,9 +382,9 @@ DLLEXPORT SEXP RHugin_domain_get_BIC(SEXP Sdomain);
 
 /* Section 11.3 Data files */
 
-// SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_handler, SEXP Sdata);
-// SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes, SEXP Scases,
-//                               SEXP Sinclude_case_counts, SEXP Sseparator, SEXP Smissing_data);
+DLLEXPORT SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes, SEXP Scases,
+                                        SEXP Sinclude_case_counts, SEXP Sseparator, SEXP Smissing_data);
  
 
 /* Section 11.4 Learning network structure */

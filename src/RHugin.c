@@ -112,7 +112,7 @@ h_clique_t cliquePointerFromSEXP(SEXP Sclique)
 }
 
 
-void RHuginParseNETError(h_location_t line, h_string_t message, void *data)
+void RHuginParseError(h_location_t line, h_string_t message, void *data)
 {
   Rprintf("Parse error at line %d: %s\n\n", (int) line, message);
 }
@@ -285,8 +285,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_log_likelihood", (DL_FUNC) RHugin_domain_get_log_likelihood, 1},
     {"RHugin_domain_get_AIC", (DL_FUNC) RHugin_domain_get_AIC, 1},
     {"RHugin_domain_get_BIC", (DL_FUNC) RHugin_domain_get_BIC, 1},
-    /*{"RHugin_domain_parse_cases", (DL_FUNC) RHugin_domain_parse_cases, 4},*/
-    /*{"RHugin_domain_save_cases", (DL_FUNC) RHugin_domain_save_cases, 7},*/
+    {"RHugin_domain_parse_cases", (DL_FUNC) RHugin_domain_parse_cases, 2},
+    {"RHugin_domain_save_cases", (DL_FUNC) RHugin_domain_save_cases, 7},
     {"RHugin_domain_learn_structure", (DL_FUNC) RHugin_domain_learn_structure, 1},
     {"RHugin_domain_set_significance_level", (DL_FUNC) RHugin_domain_set_significance_level, 2},
     {"RHugin_domain_get_significance_level", (DL_FUNC) RHugin_domain_get_significance_level, 1},
