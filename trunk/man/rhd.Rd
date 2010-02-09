@@ -5,7 +5,7 @@
 \title{Read/Write RHugin Domains}
 
 \description{
-  Save an RHugin domain as a Hugin Knowledge Base or NET file or load an RHugin domain from a Hugin Knowledge Base or NET file.
+Save an RHugin domain as a Hugin Knowledge Base or NET file or load an RHugin domain from a Hugin Knowledge Base or NET file.
 }
 
 \usage{

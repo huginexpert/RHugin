@@ -3105,9 +3105,7 @@ SEXP RHugin_domain_enter_case(SEXP Sdomain, SEXP Scase_index)
 SEXP RHugin_domain_get_log_likelihood(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_log_likelihood(domain);
@@ -3120,9 +3118,7 @@ SEXP RHugin_domain_get_log_likelihood(SEXP Sdomain)
 SEXP RHugin_domain_get_AIC(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_AIC(domain);
@@ -3135,9 +3131,7 @@ SEXP RHugin_domain_get_AIC(SEXP Sdomain)
 SEXP RHugin_domain_get_BIC(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_BIC(domain);
@@ -3149,9 +3143,48 @@ SEXP RHugin_domain_get_BIC(SEXP Sdomain)
 
 /* Section 11.3 Data files */
 
-// SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_handler, SEXP Sdata)
-// SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes, SEXP Scases,
-//                               SEXP Sinclude_case_counts, SEXP Sseparator, SEXP Smissing_data)
+SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_domain_parse_cases(domain,
+                                               (h_string_t) CHAR(asChar(Sfile_name)),
+                                               RHuginParseError, NULL);
+  UNPROTECT(1);
+
+  return ret;
+}
+
+SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
+                              SEXP Scases, SEXP Sinclude_case_counts,
+                              SEXP Sseparator, SEXP Smissing_data)
+{
+  SEXP ret = R_NilValue;
+  h_node_t *nodes = NULL;
+  h_index_t *cases = NULL;
+  int i = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  nodes = (h_node_t*) R_alloc(1 + LENGTH(Snodes), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Snodes); i++)
+    nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+  nodes[LENGTH(Snodes)] = NULL;
+
+  if(Scases != R_NilValue)
+    cases = (h_index_t*) INTEGER(Scases);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_domain_save_cases(domain, (h_string_t) CHAR(asChar(Sfile_name)),
+                                              nodes, cases,
+                                              (h_boolean_t) LOGICAL(Sinclude_case_counts)[0],
+                                              (h_string_t) CHAR(asChar(Sseparator)),
+                                              (h_string_t) CHAR(asChar(Smissing_data)));
+  UNPROTECT(1);
+
+  return ret;
+}
 
 
 /* Section 11.4 Learning network structure */
@@ -3384,7 +3417,7 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 {
   SEXP ret = R_NilValue;
   h_domain_t domain = h_net_parse_domain((h_string_t) CHAR(asChar(Sfile_name)),
-                                         RHuginParseNETError,
+                                         RHuginParseError,
                                          NULL);
 
   if(domain) {
