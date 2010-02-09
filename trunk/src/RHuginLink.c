@@ -3192,9 +3192,7 @@ SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
 SEXP RHugin_domain_learn_structure(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_learn_structure(domain);
@@ -3207,9 +3205,7 @@ SEXP RHugin_domain_learn_structure(SEXP Sdomain)
 SEXP RHugin_domain_set_significance_level(SEXP Sdomain, SEXP Sprobability)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_set_significance_level(domain, (h_double_t) REAL(Sprobability)[0]);
@@ -3222,9 +3218,7 @@ SEXP RHugin_domain_set_significance_level(SEXP Sdomain, SEXP Sprobability)
 SEXP RHugin_domain_get_significance_level(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_significance_level(domain);
