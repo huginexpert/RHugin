@@ -190,6 +190,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_max_number_of_separators", (DL_FUNC) RHugin_domain_get_max_number_of_separators, 1},
     {"RHugin_domain_triangulate", (DL_FUNC) RHugin_domain_triangulate, 2},
     {"RHugin_domain_triangulate_with_order", (DL_FUNC) RHugin_domain_triangulate_with_order, 2},
+    {"RHugin_domain_is_triangulated", (DL_FUNC) RHugin_domain_is_triangulated, 1},
     {"RHugin_domain_get_elimination_order", (DL_FUNC) RHugin_domain_get_elimination_order, 1},
     /*{"RHugin_domain_parse_nodes", (DL_FUNC) RHugin_domain_parse_nodes, 4},*/
     /*{"RHugin_class_parse_nodes", (DL_FUNC) RHugin_class_parse_nodes, 4},*/

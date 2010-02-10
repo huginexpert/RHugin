@@ -7,9 +7,7 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
       nodes <- character(0)
   }
 
-  else
-    RHugin.check.args(object, nodes, character(0), "summary.RHuginDomain")
-
+  RHugin.check.args(object, nodes, character(0), "summary.RHuginDomain")
 
   compiled <- .Call("RHugin_domain_is_compiled", object, PACKAGE = "RHugin")
 
