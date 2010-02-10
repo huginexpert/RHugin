@@ -3318,9 +3318,7 @@ SEXP RHugin_node_get_edge_constraint(SEXP Sa, SEXP Sb)
 SEXP RHugin_domain_learn_tables(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_learn_tables(domain);
@@ -3333,9 +3331,7 @@ SEXP RHugin_domain_learn_tables(SEXP Sdomain)
 SEXP RHugin_domain_set_log_likelihood_tolerance(SEXP Sdomain, SEXP Stolerance)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_set_log_likelihood_tolerance(domain, (h_double_t) REAL(Stolerance)[0]);
@@ -3348,9 +3344,7 @@ SEXP RHugin_domain_set_log_likelihood_tolerance(SEXP Sdomain, SEXP Stolerance)
 SEXP RHugin_domain_get_log_likelihood_tolerance(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_log_likelihood_tolerance(domain);
@@ -3363,9 +3357,7 @@ SEXP RHugin_domain_get_log_likelihood_tolerance(SEXP Sdomain)
 SEXP RHugin_domain_set_max_number_of_em_iterations(SEXP Sdomain, SEXP Scount)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_set_max_number_of_em_iterations(domain, (size_t) INTEGER(Scount)[0]);
@@ -3378,9 +3370,7 @@ SEXP RHugin_domain_set_max_number_of_em_iterations(SEXP Sdomain, SEXP Scount)
 SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_get_max_number_of_em_iterations(domain);

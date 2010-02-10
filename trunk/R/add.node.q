@@ -9,7 +9,7 @@ add.node <- function(domain, name,
   category <- match.arg(category)
   kind <- match.arg(kind)
 
-  if(is.element(name, c("Freq", "Value", "Cost", "Utility")))
+  if(is.element(name, c("Freq","Value","Cost","Utility","Counts","Lambda")))
     stop("invalid name: ", dQuote(name), " is an RHugin reserved word")
 
   if(!missing(subtype))

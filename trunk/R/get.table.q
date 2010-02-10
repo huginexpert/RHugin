@@ -93,9 +93,14 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
 
   table <- switch(class,
     "data.frame" = {
-      table <- cbind(expand.grid(states), table)
-      if(is.element(type, c("experience", "fading")))
+      if(length(states))
+        table <- cbind(expand.grid(states), table)
+      else
+        table <- data.frame(Counts = table)
+      if(type == "experience")
         names(table)[length(table)] <- "Counts"
+      else if(type == "fading")
+        names(table)[length(table)] <- "Lambda"
       else if(category == "utility")
         names(table)[length(table)] <- "Utility"
       else if(category == "decision")
@@ -110,12 +115,18 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
     },
 
     "table" = {
+      if(!length(states))
+        stop("can not coerce zero dimensional structure to class table")
+
       attributes(table) <- list(dim = sapply(states, length), dimnames = states,
                                 class = "table")
       table
     },
 
     "ftable" = {
+      if(!length(states))
+        stop("can not coerce zero dimensional structure to class ftable")
+
       attributes(table) <- list(dim = sapply(states, length), dimnames = states,
                                 class = "table")
       ftable(table, row.vars = node)

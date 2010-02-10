@@ -56,6 +56,11 @@
 		DA8FAFFE11205AA80013CA86 /* uncompile.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = uncompile.q; path = R/uncompile.q; sourceTree = SOURCE_ROOT; };
 		DA8FAFFF11205B8C0013CA86 /* uncompile.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = uncompile.Rd; path = man/uncompile.Rd; sourceTree = SOURCE_ROOT; };
 		DAA2C39A0F8E34F6004C7606 /* Makevars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makevars; path = src/Makevars; sourceTree = SOURCE_ROOT; };
+		DAB14A431122AD4F00FB0A16 /* learn.cpt.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = learn.cpt.q; path = R/learn.cpt.q; sourceTree = SOURCE_ROOT; };
+		DAB14A461122C9BB00FB0A16 /* learn.cpt.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = learn.cpt.Rd; path = man/learn.cpt.Rd; sourceTree = SOURCE_ROOT; };
+		DAB14A471122C9BB00FB0A16 /* learn.structure.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = learn.structure.Rd; path = man/learn.structure.Rd; sourceTree = SOURCE_ROOT; };
+		DAB14A89112308BD00FB0A16 /* ChestClinicCases.RData */ = {isa = PBXFileReference; lastKnownFileType = file; name = ChestClinicCases.RData; path = data/ChestClinicCases.RData; sourceTree = SOURCE_ROOT; };
+		DAB14A8A112308BD00FB0A16 /* AppleTreeCases.RData */ = {isa = PBXFileReference; lastKnownFileType = file; name = AppleTreeCases.RData; path = data/AppleTreeCases.RData; sourceTree = SOURCE_ROOT; };
 		DAD83CD30E1A3764005C9495 /* set.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.finding.q; path = R/set.finding.q; sourceTree = "<group>"; };
 		DAD83CD40E1A4044005C9495 /* get.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.q; path = R/get.finding.q; sourceTree = SOURCE_ROOT; };
 		DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.Rd; path = man/get.finding.Rd; sourceTree = SOURCE_ROOT; };
@@ -168,12 +173,22 @@
 			path = demo;
 			sourceTree = SOURCE_ROOT;
 		};
+		DAB14A88112308BD00FB0A16 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				DAB14A89112308BD00FB0A16 /* ChestClinicCases.RData */,
+				DAB14A8A112308BD00FB0A16 /* AppleTreeCases.RData */,
+			);
+			path = data;
+			sourceTree = SOURCE_ROOT;
+		};
 		DAEFA1960DE30792002B126B = {
 			isa = PBXGroup;
 			children = (
 				DAEFA1F70DE30880002B126B /* DESCRIPTION */,
 				DA8FAFEC1120576D0013CA86 /* TODO */,
 				DAEFA1A40DE307D8002B126B /* R */,
+				DAB14A88112308BD00FB0A16 /* data */,
 				DA5E09C30E711F1B0014FAFE /* demo */,
 				DAEFA1A50DE307DF002B126B /* man */,
 				DAEFA1A70DE307F2002B126B /* src */,
@@ -215,6 +230,7 @@
 				DAEFA1BB0DE3081B002B126B /* hugin.domain.q */,
 				DAEFA1BC0DE3081B002B126B /* initialize.domain.q */,
 				DADF9FBB0F4306B300946D22 /* layoutRHugin.q */,
+				DAB14A431122AD4F00FB0A16 /* learn.cpt.q */,
 				0E49724B1121FD79003DD117 /* learn.structure.q */,
 				DAEFA1BD0DE3081B002B126B /* library.q */,
 				0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */,
@@ -275,6 +291,8 @@
 				DAEFA1E00DE3083B002B126B /* hugin.domain.Rd */,
 				DAEFA1E10DE3083B002B126B /* initialize.domain.Rd */,
 				DADF9FC50F4308B900946D22 /* layoutRHugin.Rd */,
+				DAB14A461122C9BB00FB0A16 /* learn.cpt.Rd */,
+				DAB14A471122C9BB00FB0A16 /* learn.structure.Rd */,
 				0E39E5850E6AF895008B7B91 /* plot.RHuginDomain.Rd */,
 				DAD83CF20E1A5620005C9495 /* print.RHuginDomain.Rd */,
 				DAD83CF30E1A5620005C9495 /* print.summary.RHuginDomain.Rd */,
