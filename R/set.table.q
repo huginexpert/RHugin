@@ -44,14 +44,6 @@ set.table <- function(domain, node, data,
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
 
-#    for(n in parent.nodes) {
-#      parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, n,
-#                           PACKAGE = "RHugin")
-#      RHugin.handle.error()
-#      parent.kinds[n] <- .Call("RHugin_node_get_kind", parent.ptr,
-#                                PACKAGE = "RHugin")
-#    }
-
     parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
                           as.character(parent.nodes), PACKAGE = "RHugin")
     parent.kinds <- .Call("RHugin_node_get_kind", parent.ptrs,
@@ -59,13 +51,6 @@ set.table <- function(domain, node, data,
 
     discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
-#    continuous.parent.ptrs <- list()
-
-#    for(n in continuous.parents) {
-#      continuous.parent.ptrs[[n]] <- .Call("RHugin_domain_get_node_by_name",
-#                                            domain, n, PACKAGE = "RHugin")
-#      RHugin.handle.error()
-#    }
 
     continuous.parent.ptrs <- parent.ptrs[continuous.parents]
 

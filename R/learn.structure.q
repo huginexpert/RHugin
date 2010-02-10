@@ -1,6 +1,6 @@
 learn.structure <- function(domain, alpha = 0.05, constraints = NULL)
 {
-  RHugin.check.args(domain, character(0), character(0), "learn.structure")
+  RHugin.check.args(domain, unlist(constraints), character(0), "learn.structure")
 
   status <- .Call("RHugin_domain_set_significance_level", domain,
                    as.double(alpha), PACKAGE = "RHugin")
