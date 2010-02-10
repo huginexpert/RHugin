@@ -1409,24 +1409,30 @@ SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
 SEXP RHugin_domain_triangulate_with_order(SEXP Sdomain, SEXP Sorder)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status = (h_status_t) 0;
   h_node_t *order = NULL;
   int i = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
-
-  if(LENGTH(Sorder) > 0) {
-    order = (h_node_t*) R_alloc(1 + LENGTH(Sorder), sizeof(h_node_t*));
-    for(i = 0; i < LENGTH(Sorder); i++)
-      order[i] = nodePointerFromSEXP(VECTOR_ELT(Sorder, i));
-    order[LENGTH(Sorder)] = NULL;
-  }
-
-  status = h_domain_triangulate_with_order(domain, order);
+  order = (h_node_t*) R_alloc(1 + LENGTH(Sorder), sizeof(h_node_t*));
+  for(i = 0; i < LENGTH(Sorder); i++)
+    order[i] = nodePointerFromSEXP(VECTOR_ELT(Sorder, i));
+  order[LENGTH(Sorder)] = NULL;
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  INTEGER(ret)[0] = (int) h_domain_triangulate_with_order(domain, order);;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_is_triangulated(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(ret = allocVector(LGLSXP, 1));
+  LOGICAL(ret)[0] = (int) h_domain_is_triangulated(domain);
   UNPROTECT(1);
 
   return ret;
