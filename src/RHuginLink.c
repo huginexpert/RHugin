@@ -2209,9 +2209,7 @@ SEXP RHugin_jt_propagate(SEXP Sjt, SEXP Sequilibrium, SEXP Smode)
 SEXP RHugin_domain_get_conflict(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_conflict(domain);
@@ -2239,9 +2237,7 @@ SEXP RHugin_jt_get_conflict(SEXP Sjt)
 SEXP RHugin_domain_reset_inference_engine(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_reset_inference_engine(domain);
@@ -2256,9 +2252,7 @@ SEXP RHugin_domain_reset_inference_engine(SEXP Sdomain)
 SEXP RHugin_domain_get_normalization_constant(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_normalization_constant(domain);
@@ -2271,9 +2265,7 @@ SEXP RHugin_domain_get_normalization_constant(SEXP Sdomain)
 SEXP RHugin_domain_get_log_normalization_constant(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_log_normalization_constant(domain);
@@ -2288,9 +2280,7 @@ SEXP RHugin_domain_get_log_normalization_constant(SEXP Sdomain)
 SEXP RHugin_domain_save_to_memory(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_save_to_memory(domain);
@@ -2303,9 +2293,7 @@ SEXP RHugin_domain_save_to_memory(SEXP Sdomain)
 SEXP RHugin_domain_initialize(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_initialize(domain);
