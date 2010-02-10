@@ -344,15 +344,15 @@ void R_init_RHugin(DllInfo *info)
   RHUGIN_INTERVAL = mkChar("interval");
   R_PreserveObject(RHUGIN_INTERVAL);
 
-  RHUGIN_TM_CLIQUE_SIZE = mkChar("clique_size");
+  RHUGIN_TM_CLIQUE_SIZE = mkChar("clique.size");
   R_PreserveObject(RHUGIN_TM_CLIQUE_SIZE);
-  RHUGIN_TM_CLIQUE_WEIGHT = mkChar("clique_weight");
+  RHUGIN_TM_CLIQUE_WEIGHT = mkChar("clique.weight");
   R_PreserveObject(RHUGIN_TM_CLIQUE_WEIGHT);
-  RHUGIN_TM_FILL_IN_SIZE = mkChar("fill_in_size");
+  RHUGIN_TM_FILL_IN_SIZE = mkChar("fill.in.size");
   R_PreserveObject(RHUGIN_TM_FILL_IN_SIZE);
-  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("fill_in_weight");
+  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("fill.in.weight");
   R_PreserveObject(RHUGIN_TM_FILL_IN_WEIGHT);
-  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("total_weight");
+  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("total.weight");
   R_PreserveObject(RHUGIN_TM_FILL_IN_WEIGHT);
 
   RHUGIN_EQUILIBRIUM_SUM = mkChar("sum");
