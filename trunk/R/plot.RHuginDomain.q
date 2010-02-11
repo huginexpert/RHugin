@@ -1,29 +1,31 @@
 plot.RHuginDomain <- function(x, y, ...)
 {
   if(!require(Rgraphviz))
-    stop("plotting an RHugin domain requires the Rgraphviz ",
-         "package - please install Rgraphviz and try again")
+    stop("plotting an RHugin domain requires the Rgraphviz package")
 
   nodes <- get.nodes(x)
-  node.summary <- summary(x, nodes = nodes)$nodes
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", x, as.character(nodes),
+                      PACKAGE = "RHugin")
+  categories <- .Call("RHugin_node_get_category", node.ptrs, PACKAGE = "RHugin")
+  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
+
   fill <- character(length(nodes))
   shape <- character(length(nodes))
   names(fill) <- names(shape) <- nodes
 
   for(node in nodes) {
-    if(node.summary[[node]]$category == "decision") {
+    if(categories[node] == "decision") {
       fill[node] <- "red"
       shape[node] <- "rectangle"
     }
-    else if(node.summary[[node]]$category == "utility") {
+    else if(categories[node] == "utility") {
       fill[node] <- "green"
       ## diamond not yet supported by Rgraphviz ##
       #shape[node] <- "diamond"
       shape[node] <- "rectangle"
     }
     else {
-      if(!is.null(node.summary[[node]]$kind) &&
-          node.summary[[node]]$kind == "discrete")
+      if(kinds[node] == "discrete")
       {
         fill[node] <- "yellow"
         shape[node] <- "ellipse"

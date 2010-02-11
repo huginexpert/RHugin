@@ -2,15 +2,12 @@ get.belief <- function(domain, node)
 {
   RHugin.check.args(domain, node, character(0), "get.belief")
 
-  node.summary <- summary(domain, node)$nodes[[node]]
-  kind <- node.summary$kind
-
-  if(is.null(kind))
-    stop("no belief available for this type of node")
-
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                     PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
+                     as.character(node[1]), PACKAGE = "RHugin")
+  kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
   RHugin.handle.error()
+
+  belief <- NULL
 
   if(kind == "discrete") {
     states <- get.states(domain, node)
