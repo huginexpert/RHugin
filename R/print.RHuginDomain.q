@@ -1,5 +1,7 @@
 print.RHuginDomain <- function(x, ...)
 {
+  RHugin.check.args(x, character(0), character(0), "print.RHuginDomain")
+
   nodes <- get.nodes(x)
   edge.list <- get.edges(x)
 

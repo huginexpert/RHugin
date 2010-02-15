@@ -1,5 +1,7 @@
 plot.RHuginDomain <- function(x, y, ...)
 {
+  RHugin.check.args(x, character(0), character(0), "plot.RHuginDomain")
+
   if(!require(Rgraphviz))
     stop("plotting an RHugin domain requires the Rgraphviz package")
 
