@@ -5,7 +5,7 @@ Title: RHugin
 Author: Kjell Konis <kjell.konis@epfl.ch>,
         Hugin Expert <http://www.hugin.com>.
 Maintainer: Kjell Konis <kjell.konis@epfl.ch>
-Depends: R (>= 2.10.1), gRbase (>= 1.3.2), graph, gRain
+Depends: R (>= 2.10.1), gRbase (>= 1.3.3), graph
 SystemRequirements: Hugin Decision Engine 7.2
 Suggests: MASS, Rgraphviz
 Description: The RHugin package provides an R API for the Hugin Decision \
