@@ -1,5 +1,5 @@
-\name{triangulate}
-\alias{triangulate}
+\name{triangulate.RHuginDomain}
+\alias{triangulate.RHuginDomain}
 
 \title{Triangulate}
 
@@ -8,7 +8,7 @@ Triangulate a domain.
 }
 
 \usage{
-triangulate(domain, method = "fill.in.weight", order, max.separators = 1e5L)
+\method{triangulate}{RHuginDomain}(domain, method = "fill.in.weight", order, max.separators = 1e5L)
 }
 
 \arguments{
