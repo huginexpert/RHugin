@@ -1,9 +1,10 @@
-triangulate <- function(domain, method = "fill.in.weight", order,
-                        max.separators = 1e5L)
+triangulate.RHuginDomain <- function(domain, method = "fill.in.weight", order,
+                                     max.separators = 1e5L)
 {
   RHugin.check.args(domain, character(0), character(0), "triangulate")
   method <- match.arg(method, choices = c("clique.size", "clique.weight",
-                      "fill.in.size", "fill.in.weight", "total.weight"))
+                                          "fill.in.size", "fill.in.weight",
+                                          "total.weight"))
 
   if(.Call("RHugin_domain_is_triangulated", domain, PACKAGE = "RHugin"))
     stop(deparse(substitute(domain)), " is aleady triangulated")

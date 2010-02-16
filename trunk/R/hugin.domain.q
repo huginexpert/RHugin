@@ -34,3 +34,4 @@ hugin.domain <- function(graph, data)
 }
 
 
+ 
