@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0E03CE1A112B391D00A8E0B1 /* RHugin.control.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = RHugin.control.Rd; path = man/RHugin.control.Rd; sourceTree = SOURCE_ROOT; };
 		0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.sensitivity.Rd; path = man/get.sensitivity.Rd; sourceTree = "<group>"; };
 		0E1A4FE20F1299E100128DF6 /* compile.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compile.RHuginDomain.q; path = R/compile.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E1A4FE30F1299E100128DF6 /* propagate.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = propagate.RHuginDomain.q; path = R/propagate.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
@@ -314,6 +315,7 @@
 				DAEFA1E50DE3083B002B126B /* retract.Rd */,
 				DAEFA1E60DE3083B002B126B /* reverse.edge.Rd */,
 				DAEFA1DF0DE3083B002B126B /* rhd.Rd */,
+				0E03CE1A112B391D00A8E0B1 /* RHugin.control.Rd */,
 				DAFA674F1121BA0E00E2E278 /* score.Rd */,
 				DAEFA1E70DE3083B002B126B /* set.cases.Rd */,
 				DAD83CF00E1A52EE005C9495 /* set.finding.Rd */,
