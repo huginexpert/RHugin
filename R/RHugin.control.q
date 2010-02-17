@@ -16,6 +16,7 @@ RHugin.control <- function(domain, concurrency.level, grain.size)
 
   concurrency.level <- .Call("RHugin_domain_get_concurrency_level", domain,
                               PACKAGE = "RHugin")
+
   grain.size <- .Call("RHugin_domain_get_grain_size", domain,
                        PACKAGE = "RHugin")
 
