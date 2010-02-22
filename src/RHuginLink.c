@@ -1142,8 +1142,40 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
 
 /* Section 5.3 Syntax for expression */
 
-// SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel, SEXP Serror_handler, SEXP Sdata)
-// SEXP RHugin_expression_tago_string(SEXP Sexpression)
+SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
+{
+  SEXP ret = R_NilValue;
+  h_expression_t expression = NULL;
+  h_model_t model = modelPointerFromSEXP(Smodel);
+
+  expression = h_string_parse_expression((h_string_t) STRING_ELT(Sstring, 1),
+                                          model, RHuginParseError, NULL);
+
+  if(expression)
+    ret = R_MakeExternalPtr(expression, RHugin_expression_tag, R_NilValue);
+
+  return ret;
+}
+
+
+SEXP RHugin_expression_to_string(SEXP Sexpression)
+{
+  SEXP ret = R_NilValue;
+  h_string_t string = NULL;
+
+  h_expression_t expression = expressionPointerFromSEXP(Sexpression);
+  string = h_expression_to_string(expression);
+
+  if(string) {
+    PROTECT(ret = allocVector(STRSXP, 1));
+    SET_STRING_ELT(ret, 1, mkChar( (char*) string));
+    free(string);
+    string = NULL;
+    UNPROTECT(1);
+  }
+
+  return ret;
+}
 
 
 /* Section 5.4 Creating and maintaining models */
