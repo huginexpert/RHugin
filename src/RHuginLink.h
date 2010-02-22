@@ -148,7 +148,13 @@ DLLEXPORT SEXP RHugin_node_get_subtype(SEXP Snode);
 
 /* Section 5.4 Creating and maintaining models */
 
-// Removed by Kjell Konis 16.10.2009
+DLLEXPORT SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes);
+DLLEXPORT SEXP RHugin_node_get_model(SEXP Snode);
+DLLEXPORT SEXP RHugin_model_delete(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_get_nodes(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression);
+DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex);
 
 
 /* Section 5.5 State labels */
@@ -167,12 +173,14 @@ DLLEXPORT SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue);
 
 /* Section 5.8 Generating tables */
 
-// Removed by Kjell Konis 16.10.2009
+DLLEXPORT SEXP RHugin_node_generate_table(SEXP Snode);
+DLLEXPORT SEXP RHugin_domain_generate_tables(SEXP Sdomain);
 
 
 /* Section 5.9 How the computations are done */
 
-// Removed by Kjell Konis 16.10.2009
+DLLEXPORT SEXP RHugin_model_set_number_of_samples_per_interval(SEXP Smodel, SEXP Scount);
+DLLEXPORT SEXP RHugin_model_get_number_of_samples_per_interval(SEXP Smodel);
 
 
 /* Section 6.2 Compilation */

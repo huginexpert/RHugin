@@ -6,6 +6,8 @@
 extern SEXP RHugin_domain_tag;
 extern SEXP RHugin_node_tag;
 extern SEXP RHugin_table_tag;
+extern SEXP RHugin_expression_tag;
+extern SEXP RHugin_model_tag;
 extern SEXP RHugin_junction_tree_tag;
 extern SEXP RHugin_clique_tag;
 
@@ -847,6 +849,8 @@ SEXP RHugin_kb_load_domain(SEXP Sfile_name, SEXP Spassword)
 }
 
 
+/* 4.2 The nodes and the contents of a table */
+
 SEXP RHugin_table_get_nodes(SEXP Stable)
 {
   SEXP ret = R_NilValue, names = R_NilValue;
@@ -1144,7 +1148,146 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
 
 /* Section 5.4 Creating and maintaining models */
 
-// Removed by Kjell Konis 16.10.2009
+SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = NULL;
+  h_node_t *model_nodes = NULL;
+  h_model_t model = NULL;
+  int i = 0, n = 0;
+
+  node = nodePointerFromSEXP(Snode);
+  n = LENGTH(Smodel_nodes);
+
+  if(n > 0) {
+    model_nodes = (h_node_t*) R_alloc(n+1, sizeof(h_node_t*));
+    for(i = 0; i < n; i++)
+      model_nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Smodel_nodes, i));
+    model_nodes[n] = NULL;
+
+    model = h_node_new_model(node, model_nodes);
+
+    if(model)
+      ret = R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue);
+  }
+
+  return ret;
+}
+
+
+SEXP RHugin_node_get_model(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = NULL;
+  h_model_t model = NULL;
+
+  node = nodePointerFromSEXP(Snode);
+  model = h_node_get_model(node);
+
+  if(model)
+    ret = R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue);
+
+  return ret;
+}
+
+
+SEXP RHugin_model_delete(SEXP Smodel)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  h_status_t status = (h_status_t) 0;
+
+  model = modelPointerFromSEXP(Smodel);
+  status = h_model_delete(model);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_model_get_nodes(SEXP Smodel)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  h_node_t *node = NULL, *nodes = NULL;
+  int i = 0, n = 0;
+
+  model = modelPointerFromSEXP(Smodel);
+  nodes = h_model_get_nodes(model);
+
+  for(node = nodes; *node != NULL; node++)
+    n++;
+
+  if(n > 0) {
+    PROTECT(ret = allocVector(VECSXP, n));
+    for(i = 0; i < n; i++)
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
+    UNPROTECT(1);
+  }
+
+  return ret;
+}
+
+
+SEXP RHugin_model_get_size(SEXP Smodel)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  size_t size = 0;
+
+  model = modelPointerFromSEXP(Smodel);
+  size = h_model_get_size(model);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) size;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  size_t index = 0;
+  h_expression_t expression = NULL;
+  h_status_t status = (h_status_t) 0;
+
+  model = modelPointerFromSEXP(Smodel);
+  index = (size_t) INTEGER(Sindex)[0];
+  expression = expressionPointerFromSEXP(Sexpression);
+
+  status = h_model_set_expression(model, index, expression);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  size_t index = 0;
+  h_expression_t expression = NULL;
+
+  model = modelPointerFromSEXP(Smodel);
+  index = (size_t) INTEGER(Sindex)[0];
+
+  expression = h_model_get_expression(model, index);
+
+  if(expression)
+    ret = R_MakeExternalPtr(expression, RHugin_expression_tag, R_NilValue);
+
+  return ret;
+}
 
 
 /* Section 5.5 State labels */
@@ -1301,12 +1444,78 @@ SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue)
 
 /* Section 5.8 Generating tables */
 
-// Removed by Kjell Konis 16.10.2009
+SEXP RHugin_node_generate_table(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = NULL;
+  h_status_t status = (h_status_t) 0;
+
+  node = nodePointerFromSEXP(Snode);
+  status = h_node_generate_table(node);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_generate_tables(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = NULL;
+  h_status_t status = (h_status_t) 0;
+
+  domain = domainPointerFromSEXP(Sdomain);
+  status = h_domain_generate_tables(domain);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+// SEXP RHugin_class_generate_tables(SEXP Sclass)
+// SEXP RHugin_class_set_log_file(SEXP Sclass, SEXP Slog_file)
 
 
 /* Section 5.9 How the computations are done */
 
-// Removed by Kjell Konis 16.10.2009
+SEXP RHugin_model_set_number_of_samples_per_interval(SEXP Smodel, SEXP Scount)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  h_status_t status = (h_status_t) 0;
+
+  model = modelPointerFromSEXP(Smodel);
+  status = h_model_set_number_of_samples_per_interval(model, (size_t) INTEGER(Scount)[0]);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) status;
+  UNPROTECT(1);
+
+  return ret;
+}
+
+
+SEXP RHugin_model_get_number_of_samples_per_interval(SEXP Smodel)
+{
+  SEXP ret = R_NilValue;
+  h_model_t model = NULL;
+  h_count_t count = (h_count_t) 0;
+
+  model = modelPointerFromSEXP(Smodel);
+  count = h_model_get_number_of_samples_per_interval(model);
+
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) count;
+  UNPROTECT(1);
+
+  return ret;
+}
 
 
 /* Section 6.2 Compilation */

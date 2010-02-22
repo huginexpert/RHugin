@@ -4,6 +4,8 @@
 SEXP RHugin_domain_tag;
 SEXP RHugin_node_tag;
 SEXP RHugin_table_tag;
+SEXP RHugin_expression_tag;
+SEXP RHugin_model_tag;
 SEXP RHugin_junction_tree_tag;
 SEXP RHugin_clique_tag;
 
@@ -85,6 +87,30 @@ h_table_t tablePointerFromSEXP(SEXP Stable)
     error("the table argument does not appear to be a valid Hugin table");
 
   return (h_table_t) R_ExternalPtrAddr(Stable);
+}
+
+
+h_expression_t expressionPointerFromSEXP(SEXP Sexpression)
+{
+  if(R_ExternalPtrAddr(Sexpression) == NULL)
+    error("NULL value passed as expression");
+
+  if(TYPEOF(Sexpression) != EXTPTRSXP || R_ExternalPtrTag(Sexpression) != RHugin_expression_tag)
+    error("the expression argument does not appear to be a valid Hugin expression");
+
+  return (h_expression_t) R_ExternalPtrAddr(Sexpression);
+}
+
+
+h_model_t modelPointerFromSEXP(SEXP Smodel)
+{
+  if(R_ExternalPtrAddr(Smodel) == NULL)
+    error("NULL value passed as model");
+
+  if(TYPEOF(Smodel) != EXTPTRSXP || R_ExternalPtrTag(Smodel) != RHugin_model_tag)
+    error("the model argument does not appear to be a valid Hugin model");
+
+  return (h_model_t) R_ExternalPtrAddr(Smodel);
 }
 
 
@@ -314,6 +340,10 @@ void R_init_RHugin(DllInfo *info)
   R_PreserveObject(RHugin_node_tag);
   RHugin_table_tag = install("RHUGIN_TABLE_TAG");
   R_PreserveObject(RHugin_table_tag);
+  RHugin_expression_tag = install("RHUGIN_EXPRESSION_TAG");
+  R_PreserveObject(RHugin_expression_tag);
+  RHugin_model_tag = install("RHUGIN_MODEL_TAG");
+  R_PreserveObject(RHugin_model_tag);
   RHugin_junction_tree_tag = install("RHUGIN_JUNCTION_TREE_TAG");
   R_PreserveObject(RHugin_junction_tree_tag);
   RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
