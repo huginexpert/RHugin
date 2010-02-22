@@ -142,8 +142,8 @@ DLLEXPORT SEXP RHugin_node_get_subtype(SEXP Snode);
 
 /* Section 5.3 Syntax for expression */
 
-// SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel, SEXP Serror_handler, SEXP Sdata);
-// SEXP RHugin_expression_to_string(SEXP Sexpression);
+DLLEXPORT SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel);
+DLLEXPORT SEXP RHugin_expression_to_string(SEXP Sexpression);
 
 
 /* Section 5.4 Creating and maintaining models */
