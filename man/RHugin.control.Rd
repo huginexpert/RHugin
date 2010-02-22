@@ -26,7 +26,7 @@ A list containing the current concurrency level and grain size. These values wil
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_set_concurrency_level}, \code{h_domain_get_concurrency_level}, \code{h_domain_set_grain_size} and \code{h_domain_get_grain_size}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_set_concurrency_level}, \code{h_domain_get_concurrency_level}, \code{h_domain_set_grain_size} and \code{h_domain_get_grain_size}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}

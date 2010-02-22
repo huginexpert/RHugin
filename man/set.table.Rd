@@ -27,7 +27,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_get_data}, \code{h_node_touch_table}, \code{h_node_set_alpha}, \code{h_node_set_beta} and \code{h_node_set_gamma}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_table_get_data}, \code{h_node_touch_table}, \code{h_node_set_alpha}, \code{h_node_set_beta} and \code{h_node_set_gamma}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}

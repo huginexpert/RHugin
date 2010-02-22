@@ -22,7 +22,7 @@ get.finding(domain, node, type = c("entered", "propagated"))
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_entered_finding}, \code{RHugin_node_get_entered_value}, \code{RHugin_node_get_propagated_finding} and \code{RHugin_node_get_propagated_value}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_entered_finding}, \code{RHugin_node_get_entered_value}, \code{RHugin_node_get_propagated_finding} and \code{RHugin_node_get_propagated_value}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}

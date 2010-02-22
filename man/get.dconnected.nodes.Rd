@@ -25,7 +25,7 @@ a character vector containing the names of the nodes that are either d-connected
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_get_d_connected_nodes} and \code{h_domain_get_d_separated_nodes}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_d_connected_nodes} and \code{h_domain_get_d_separated_nodes}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
