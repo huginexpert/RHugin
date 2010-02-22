@@ -22,7 +22,7 @@ a list with elements \code{table} and possibly \code{mean} and \code{cov}.  The 
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_get_marginal}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_marginal}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}

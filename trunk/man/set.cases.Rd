@@ -26,7 +26,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_set_case_state}, \code{h_node_set_case_value} and \code{h_node_unset_case}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_set_case_state}, \code{h_node_set_case_value} and \code{h_node_unset_case}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}

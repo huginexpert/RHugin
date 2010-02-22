@@ -26,7 +26,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_learn_tables}, \code{h_domain_set_log_likelihood_tolerance} and \code{h_domain_set_max_number_of_em_iterations}.
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_learn_tables}, \code{h_domain_set_log_likelihood_tolerance} and \code{h_domain_set_max_number_of_em_iterations}.
 }
 
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
