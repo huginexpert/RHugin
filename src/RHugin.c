@@ -199,17 +199,25 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_set_subtype", (DL_FUNC) RHugin_node_set_subtype, 2},
     {"RHugin_node_get_subtype", (DL_FUNC) RHugin_node_get_subtype, 1},
     /* 5.2 Expression support removed by Kjell Konis 16.10.2009 */
-    /*{"RHugin_string_parse_expression", (DL_FUNC) RHugin_string_parse_expression, 4},*/
-    /*{"RHugin_expression_to_string", (DL_FUNC) RHugin_expression_to_string, 1},*/
-    /* 5.4 Model support removed by Kjell Konis 16.10.2009 */
+    {"RHugin_string_parse_expression", (DL_FUNC) RHugin_string_parse_expression, 2},
+    {"RHugin_expression_to_string", (DL_FUNC) RHugin_expression_to_string, 1},
+    {"RHugin_node_new_model", (DL_FUNC) RHugin_node_new_model, 2},
+    {"RHugin_node_get_model", (DL_FUNC) RHugin_node_get_model, 1},
+    {"RHugin_model_delete", (DL_FUNC) RHugin_model_delete, 1},
+    {"RHugin_model_get_nodes", (DL_FUNC) RHugin_model_get_nodes, 1},
+    {"RHugin_model_get_size", (DL_FUNC) RHugin_model_get_size, 1},
+    {"RHugin_model_set_expression", (DL_FUNC) RHugin_model_set_expression, 3},
+    {"RHugin_model_get_expression", (DL_FUNC) RHugin_model_get_expression, 2},
     {"RHugin_node_set_state_label", (DL_FUNC) RHugin_node_set_state_label, 3},
     {"RHugin_node_get_state_label", (DL_FUNC) RHugin_node_get_state_label, 2},
     {"RHugin_node_get_state_index_from_label", (DL_FUNC) RHugin_node_get_state_index_from_label, 2},
     {"RHugin_node_set_state_value", (DL_FUNC) RHugin_node_set_state_value, 3},
     {"RHugin_node_get_state_value", (DL_FUNC) RHugin_node_get_state_value, 2},
     {"RHugin_node_get_state_index_from_value", (DL_FUNC) RHugin_node_get_state_index_from_value, 2},
-    /* 5.8 Removed by Kjell Konis 16.10.2009 */
-    /* 5.9 Removed by Kjell Konis 16.10.2009 */
+    {"RHugin_node_generate_table", (DL_FUNC) RHugin_node_generate_table, 1},
+    {"RHugin_domain_generate_tables", (DL_FUNC) RHugin_domain_generate_tables, 1},
+    {"RHugin_model_set_number_of_samples_per_interval", (DL_FUNC) RHugin_model_set_number_of_samples_per_interval, 2},
+    {"RHugin_model_get_number_of_samples_per_interval", (DL_FUNC) RHugin_model_get_number_of_samples_per_interval, 1},
     {"RHugin_domain_compile", (DL_FUNC) RHugin_domain_compile, 1},
     {"RHugin_domain_is_compiled", (DL_FUNC) RHugin_domain_is_compiled, 1},
     {"RHugin_domain_set_max_number_of_separators", (DL_FUNC) RHugin_domain_set_max_number_of_separators, 2},
@@ -218,8 +226,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_triangulate_with_order", (DL_FUNC) RHugin_domain_triangulate_with_order, 2},
     {"RHugin_domain_is_triangulated", (DL_FUNC) RHugin_domain_is_triangulated, 1},
     {"RHugin_domain_get_elimination_order", (DL_FUNC) RHugin_domain_get_elimination_order, 1},
-    /*{"RHugin_domain_parse_nodes", (DL_FUNC) RHugin_domain_parse_nodes, 4},*/
-    /*{"RHugin_class_parse_nodes", (DL_FUNC) RHugin_class_parse_nodes, 4},*/
+    /*{"RHugin_domain_parse_nodes", (DL_FUNC) RHugin_domain_parse_nodes, ###},*/
+    /*{"RHugin_class_parse_nodes", (DL_FUNC) RHugin_class_parse_nodes, ###},*/
     /*{"RHugin_domain_set_log_file", (DL_FUNC) RHugin_domain_set_log_file, 2},*/
     {"RHugin_domain_uncompile", (DL_FUNC) RHugin_domain_uncompile, 1},
     {"RHugin_domain_compress", (DL_FUNC) RHugin_domain_compress, 1},
@@ -256,7 +264,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_evidence_is_propagated", (DL_FUNC) RHugin_node_evidence_is_propagated, 1},
     {"RHugin_node_likelihood_is_propagated", (DL_FUNC) RHugin_node_likelihood_is_propagated, 1},
     {"RHugin_domain_save_case", (DL_FUNC) RHugin_domain_save_case, 2},
-    /*{"RHugin_domain_parse_case", (DL_FUNC) RHugin_domain_parse_case, 4},*/
+    /*{"RHugin_domain_parse_case", (DL_FUNC) RHugin_domain_parse_case, ###},*/
     {"RHugin_domain_propagate", (DL_FUNC) RHugin_domain_propagate, 3},
     {"RHugin_jt_propagate", (DL_FUNC) RHugin_jt_propagate, 3},
     {"RHugin_domain_get_conflict", (DL_FUNC) RHugin_domain_get_conflict, 1},

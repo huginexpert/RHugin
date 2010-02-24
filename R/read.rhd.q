@@ -1,4 +1,5 @@
-read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL)
+read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
+                     generate.tables = TRUE)
 {
   type <- match.arg(type)
   if(type == "auto") {
@@ -25,8 +26,32 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL)
   RHugin.handle.error()
   if(is.null(domain))
     stop("failed to read file")
-
   oldClass(domain) <- "RHuginDomain"
+
+  nodes <- get.nodes(domain)
+  reserved <- c("Freq", "Value", "Cost", "Utility", "Counts", "Lambda")
+  index <- nodes %in% reserved
+
+  if(any(index))
+    stop(dQuote(nodes[index][1]), " is a reserved word in RHugin and cannot be",
+         " used as the name of a node")
+
+  if(generate.tables) {
+    node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
+                        PACKAGE = "RHugin")
+    model.ptrs <- .Call("RHugin_node_get_model", node.ptrs, PACKAGE = "RHugin")
+    model.ptrs <- model.ptrs[sapply(model.ptrs, function(u) !is.null(u))]
+
+    for(node in names(model.ptrs)) {
+      status <- .Call("RHugin_node_generate_table", node.ptrs[node],
+                       PACKAGE = "RHugin")
+      RHugin.handle.error(status)
+      status <- .Call("RHugin_model_delete", model.ptrs[[node]],
+                       PACKAGE = "RHugin")
+      RHugin.handle.error(status)
+    }
+  }
+
   domain
 }
 

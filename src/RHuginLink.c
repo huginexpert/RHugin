@@ -1197,27 +1197,43 @@ SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
     model_nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Smodel_nodes, i));
   model_nodes[n] = NULL;
 
+  PROTECT(ret = allocVector(VECSXP, 1));
   model = h_node_new_model(node, model_nodes);
 
   if(model)
-    ret = R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue);
+    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue));
+  else
+    SET_VECTOR_ELT(ret, i, R_NilValue);
 
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snode, R_NamesSymbol));
+
+  UNPROTECT(1);
   return ret;
 }
 
 
-SEXP RHugin_node_get_model(SEXP Snode)
+SEXP RHugin_node_get_model(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_model_t model = NULL;
+  int i = 0, n = LENGTH(Snodes);
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  model = h_node_get_model(node);
+  PROTECT(ret = allocVector(VECSXP, n));
 
-  if(model)
-    ret = R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue);
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    model = h_node_get_model(node);
 
+    if(model)
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue));
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
+
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
+
+  UNPROTECT(1);
   return ret;
 }
 
@@ -1225,14 +1241,10 @@ SEXP RHugin_node_get_model(SEXP Snode)
 SEXP RHugin_model_delete(SEXP Smodel)
 {
   SEXP ret = R_NilValue;
-  h_model_t model = NULL;
-  h_status_t status = (h_status_t) 0;
-
-  model = modelPointerFromSEXP(Smodel);
-  status = h_model_delete(model);
+  h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  INTEGER(ret)[0] = (int) h_model_delete(model);
   UNPROTECT(1);
 
   return ret;
@@ -1246,18 +1258,17 @@ SEXP RHugin_model_get_nodes(SEXP Smodel)
   h_node_t *node = NULL, *nodes = NULL;
   int i = 0, n = 0;
 
-  model = modelPointerFromSEXP(Smodel);
+  model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
   nodes = h_model_get_nodes(model);
 
   for(node = nodes; *node != NULL; node++)
     n++;
 
-  if(n > 0) {
-    PROTECT(ret = allocVector(VECSXP, n));
-    for(i = 0; i < n; i++)
-      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
-    UNPROTECT(1);
-  }
+  PROTECT(ret = allocVector(VECSXP, n));
+  for(i = 0; i < n; i++)
+    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
+  setAttrib(ret, R_NamesSymbol, getAttrib(Smodel, R_NamesSymbol));
+  UNPROTECT(1);
 
   return ret;
 }
@@ -1478,14 +1489,10 @@ SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue)
 SEXP RHugin_node_generate_table(SEXP Snode)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_status_t status = (h_status_t) 0;
-
-  node = nodePointerFromSEXP(Snode);
-  status = h_node_generate_table(node);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  INTEGER(ret)[0] = (int) h_node_generate_table(node);
   UNPROTECT(1);
 
   return ret;
@@ -1495,14 +1502,10 @@ SEXP RHugin_node_generate_table(SEXP Snode)
 SEXP RHugin_domain_generate_tables(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status = (h_status_t) 0;
-
-  domain = domainPointerFromSEXP(Sdomain);
-  status = h_domain_generate_tables(domain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  INTEGER(ret)[0] = (int) h_domain_generate_tables(domain);
   UNPROTECT(1);
 
   return ret;
@@ -2015,7 +2018,7 @@ SEXP RHugin_node_retract_findings(SEXP Snodes)
   h_node_t node = NULL;
   int i = 0, n = LENGTH(Snodes), *status = NULL;
 
-  PROTECT(ret = allocVector(INTSXP, 1));
+  PROTECT(ret = allocVector(INTSXP, n));
   status = INTEGER(ret);
 
   for(i = 0; i < n; i++) {
