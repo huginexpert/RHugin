@@ -1148,7 +1148,7 @@ SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
   h_expression_t expression = NULL;
   h_model_t model = modelPointerFromSEXP(Smodel);
 
-  expression = h_string_parse_expression((h_string_t) STRING_ELT(Sstring, 1),
+  expression = h_string_parse_expression((h_string_t) STRING_ELT(Sstring, 0),
                                           model, RHuginParseError, NULL);
 
   if(expression)
@@ -1168,7 +1168,7 @@ SEXP RHugin_expression_to_string(SEXP Sexpression)
 
   if(string) {
     PROTECT(ret = allocVector(STRSXP, 1));
-    SET_STRING_ELT(ret, 1, mkChar( (char*) string));
+    SET_STRING_ELT(ret, 0, mkChar( (char*) string));
     free(string);
     string = NULL;
     UNPROTECT(1);
@@ -1188,20 +1188,19 @@ SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
   h_model_t model = NULL;
   int i = 0, n = 0;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   n = LENGTH(Smodel_nodes);
 
-  if(n > 0) {
-    model_nodes = (h_node_t*) R_alloc(n+1, sizeof(h_node_t*));
-    for(i = 0; i < n; i++)
-      model_nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Smodel_nodes, i));
-    model_nodes[n] = NULL;
+  model_nodes = (h_node_t*) R_alloc(n+1, sizeof(h_node_t));
 
-    model = h_node_new_model(node, model_nodes);
+  for(i = 0; i < n; i++)
+    model_nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Smodel_nodes, i));
+  model_nodes[n] = NULL;
 
-    if(model)
-      ret = R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue);
-  }
+  model = h_node_new_model(node, model_nodes);
+
+  if(model)
+    ret = R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue);
 
   return ret;
 }
@@ -1213,7 +1212,7 @@ SEXP RHugin_node_get_model(SEXP Snode)
   h_node_t node = NULL;
   h_model_t model = NULL;
 
-  node = nodePointerFromSEXP(Snode);
+  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   model = h_node_get_model(node);
 
   if(model)
