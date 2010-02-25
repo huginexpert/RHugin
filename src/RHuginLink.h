@@ -149,10 +149,10 @@ DLLEXPORT SEXP RHugin_expression_to_string(SEXP Sexpression);
 /* Section 5.4 Creating and maintaining models */
 
 DLLEXPORT SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes);
-DLLEXPORT SEXP RHugin_node_get_model(SEXP Snode);
-DLLEXPORT SEXP RHugin_model_delete(SEXP Smodel);
+DLLEXPORT SEXP RHugin_node_get_model(SEXP Snodes);
+DLLEXPORT SEXP RHugin_model_delete(SEXP Smodels);
 DLLEXPORT SEXP RHugin_model_get_nodes(SEXP Smodel);
-DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodels);
 DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression);
 DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex);
 

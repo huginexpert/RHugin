@@ -9,7 +9,8 @@ Save an RHugin domain as a Hugin Knowledge Base or NET file or load an RHugin do
 }
 
 \usage{
-read.rhd(filename, type = c("auto", "hkb", "net"), password = NULL)
+read.rhd(filename, type = c("auto", "hkb", "net"), password = NULL,
+         generate.tables = TRUE)
 write.rhd(domain, filename, type = c("hkb", "net"), password = NULL)
 }
 
@@ -18,10 +19,11 @@ write.rhd(domain, filename, type = c("hkb", "net"), password = NULL)
   \item{filename}{a character string.}
   \item{type}{a character string specifying the file type.  By default \code{write.rhd} creates  hkb files and \code{read.rhd} guesses the file type from the \code{filename} suffix.}
   \item{password}{either \code{NULL} or a character string specifying the password embedded into the Hugin Knowledge Base file.  NET files do not support passwords.}
+  \item{generate.tables}{a logical value.  If \code{TRUE} then, for each node in the domain that has a model, the conditional probability table is generated from the model and the model is discarded.}
 }
 
 \value{
-  \item{read.rhd}{if successful an RHugin domain, otherwise \code{NULL}}
+  \item{read.rhd}{if successful an RHugin domain, otherwise \code{NULL}.}
   \item{write.rhd}{an integer vector of length one containing the Hugin error code is invisibly returned.  A value of \code{0} indicates that the file was successfully written.}
 }
 
