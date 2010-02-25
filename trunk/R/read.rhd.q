@@ -13,8 +13,11 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
   }
 
   domain <- switch(type,
-    "hkb" = .Call("RHugin_kb_load_domain", as.character(filename),
-                   as.character(password), PACKAGE = "RHugin"),
+    "hkb" = {
+      .Call("RHugin_kb_load_domain", as.character(filename),
+             as.character(password), PACKAGE = "RHugin")
+    },
+
     "net" = {
       if(!is.null(password))
         warning(sQuote("password"), " not used in NET file")
@@ -41,15 +44,10 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
                         PACKAGE = "RHugin")
     model.ptrs <- .Call("RHugin_node_get_model", node.ptrs, PACKAGE = "RHugin")
     model.ptrs <- model.ptrs[sapply(model.ptrs, function(u) !is.null(u))]
+    models <- names(model.ptrs)
 
-    for(node in names(model.ptrs)) {
-      status <- .Call("RHugin_node_generate_table", node.ptrs[node],
-                       PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-      status <- .Call("RHugin_model_delete", model.ptrs[[node]],
-                       PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-    }
+    .Call("RHugin_node_generate_table", node.ptrs[models], PACKAGE = "RHugin")
+    .Call("RHugin_model_delete", model.ptrs, PACKAGE = "RHugin")
   }
 
   domain

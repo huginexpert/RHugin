@@ -50,7 +50,7 @@ void RHugin_handle_error()
   h_error_t code = h_error_code();
   if(code != h_error_none)
     error("Hugin Error Code: %d\nName: %s\nDescription: %s\n", (int) code,
-           h_error_name(code), h_error_description(code));
+           (char*) h_error_name(code), (char*) h_error_description(code));
 }
 
 
