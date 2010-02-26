@@ -350,25 +350,24 @@ SEXP RHugin_node_clone(SEXP Snode)
 
 SEXP RHugin_node_add_parent(SEXP Schild, SEXP Sparents)
 {
-  SEXP ret = R_NilValue;
-  h_node_t child = NULL, parent = NULL;
-  int *status = NULL;
-  int i = 0, n = LENGTH(Sparents);
+  h_node_t parent = NULL, child = NULL;
+  int i = 0, n = 0;
 
+  PROTECT(Schild = AS_CHARACTER(Schild));
+  PROTECT(Sparents = AS_CHARACTER(Sparents));
+
+  n = LENGTH(Sparents);
   child = nodePointerFromSEXP(VECTOR_ELT(Schild, 0));
 
   if(child) {
-    PROTECT(ret = allocVector(INTSXP, n));
-    status = INTEGER(ret);
-
     for(i = 0; i < n; i++) {
       parent = nodePointerFromSEXP(VECTOR_ELT(Sparents, i));
-      status[i] = (int) h_node_add_parent(child, parent);
+      RHugin_handle_status_code(h_node_add_parent(child, parent));
     }
-
-    UNPROTECT(1);
   }
-  return ret;
+
+  UNPROTECT(2);
+  return R_NilValue;
 }
 
 
@@ -3070,16 +3069,9 @@ SEXP RHugin_node_has_fading_table(SEXP Snode)
 
 SEXP RHugin_domain_adapt(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_adapt(domain);
-  UNPROTECT(1);
-
-  return ret;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  RHugin_handle_status_code(h_domain_adapt(domain));
+  return R_NilValue;
 }
 
 
