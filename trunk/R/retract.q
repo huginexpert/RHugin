@@ -2,9 +2,7 @@ retract <- function(domain, nodes)
 {
   if(missing(nodes)) {
     RHugin.check.args(domain, character(0), character(0), "retract")
-    status <- .Call("RHugin_domain_retract_findings", domain,
-                     PACKAGE = "RHugin")
-    RHugin.handle.error(status)
+    .Call("RHugin_domain_retract_findings", domain, PACKAGE = "RHugin")
   }
 
   else {
@@ -12,13 +10,10 @@ retract <- function(domain, nodes)
 
     node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
                         as.character(nodes), PACKAGE = "RHugin")
-    RHugin.handle.error()
-    status <- .Call("RHugin_node_retract_findings", node.ptrs,
-                     PACKAGE = "RHugin")
-    RHugin.handle.error(status)
+    .Call("RHugin_node_retract_findings", node.ptrs, PACKAGE = "RHugin")
   }
 
-  invisible(NULL)
+  invisible()
 }
 
 

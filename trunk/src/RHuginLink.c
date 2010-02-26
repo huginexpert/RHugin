@@ -2023,36 +2023,29 @@ SEXP RHugin_node_enter_value(SEXP Snode, SEXP Svalue)
 
 SEXP RHugin_node_retract_findings(SEXP Snodes)
 {
-  SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  int i = 0, n = LENGTH(Snodes), *status = NULL;
-
-  PROTECT(ret = allocVector(INTSXP, n));
-  status = INTEGER(ret);
+  h_status_t status = 0;
+  int i = 0, n = LENGTH(Snodes);
 
   for(i = 0; i < n; i++) {
     node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
-    status[i] = (int) h_node_retract_findings(node);
+    status = h_node_retract_findings(node);
+    RHugin_handle_error();
   }
 
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
 SEXP RHugin_domain_retract_findings(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
+  h_status_t status = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
+  status = h_domain_retract_findings(domain);
+  RHugin_handle_error();
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_retract_findings(domain);
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
