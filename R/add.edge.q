@@ -8,9 +8,9 @@ add.edge <- function(domain, child, parent)
   parent <- .Call("RHugin_domain_get_node_by_name", domain, parent,
                    PACKAGE = "RHugin")
 
-  status <- .Call("RHugin_node_add_parent", child, parent, PACKAGE = "RHugin")
+  .Call("RHugin_node_add_parent", child, parent, PACKAGE = "RHugin")
  
-  invisible(status)
+  invisible()
 }
 
 

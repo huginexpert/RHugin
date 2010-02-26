@@ -1,5 +1,6 @@
 #include "R.h"
 #include "Rinternals.h"
+#include "Rdefines.h"
 #include "R_ext/Rdynload.h"
 #include "R_ext/Utils.h"
 #include "R_ext/libextern.h"
@@ -22,7 +23,7 @@ DLLEXPORT void R_init_RHugin(DllInfo *info);
 /* Error handling */
 
 void RHugin_handle_error();
-
+void RHugin_handle_status_code(h_status_t status);
 
 /* Safe accessor methods for Hugin objects */
 
