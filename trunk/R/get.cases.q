@@ -1,27 +1,26 @@
 get.cases <- function(domain)
 {
+  RHugin.check.args(domain, character(0), character(0), "get.cases")
+
   nodes <- get.nodes(domain)
   data <- list()
+  n.cases <- .Call("RHugin_domain_get_number_of_cases", domain,
+                    PACKAGE = "RHugin")
 
-  n <- .Call("RHugin_domain_get_number_of_cases", domain,
-              PACKAGE = "RHugin")
-  RHugin.handle.error()
+  if(n.cases < 1)
+    return(invisible())
 
-  if(n < 1)
-    return(invisible(NULL))
+  indices <- as.integer(0:(n.cases - 1))
 
-  index.set <- as.integer(0:(n-1))
-
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
-                      as.character(nodes), PACKAGE = "RHugin")
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
+                      PACKAGE = "RHugin")
   kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
   subtypes <- .Call("RHugin_node_get_subtype", node.ptrs, PACKAGE = "RHugin")
 
   for(node in nodes) {
     if(kinds[node]  == "discrete") {
       state.indices <- .Call("RHugin_node_get_case_state", node.ptrs[node],
-                              as.integer(index.set), PACKAGE = "RHugin")
-      RHugin.handle.error()
+                              indices, PACKAGE = "RHugin")
 
       states <- get.states(domain, node)
 
@@ -31,16 +30,13 @@ get.cases <- function(domain)
         data[[node]] <- states[state.indices + 1]
     }
 
-    else {
+    else
       data[[node]] <- .Call("RHugin_node_get_case_value", node.ptrs[node],
-                             as.integer(index.set), PACKAGE = "RHugin")
-      RHugin.handle.error()
-    }
+                             indices, PACKAGE = "RHugin")
   }
 
-  data[["Freq"]] <- .Call("RHugin_domain_get_case_count", domain,
-                           as.integer(index.set), PACKAGE = "RHugin")
-  RHugin.handle.error()
+  data[["Freq"]] <- .Call("RHugin_domain_get_case_count", domain, indices,
+                           PACKAGE = "RHugin")
 
   as.data.frame(data)
 }

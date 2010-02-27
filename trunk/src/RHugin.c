@@ -49,15 +49,18 @@ void RHugin_handle_error()
 {
   h_error_t code = h_error_code();
   if(code != h_error_none)
-    error("Hugin Error Code: %d\nName: %s\nDescription: %s\n", (int) code,
-          (char*) h_error_name(code), (char*) h_error_description(code));
+    error("\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+          (int) code,
+          (char*) h_error_name((h_error_t) code),
+          (char*) h_error_description((h_error_t) code));
 }
 
 
 void RHugin_handle_status_code(h_status_t status)
 {
   if((h_error_t) status != h_error_none)
-    error("Hugin Error Code: %d\nName: %s\nDescription: %s\n", (int) status,
+    error("\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+          (int) status,
           (char*) h_error_name((h_error_t) status),
           (char*) h_error_description((h_error_t) status));
 }
