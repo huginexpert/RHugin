@@ -2,23 +2,18 @@ compile.RHuginDomain <- function(object, save = FALSE, approximate = NULL, ...)
 {
   RHugin.check.args(object, character(0), character(0), "compile")
 
-  status <- .Call("RHugin_domain_compile", object, PACKAGE = "RHugin")
-  RHugin.handle.error(status)
+  .Call("RHugin_domain_compile", object, PACKAGE = "RHugin")
 
   if(!is.null(approximate)) {
-    factor <- .Call("RHugin_domain_approximate", object, as.double(approximate),
+    factor <- .Call("RHugin_domain_approximate", object, approximate,
                      PACKAGE = "RHugin")
-    RHugin.handle.error()
     factor <- compress(object)
   }
 
-  if(save) {
-    status <- .Call("RHugin_domain_save_to_memory", object,
-                     PACKAGE = "RHugin")
-    RHugin.handle.error(status)
-  }
+  if(save)
+    .Call("RHugin_domain_save_to_memory", object, PACKAGE = "RHugin")
 
-  invisible(NULL)
+  invisible()
 }
 
 

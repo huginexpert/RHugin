@@ -6,10 +6,9 @@ delete.edge <- function(domain, node, parent)
                      PACKAGE = "RHugin")
   parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, parent,
                        PACKAGE = "RHugin")
-  status <- .Call("RHugin_node_remove_parent", node.ptr, parent.ptr,
-                   PACKAGE = "RHugin")
+  .Call("RHugin_node_remove_parent", node.ptr, parent.ptr, PACKAGE = "RHugin")
 
-  invisible(status)
+  invisible()
 }
 
 
