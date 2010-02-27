@@ -191,9 +191,12 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 {
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
-  h_node_t newNode = NULL;
-  h_node_category_t category;
-  h_node_kind_t kind;
+  h_node_t node = NULL;
+  h_node_category_t category = h_category_error;
+  h_node_kind_t kind = h_kind_error;
+
+  PROTECT(Scategory = AS_CHARACTER(Scategory));
+  PROTECT(Skind = AS_CHARACTER(Skind));
 
   domain = domainPointerFromSEXP(Sdomain);
 
@@ -205,24 +208,22 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
     category = h_category_decision;
   else if(asChar(Scategory) == RHUGIN_INSTANCE)
     category = h_category_instance;
-  else
-    category = h_category_error;
 
   if(asChar(Skind) == RHUGIN_DISCRETE)
     kind = h_kind_discrete;
   else if(asChar(Skind) == RHUGIN_CONTINUOUS)
     kind = h_kind_continuous;
-  else
-    kind = h_kind_error;
 
-  newNode = h_domain_new_node(domain, category, kind);
+  node = h_domain_new_node(domain, category, kind);
+  RHugin_handle_error();
 
-  if(newNode) {
+  if(node) {
     PROTECT(ret = allocVector(VECSXP, 1));
-    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(newNode, RHugin_node_tag, R_NilValue));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));
     UNPROTECT(1);
   }
 
+  UNPROTECT(2);
   return ret;
 }
 
@@ -310,21 +311,12 @@ SEXP RHugin_node_get_kind(SEXP Snodes)
 
 SEXP RHugin_node_delete(SEXP Snodes)
 {
-  SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  int *status = NULL;
   int i = 0, n = LENGTH(Snodes);
 
-  PROTECT(ret = allocVector(INTSXP, n));
-  status = INTEGER(ret);
+  for(i = 0; i < n; i++)
+    RHugin_handle_status_code(h_node_delete(nodePointerFromSEXP(VECTOR_ELT(Snodes, i))));
 
-  for(i = 0; i < n; i++) {
-    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
-    status[i] = (int) h_node_delete(node);
-  }
-
-  UNPROTECT(1);
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -691,15 +683,12 @@ SEXP RHugin_node_get_gamma(SEXP Snode, SEXP Si)
 SEXP RHugin_node_set_name(SEXP Snode, SEXP Sname)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_status_t status;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  status = h_node_set_name(node, (h_string_t) CHAR(asChar(Sname)));
-
+  PROTECT(Sname = AS_CHARACTER(Sname));
   PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
-  UNPROTECT(1);
+  INTEGER(ret)[0] = (int) h_node_set_name(node, (h_string_t) CHAR(asChar(Sname)));
+  UNPROTECT(2);
 
   return ret;
 }
