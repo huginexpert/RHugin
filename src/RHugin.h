@@ -23,7 +23,14 @@ DLLEXPORT void R_init_RHugin(DllInfo *info);
 /* Error handling */
 
 void RHugin_handle_error();
+void RHugin_handle_error_code(h_error_t error_code);
 void RHugin_handle_status_code(h_status_t status);
+
+
+/* Finalizer */
+
+void RHugin_finalizer(SEXP Sdomain);
+
 
 /* Safe accessor methods for Hugin objects */
 

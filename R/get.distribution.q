@@ -4,9 +4,8 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
   RHugin.check.args(domain, node, character(0), "get.distribution")
   class <- match.arg(class)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node[1],
                      PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
   if(kind[node] != "continuous")
@@ -14,7 +13,6 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
 
   table.ptr <- .Call("RHugin_node_get_distribution", node.ptr,
                       PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   on.exit(.Call("RHugin_table_delete", table.ptr, PACKAGE = "RHugin"))
 
@@ -38,15 +36,12 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
   dimnames(mean) <- list(1:n.table, node)
   cov <- list()
 
-  mean[ , 1] <- .Call("RHugin_table_get_mean", table.ptr,
-                       as.integer(0:(n.table - 1)),
-                       node.ptrs[node],
-                       PACKAGE = "RHugin")
+  mean[ , 1] <- .Call("RHugin_table_get_mean", table.ptr, 0:(n.table - 1),
+                       node.ptrs[node], PACKAGE = "RHugin")
 
   for(k in 1:n.table)
-    cov[[k]] <- .Call("RHugin_table_get_variance", table.ptr,
-                       as.integer(k - 1), node.ptrs[node],
-                       PACKAGE = "RHugin")
+    cov[[k]] <- .Call("RHugin_table_get_variance", table.ptr, k - 1,
+                       node.ptrs[node], PACKAGE = "RHugin")
 
   if(!length(states))
     class <- "numeric"
