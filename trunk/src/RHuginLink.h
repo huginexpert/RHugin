@@ -44,8 +44,8 @@ DLLEXPORT SEXP RHugin_node_add_parent(SEXP Schild, SEXP Sparent);
 DLLEXPORT SEXP RHugin_node_remove_parent(SEXP Snode, SEXP Sparent);
 DLLEXPORT SEXP RHugin_node_switch_parent(SEXP Snode, SEXP Sold_parent, SEXP Snew_parent);
 DLLEXPORT SEXP RHugin_node_reverse_edge(SEXP Snode1, SEXP Snode2);
-DLLEXPORT SEXP RHugin_node_get_parents(SEXP Snode);
-DLLEXPORT SEXP RHugin_node_get_children(SEXP Snode);
+DLLEXPORT SEXP RHugin_node_get_parents(SEXP Snodes);
+DLLEXPORT SEXP RHugin_node_get_children(SEXP Snodes);
 
 
 /* Section 2.5 The number of states of a node */

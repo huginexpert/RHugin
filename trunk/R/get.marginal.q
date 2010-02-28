@@ -4,8 +4,8 @@ get.marginal <- function(domain, nodes,
   RHugin.check.args(domain, nodes, character(0), "get.marginal")
   class <- match.arg(class)
 
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
-                      as.character(nodes), PACKAGE = "RHugin")
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
+                      PACKAGE = "RHugin")
   categories <- .Call("RHugin_node_get_category", node.ptrs, PACKAGE = "RHugin")
   kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
 
@@ -21,7 +21,6 @@ get.marginal <- function(domain, nodes,
 
   table.ptr <- .Call("RHugin_domain_get_marginal", domain, node.ptrs,
                       PACKAGE = "RHugin")
-  RHugin.handle.error()
 
   on.exit(.Call("RHugin_table_delete", table.ptr, PACKAGE = "RHugin"))
 
@@ -31,8 +30,6 @@ get.marginal <- function(domain, nodes,
   d <- sapply(states, length)
 
   table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
-  RHugin.handle.error()
-
   n.continuous <- length(continuous)
   n.table <- length(table)
 

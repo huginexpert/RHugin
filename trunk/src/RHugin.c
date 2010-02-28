@@ -47,12 +47,24 @@ SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN;
 
 void RHugin_handle_error()
 {
-  h_error_t code = h_error_code();
-  if(code != h_error_none)
-    error("\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
-          (int) code,
-          (char*) h_error_name((h_error_t) code),
-          (char*) h_error_description((h_error_t) code));
+  h_error_t error_code = h_error_code();
+  if(error_code == h_error_none) return;
+
+  error("\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+        (int) error_code,
+        (char*) h_error_name(error_code),
+        (char*) h_error_description(error_code));
+}
+
+
+void RHugin_handle_error_code(h_error_t error_code)
+{
+  if(error_code == h_error_none) return;
+
+  error("\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+        (int) error_code,
+        (char*) h_error_name((h_error_t) error_code),
+        (char*) h_error_description((h_error_t) error_code));
 }
 
 
@@ -63,6 +75,19 @@ void RHugin_handle_status_code(h_status_t status)
           (int) status,
           (char*) h_error_name((h_error_t) status),
           (char*) h_error_description((h_error_t) status));
+}
+
+
+void RHugin_finalizer(SEXP Sdomain)
+{
+  h_status_t status = h_domain_delete(domainPointerFromSEXP(Sdomain));
+  R_ClearExternalPtr(Sdomain);
+
+  if((h_error_t) status != h_error_none)
+    warning("\nIn RHugin_finalizer:\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+            (int) status,
+            (char*) h_error_name((h_error_t) status),
+            (char*) h_error_description((h_error_t) status));
 }
 
 
