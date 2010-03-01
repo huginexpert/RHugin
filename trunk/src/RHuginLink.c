@@ -1195,6 +1195,8 @@ SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
   expression = h_string_parse_expression((h_string_t) STRING_ELT(Sstring, 0),
                                           model, RHuginParseError, NULL);
 
+  RHugin_handle_error();
+
   if(expression)
     ret = R_MakeExternalPtr(expression, RHugin_expression_tag, R_NilValue);
 
@@ -1209,6 +1211,8 @@ SEXP RHugin_expression_to_string(SEXP Sexpression)
 
   h_expression_t expression = expressionPointerFromSEXP(Sexpression);
   string = h_expression_to_string(expression);
+
+  RHugin_handle_error();
 
   if(string) {
     PROTECT(ret = allocVector(STRSXP, 1));
@@ -1230,22 +1234,20 @@ SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
   h_node_t node = NULL;
   h_node_t *model_nodes = NULL;
   h_model_t model = NULL;
-  int i = 0, n = 0;
-
-  if(LENGTH(Snode) != 1)
-    error("in RHugin_node_new_model: Snode must be a list of length 1");
+  int i = 0, n = LENGTH(Smodel_nodes);
 
   node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  n = LENGTH(Smodel_nodes);
 
-  model_nodes = (h_node_t*) R_alloc(n+1, sizeof(h_node_t));
-
+  model_nodes = (h_node_t*) R_alloc(n + 1, sizeof(h_node_t));
   for(i = 0; i < n; i++)
     model_nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Smodel_nodes, i));
   model_nodes[n] = NULL;
 
-  PROTECT(ret = allocVector(VECSXP, 1));
   model = h_node_new_model(node, model_nodes);
+
+  RHugin_handle_error();
+
+  PROTECT(ret = allocVector(VECSXP, 1));
 
   if(model)
     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue));
@@ -1262,6 +1264,7 @@ SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
 SEXP RHugin_node_get_model(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
   h_model_t model = NULL;
   int i = 0, n = LENGTH(Snodes);
 
@@ -1269,6 +1272,11 @@ SEXP RHugin_node_get_model(SEXP Snodes)
 
   for(i = 0; i < n; i++) {
     model = h_node_get_model(nodePointerFromSEXP(VECTOR_ELT(Snodes, i)));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
 
     if(model)
       SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue));
@@ -1286,13 +1294,11 @@ SEXP RHugin_node_get_model(SEXP Snodes)
 SEXP RHugin_model_delete(SEXP Smodels)
 {
   h_model_t model = NULL;
-  h_status_t status = 0;
   int i = 0, n = LENGTH(Smodels);
 
   for(i = 0; i < n; i++) {
     model = modelPointerFromSEXP(VECTOR_ELT(Smodels, i));
-    status = h_model_delete(model);
-    RHugin_handle_error();
+    RHugin_handle_status_code(h_model_delete(model));
   }
 
   return R_NilValue;
@@ -1302,13 +1308,14 @@ SEXP RHugin_model_delete(SEXP Smodels)
 SEXP RHugin_model_get_nodes(SEXP Smodel)
 {
   SEXP ret = R_NilValue, names = R_NilValue;
+  h_error_t error_code = h_error_none;
   h_node_t *node = NULL, *nodes = NULL;
   int i = 0, n = 0;
 
   nodes = h_model_get_nodes(modelPointerFromSEXP(VECTOR_ELT(Smodel, 0)));
+  RHugin_handle_error();
 
-  for(node = nodes; *node != NULL; node++)
-    n++;
+  for(node = nodes; *node != NULL; node++) n++;
 
   PROTECT(ret = allocVector(VECSXP, n));
   PROTECT(names = allocVector(STRSXP, n));
@@ -1316,10 +1323,15 @@ SEXP RHugin_model_get_nodes(SEXP Smodel)
   for(i = 0; i < n; i++) {
     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
     SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(nodes[i])));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
   }
 
   setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(1);
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1350,37 +1362,25 @@ SEXP RHugin_model_get_size(SEXP Smodels)
 
 SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression)
 {
-  SEXP ret = R_NilValue;
-  h_model_t model = NULL;
-  size_t index = 0;
-  h_expression_t expression = NULL;
-  h_status_t status = (h_status_t) 0;
+  h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
+  h_expression_t expression = expressionPointerFromSEXP(Sexpression);
+  size_t size = (size_t) INTEGER(Sindex)[0];
 
-  model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
-  index = (size_t) INTEGER(Sindex)[0];
-  expression = expressionPointerFromSEXP(Sexpression);
+  RHugin_handle_status_code(h_model_set_expression(model, size, expression));
 
-  status = h_model_set_expression(model, index, expression);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
 SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex)
 {
   SEXP ret = R_NilValue;
-  h_model_t model = NULL;
-  size_t index = 0;
   h_expression_t expression = NULL;
-
-  model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
-  index = (size_t) INTEGER(Sindex)[0];
+  h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
+  size_t index = (size_t) INTEGER(Sindex)[0];
 
   expression = h_model_get_expression(model, index);
+  RHugin_handle_error();
 
   if(expression)
     ret = R_MakeExternalPtr(expression, RHugin_expression_tag, R_NilValue);
@@ -1393,43 +1393,51 @@ SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex)
 
 SEXP RHugin_node_set_state_label(SEXP Snode, SEXP Ss, SEXP Slabel)
 {
-  SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  int i = 0;
+  h_status_t status = 0;
+  int i = 0, *s = NULL, n = LENGTH(Ss);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  if(LENGTH(Slabel) != n)
+    error("Slabel and Ss are not the same length");
 
-  if(LENGTH(Ss) == LENGTH(Slabel)) {
-    PROTECT(ret = allocVector(INTSXP, LENGTH(Ss)));
+  PROTECT(Ss = AS_INTEGER(Ss));
+  PROTECT(Slabel = AS_CHARACTER(Slabel));
+  s = INTEGER(Ss);
 
-    for(i = 0; i < LENGTH(Ss); i++)
-      INTEGER(ret)[i] = (int) h_node_set_state_label(node, (size_t) INTEGER(Ss)[i],
-                              (h_string_t) CHAR(STRING_ELT(Slabel, i)));
-
-    UNPROTECT(1);
+  for(i = 0; i < n; i++) {
+    status = h_node_set_state_label(node, (size_t) s[i], (h_string_t) CHAR(STRING_ELT(Slabel, i)));
+    if((h_error_t) status != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code((h_error_t) status);
+    }
   }
 
-  return ret;
+  UNPROTECT(2);
+  return R_NilValue;
 }
 
 
 SEXP RHugin_node_get_state_label(SEXP Snode, SEXP Ss)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  int i = 0;
+  h_error_t error_code = h_error_none;
+  int i = 0, *s = NULL, n = LENGTH(Ss);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(ret = allocVector(STRSXP, n));
+  PROTECT(Ss = AS_INTEGER(Ss));
+  s = INTEGER(Ss);
 
-  if(LENGTH(Ss) > 0) {
-    PROTECT(ret = allocVector(STRSXP, LENGTH(Ss)));
-
-    for(i = 0; i < LENGTH(Ss); i++)
-      SET_STRING_ELT(ret, i, mkChar( (char*) h_node_get_state_label(node, (size_t) INTEGER(Ss)[i])));
-
-    UNPROTECT(1);
+  for(i = 0; i < n; i++) {
+    SET_STRING_ELT(ret, i, mkChar( (char*) h_node_get_state_label(node, (size_t) s[i])));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
   }
 
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1437,20 +1445,24 @@ SEXP RHugin_node_get_state_label(SEXP Snode, SEXP Ss)
 SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabel)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  int i = 0;
+  h_error_t error_code = h_error_none;
+  int i = 0, *index = NULL, n = LENGTH(Slabel);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(Slabel = AS_CHARACTER(Slabel));
+  PROTECT(ret = allocVector(INTSXP, n));
+  index = INTEGER(ret);
 
-  if(LENGTH(Slabel) > 0) {
-    PROTECT(ret = allocVector(INTSXP, LENGTH(Slabel)));
-
-    for(i = 0; i < LENGTH(Slabel); i++)
-      INTEGER(ret)[i] = (int) h_node_get_state_index_from_label(node, (h_string_t) CHAR(STRING_ELT(Slabel, i)));
-
-    UNPROTECT(1);
+  for(i = 0; i < n; i++) {
+    index[i] = (int) h_node_get_state_index_from_label(node, (h_string_t) CHAR(STRING_ELT(Slabel, i)));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
   }
 
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1460,29 +1472,33 @@ SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabel)
 SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalue)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
+  h_status_t status = 0;
   h_double_t value = 0.0;
-  int i = 0;
+  double *sv = NULL;
+  int i = 0, *s = NULL, n = LENGTH(Svalue);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(Ss = AS_INTEGER(Ss));
+  PROTECT(Svalue = AS_NUMERIC(Svalue));
+  s = INTEGER(Ss);
+  sv = REAL(Svalue);
+  
+  for(i = 0; i < n; i++) {
+    if(sv[i] == R_PosInf)
+      value = h_infinity;
+    else if(sv[i] == R_NegInf)
+      value = -h_infinity;
+    else
+      value = (h_double_t) sv[i];
 
-  if(LENGTH(Svalue) > 0) {
-    PROTECT(ret = allocVector(INTSXP, LENGTH(Svalue)));
-
-    for(i = 0; i < LENGTH(Svalue); i++) {
-      if(REAL(Svalue)[i] == R_PosInf)
-        value = h_infinity;
-      else if(REAL(Svalue)[i] == R_NegInf)
-        value = -h_infinity;
-      else
-        value = (h_double_t) REAL(Svalue)[i];
-
-      INTEGER(ret)[i] = (int) h_node_set_state_value(node, (size_t) INTEGER(Ss)[i], value);
+    status = h_node_set_state_value(node, (size_t) INTEGER(Ss)[i], value);
+    if((h_error_t) status != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code((h_error_t) status);
     }
-
-    UNPROTECT(1);
   }
 
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1490,28 +1506,34 @@ SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalue)
 SEXP RHugin_node_get_state_value(SEXP Snode, SEXP Ss)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
+  h_error_t error_code = h_error_none;
   h_double_t value = 0.0;
-  int i = 0;
+  double *sv = NULL;
+  int i = 0, *s = NULL, n = LENGTH(Ss);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(Ss = AS_INTEGER(Ss));
+  PROTECT(ret = allocVector(REALSXP, n));
+  s = INTEGER(Ss);
+  sv = REAL(ret);
 
-  if(LENGTH(Ss) > 0) {
-    PROTECT(ret = allocVector(REALSXP, LENGTH(Ss)));
-
-    for(i = 0; i < LENGTH(Ss); i++) {
-      value = h_node_get_state_value(node, (size_t) INTEGER(Ss)[i]);
-      if(value == h_infinity)
-        REAL(ret)[i] = R_PosInf;
-      else if(value == -h_infinity)
-        REAL(ret)[i] = R_NegInf;
-      else
-        REAL(ret)[i] = (double) value;
+  for(i = 0; i < n; i++) {
+    value = h_node_get_state_value(node, (size_t) s[i]);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
     }
 
-    UNPROTECT(1);
+    if(value == h_infinity)
+      sv[i] = R_PosInf;
+    else if(value == -h_infinity)
+      sv[i] = R_NegInf;
+    else
+      sv[i] = (double) value;
   }
 
+  UNPROTECT(2);
   return ret;
 }
 
