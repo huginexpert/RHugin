@@ -894,6 +894,7 @@ SEXP RHugin_kb_load_domain(SEXP Sfile_name, SEXP Spassword)
 SEXP RHugin_table_get_nodes(SEXP Stable)
 {
   SEXP ret = R_NilValue, names = R_NilValue;
+  h_error_t error_code = h_error_none;
   h_node_t *nodes = NULL, *node = NULL;
   int i = 0, n = 0;
 
@@ -904,9 +905,15 @@ SEXP RHugin_table_get_nodes(SEXP Stable)
 
   PROTECT(ret = allocVector(VECSXP, n));
   PROTECT(names = allocVector(STRSXP, n));
+
   for(i = 0; i < n; i++) {
     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
     SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(nodes[i])));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
   }
   setAttrib(ret, R_NamesSymbol, names);
 
@@ -937,21 +944,22 @@ SEXP RHugin_table_get_data(SEXP Stable)
 
 SEXP RHugin_table_set_data(SEXP Stable, SEXP Sdata)
 {
-  SEXP ret = R_NilValue;
   h_table_t table = NULL;
   double *data = NULL;
   int size = -1, IONE = 1;
 
   table = tablePointerFromSEXP(Stable);
+  RHugin_handle_error();
+
   data = (double*) h_table_get_data(table);
   size = (int) h_table_get_size(table);
 
   if(size == LENGTH(Sdata))
     F77_CALL(dcopy)(&size, REAL(Sdata), &IONE, data, &IONE);
   else
-    error("the length of Sdata is not equal to the length of the table data");
+    error("the length of Sdata is not the same as the table size");
 
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -986,23 +994,31 @@ SEXP RHugin_table_get_mean(SEXP Stable, SEXP Si, SEXP Snode)
 SEXP RHugin_table_get_covariance(SEXP Stable, SEXP Si, SEXP Snode1, SEXP Snode2)
 {
   SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
+  double *cov = NULL;
   h_node_t node1 = NULL, node2 = NULL;
   h_table_t table = NULL;
-  int i = 0, n = -1;
+  int i = 0, *indices = NULL, n = LENGTH(Si);
 
   node1 = nodePointerFromSEXP(VECTOR_ELT(Snode1, 0));
   node2 = nodePointerFromSEXP(VECTOR_ELT(Snode2, 0));
   table = tablePointerFromSEXP(Stable);
-  n = LENGTH(Si);
 
-  if(n > 0) {
-    PROTECT(ret = allocVector(REALSXP, n));
-    for(i = 0; i < n; i++)
-      REAL(ret)[i] = h_table_get_covariance(table, (size_t) INTEGER(Si)[i],
-                                            node1, node2);
-    UNPROTECT(1);
+  PROTECT(ret = allocVector(REALSXP, n));
+  PROTECT(Si = AS_INTEGER(Si));
+  cov = REAL(ret);
+  indices = INTEGER(Si);
+
+  for(i = 0; i < n; i++) {
+    cov[i] = h_table_get_covariance(table, (size_t) indices[i], node1, node2);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
   }
 
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1010,6 +1026,7 @@ SEXP RHugin_table_get_covariance(SEXP Stable, SEXP Si, SEXP Snode1, SEXP Snode2)
 SEXP RHugin_table_get_variance(SEXP Stable, SEXP Si, SEXP Snode)
 {
   SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
   double *variance = NULL;
   int i = 0, *indices = NULL, n = LENGTH(Si);
 
@@ -1020,10 +1037,17 @@ SEXP RHugin_table_get_variance(SEXP Stable, SEXP Si, SEXP Snode)
   PROTECT(ret = allocVector(REALSXP, n));
   indices = INTEGER(Si);
   variance = REAL(ret);
-  for(i = 0; i < n; i++)
-    variance[i] = h_table_get_variance(table, (size_t) indices[i], node);
-  UNPROTECT(1);
 
+  for(i = 0; i < n; i++) {
+    variance[i] = h_table_get_variance(table, (size_t) indices[i], node);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
+  }
+
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1039,13 +1063,13 @@ SEXP RHugin_table_delete(SEXP Stable)
 SEXP RHugin_table_get_size(SEXP Stable)
 {
   SEXP ret = R_NilValue;
-  h_table_t table = NULL;
-
-  table = tablePointerFromSEXP(Stable);
+  h_table_t table = tablePointerFromSEXP(Stable);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_table_get_size(table);
   UNPROTECT(1);
+
+  RHugin_handle_error();
 
   return ret;
 }
@@ -1054,13 +1078,13 @@ SEXP RHugin_table_get_size(SEXP Stable)
 SEXP RHugin_table_get_cg_size(SEXP Stable)
 {
   SEXP ret = R_NilValue;
-  h_table_t table = NULL;
-
-  table = tablePointerFromSEXP(Stable);
+  h_table_t table = tablePointerFromSEXP(Stable);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_table_get_cg_size(table);
   UNPROTECT(1);
+
+  RHugin_handle_error();
 
   return ret;
 }
@@ -1068,40 +1092,25 @@ SEXP RHugin_table_get_cg_size(SEXP Stable)
 
 SEXP RHugin_table_reorder_nodes(SEXP Stable, SEXP Sorder)
 {
-  SEXP ret = R_NilValue;
-  h_table_t table = NULL;
   h_node_t *order = NULL;
-  h_status_t status;
-  int i = 0, n = 0;
+  int i = 0, n = LENGTH(Sorder);
+  h_table_t table = tablePointerFromSEXP(Stable);
 
-  table = tablePointerFromSEXP(Stable);
-  n = LENGTH(Sorder);
+  order = (h_node_t*) R_alloc(n + 1, sizeof(h_node_t));
+  for(i = 0; i < n; i++)
+    order[i] = nodePointerFromSEXP(VECTOR_ELT(Sorder, i));
+  order[n] = NULL;
 
-  if(n > 0) {
-    order = (h_node_t*) R_alloc(n+1, sizeof(h_node_t*));
-    for(i = 0; i < n; i++)
-      order[i] = nodePointerFromSEXP(VECTOR_ELT(Sorder, i));
-    order[n] = NULL;
+  RHugin_handle_status_code(h_table_reorder_nodes(table, order));
 
-    status = h_table_reorder_nodes(table, order);
-
-    PROTECT(ret = allocVector(INTSXP, 1));
-    INTEGER(ret)[0] = (int) status;
-    UNPROTECT(1);
-  }
-
-  return ret;
+  return R_NilValue;
 }
 
 
 SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
 {
-  SEXP ret = R_NilValue;
-  h_node_t node = NULL;
   h_node_subtype_t subtype = h_subtype_error;
-  h_status_t status = (h_status_t) 0;
-
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   if(asChar(Ssubtype) == RHUGIN_LABELED)
     subtype = h_subtype_label;
@@ -1114,19 +1123,16 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
   else
     subtype = h_subtype_error;
 
-  status = h_node_set_subtype(node, subtype);
+  RHugin_handle_status_code(h_node_set_subtype(node, subtype));
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
 SEXP RHugin_node_get_subtype(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
   h_node_t node = NULL;
   h_node_subtype_t subtype;
   int i = 0, n = LENGTH(Snodes);
@@ -1136,6 +1142,11 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
   for(i = 0; i < n; i++) {
     node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
     subtype = h_node_get_subtype(node);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
 
     switch(subtype) {
       case h_subtype_label:
