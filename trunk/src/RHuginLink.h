@@ -238,7 +238,7 @@ DLLEXPORT SEXP RHugin_clique_get_neighbors(SEXP Sclique);
 /* Section 8.2 Entering evidence */
 
 DLLEXPORT SEXP RHugin_node_select_state(SEXP Snode, SEXP Sstate);
-DLLEXPORT SEXP RHugin_node_enter_finding(SEXP Snode, SEXP Sstate, SEXP Svalues);
+DLLEXPORT SEXP RHugin_node_enter_finding(SEXP Snode, SEXP Sstates, SEXP Svalues);
 DLLEXPORT SEXP RHugin_node_enter_value(SEXP Snode, SEXP Svalue);
 
 
@@ -283,7 +283,7 @@ DLLEXPORT SEXP RHugin_node_likelihood_is_propagated(SEXP Snode);
 /* Section 8.8 Case files */
 
 DLLEXPORT SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name);
-// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_handler, SEXP Sdata);
+// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
 
 
 /* Section 9.2 Propagation */
