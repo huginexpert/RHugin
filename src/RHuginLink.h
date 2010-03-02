@@ -159,16 +159,16 @@ DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex);
 
 /* Section 5.5 State labels */
 
-DLLEXPORT SEXP RHugin_node_set_state_label(SEXP Snode, SEXP Ss, SEXP Slabel);
+DLLEXPORT SEXP RHugin_node_set_state_label(SEXP Snode, SEXP Ss, SEXP Slabels);
 DLLEXPORT SEXP RHugin_node_get_state_label(SEXP Snode, SEXP Ss);
-DLLEXPORT SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabel);
+DLLEXPORT SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabels);
 
 
 /* Section 5.6 State values */
 
-DLLEXPORT SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalue);
+DLLEXPORT SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalues);
 DLLEXPORT SEXP RHugin_node_get_state_value(SEXP Snode, SEXP Ss);
-DLLEXPORT SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue);
+DLLEXPORT SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalues);
 
 
 /* Section 5.8 Generating tables */
@@ -238,7 +238,7 @@ DLLEXPORT SEXP RHugin_clique_get_neighbors(SEXP Sclique);
 /* Section 8.2 Entering evidence */
 
 DLLEXPORT SEXP RHugin_node_select_state(SEXP Snode, SEXP Sstate);
-DLLEXPORT SEXP RHugin_node_enter_finding(SEXP Snode, SEXP Sstate, SEXP Svalue);
+DLLEXPORT SEXP RHugin_node_enter_finding(SEXP Snode, SEXP Sstate, SEXP Svalues);
 DLLEXPORT SEXP RHugin_node_enter_value(SEXP Snode, SEXP Svalue);
 
 
@@ -373,7 +373,7 @@ DLLEXPORT SEXP RHugin_domain_new_case(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_get_number_of_cases(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate);
 DLLEXPORT SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_index);
-DLLEXPORT SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_index, SEXP Svalue);
+DLLEXPORT SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_index, SEXP Svalues);
 DLLEXPORT SEXP RHugin_node_get_case_value(SEXP Snode, SEXP Scase_index);
 DLLEXPORT SEXP RHugin_node_unset_case(SEXP Snode, SEXP Scase_index);
 DLLEXPORT SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_index);
