@@ -1598,9 +1598,14 @@ SEXP RHugin_domain_generate_tables(SEXP Sdomain)
 
 SEXP RHugin_model_set_number_of_samples_per_interval(SEXP Smodel, SEXP Scount)
 {
+  h_status_t status = 0;
   h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
 
-  RHugin_handle_status_code(h_model_set_number_of_samples_per_interval(model, (size_t) INTEGER(Scount)[0])) ;
+  PROTECT(Scount = AS_INTEGER(Scount));
+  status = h_model_set_number_of_samples_per_interval(model, (size_t) INTEGER(Scount)[0]);
+  UNPROTECT(1);
+
+  RHugin_handle_error_code((h_error_t) status);
 
   return R_NilValue;
 }
@@ -1637,15 +1642,13 @@ SEXP RHugin_domain_compile(SEXP Sdomain)
 SEXP RHugin_domain_is_compiled(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_boolean_t boolean = FALSE;
-
-  domain = domainPointerFromSEXP(Sdomain);
-  boolean = h_domain_is_compiled(domain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(LGLSXP, 1));
-  LOGICAL(ret)[0] = (int) boolean;
+  LOGICAL(ret)[0] = (int) h_domain_is_compiled(domain);
   UNPROTECT(1);
+
+  RHugin_handle_error();
 
   return ret;
 }
@@ -1653,31 +1656,29 @@ SEXP RHugin_domain_is_compiled(SEXP Sdomain)
 
 SEXP RHugin_domain_set_max_number_of_separators(SEXP Sdomain, SEXP Scount)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status = (h_status_t) 0;
+  h_status_t status = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
+  PROTECT(Scount = AS_INTEGER(Scount));
   status = h_domain_set_max_number_of_separators(domain, (size_t) INTEGER(Scount)[0]);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_error_code((h_error_t) status);
+
+  return R_NilValue;
 }
 
 
 SEXP RHugin_domain_get_max_number_of_separators(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-
-  domain = domainPointerFromSEXP(Sdomain);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = (int) h_domain_get_max_number_of_separators(domain);
   UNPROTECT(1);
+
+  RHugin_handle_error();
 
   return ret;
 }
@@ -1685,12 +1686,10 @@ SEXP RHugin_domain_get_max_number_of_separators(SEXP Sdomain)
 
 SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
   h_triangulation_method_t method = h_tm_fill_in_weight;
-  h_status_t status = (h_status_t) 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
+  PROTECT(Smethod = AS_CHARACTER(Smethod));
 
   if(asChar(Smethod) == RHUGIN_TM_CLIQUE_SIZE)
     method = h_tm_clique_size;
@@ -1701,33 +1700,28 @@ SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
   else if(asChar(Smethod) == RHUGIN_TM_TOTAL_WEIGHT)
     method = h_tm_total_weight;
 
-  status = h_domain_triangulate(domain, method);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_triangulate(domain, method));
+
+  return R_NilValue;
 }
 
 
 SEXP RHugin_domain_triangulate_with_order(SEXP Sdomain, SEXP Sorder)
 {
-  SEXP ret = R_NilValue;
   h_node_t *order = NULL;
-  int i = 0;
+  int i = 0, n = LENGTH(Sorder);
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  order = (h_node_t*) R_alloc(1 + LENGTH(Sorder), sizeof(h_node_t*));
-  for(i = 0; i < LENGTH(Sorder); i++)
+  order = (h_node_t*) R_alloc(n + 1, sizeof(h_node_t));
+  for(i = 0; i < n; i++)
     order[i] = nodePointerFromSEXP(VECTOR_ELT(Sorder, i));
-  order[LENGTH(Sorder)] = NULL;
+  order[n] = NULL;
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_triangulate_with_order(domain, order);;
-  UNPROTECT(1);
+  RHugin_handle_status_code(h_domain_triangulate_with_order(domain, order));
 
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -1740,6 +1734,8 @@ SEXP RHugin_domain_is_triangulated(SEXP Sdomain)
   LOGICAL(ret)[0] = (int) h_domain_is_triangulated(domain);
   UNPROTECT(1);
 
+  RHugin_handle_error();
+
   return ret;
 }
 
@@ -1747,28 +1743,31 @@ SEXP RHugin_domain_is_triangulated(SEXP Sdomain)
 SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 {
   SEXP ret = R_NilValue, names = R_NilValue;
-  h_domain_t domain = NULL;
+  h_error_t error_code = h_error_none;
   h_node_t *order = NULL, *pnode = NULL;
   int i = 0, n = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
   order = h_domain_get_elimination_order(domain);
+  RHugin_handle_error();
 
-  for(pnode = order; *pnode != NULL; pnode++)
-    n++;
+  for(pnode = order; *pnode != NULL; pnode++) n++;
 
-  if(n > 0) {
-    PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(names = allocVector(STRSXP, n));
-    for(i = 0; i < n; i++) {
-      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(order[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(order[i])));
+  PROTECT(ret = allocVector(VECSXP, n));
+  PROTECT(names = allocVector(STRSXP, n));
+
+  for(i = 0; i < n; i++) {
+    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(order[i], RHugin_node_tag, R_NilValue));
+    SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(order[i])));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
     }
-    setAttrib(ret, R_NamesSymbol, names);
-
-    UNPROTECT(2);
   }
+  setAttrib(ret, R_NamesSymbol, names);
 
+  UNPROTECT(2);
   return ret;
 }
 
@@ -1786,18 +1785,9 @@ SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 
 SEXP RHugin_domain_uncompile(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status = (h_status_t) 0;
+  RHugin_handle_status_code(h_domain_uncompile(domainPointerFromSEXP(Sdomain)));
 
-  domain = domainPointerFromSEXP(Sdomain);
-  status = h_domain_uncompile(domain);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -1806,11 +1796,11 @@ SEXP RHugin_domain_uncompile(SEXP Sdomain)
 SEXP RHugin_domain_compress(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(REALSXP, 1));
-  REAL(ret)[0] = (double) h_domain_compress(domain);
+  REAL(ret)[0] = (double) h_domain_compress(domainPointerFromSEXP(Sdomain));
   UNPROTECT(1);
+
   RHugin_handle_error();
 
   return ret;
@@ -1820,11 +1810,12 @@ SEXP RHugin_domain_compress(SEXP Sdomain)
 SEXP RHugin_domain_is_compressed(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(ret = allocVector(LGLSXP, 1));
-  LOGICAL(ret)[0] = (int) h_domain_is_compressed(domain);
+  LOGICAL(ret)[0] = (int) h_domain_is_compressed(domainPointerFromSEXP(Sdomain));
   UNPROTECT(1);
+
+  RHugin_handle_error();
 
   return ret;
 }
