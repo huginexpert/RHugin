@@ -17,24 +17,20 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
     fading = .Call("RHugin_node_get_fading_table", node.ptr,
                     PACKAGE = "RHugin"))
 
-  table.nodes <- names(.Call("RHugin_table_get_nodes", table.ptr,
-                              PACKAGE = "RHugin"))
+  table.node.ptrs <- .Call("RHugin_table_get_nodes", table.ptr,
+                            PACKAGE = "RHugin")
+  table.nodes <- names(table.node.ptrs)
 
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
-    parent.kinds <- character(0)
 
-    parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, parent.nodes,
-                          PACKAGE = "RHugin")
+    parent.ptrs <- table.node.ptrs[parent.nodes]
     parent.kinds <- .Call("RHugin_node_get_kind", parent.ptrs,
                            PACKAGE = "RHugin")
 
     discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
-    continuous.parent.ptrs <- list()
-
-    continuous.parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
-                                     continuous.parents, PACKAGE = "RHugin")
+    continuous.parent.ptrs <-  table.node.ptrs[continuous.parents]
 
     components <- c("(Intercept)", continuous.parents, "(Variance)")
     states <- character(0)

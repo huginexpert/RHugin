@@ -8,7 +8,7 @@ Triangulate a domain.
 }
 
 \usage{
-\method{triangulate}{RHuginDomain}(object, method = "fill.in.weight", order, max.separators = 1e5L, ...)
+\method{triangulate}{RHuginDomain}(object, method = "fill.in.weight", order, max.separators = 100000, ...)
 }
 
 \arguments{

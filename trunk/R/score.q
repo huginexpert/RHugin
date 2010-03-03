@@ -7,21 +7,15 @@ score <- function(domain, measure = c("log-likelihood", "AIC", "BIC"))
   ans <- numeric(length(measure))
   names(ans) <- measure
 
-  if(is.element("log-likelihood", measure)) {
+  if(is.element("log-likelihood", measure))
     ans["log-likelihood"] <- .Call("RHugin_domain_get_log_likelihood", domain,
                                     PACKAGE = "RHugin")
-    RHugin.handle.error()
-  }
 
-  if(is.element("AIC", measure)) {
+  if(is.element("AIC", measure))
     ans["AIC"] <- .Call("RHugin_domain_get_AIC", domain, PACKAGE = "RHugin")
-    RHugin.handle.error()
-  }
 
-  if(is.element("BIC", measure)) {
+  if(is.element("BIC", measure))
     ans["BIC"] <- .Call("RHugin_domain_get_BIC", domain, PACKAGE = "RHugin")
-    RHugin.handle.error()
-  }
 
   ans
 }

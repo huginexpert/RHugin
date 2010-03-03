@@ -7,10 +7,10 @@ set.table <- function(domain, node, data,
   class <- class(data)
   if(!is.element(class, c("data.frame", "table", "numeric")))
     stop("the ", sQuote("data"), " argument must be a data frame, ",
-         "table or numeric vector")
+         "a table or a numeric vector")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
-                     as.character(node[1]), PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node[1],
+                     PACKAGE = "RHugin")
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
@@ -21,31 +21,26 @@ set.table <- function(domain, node, data,
                         PACKAGE = "RHugin"),
     fading = .Call("RHugin_node_get_fading_table", node.ptr,
                     PACKAGE = "RHugin"))
-  RHugin.handle.error()
 
   if(class == "numeric") {
     if(kind == "discrete" || (type %in% c("experience", "fading"))) {
-      status <- .Call("RHugin_table_set_data", table.ptr, as.double(table),
-                       PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-      status <- .Call("RHugin_node_touch_table", node.ptr, PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-      return(invisible(NULL))
+      .Call("RHugin_table_set_data", table.ptr, table, PACKAGE = "RHugin")
+      .Call("RHugin_node_touch_table", node.ptr, PACKAGE = "RHugin")
+      return(invisible())
     }
     else
       stop("a numeric vector can only be interpreted as the conditional",
            "probability table (cpt) of a discrete node")
   }
 
-  table.nodes <- names(.Call("RHugin_table_get_nodes", table.ptr,
-                              PACKAGE = "RHugin"))
-  RHugin.handle.error()
+  table.node.ptrs <- .Call("RHugin_table_get_nodes", table.ptr,
+                            PACKAGE = "RHugin")
+  table.nodes <- names( table.node.ptrs)
 
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
 
-    parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
-                          as.character(parent.nodes), PACKAGE = "RHugin")
+    parent.ptrs <- table.node.ptrs[parent.nodes]
     parent.kinds <- .Call("RHugin_node_get_kind", parent.ptrs,
                            PACKAGE = "RHugin")
 
@@ -119,36 +114,23 @@ set.table <- function(domain, node, data,
     components <- rep(states[[node]], n.state.space)
     i <- 0:(n.state.space - 1)
 
-    alpha <- .Call("RHugin_node_set_alpha", node.ptr,
-                    as.double(table[components == "(Intercept)"]),
-                    as.integer(i), PACKAGE = "RHugin")
-    RHugin.handle.error()
+    .Call("RHugin_node_set_alpha", node.ptr, table[components == "(Intercept)"],
+           i, PACKAGE = "RHugin")
 
-    beta <- list()
-    for(n in continuous.parents) {
-      beta[[n]] <- .Call("RHugin_node_set_beta", node.ptr,
-                          as.double(table[components == n]),
-                          continuous.parent.ptrs[n], as.integer(i),
-                          PACKAGE = "RHugin")
-      RHugin.handle.error()
-    }
+    for(n in continuous.parents)
+      .Call("RHugin_node_set_beta", node.ptr, table[components == n],
+             continuous.parent.ptrs[n], i, PACKAGE = "RHugin")
 
-    gamma <- .Call("RHugin_node_set_gamma", node.ptr,
-                    as.double(table[components == "(Variance)"]),
-                    as.integer(i), PACKAGE = "RHugin")
-    RHugin.handle.error()
+    .Call("RHugin_node_set_gamma", node.ptr, table[components == "(Variance)"],
+           i, PACKAGE = "RHugin")
   }
 
   else {
-
-    status <- .Call("RHugin_table_set_data", table.ptr, as.double(table),
-                     PACKAGE = "RHugin")
-    RHugin.handle.error(status)
-    status <- .Call("RHugin_node_touch_table", node.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error(status)
+    .Call("RHugin_table_set_data", table.ptr, table, PACKAGE = "RHugin")
+    .Call("RHugin_node_touch_table", node.ptr, PACKAGE = "RHugin")
   }
 
-  invisible(NULL)
+  invisible()
 }
 
 
