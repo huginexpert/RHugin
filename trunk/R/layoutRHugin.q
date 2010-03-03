@@ -3,22 +3,17 @@ layoutRHugin <- function(x, domain, ...)
   nodes <- get.nodes(domain)
   n.nodes <- length(nodes)
   size <- .Call("RHugin_domain_get_node_size", domain, PACKAGE = "RHugin")
-  RHugin.handle.error()
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
+                      PACKAGE = "RHugin")
 
   if(abs(prod(size)) < 1e-3) {
     x <- layoutGraph(x)
     nodeX <- nodeRenderInfo(x)$nodeX
     nodeY <- nodeRenderInfo(x)$nodeY
 
-    for(node in nodes) {
-      node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
-                         PACKAGE = "RHugin")
-      RHugin.handle.error()
-      .Call("RHugin_node_set_position", node.ptr,
-             as.integer(c(nodeX[node], nodeY[node])),
-             PACKAGE = "RHugin")
-      RHugin.handle.error()
-    }
+    for(node in nodes)
+      .Call("RHugin_node_set_position", node.ptrs[node],
+             c(nodeX[node], nodeY[node]), PACKAGE = "RHugin")
 
     return(x)
   }
@@ -26,11 +21,8 @@ layoutRHugin <- function(x, domain, ...)
   nodeX <- nodeY <- rep(0, n.nodes)
 
   for(i in 1:n.nodes) {
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, nodes[i],
+    position <- .Call("RHugin_node_get_position", node.ptrs[i],
                        PACKAGE = "RHugin")
-    RHugin.handle.error()
-    position <- .Call("RHugin_node_get_position", node.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
     nodeX[i] <- position[1]
     nodeY[i] <- position[2]
   }

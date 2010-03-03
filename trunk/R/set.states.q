@@ -1,25 +1,17 @@
-set.states <- function(domain, node, states, subtype = c("auto", "labeled",
-                      "boolean", "numbered", "interval"))
+set.states <- function(domain, node, states, subtype = "auto")
 {
   RHugin.check.args(domain, node, character(0), "set.states")
-  subtype <- match.arg(subtype)
+  subtypes <- c("auto", "labeled", "boolean", "numbered", "interval")
+  subtype <- match.arg(subtype, choices = subtypes)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
-                     as.character(node[1]), PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node[1],
+                     PACKAGE = "RHugin")
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
-
-  if(category != "chance" && category != "decision") {
-    warning("this function has no effect on ", category, " nodes")
-    return(invisible(NULL))
-  }
-
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
 
-  if(kind == "continuous") {
-    warning("this function has no effect on continuous nodes")
-    return(invisible(NULL))
-  }
+  if(!is.element(category, c("chance", "decision")) || kind == "continuous")
+    stop(node, " is not a discrete chance or decision node")
 
   if(subtype == "auto")
     subtype <- switch(class(states),
@@ -30,72 +22,51 @@ set.states <- function(domain, node, states, subtype = c("auto", "labeled",
       stop("unable to automatically set node subtype")
     )
 
-  status <- switch(subtype,
+  switch(subtype,
     "boolean" = {
-      status <- .Call("RHugin_node_set_number_of_states", node.ptr,
-                       as.integer(2), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-
-      status <- .Call("RHugin_node_set_subtype", node.ptr,
-                       as.character(subtype), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
+      .Call("RHugin_node_set_number_of_states", node.ptr, 2, PACKAGE = "RHugin")
+      .Call("RHugin_node_set_subtype", node.ptr, subtype, PACKAGE = "RHugin")
     },
 
     "labeled" = {
-      status <- .Call("RHugin_node_set_subtype", node.ptr,
-                       as.character(subtype), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-
-      status <- .Call("RHugin_node_set_number_of_states", node.ptr,
-                       as.integer(length(states)), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-
-      .Call("RHugin_node_set_state_label", node.ptr,
-             as.integer(0:(length(states) - 1)), as.character(states),
+      .Call("RHugin_node_set_subtype", node.ptr,subtype, PACKAGE = "RHugin")
+      .Call("RHugin_node_set_number_of_states", node.ptr, length(states),
              PACKAGE = "RHugin")
+      .Call("RHugin_node_set_state_label", node.ptr, 0:(length(states) - 1),
+             states, PACKAGE = "RHugin")
     },
 
     "numbered" = {
-      status <- .Call("RHugin_node_set_subtype", node.ptr,
-                       as.character(subtype), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-
+      .Call("RHugin_node_set_subtype", node.ptr, subtype, PACKAGE = "RHugin")
       states <- as.double(states)
+
       if(any(is.na(states)))
         stop("non numeric states supplied for numbered node")
 
-      status <- .Call("RHugin_node_set_number_of_states", node.ptr,
-                       as.integer(length(states)), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-
-      .Call("RHugin_node_set_state_value", node.ptr,
-             as.integer(0:(length(states) - 1)), as.double(states),
+      .Call("RHugin_node_set_number_of_states", node.ptr, length(states),
              PACKAGE = "RHugin")
+      .Call("RHugin_node_set_state_value", node.ptr, 0:(length(states) - 1),
+             states, PACKAGE = "RHugin")
     },
 
     "interval" = {
-      status <- .Call("RHugin_node_set_subtype", node.ptr,
-                       as.character(subtype), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
+      .Call("RHugin_node_set_subtype", node.ptr, subtype, PACKAGE = "RHugin")
 
       states <- as.double(states)
       if(any(is.na(states)))
         stop("non numeric states supplied for interval node")
+
       if(!identical(states, sort(states)))
         stop("states are not disjoint intervals")
 
-      status <- .Call("RHugin_node_set_number_of_states", node.ptr,
-                       as.integer(length(states) - 1), PACKAGE = "RHugin")
-      RHugin.handle.error(status)
-
-      .Call("RHugin_node_set_state_value", node.ptr,
-             as.integer(0:(length(states) - 1)), as.double(states),
+      .Call("RHugin_node_set_number_of_states", node.ptr, length(states) - 1,
              PACKAGE = "RHugin")
+      .Call("RHugin_node_set_state_value", node.ptr, 0:(length(states) - 1),
+             states, PACKAGE = "RHugin")
     }
   )
-  RHugin.handle.error(status)
 
-  invisible(NULL)
+  invisible()
 }
 
 

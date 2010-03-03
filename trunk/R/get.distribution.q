@@ -28,8 +28,6 @@ get.distribution <- function(domain, node, class = c("data.frame", "table",
   d <- sapply(states, length)
 
   table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
-  RHugin.handle.error()
-
   n.table <- length(table)
 
   mean <- matrix(0.0, nrow = n.table, ncol = 1)

@@ -13,7 +13,7 @@ delete.node(domain, node)
 
 \arguments{
   \item{domain}{an RHugin domain.}
-  \item{node}{a character string specifying the name of the node in \code{domain} to be deleted.}
+  \item{node}{a character vector specifying the names of the node(s) to be deleted.}
 }
 
 \details{

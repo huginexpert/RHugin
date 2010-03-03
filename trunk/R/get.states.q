@@ -9,17 +9,17 @@ get.states <- function(domain, node, values = FALSE)
   subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
 
   switch(subtype,
-    "labeled" = .Call("RHugin_node_get_state_label", node.ptr,
-                       as.integer(0:(n.states - 1)), PACKAGE = "RHugin"),
+    "labeled" = .Call("RHugin_node_get_state_label", node.ptr, 0:(n.states - 1),
+                       PACKAGE = "RHugin"),
 
     "boolean" = c(FALSE, TRUE),
 
     "numbered" = .Call("RHugin_node_get_state_value", node.ptr,
-                        as.integer(0:(n.states - 1)), PACKAGE = "RHugin"),
+                        0:(n.states - 1), PACKAGE = "RHugin"),
 
     "interval" = {
-      pts <- .Call("RHugin_node_get_state_value", node.ptr,
-                    as.integer(0:(n.states)), PACKAGE = "RHugin")
+      pts <- .Call("RHugin_node_get_state_value", node.ptr, 0:(n.states),
+                    PACKAGE = "RHugin")
 
       if(!values) {
         infinite <- is.infinite(c(pts[1], pts[length(pts)]))

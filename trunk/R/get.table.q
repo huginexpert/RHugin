@@ -5,8 +5,8 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
   type <- match.arg(type)
   class <- match.arg(class)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
-                     as.character(node[1]), PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node[1],
+                     PACKAGE = "RHugin")
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
 
@@ -16,33 +16,25 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
                         PACKAGE = "RHugin"),
     fading = .Call("RHugin_node_get_fading_table", node.ptr,
                     PACKAGE = "RHugin"))
-  RHugin.handle.error()
 
   table.nodes <- names(.Call("RHugin_table_get_nodes", table.ptr,
                               PACKAGE = "RHugin"))
-  RHugin.handle.error()
 
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
     parent.kinds <- character(0)
 
-    for(n in parent.nodes) {
-      parent.ptr <- .Call("RHugin_domain_get_node_by_name", domain, n,
+    parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, parent.nodes,
+                          PACKAGE = "RHugin")
+    parent.kinds <- .Call("RHugin_node_get_kind", parent.ptrs,
                            PACKAGE = "RHugin")
-      RHugin.handle.error()
-      parent.kinds[n] <- .Call("RHugin_node_get_kind", parent.ptr,
-                                PACKAGE = "RHugin")
-    }
 
     discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
     continuous.parent.ptrs <- list()
 
-    for(n in continuous.parents) {
-      continuous.parent.ptrs[[n]] <- .Call("RHugin_domain_get_node_by_name",
-                                            domain, n, PACKAGE = "RHugin")
-      RHugin.handle.error()
-    }
+    continuous.parent.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
+                                     continuous.parents, PACKAGE = "RHugin")
 
     components <- c("(Intercept)", continuous.parents, "(Variance)")
     states <- character(0)
@@ -57,21 +49,14 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
       i <- 0:(n.state.space - 1)
     }
 
-    alpha <- .Call("RHugin_node_get_alpha", node.ptr, as.integer(i),
-                    PACKAGE = "RHugin")
-    RHugin.handle.error()
+    alpha <- .Call("RHugin_node_get_alpha", node.ptr, i, PACKAGE = "RHugin")
 
     beta <- list()
-    for(n in continuous.parents) {
+    for(n in continuous.parents)
       beta[[n]] <- .Call("RHugin_node_get_beta", node.ptr,
-                          continuous.parent.ptrs[[n]], as.integer(i),
-                          PACKAGE = "RHugin")
-      RHugin.handle.error()
-    }
+                          continuous.parent.ptrs[n], i, PACKAGE = "RHugin")
 
-    gamma <- .Call("RHugin_node_get_gamma", node.ptr, as.integer(i),
-                    PACKAGE = "RHugin")
-    RHugin.handle.error()
+    gamma <- .Call("RHugin_node_get_gamma", node.ptr, i, PACKAGE = "RHugin")
 
     if(length(beta))
       table <- as.vector(t(cbind(alpha, as.data.frame(beta), gamma)))
@@ -88,7 +73,6 @@ get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
     states <- rev(states)
 
     table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
-    RHugin.handle.error()
   }
 
   table <- switch(class,
