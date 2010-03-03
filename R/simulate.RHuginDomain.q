@@ -1,6 +1,6 @@
 simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
 {
-  RHugin.check.args(object, character(0), character(0), "simulate.RHuginDomain")
+  RHugin.check.args(object, character(0), character(0), "simulate")
 
   equilibrium.is.sum <- .Call("RHugin_domain_equilibrium_is", object, "sum",
                                PACKAGE = "RHugin")
@@ -15,11 +15,8 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
     stop("the evidence in ", deparse(substitute(object)), " was not",
          " incorporated in normal mode")
 
-  if(!is.null(seed)) {
-    .Call("RHugin_domain_seed_random", object, as.integer(abs(seed)),
-           PACKAGE = "RHugin")
-    RHugin.handle.error()
-  }
+  if(!is.null(seed))
+    .Call("RHugin_domain_seed_random", object, abs(seed), PACKAGE = "RHugin")
 
   nodes <- get.nodes(object)
   node.ptrs <- .Call("RHugin_domain_get_node_by_name", object,
@@ -32,8 +29,7 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
     ans[[node]] <- numeric(nsim)
 
   for(i in 1:nsim) {
-    status <- .Call("RHugin_domain_simulate", object, PACKAGE = "RHugin")
-    RHugin.handle.error()
+    .Call("RHugin_domain_simulate", object, PACKAGE = "RHugin")
 
     for(node in nodes) {
       ans[[node]][i] <- switch(kinds[node],
@@ -41,7 +37,6 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
                             PACKAGE = "RHugin"),
         "continuous" = .Call("RHugin_node_get_sampled_value", node.ptrs[node],
                               PACKAGE = "RHugin"))
-      RHugin.handle.error()
     }
   }
 

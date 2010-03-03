@@ -944,18 +944,22 @@ SEXP RHugin_table_get_data(SEXP Stable)
 {
   SEXP ret = R_NilValue;
   double *data = NULL;
-  int size = -1, IONE = 1;
+  h_number_t *table_data = NULL;
+  int i = 0, size = -1;
   h_table_t table = tablePointerFromSEXP(Stable);
 
-  data = (double*) h_table_get_data(table);
+  table_data = h_table_get_data(table);
   RHugin_handle_error();
   size = (int) h_table_get_size(table);
   RHugin_handle_error();
 
   PROTECT(ret = allocVector(REALSXP, size));
-  F77_CALL(dcopy)(&size, data, &IONE, REAL(ret), &IONE);
-  UNPROTECT(1);
+  data = REAL(ret);
+  
+  for(i = 0; i < size; i++)
+    data[i] = (double) table_data[i];
 
+  UNPROTECT(1);
   return ret;
 }
 
@@ -964,19 +968,25 @@ SEXP RHugin_table_set_data(SEXP Stable, SEXP Sdata)
 {
   h_table_t table = NULL;
   double *data = NULL;
-  int size = -1, IONE = 1;
+  h_number_t *table_data = NULL;
+  int i = 0, size = -1;
 
   table = tablePointerFromSEXP(Stable);
   RHugin_handle_error();
 
-  data = (double*) h_table_get_data(table);
+  table_data = h_table_get_data(table);
   size = (int) h_table_get_size(table);
 
-  if(size == LENGTH(Sdata))
-    F77_CALL(dcopy)(&size, REAL(Sdata), &IONE, data, &IONE);
-  else
-    error("the length of Sdata is not the same as the table size");
+  if(LENGTH(Sdata) != size)
+    error("the length of Sdata is not equal to the table size");
 
+  PROTECT(Sdata = AS_NUMERIC(Sdata));
+  data = REAL(Sdata);
+
+  for(i = 0; i < size; i++)
+    table_data[i] = (h_number_t) data[i];
+
+  UNPROTECT(1);
   return R_NilValue;
 }
 
@@ -2954,16 +2964,16 @@ SEXP RHugin_node_get_sampled_value(SEXP Snode)
 SEXP RHugin_domain_seed_random(SEXP Sdomain, SEXP Sseed)
 {
   SEXP ret = R_NilValue;
+  unsigned int seed = 1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Sseed = AS_INTEGER(Sseed));
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_seed_random(domain, (unsigned int) INTEGER(Sseed)[0]);
-  UNPROTECT(2);
+  seed = (unsigned int) INTEGER(Sseed)[0];
+  UNPROTECT(1);
 
-  RHugin_handle_error();
+  RHugin_handle_status_code(h_domain_seed_random(domain, seed));
 
-  return ret;
+  return R_NilValue;
 }
 
 
