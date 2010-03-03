@@ -39,24 +39,21 @@ get.marginal <- function(domain, nodes,
     cov <- list()
 
     for(j in 1:n.continuous)
-      mean[ , j] <- .Call("RHugin_table_get_mean", table.ptr,
-                           as.integer(0:(n.table - 1)),
-                           node.ptrs[continuous[j]],
-                           PACKAGE = "RHugin")
+      mean[ , j] <- .Call("RHugin_table_get_mean", table.ptr, 0:(n.table - 1),
+                           node.ptrs[continuous[j]], PACKAGE = "RHugin")
 
     for(k in 1:n.table) {
       tmp <- matrix(0.0, n.continuous, n.continuous)
       dimnames(tmp) <- list(continuous, continuous)
       for(i in 1:n.continuous)
-        tmp[i, i] <- .Call("RHugin_table_get_variance", table.ptr,
-                            as.integer(k - 1), node.ptrs[continuous[i]],
-                            PACKAGE = "RHugin")
+        tmp[i, i] <- .Call("RHugin_table_get_variance", table.ptr, k - 1,
+                            node.ptrs[continuous[i]], PACKAGE = "RHugin")
 
       if(n.continuous > 1) {
         for(i in 2:n.continuous) {
           for(j in 1:(i - 1))
             tmp[i, j] <- tmp[j, i] <- .Call("RHugin_table_get_covariance",
-                                             table.ptr, as.integer(k - 1),
+                                             table.ptr, k - 1,
                                              node.ptrs[continuous[i]],
                                              node.ptrs[continuous[j]],
                                              PACKAGE = "RHugin")

@@ -10,13 +10,11 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
   else
     state <- state - 1
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name",
-                     domain, as.character(output), PACKAGE = "RHugin")
-  RHugin.handle.error()
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, output,
+                     PACKAGE = "RHugin")
 
-  status <- .Call("RHugin_node_compute_sensitivity_data", node.ptr,
-                   as.integer(state), PACKAGE = "RHugin")
-  RHugin.handle.error(status)
+  .Call("RHugin_node_compute_sensitivity_data", node.ptr, state,
+         PACKAGE = "RHugin")
 
   if(set) {
     set <- .Call("RHugin_domain_get_sensitivity_set", domain,
@@ -27,35 +25,30 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
   dots <- list(...)
 
   if(!length(dots))
-    return(invisible(NULL))
+    return(invisible())
 
   if(is.list(dots[[1]])) 
     dots <- dots[[1]]
 
+  nodes <- names(dots)
   constants <- matrix(as.double(NA), length(dots), 4)
-  dimnames(constants) <- list(paste(names(dots), unlist(dots), sep = ":"),
+  dimnames(constants) <- list(paste(nodes, unlist(dots), sep = ":"),
                               c("alpha", "beta", "gamma", "delta"))
 
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
+                      PACKAGE = "RHugin")
+
   for(i in 1:length(dots)) {
-
-    node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
-                       as.character(names(dots[i])), PACKAGE = "RHugin")
-    RHugin.handle.error()
-
-    node.states <- get.states(domain, names(dots[i]))
+    node.states <- get.states(domain, nodes[i])
     input <- match(dots[[i]], node.states, nomatch = NA)[1]
 
     if(is.na(input))
-      stop(dQuote(dots[[i]]), " is not a state of node ",
-           dQuote(names(dots[i])))
+      stop(dots[[i]], " is not a state of node ", nodes[i])
     else
       input <- input - 1
 
-    temp <- .Call("RHugin_node_get_sensitivity_constants", node.ptr,
-                   as.integer(input), PACKAGE = "RHugin")
-
-    if(error.code() == 0)
-      constants[i, ] <- temp
+    constants[i, ] <- .Call("RHugin_node_get_sensitivity_constants",
+                             node.ptrs[nodes[i]], input, PACKAGE = "RHugin")
   }
 
   constants

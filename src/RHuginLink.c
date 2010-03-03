@@ -519,9 +519,14 @@ SEXP RHugin_node_get_children(SEXP Snodes)
 
 SEXP RHugin_node_set_number_of_states(SEXP Snode, SEXP Sstates)
 {
+  size_t count = -1;
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  RHugin_handle_status_code(h_node_set_number_of_states(node, INTEGER(Sstates)[0]));
+  PROTECT(Sstates = AS_INTEGER(Sstates));
+  count = (size_t) INTEGER(Sstates)[0];
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(h_node_set_number_of_states(node, count));
 
   return R_NilValue;
 }
@@ -1125,6 +1130,8 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
   h_node_subtype_t subtype = h_subtype_error;
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
+  PROTECT(Ssubtype = AS_CHARACTER(Ssubtype));
+
   if(asChar(Ssubtype) == RHUGIN_LABELED)
     subtype = h_subtype_label;
   else if(asChar(Ssubtype) == RHUGIN_NUMBERED)
@@ -1135,6 +1142,8 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
     subtype = h_subtype_interval;
   else
     subtype = h_subtype_error;
+
+  UNPROTECT(1);
 
   RHugin_handle_status_code(h_node_set_subtype(node, subtype));
 
@@ -1487,7 +1496,6 @@ SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabels)
 
 SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalues)
 {
-  SEXP ret = R_NilValue;
   h_status_t status = 0;
   h_double_t value = 0.0;
   double *sv = NULL;
@@ -1515,7 +1523,7 @@ SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalues)
   }
 
   UNPROTECT(2);
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -3053,13 +3061,15 @@ SEXP RHugin_node_get_mutual_information(SEXP Snodes, SEXP Sothers)
 
 SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate)
 {
+  size_t state = -1;
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
   PROTECT(Sstate = AS_INTEGER(Sstate));
-
-  RHugin_handle_status_code(h_node_compute_sensitivity_data(node, (size_t) INTEGER(Sstate)[0]));
-
+  state = (size_t) INTEGER(Sstate)[0];
   UNPROTECT(1);
+
+  RHugin_handle_status_code(h_node_compute_sensitivity_data(node, state));
+
   return R_NilValue;
 }
 
@@ -3139,8 +3149,11 @@ SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
 SEXP RHugin_node_get_experience_table(SEXP Snode)
 {
   SEXP ret = R_NilValue;
+  h_table_t table = NULL;
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  h_table_t table = h_node_get_experience_table(node);
+
+  table = h_node_get_experience_table(node);
+  RHugin_handle_error();
 
   if(table)
     ret = R_MakeExternalPtr(table, RHugin_table_tag, R_NilValue);
@@ -3167,8 +3180,11 @@ SEXP RHugin_node_has_experience_table(SEXP Snode)
 SEXP RHugin_node_get_fading_table(SEXP Snode)
 {
   SEXP ret = R_NilValue;
+  h_table_t table = NULL;
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  h_table_t table = h_node_get_fading_table(node);
+
+  table = h_node_get_fading_table(node);
+  RHugin_handle_error();
 
   if(table)
     ret = R_MakeExternalPtr(table, RHugin_table_tag, R_NilValue);
@@ -3197,6 +3213,7 @@ SEXP RHugin_node_has_fading_table(SEXP Snode)
 SEXP RHugin_domain_adapt(SEXP Sdomain)
 {
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
   RHugin_handle_status_code(h_domain_adapt(domain));
 
   return R_NilValue;
@@ -3207,31 +3224,26 @@ SEXP RHugin_domain_adapt(SEXP Sdomain)
 
 SEXP RHugin_domain_set_number_of_cases(SEXP Sdomain, SEXP Scount)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
+  size_t count = -1;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_set_number_of_cases(domain, (size_t) INTEGER(Scount)[0]);
+  PROTECT(Scount = AS_INTEGER(Scount));
+  count = (size_t) INTEGER(Scount)[0];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_set_number_of_cases(domain, count));
+
+  return R_NilValue;
 }
 
 
 SEXP RHugin_domain_new_case(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
+  RHugin_handle_status_code(h_domain_new_case(domain));
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_new_case(domain);
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -3250,194 +3262,222 @@ SEXP RHugin_domain_get_number_of_cases(SEXP Sdomain)
 }
 
 
-SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate)
+SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_indices, SEXP Sstates)
 {
-  SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_status_t status = (h_status_t) 0;
-  int i = 0;
+  h_status_t status = 0;
+  int i = 0, *case_indices = NULL, *states = NULL, n = LENGTH(Scase_indices);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  if(LENGTH(Sstates) != n)
+    error("Scase_indices and Sstates are not the same length");
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = 0;
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  PROTECT(Sstates = AS_INTEGER(Sstates));
+  case_indices = INTEGER(Scase_indices);
+  states = INTEGER(Sstates);
 
-  for(i = 0; i < LENGTH(Scase_index); i++) {
-    status = h_node_set_case_state(node, (size_t) INTEGER(Scase_index)[i],
-                                   (size_t) INTEGER(Sstate)[i]);
-
-    if(status != 0) {
-      INTEGER(ret)[0] = (int) status;
-      UNPROTECT(1);
-      return ret;
+  for(i = 0; i < n; i++) {
+    status = h_node_set_case_state(node, (size_t) case_indices[i], (size_t) states[i]);
+    if((h_error_t) status != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code((h_error_t) status);
     }
   }
 
-  UNPROTECT(1);
-
-  return ret;
+  UNPROTECT(2);
+  return R_NilValue;
 }
 
 
-SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_index)
+SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_indices)
 {
   SEXP ret = R_NilValue;
-  int i = 0, *state = NULL, *case_index = NULL, n = LENGTH(Scase_index);
+  h_error_t error_code = h_error_none;
+  int i = 0, *states = NULL, *case_indices = NULL, n = LENGTH(Scase_indices);
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  PROTECT(Scase_index = AS_INTEGER(Scase_index));
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
   PROTECT(ret = allocVector(INTSXP, n));
-  state = INTEGER(ret);
-  case_index = INTEGER(Scase_index);
+  states = INTEGER(ret);
+  case_indices = INTEGER(Scase_indices);
 
-  for(i = 0; i < n; i++)
-    state[i] = h_node_case_is_set(node, (size_t) case_index[i]) ?
-               (int) h_node_get_case_state(node, (size_t) case_index[i]) :
-               NA_INTEGER;
+  for(i = 0; i < n; i++) {
+    states[i] = h_node_case_is_set(node, (size_t) case_indices[i]) ?
+                (int) h_node_get_case_state(node, (size_t) case_indices[i]) :
+                NA_INTEGER;
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
+  }
 
   UNPROTECT(2);
   return ret;
 }
 
 
-SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_index, SEXP Svalues)
+SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_indices, SEXP Svalues)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  int i = 0, *case_index = NULL, *status = NULL;
-  double *value = NULL;
-
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-
-  PROTECT(ret = allocVector(INTSXP, LENGTH(Scase_index)));
-  value = REAL(Svalues);
-  case_index = INTEGER(Scase_index);
-  status = INTEGER(ret);
-
-  for(i = 0; i < LENGTH(Scase_index); i++) {
-    if(!R_FINITE(value[i]))
-      status[i] = (int) h_node_unset_case(node, (size_t) case_index[i]);
-    else
-      status[i] = (int) h_node_set_case_value(node, (size_t) case_index[i], value[i]);
-  }
-  
-  UNPROTECT(1);
-  return ret;
-}
-
-
-SEXP RHugin_node_get_case_value(SEXP Snode, SEXP Scase_index)
-{
-  SEXP ret = R_NilValue;
-  double *value = NULL;
-  int i = 0, *case_index = NULL, n = LENGTH(Scase_index);
-
+  h_status_t status = 0;
+  double *values = NULL;
+  int i = 0, *case_indices = NULL, n = LENGTH(Scase_indices);
   h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  PROTECT(Scase_index = AS_INTEGER(Scase_index));
-  PROTECT(ret = allocVector(REALSXP, n));
-  case_index = INTEGER(Scase_index);
-  value = REAL(ret);
+  if(LENGTH(Svalues) != n)
+    error("Scase_indices and Svalues are not the same length");
 
-  for(i = 0; i < LENGTH(Scase_index); i++)
-    value[i] = h_node_case_is_set(node, (size_t) case_index[i]) ?
-               (double) h_node_get_case_value(node, (size_t) case_index[i]) :
-               NA_REAL;
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  PROTECT(Svalues = AS_NUMERIC(Svalues));
+  case_indices = INTEGER(Scase_indices);
+  values = REAL(Svalues);
+
+  for(i = 0; i < n; i++) {
+    if(!R_FINITE(values[i]))
+      status = h_node_unset_case(node, (size_t) case_indices[i]);
+    else
+      status = h_node_set_case_value(node, (size_t) case_indices[i], values[i]);
+
+    if((h_error_t) status != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code((h_error_t) status);
+    }
+  }
+
+  UNPROTECT(2);
+  return R_NilValue;
+}
+
+
+SEXP RHugin_node_get_case_value(SEXP Snode, SEXP Scase_indices)
+{
+  SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
+  double *values = NULL;
+  int i = 0, *case_indices = NULL, n = LENGTH(Scase_indices);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  PROTECT(ret = allocVector(REALSXP, n));
+  case_indices = INTEGER(Scase_indices);
+  values = REAL(ret);
+
+  for(i = 0; i < n; i++) {
+    values[i] = h_node_case_is_set(node, (size_t) case_indices[i]) ?
+                (double) h_node_get_case_value(node, (size_t) case_indices[i]) :
+                NA_REAL;
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
+  }
 
   UNPROTECT(2);
   return ret;
 }
 
 
-SEXP RHugin_node_unset_case(SEXP Snode, SEXP Scase_index)
+SEXP RHugin_node_unset_case(SEXP Snode, SEXP Scase_indices)
 {
-  SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_status_t status = (h_status_t) 0;
-  int i = 0, *case_index = NULL;
+  h_status_t status = 0;
+  int i = 0, *case_indices = NULL;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  case_indices = INTEGER(Scase_indices);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = 0;
-  case_index = INTEGER(Scase_index);
-
-  for(i = 0; i < LENGTH(Scase_index); i++) {
-    status = h_node_unset_case(node, (size_t) case_index[i]);
-
-    if(status != 0) {
-      INTEGER(ret)[0] = (int) status;
+  for(i = 0; i < LENGTH(Scase_indices); i++) {
+    status = h_node_unset_case(node, (size_t) case_indices[i]);
+    if((h_error_t) status != h_error_none) {
       UNPROTECT(1);
-      return ret;
+      RHugin_handle_error_code((h_error_t) status);
     }
   }
 
   UNPROTECT(1);
-  return ret;
+  return R_NilValue;
 }
 
 
-SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_index)
+SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_indices)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  int i = 0, *case_index = NULL, *status = NULL;
+  h_error_t error_code = h_error_none;
+  int i = 0, *case_indices = NULL, *case_is_set = NULL, n = LENGTH(Scase_indices);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  PROTECT(ret = allocVector(LGLSXP, n));
+  case_indices = INTEGER(Scase_indices);
+  case_is_set = LOGICAL(ret);
 
-  PROTECT(ret = allocVector(LGLSXP, LENGTH(Scase_index)));
-  case_index = INTEGER(Scase_index);
-  status = LOGICAL(ret);
-
-  for(i = 0; i < LENGTH(Scase_index); i++)
-    status[i] = (int) h_node_case_is_set(node, (size_t) case_index[i]);
-
-  UNPROTECT(1);
-  return ret;
-}
-
-
-SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_index, SEXP Scase_count)
-{
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status = (h_status_t) 0;
-  int i = 0;
-
-  domain = domainPointerFromSEXP(Sdomain);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = 0;
-
-  for(i = 0; i < LENGTH(Scase_index); i++) {
-    status = h_domain_set_case_count(domain, (size_t) INTEGER(Scase_index)[i],
-                                     (h_number_t) REAL(Scase_count)[i]);
-    if(status != 0) {
-      INTEGER(ret)[0] = (int) status;
-      UNPROTECT(1);
-      return ret;
+  for(i = 0; i < n; i++) {
+    case_is_set[i] = (int) h_node_case_is_set(node, (size_t) case_indices[i]);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
     }
   }
 
-  UNPROTECT(1);
+  UNPROTECT(2);
   return ret;
 }
 
 
-SEXP RHugin_domain_get_case_count(SEXP Sdomain, SEXP Scase_index)
+SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_indices, SEXP Scase_counts)
 {
-  SEXP ret = R_NilValue;
-  double *count = NULL;
-  int i = 0, *case_index = NULL, n = LENGTH(Scase_index);
+  h_status_t status = 0;
+  h_error_t error_code = h_error_none;
+  double *case_counts = NULL;
+  int i = 0, *case_indices = NULL, n = LENGTH(Scase_indices);
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(Scase_index = AS_INTEGER(Scase_index));
-  PROTECT(ret = allocVector(REALSXP, n));
-  count = REAL(ret);
-  case_index = INTEGER(Scase_index);
+  if(LENGTH(Scase_counts) != n)
+    error("Scase_indices and Scase_counts are not the same length");
 
-  for(i = 0; i < n; i++)
-    count[i] = (double) h_domain_get_case_count(domain, (size_t) case_index[i]);
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  PROTECT(Scase_counts = AS_INTEGER(Scase_counts));
+  case_indices = INTEGER(Scase_indices);
+  case_counts = REAL(Scase_counts);
+
+  for(i = 0; i < n; i++) {
+    status = h_domain_set_case_count(domain, (size_t) case_indices[i], (h_number_t) case_counts[i]);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
+  }
+
+  UNPROTECT(2);
+  return R_NilValue;
+}
+
+
+SEXP RHugin_domain_get_case_count(SEXP Sdomain, SEXP Scase_indices)
+{
+  SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
+  double *counts = NULL;
+  int i = 0, *case_indices = NULL, n = LENGTH(Scase_indices);
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
+  PROTECT(ret = allocVector(REALSXP, n));
+  case_indices = INTEGER(Scase_indices);
+  counts = REAL(ret);
+
+  for(i = 0; i < n; i++) {
+    counts[i] = (double) h_domain_get_case_count(domain, (size_t) case_indices[i]);
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(2);
+      RHugin_handle_error_code(error_code);
+    }
+  }
 
   UNPROTECT(2);
   return ret;
@@ -3446,16 +3486,16 @@ SEXP RHugin_domain_get_case_count(SEXP Sdomain, SEXP Scase_index)
 
 SEXP RHugin_domain_enter_case(SEXP Sdomain, SEXP Scase_index)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
+  size_t case_index = -1;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_enter_case(domain, (size_t) INTEGER(Scase_index)[0]);
+  PROTECT(Scase_index = AS_INTEGER(Scase_index));
+  case_index = (size_t) INTEGER(Scase_index)[0];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_enter_case(domain, case_index));
+
+  return R_NilValue;
 }
 
 
@@ -3470,6 +3510,8 @@ SEXP RHugin_domain_get_log_likelihood(SEXP Sdomain)
   REAL(ret)[0] = (double) h_domain_get_log_likelihood(domain);
   UNPROTECT(1);
 
+  RHugin_handle_error();
+
   return ret;
 }
 
@@ -3482,6 +3524,8 @@ SEXP RHugin_domain_get_AIC(SEXP Sdomain)
   PROTECT(ret = allocVector(REALSXP, 1));
   REAL(ret)[0] = (double) h_domain_get_AIC(domain);
   UNPROTECT(1);
+
+  RHugin_handle_error();
 
   return ret;
 }
@@ -3496,6 +3540,8 @@ SEXP RHugin_domain_get_BIC(SEXP Sdomain)
   REAL(ret)[0] = (double) h_domain_get_BIC(domain);
   UNPROTECT(1);
 
+  RHugin_handle_error();
+
   return ret;
 }
 
@@ -3504,45 +3550,66 @@ SEXP RHugin_domain_get_BIC(SEXP Sdomain)
 
 SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name)
 {
-  SEXP ret = R_NilValue;
+  h_status_t status = 0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_parse_cases(domain,
-                                               (h_string_t) CHAR(asChar(Sfile_name)),
-                                               RHuginParseError, NULL);
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_domain_parse_cases(domain, (h_string_t) CHAR(asChar(Sfile_name)),
+                                RHuginParseError, NULL);
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(status);
+
+  return R_NilValue;
 }
+
 
 SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
                               SEXP Scases, SEXP Sinclude_case_counts,
                               SEXP Sseparator, SEXP Smissing_data)
 {
-  SEXP ret = R_NilValue;
+  h_status_t status = 0;
+  h_boolean_t include_case_counts = FALSE;
+  h_index_t *case_indices = NULL;
   h_node_t *nodes = NULL;
-  h_index_t *cases = NULL;
-  int i = 0;
+  int i = 0, n_cases = -1, *cases = NULL, n_nodes = LENGTH(Snodes);
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  nodes = (h_node_t*) R_alloc(1 + LENGTH(Snodes), sizeof(h_node_t));
-  for(i = 0; i < LENGTH(Snodes); i++)
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  PROTECT(Sinclude_case_counts = AS_LOGICAL(Sinclude_case_counts));
+  PROTECT(Sseparator = AS_CHARACTER(Sseparator));
+  PROTECT(Smissing_data = AS_CHARACTER(Smissing_data));
+
+  nodes = (h_node_t*) R_alloc(n_nodes + 1, sizeof(h_node_t));
+  for(i = 0; i < n_nodes; i++)
     nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
-  nodes[LENGTH(Snodes)] = NULL;
+  nodes[n_nodes] = NULL;
 
-  if(Scases != R_NilValue)
-    cases = (h_index_t*) INTEGER(Scases);
+  if(Scases == R_NilValue)
+    case_indices = NULL;
+  else {
+    PROTECT(Scases = AS_INTEGER(Scases));
+    n_cases = LENGTH(Scases);
+    cases = INTEGER(Scases);
+    case_indices = (h_index_t*) R_alloc(n_cases + 1, sizeof(h_index_t));
+    for(i = 0; i < n_cases; i++)
+      case_indices[i] = (h_index_t) cases[i];
+    case_indices[n_cases] = -1;
+    UNPROTECT(1);
+  }
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_save_cases(domain, (h_string_t) CHAR(asChar(Sfile_name)),
-                                              nodes, cases,
-                                              (h_boolean_t) LOGICAL(Sinclude_case_counts)[0],
-                                              (h_string_t) CHAR(asChar(Sseparator)),
-                                              (h_string_t) CHAR(asChar(Smissing_data)));
-  UNPROTECT(1);
+  include_case_counts = (h_boolean_t) LOGICAL(Sinclude_case_counts)[0];
 
-  return ret;
+  status = h_domain_save_cases(domain, (h_string_t) CHAR(asChar(Sfile_name)),
+                               nodes, case_indices, include_case_counts,
+                               (h_string_t) CHAR(asChar(Sseparator)),
+                               (h_string_t) CHAR(asChar(Smissing_data)));
+
+  UNPROTECT(4);
+
+  RHugin_handle_status_code(status);
+
+  return R_NilValue;
 }
 
 
@@ -3550,27 +3617,26 @@ SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
 
 SEXP RHugin_domain_learn_structure(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_learn_structure(domain);
-  UNPROTECT(1);
+  RHugin_handle_status_code(h_domain_learn_structure(domain));
 
-  return ret;
+  return R_NilValue;
 }
   
 
 SEXP RHugin_domain_set_significance_level(SEXP Sdomain, SEXP Sprobability)
 {
-  SEXP ret = R_NilValue;
+  h_double_t probability = -1.0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_set_significance_level(domain, (h_double_t) REAL(Sprobability)[0]);
+  PROTECT(Sprobability = AS_NUMERIC(Sprobability));
+  probability = (h_double_t) REAL(Sprobability)[0];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_set_significance_level(domain, probability));
+
+  return R_NilValue;
 }
 
 
@@ -3583,6 +3649,8 @@ SEXP RHugin_domain_get_significance_level(SEXP Sdomain)
   REAL(ret)[0] = (double) h_domain_get_significance_level(domain);
   UNPROTECT(1);
 
+  RHugin_handle_error();
+
   return ret;
 }
 
@@ -3591,12 +3659,13 @@ SEXP RHugin_domain_get_significance_level(SEXP Sdomain)
 
 SEXP RHugin_node_set_edge_constraint(SEXP Sa, SEXP Sb, SEXP Sconstraint)
 {
-  SEXP ret = R_NilValue;
   h_node_t a = NULL, b = NULL;
   h_edge_constraint_t constraint = h_constraint_error;
 
   a = nodePointerFromSEXP(VECTOR_ELT(Sa, 0));
   b = nodePointerFromSEXP(VECTOR_ELT(Sb, 0));
+
+  PROTECT(Sconstraint = AS_CHARACTER(Sconstraint));
 
   if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_NONE)
     constraint = h_constraint_none;
@@ -3613,11 +3682,11 @@ SEXP RHugin_node_set_edge_constraint(SEXP Sa, SEXP Sb, SEXP Sconstraint)
   else if(asChar(Sconstraint) == RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN)
     constraint = h_constraint_backward_edge_forbidden;
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_node_set_edge_constraint(a, b, constraint);
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_node_set_edge_constraint(a, b, constraint));
+
+  return R_NilValue;
 }
 
 
@@ -3630,6 +3699,7 @@ SEXP RHugin_node_get_edge_constraint(SEXP Sa, SEXP Sb)
   a = nodePointerFromSEXP(VECTOR_ELT(Sa, 0));
   b = nodePointerFromSEXP(VECTOR_ELT(Sb, 0));
   constraint = h_node_get_edge_constraint(a, b);
+  RHugin_handle_error();
 
   PROTECT(ret = allocVector(STRSXP, 1));
 
@@ -3676,27 +3746,26 @@ SEXP RHugin_node_get_edge_constraint(SEXP Sa, SEXP Sb)
 
 SEXP RHugin_domain_learn_tables(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_learn_tables(domain);
-  UNPROTECT(1);
+  RHugin_handle_status_code(h_domain_learn_tables(domain));
 
-  return ret;
+  return R_NilValue;
 }
 
 
 SEXP RHugin_domain_set_log_likelihood_tolerance(SEXP Sdomain, SEXP Stolerance)
 {
-  SEXP ret = R_NilValue;
+  h_double_t tolerance = -1.0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_set_log_likelihood_tolerance(domain, (h_double_t) REAL(Stolerance)[0]);
+  PROTECT(Stolerance = AS_NUMERIC(Stolerance));
+  tolerance = (h_double_t) REAL(Stolerance)[0];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_set_log_likelihood_tolerance(domain, tolerance));
+
+  return R_NilValue;
 }
 
 
@@ -3709,20 +3778,24 @@ SEXP RHugin_domain_get_log_likelihood_tolerance(SEXP Sdomain)
   REAL(ret)[0] = (double) h_domain_get_log_likelihood_tolerance(domain);
   UNPROTECT(1);
 
+  RHugin_handle_error();
+
   return ret;
 }
 
 
 SEXP RHugin_domain_set_max_number_of_em_iterations(SEXP Sdomain, SEXP Scount)
 {
-  SEXP ret = R_NilValue;
+  size_t count = -1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_set_max_number_of_em_iterations(domain, (size_t) INTEGER(Scount)[0]);
+  PROTECT(Scount = AS_INTEGER(Scount));
+  count = (size_t) INTEGER(Scount)[0];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_set_max_number_of_em_iterations(domain, count));
+
+  return R_NilValue;
 }
 
 
@@ -3735,22 +3808,19 @@ SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain)
   INTEGER(ret)[0] = (int) h_domain_get_max_number_of_em_iterations(domain);
   UNPROTECT(1);
 
+  RHugin_handle_error();
+
   return ret;
 }
 
 
 SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
+  RHugin_handle_status_code(h_domain_learn_class_tables(domain));
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_learn_class_tables(domain);
-  UNPROTECT(1);
-
-  return ret;
+  return R_NilValue;
 }
 
 
@@ -3759,9 +3829,14 @@ SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
 SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 {
   SEXP ret = R_NilValue;
+
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+
   h_domain_t domain = h_net_parse_domain((h_string_t) CHAR(asChar(Sfile_name)),
                                          RHuginParseError,
                                          NULL);
+
+  RHugin_handle_error();
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
@@ -3774,14 +3849,16 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 
 SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 {
-  SEXP ret = R_NilValue;
+  h_status_t status = 0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) h_domain_save_as_net(domain, (h_string_t) CHAR(asChar(Sfile_name)));
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_domain_save_as_net(domain, (h_string_t) CHAR(asChar(Sfile_name)));
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(status);
+
+  return R_NilValue;
 }
 
 
@@ -3789,38 +3866,32 @@ SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 
 SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition)
 {
-  SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_status_t status;
+  h_coordinate_t x = -1, y = -1;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  status = h_node_set_position(node, (h_coordinate_t) INTEGER(Sposition)[0],
-                              (h_coordinate_t) INTEGER(Sposition)[1]);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  PROTECT(Sposition = AS_INTEGER(Sposition));
+  x = (h_coordinate_t) INTEGER(Sposition)[0];
+  y = (h_coordinate_t) INTEGER(Sposition)[1];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_node_set_position(node, x, y));
+
+  return R_NilValue;
 }
 
 
 SEXP RHugin_node_get_position(SEXP Snode)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_status_t status;
-  h_coordinate_t position[] = {0, 0};
+  h_coordinate_t position[] = {-1, -1};
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  RHugin_handle_status_code(h_node_get_position(node, position, position + 1));
 
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  status = h_node_get_position(node, position, position + 1);
-
-  if(status == h_error_none) {
-    PROTECT(ret = allocVector(INTSXP, 2));
-    INTEGER(ret)[0] = (int) position[0];
-    INTEGER(ret)[1] = (int) position[1];
-    UNPROTECT(1);
-  }
+  PROTECT(ret = allocVector(INTSXP, 2));
+  INTEGER(ret)[0] = (int) position[0];
+  INTEGER(ret)[1] = (int) position[1];
+  UNPROTECT(1);
 
   return ret;
 }
@@ -3830,38 +3901,32 @@ SEXP RHugin_node_get_position(SEXP Snode)
 
 SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize)
 {
-  SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status;
-
-  domain = domainPointerFromSEXP(Sdomain);
-  status = h_domain_set_node_size(domain, (size_t) INTEGER(Ssize)[0],
-                                  (size_t) INTEGER(Ssize)[1]);
-
-  PROTECT(ret = allocVector(INTSXP, 1));
-  INTEGER(ret)[0] = (int) status;
+  size_t width = -1, height = -1;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  
+  PROTECT(Ssize = AS_INTEGER(Ssize));
+  width = (size_t) INTEGER(Ssize)[0];
+  height = (size_t) INTEGER(Ssize)[1];
   UNPROTECT(1);
 
-  return ret;
+  RHugin_handle_status_code(h_domain_set_node_size(domain, width, height));
+
+  return R_NilValue;
 }
 
 
 SEXP RHugin_domain_get_node_size(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_domain_t domain = NULL;
-  h_status_t status;
-  size_t size[] = {0, 0};
+  size_t size[] = {-1, -1};
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  domain = domainPointerFromSEXP(Sdomain);
-  status = h_domain_get_node_size(domain, size, size+1);
+  RHugin_handle_status_code(h_domain_get_node_size(domain, size, size + 1));
 
-  if(status == h_error_none) {
-    PROTECT(ret = allocVector(INTSXP, 2));
-    INTEGER(ret)[0] = (int) size[0];
-    INTEGER(ret)[1] = (int) size[1];
-    UNPROTECT(1);
-  }
+  PROTECT(ret = allocVector(INTSXP, 2));
+  INTEGER(ret)[0] = (int) size[0];
+  INTEGER(ret)[1] = (int) size[1];
+  UNPROTECT(1);
 
   return ret;
 }

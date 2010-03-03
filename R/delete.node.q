@@ -1,9 +1,9 @@
-delete.node <- function(domain, node)
+delete.node <- function(domain, nodes)
 {
-  node <- unique(node)
-  RHugin.check.args(domain, node, character(0), "delete.node")
+  nodes <- unique(nodes)
+  RHugin.check.args(domain, nodes, character(0), "delete.node")
 
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, node,
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
                       PACKAGE = "RHugin")
   .Call("RHugin_node_delete", node.ptrs, PACKAGE = "RHugin")
 

@@ -4,7 +4,6 @@ hugin.domain <- function(graph, data)
     stop("the graph argument is not supported in this release of RHugin")
 
   domain <- .Call("RHugin_new_domain", PACKAGE = "RHugin")
-  RHugin.handle.error()
   oldClass(domain) <- "RHuginDomain"
 
   if(!missing(data) && is.data.frame(data)) {

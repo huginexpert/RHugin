@@ -33,7 +33,7 @@ get.junction.tree <- function(domain)
     root <- .Call("RHugin_jt_get_root", junction.trees[[i]], PACKAGE = "RHugin")
     root <- match(list(root), clique.ptrs)
 
-    junction.trees[[i]] <- list(root = root, cliques = cliques,
+    junction.trees[[i]] <- list(cliques = cliques, root = root,
                                 neighbors = neighbors)
   }
 

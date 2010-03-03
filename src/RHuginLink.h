@@ -371,14 +371,14 @@ DLLEXPORT SEXP RHugin_domain_adapt(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_set_number_of_cases(SEXP Sdomain, SEXP Scount);
 DLLEXPORT SEXP RHugin_domain_new_case(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_get_number_of_cases(SEXP Sdomain);
-DLLEXPORT SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_index, SEXP Sstate);
-DLLEXPORT SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_index);
-DLLEXPORT SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_index, SEXP Svalues);
-DLLEXPORT SEXP RHugin_node_get_case_value(SEXP Snode, SEXP Scase_index);
-DLLEXPORT SEXP RHugin_node_unset_case(SEXP Snode, SEXP Scase_index);
-DLLEXPORT SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_index);
-DLLEXPORT SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_index, SEXP Scase_count);
-DLLEXPORT SEXP RHugin_domain_get_case_count(SEXP Sdomain, SEXP Scase_index);
+DLLEXPORT SEXP RHugin_node_set_case_state(SEXP Snode, SEXP Scase_indices, SEXP Sstates);
+DLLEXPORT SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_indices);
+DLLEXPORT SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_indices, SEXP Svalues);
+DLLEXPORT SEXP RHugin_node_get_case_value(SEXP Snode, SEXP Scase_indices);
+DLLEXPORT SEXP RHugin_node_unset_case(SEXP Snode, SEXP Scase_indices);
+DLLEXPORT SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_indices);
+DLLEXPORT SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_indices, SEXP Scase_counts);
+DLLEXPORT SEXP RHugin_domain_get_case_count(SEXP Sdomain, SEXP Scase_indices);
 DLLEXPORT SEXP RHugin_domain_enter_case(SEXP Sdomain, SEXP Scase_index);
 
 

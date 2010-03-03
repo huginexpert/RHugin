@@ -10,7 +10,7 @@ get.cases <- function(domain)
   if(n.cases < 1)
     return(invisible())
 
-  indices <- as.integer(0:(n.cases - 1))
+  indices <- 0:(n.cases - 1)
 
   node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
                       PACKAGE = "RHugin")
