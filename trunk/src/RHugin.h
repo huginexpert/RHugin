@@ -29,7 +29,7 @@ void RHugin_handle_status_code(h_status_t status);
 
 /* Finalizer */
 
-void RHugin_finalizer(SEXP Sdomain);
+void RHugin_domain_finalizer(SEXP Sdomain);
 
 
 /* Safe accessor methods for Hugin objects */
