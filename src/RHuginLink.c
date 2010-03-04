@@ -169,7 +169,7 @@ SEXP RHugin_new_domain(void)
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_finalizer);
+    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer);
   }
 
   return ret;
@@ -199,7 +199,7 @@ SEXP RHugin_domain_clone(SEXP Sdomain)
 
   if(clonedDomain) {
     ret = R_MakeExternalPtr(clonedDomain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_finalizer);
+    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer);
   }
 
   return ret;
@@ -897,7 +897,7 @@ SEXP RHugin_kb_load_domain(SEXP Sfile_name, SEXP Spassword)
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_finalizer); 
+    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer); 
   }
 
   return ret;
@@ -3845,7 +3845,7 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_finalizer); 
+    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer); 
   }
 
   return ret;

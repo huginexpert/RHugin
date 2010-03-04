@@ -78,13 +78,13 @@ void RHugin_handle_status_code(h_status_t status)
 }
 
 
-void RHugin_finalizer(SEXP Sdomain)
+void RHugin_domain_finalizer(SEXP Sdomain)
 {
   h_status_t status = h_domain_delete(domainPointerFromSEXP(Sdomain));
   R_ClearExternalPtr(Sdomain);
 
   if((h_error_t) status != h_error_none)
-    warning("\nIn RHugin_finalizer:\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+    warning("\nIn RHugin_domain_finalizer:\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
             (int) status,
             (char*) h_error_name((h_error_t) status),
             (char*) h_error_description((h_error_t) status));
