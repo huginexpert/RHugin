@@ -14,6 +14,7 @@ set.table <- function(domain, node, data,
 
   category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
   kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+  kind <- ifelse(is.na(kind), "none", kind)
 
   table.ptr <- switch(type,
     cpt = .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin"),
