@@ -34,21 +34,21 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 }
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Compile the domain
-compile(AppleTree)
+compile(apple)
 
 # Select states
-set.finding(AppleTree, "Dry", "no")
-set.finding(AppleTree, "Loses", "yes")
+set.finding(apple, "Dry", "no")
+set.finding(apple, "Loses", "yes")
 
 # Propagate and get beliefs
-propagate(AppleTree)
-get.belief(AppleTree, "Sick")
+propagate(apple)
+get.belief(apple, "Sick")
 
 # Initialize the domain
-initialize.domain(AppleTree)
+initialize.domain(apple)
 }
 
 \keyword{programming}

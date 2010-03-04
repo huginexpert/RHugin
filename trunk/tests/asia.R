@@ -1,20 +1,20 @@
 library(RHugin, lib.loc = "../")
-demo("buildChestClinicNetwork", echo = FALSE)
+demo("asia", echo = FALSE)
 
-compile(ChestClinic)
+compile(asia)
 
-set.finding(ChestClinic, "Asia", "yes")
-set.finding(ChestClinic, "Dyspnoea", "yes")
+set.finding(asia, "Asia", "yes")
+set.finding(asia, "Dyspnoea", "yes")
 
-propagate(ChestClinic)
+propagate(asia)
 
-get.belief(ChestClinic, "Asia")
-get.belief(ChestClinic, "Smoking")
-get.belief(ChestClinic, "Tuberculosis")
-get.belief(ChestClinic, "LungCancer")
-get.belief(ChestClinic, "Bronchitis")
-get.belief(ChestClinic, "Either")
-get.belief(ChestClinic, "XRay")
-get.belief(ChestClinic, "Dyspnoea")
+get.belief(asia, "Asia")
+get.belief(asia, "Smoking")
+get.belief(asia, "Tuberculosis")
+get.belief(asia, "LungCancer")
+get.belief(asia, "Bronchitis")
+get.belief(asia, "Either")
+get.belief(asia, "XRay")
+get.belief(asia, "Dyspnoea")
 
 

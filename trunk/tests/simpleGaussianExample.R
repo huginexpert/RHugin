@@ -1,11 +1,11 @@
 library(RHugin, lib.loc = "../")
-demo("buildSimpleGaussianNetwork", echo = FALSE)
+demo("simple", echo = FALSE)
 
-compile(simpleGaussianExample)
-set.finding(simpleGaussianExample, "Z", 1.5)
-propagate(simpleGaussianExample)
+compile(simple)
+set.finding(simple, "Z", 1.5)
+propagate(simple)
 
-get.belief(simpleGaussianExample, "X")
-get.belief(simpleGaussianExample, "Y")
+get.belief(simple, "X")
+get.belief(simple, "Y")
 
 

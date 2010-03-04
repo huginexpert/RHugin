@@ -26,13 +26,13 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Compile the domain
-compile(AppleTree)
+compile(apple)
 
 # Uncompile the domain
-uncompile(AppleTree)
+uncompile(apple)
 }
 
 \keyword{programming}

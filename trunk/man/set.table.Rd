@@ -36,21 +36,21 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 # (1) Set the CPT of a single node
 
 # Create an RHugin domain
-AppleTree <- hugin.domain()
+apple <- hugin.domain()
 
 # Add nodes
-add.node(AppleTree, "Sick", states = c("yes", "no"))
-add.node(AppleTree, "Dry", states = c("yes", "no"))
-add.node(AppleTree, "Loses", states = c("yes", "no"))
+add.node(apple, "Sick", states = c("yes", "no"))
+add.node(apple, "Dry", states = c("yes", "no"))
+add.node(apple, "Loses", states = c("yes", "no"))
 
 # Add edges
-add.edge(AppleTree, "Loses", "Sick")
-add.edge(AppleTree, "Loses", "Dry")
+add.edge(apple, "Loses", "Sick")
+add.edge(apple, "Loses", "Dry")
 
 # Set the conditional probability table for Sick
-sick.table <- get.table(AppleTree, "Sick")
+sick.table <- get.table(apple, "Sick")
 sick.table$Freq <- c(0.1, 0.9)
-set.table(AppleTree, "Sick", sick.table)
+set.table(apple, "Sick", sick.table)
 
 
 # (2) Set the CPTs for all nodes in a domain using the

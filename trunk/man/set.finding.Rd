@@ -33,16 +33,16 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 }
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Compile the domain
-compile(AppleTree)
+compile(apple)
 
 # Set finding
-set.finding(AppleTree, "Loses", c(1, 0))
+set.finding(apple, "Loses", c(1, 0))
 
 # Or equivalently
-set.finding(AppleTree, "Loses", "yes")
+set.finding(apple, "Loses", "yes")
 }
 
 \keyword{programming}

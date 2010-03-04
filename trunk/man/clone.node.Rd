@@ -33,14 +33,14 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 
 \examples{
 # Create an RHugin domain
-AppleTree <- hugin.domain()
+apple <- hugin.domain()
 
 # Add some nodes
-add.node(AppleTree, "Sick", states = c("yes", "no"))
-add.node(AppleTree, "Loses", states = c("yes", "no"))
+add.node(apple, "Sick", states = c("yes", "no"))
+add.node(apple, "Loses", states = c("yes", "no"))
 
 # Clone "Sick"
-clone.node(AppleTree, "Sick", "Dry")
+clone.node(apple, "Sick", "Dry")
 }
 
 \keyword{programming}

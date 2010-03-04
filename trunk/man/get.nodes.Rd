@@ -27,15 +27,15 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 
 \examples{
 # Create an RHugin domain
-AppleTree <- hugin.domain()
+apple <- hugin.domain()
 
 # Add nodes
-add.node(AppleTree, "Sick", states = c("yes", "no"))
-add.node(AppleTree, "Dry", states = c("yes", "no"))
-add.node(AppleTree, "Loses", states = c("yes", "no"))
+add.node(apple, "Sick", states = c("yes", "no"))
+add.node(apple, "Dry", states = c("yes", "no"))
+add.node(apple, "Loses", states = c("yes", "no"))
 
-# List the nodes in AppleTree
-get.nodes(AppleTree)
+# List the nodes in apple
+get.nodes(apple)
 }
 
 \keyword{programming}

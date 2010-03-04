@@ -1,5 +1,5 @@
 library(RHugin, lib.loc = "../")
-demo("buildLimidNetwork", echo = FALSE)
+demo("limid", echo = FALSE)
 
 compile(limid)
 set.finding(limid, "Loses", "yes")

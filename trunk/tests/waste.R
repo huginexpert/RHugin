@@ -1,5 +1,5 @@
 library(RHugin, lib.loc = "../")
-demo("buildWasteNetwork", echo = FALSE)
+demo("waste", echo = FALSE)
 
 compile(waste)
 

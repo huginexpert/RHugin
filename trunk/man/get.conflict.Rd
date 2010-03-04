@@ -30,14 +30,14 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildChestClinicNetwork", echo = FALSE)
+demo("asia", echo = FALSE)
 
-compile(ChestClinic)
-set.finding(ChestClinic, "Dyspnoea", "yes")
-set.finding(ChestClinic, "XRay", "yes")
-propagate(ChestClinic)
+compile(asia)
+set.finding(asia, "Dyspnoea", "yes")
+set.finding(asia, "XRay", "yes")
+propagate(asia)
 
-get.conflict(ChestClinic)
+get.conflict(asia)
 }
 
 \keyword{programming}

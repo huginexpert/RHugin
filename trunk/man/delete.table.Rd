@@ -30,21 +30,20 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 
 
 \examples{
-## Build the AppleTree example ##
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 ## Add experience and fading tables ##
-get.table(AppleTree, "Loses", type = "experience")
-get.table(AppleTree, "Loses", type = "fading")
-summary(AppleTree, nodes = "Loses")
+get.table(apple, "Loses", type = "experience")
+get.table(apple, "Loses", type = "fading")
+summary(apple, nodes = "Loses")
 
 ## Delete the fading table ##
-delete.table(AppleTree, "Loses", type = "fading")
-summary(AppleTree, nodes = "Loses")
+delete.table(apple, "Loses", type = "fading")
+summary(apple, nodes = "Loses")
 
 ## Delete the experience table ##
-delete.table(AppleTree, "Loses", type = "experience")
-summary(AppleTree, nodes = "Loses")
+delete.table(apple, "Loses", type = "experience")
+summary(apple, nodes = "Loses")
 }
 
 \keyword{programming}

@@ -32,10 +32,10 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildChestClinicNetwork", echo = FALSE)
+demo("asia", echo = FALSE)
 
 # The cases from example 11.1 in the Hugin API Manual
-ChestClinic.dat <- data.frame(
+asia.dat <- data.frame(
   Asia = c("yes", "no", "no", "no", "yes", "yes", "yes", "no"),
   Smoking = c("no", "yes", "yes", "no", "yes", "no", "yes", "no"),
   Dyspnoea = c("no", "yes", "yes", "yes", NA, "no", "yes", "no"),
@@ -43,7 +43,7 @@ ChestClinic.dat <- data.frame(
   Freq = c(1, 1, 1, 1, 2, 1, 1, 1))
 
 # Add cases
-set.cases(ChestClinic, ChestClinic.dat, "Freq")
+set.cases(asia, asia.dat, "Freq")
 
 
 # Cases for all subtypes of nodes

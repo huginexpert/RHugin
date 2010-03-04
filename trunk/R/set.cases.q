@@ -53,13 +53,11 @@ set.cases <- function(domain, data, Freq)
       stop(sQuote("Freq"), " is not the correct length")
     }
 
-    status <- .Call("RHugin_domain_set_case_count", domain,
-                     as.integer(0:(n - 1)), as.double(Freq),
-                     PACKAGE = "RHugin")
-    RHugin.handle.error(status)
+    .Call("RHugin_domain_set_case_count", domain, 0:(n - 1), Freq,
+           PACKAGE = "RHugin")
   }
 
-  invisible(NULL)
+  invisible()
 }
 
 

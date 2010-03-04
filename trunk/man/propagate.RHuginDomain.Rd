@@ -29,17 +29,17 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Compile the domain
-compile(AppleTree)
+compile(apple)
 
 # Select states
-set.finding(AppleTree, "Loses", "yes")
+set.finding(apple, "Loses", "yes")
 
 # Propagate and get beliefs
-propagate(AppleTree)
-get.belief(AppleTree, "Sick")
+propagate(apple)
+get.belief(apple, "Sick")
 }
 
 \keyword{programming}

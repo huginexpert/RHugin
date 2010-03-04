@@ -37,43 +37,43 @@ For adding cases: \code{\link{set.cases}}, and for adding experience tables: \co
 
 \examples{
 # Create a Hugin domain
-ChestClinic <- hugin.domain()
+asia <- hugin.domain()
 
 # Add nodes
 nodes <- c("Asia", "Smoking", "Tuberculosis", "LungCancer",
             "Bronchitis", "Either", "XRay", "Dyspnoea")
 for(node in nodes)
-  add.node(ChestClinic, node, states = c("yes", "no"))
+  add.node(asia, node, states = c("yes", "no"))
 
 # Add edges
-add.edge(ChestClinic, "Tuberculosis", "Asia")
-add.edge(ChestClinic, "LungCancer", "Smoking")
-add.edge(ChestClinic, "Bronchitis", "Smoking")
-add.edge(ChestClinic, "Either", c("Tuberculosis", "LungCancer"))
-add.edge(ChestClinic, "XRay", "Either")
-add.edge(ChestClinic, "Dyspnoea", c("Either", "Bronchitis"))
+add.edge(asia, "Tuberculosis", "Asia")
+add.edge(asia, "LungCancer", "Smoking")
+add.edge(asia, "Bronchitis", "Smoking")
+add.edge(asia, "Either", c("Tuberculosis", "LungCancer"))
+add.edge(asia, "XRay", "Either")
+add.edge(asia, "Dyspnoea", c("Either", "Bronchitis"))
 
 # Add CPT for Either
-cpt <- get.table(ChestClinic, "Either")
+cpt <- get.table(asia, "Either")
 cpt$Freq <- c(1, 0, 1, 0, 1, 0, 0, 1)
-set.table(ChestClinic, "Either", cpt)
+set.table(asia, "Either", cpt)
 
 # Add an experience table to every node except Either
-nodes <- get.nodes(ChestClinic)
+nodes <- get.nodes(asia)
 nodes <- nodes[-6]
 
 for(node in nodes)
-  tmp <- get.table(ChestClinic, node, type = "exp")
+  tmp <- get.table(asia, node, type = "exp")
 
 # Set cases
-data(ChestClinicCases)
-set.cases(ChestClinic, ChestClinicCases)
+data(asia)
+set.cases(asia, asia.cases)
 
 # The domain must be compiled
-compile(ChestClinic, save = TRUE)
+compile(asia, save = TRUE)
 
 # Learn Conditional Probability tables
-learn.cpt(ChestClinic)
+learn.cpt(asia)
 }
 
 \keyword{programming}
