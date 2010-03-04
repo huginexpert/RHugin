@@ -37,7 +37,7 @@ print.summary.RHuginDomain <- function(x, ...)
     }
 
     else
-      cat("  Compiled:     the domain is not compiled\n", sep = "")
+      cat("  Compiled:     the domain is not compiled\n\n", sep = "")
   }
 
   if(!is.null(nodes <- x$nodes)) {

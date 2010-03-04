@@ -283,7 +283,7 @@ SEXP RHugin_node_get_category(SEXP Snodes)
         break;
 
       case h_category_error:
-        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
+        SET_STRING_ELT(ret, i, NA_STRING);
         break;
     }
   }
@@ -318,7 +318,7 @@ SEXP RHugin_node_get_kind(SEXP Snodes)
         break;
 
       case h_kind_error:
-        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
+        SET_STRING_ELT(ret, i, NA_STRING);
         break;
     }
   }
@@ -1174,11 +1174,6 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
   for(i = 0; i < n; i++) {
     node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
     subtype = h_node_get_subtype(node);
-    error_code = h_error_code();
-    if(error_code != h_error_none) {
-      UNPROTECT(1);
-      RHugin_handle_error_code(error_code);
-    }
 
     switch(subtype) {
       case h_subtype_label:
@@ -1198,7 +1193,7 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
         break;
 
       case h_subtype_error:
-        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
+        SET_STRING_ELT(ret, i, NA_STRING);
         break;
     }
   }
