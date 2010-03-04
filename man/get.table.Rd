@@ -38,10 +38,10 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 }
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Get the CPT of the node "Loses"
-get.table(AppleTree, "Loses")
+get.table(apple, "Loses")
 }
 
 \keyword{programming}

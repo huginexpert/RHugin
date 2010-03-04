@@ -39,33 +39,33 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 
 \examples{
 # Create an RHugin domain
-AppleTree <- hugin.domain()
+apple <- hugin.domain()
 
 # Add nodes
-add.node(AppleTree, "Sick", states = c("yes", "no"))
-add.node(AppleTree, "Dry", states = c("yes", "no"))
-add.node(AppleTree, "Loses", states = c("yes", "no"))
+add.node(apple, "Sick", states = c("yes", "no"))
+add.node(apple, "Dry", states = c("yes", "no"))
+add.node(apple, "Loses", states = c("yes", "no"))
   
 # Add cases
-data(AppleTreeCases)
-set.cases(AppleTree, AppleTreeCases)
+data(apple)
+set.cases(apple, apple.cases)
 
-learn.structure(AppleTree)
-plot(AppleTree)
+learn.structure(apple)
+plot(apple)
 
 
 # Using domain knowledge
-ChestClinic <- hugin.domain()
+asia <- hugin.domain()
 
 # Add nodes
 nodes <- c("Asia", "Smoking", "Tuberculosis", "LungCancer",
             "Bronchitis", "Either", "XRay", "Dyspnoea")
 for(node in nodes)
-  add.node(ChestClinic, node, states = c("yes", "no"))
+  add.node(asia, node, states = c("yes", "no"))
 
 # Set cases
-data(ChestClinicCases)
-set.cases(ChestClinic, ChestClinicCases)
+data(asia)
+set.cases(asia, asia.cases)
 
 # require a directed edge from Asia to Tuberculosis and from
 # Smoking to LungCancer; forbid an edge from XRay to Asia.
@@ -83,8 +83,8 @@ undirected <- list(required = undirected.required,
 # put into constraints list
 domain.knowledge <- list(directed = directed, undirected = undirected)
 
-learn.structure(ChestClinic, constraints = domain.knowledge)
-plot(ChestClinic)
+learn.structure(asia, constraints = domain.knowledge)
+plot(asia)
 }
 
 \keyword{programming}

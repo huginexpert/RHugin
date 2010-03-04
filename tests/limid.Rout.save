@@ -21,7 +21,7 @@ Loading required package: gRain
 Loading required package: gRbase
 Loading required package: MASS
 Loading required package: RBGL
-> demo("buildLimidNetwork", echo = FALSE)
+> demo("limid", echo = FALSE)
 > 
 > compile(limid)
 > set.finding(limid, "Loses", "yes")

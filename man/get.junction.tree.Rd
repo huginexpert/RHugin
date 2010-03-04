@@ -32,13 +32,13 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Triangulate the domain
-triangulate(AppleTree)
+triangulate(apple)
 
 # Get junction tree
-get.junction.tree(AppleTree)
+get.junction.tree(apple)
 }
 
 \keyword{programming}

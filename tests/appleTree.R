@@ -1,11 +1,11 @@
 library(RHugin, lib.loc = "../")
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
-compile(AppleTree)
-set.finding(AppleTree, "Loses", "yes")
-propagate(AppleTree)
+compile(apple)
+set.finding(apple, "Loses", "yes")
+propagate(apple)
 
-get.belief(AppleTree, "Sick")
-get.belief(AppleTree, "Dry")
+get.belief(apple, "Sick")
+get.belief(apple, "Dry")
 
 

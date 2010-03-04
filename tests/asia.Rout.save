@@ -21,37 +21,37 @@ Loading required package: gRain
 Loading required package: gRbase
 Loading required package: MASS
 Loading required package: RBGL
-> demo("buildChestClinicNetwork", echo = FALSE)
+> demo("asia", echo = FALSE)
 > 
-> compile(ChestClinic)
+> compile(asia)
 > 
-> set.finding(ChestClinic, "Asia", "yes")
-> set.finding(ChestClinic, "Dyspnoea", "yes")
+> set.finding(asia, "Asia", "yes")
+> set.finding(asia, "Dyspnoea", "yes")
 > 
-> propagate(ChestClinic)
+> propagate(asia)
 > 
-> get.belief(ChestClinic, "Asia")
+> get.belief(asia, "Asia")
 yes  no 
   1   0 
-> get.belief(ChestClinic, "Smoking")
+> get.belief(asia, "Smoking")
       yes        no 
 0.6259199 0.3740801 
-> get.belief(ChestClinic, "Tuberculosis")
+> get.belief(asia, "Tuberculosis")
        yes         no 
 0.08775096 0.91224904 
-> get.belief(ChestClinic, "LungCancer")
+> get.belief(asia, "LungCancer")
        yes         no 
 0.09952515 0.90047485 
-> get.belief(ChestClinic, "Bronchitis")
+> get.belief(asia, "Bronchitis")
       yes        no 
 0.8114021 0.1885979 
-> get.belief(ChestClinic, "Either")
+> get.belief(asia, "Either")
       yes        no 
 0.1822999 0.8177001 
-> get.belief(ChestClinic, "XRay")
+> get.belief(asia, "XRay")
       yes        no 
 0.2195389 0.7804611 
-> get.belief(ChestClinic, "Dyspnoea")
+> get.belief(asia, "Dyspnoea")
 yes  no 
   1   0 
 > 

@@ -32,16 +32,16 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildChestClinicNetwork", echo = FALSE)
-compile(ChestClinic)
-set.finding(ChestClinic, "Asia", "yes")
-propagate(ChestClinic)
+demo("asia", echo = FALSE)
+compile(asia)
+set.finding(asia, "Asia", "yes")
+propagate(asia)
 
 # Get entropy
-get.entropy(ChestClinic, "Smoking")
+get.entropy(asia, "Smoking")
 
 # Get mutual information
-get.entropy(ChestClinic, "Smoking", "Asia")
+get.entropy(asia, "Smoking", "Asia")
 }
 
 \keyword{programming}

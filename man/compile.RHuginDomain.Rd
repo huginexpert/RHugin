@@ -47,10 +47,10 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 }
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Compile the domain
-compile(AppleTree)
+compile(apple)
 }
 
 \keyword{programming}

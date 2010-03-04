@@ -31,13 +31,13 @@ layoutRHugin(x, domain, ...)
 library(Rgraphviz)
 
 # Layout a bayesian network without calling plot.  The following
-# example builds the ChestClinic network, uses the layoutRHugin
+# example builds the Asia network, uses the layoutRHugin
 # function to add layout information then saves the domain as a net
-# file.  Open "ChestClinic.net" using the Hugin GUI to see the layout.
+# file.  Open "asia.net" in the Hugin GUI to see the layout.
 
-demo("buildChestClinicNetwork", echo = FALSE)
-layoutRHugin(x = as.graph.RHuginDomain(ChestClinic), domain = ChestClinic)
-write.rhd(ChestClinic, file = "ChestClinic.net", type = "net") 
+demo("asia", echo = FALSE)
+layoutRHugin(x = as.graph.RHuginDomain(asia), domain = asia)
+write.rhd(asia, file = "asia.net", type = "net") 
 }
 
 \keyword{programming}

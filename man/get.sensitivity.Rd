@@ -39,18 +39,18 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildChestClinicNetwork", echo = FALSE)
-compile(ChestClinic)
+demo("asia", echo = FALSE)
+compile(asia)
 
-set.finding(ChestClinic, "Dyspnoea", "yes")
-propagate(ChestClinic)
+set.finding(asia, "Dyspnoea", "yes")
+propagate(asia)
 
 # Compute the constants for the sensitivity of a positive diagnosis on
 # the population proportion of smokers.
-get.sensitivity(ChestClinic, "LungCancer", "yes", Smoking = "yes")
+get.sensitivity(asia, "LungCancer", "yes", Smoking = "yes")
 
 # Compute the sensitivity set for lung cancer diagnosis.
-get.sensitivity(ChestClinic, "LungCancer", "yes", set = TRUE)
+get.sensitivity(asia, "LungCancer", "yes", set = TRUE)
 }
 
 \keyword{programming}

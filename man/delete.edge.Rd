@@ -33,19 +33,19 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 
 \examples{
 # Create an RHugin domain
-AppleTree <- hugin.domain()
+apple <- hugin.domain()
 
 # Add nodes
-add.node(AppleTree, "Sick", states = c("yes", "no"))
-add.node(AppleTree, "Dry", states = c("yes", "no"))
-add.node(AppleTree, "Loses", states = c("yes", "no"))
+add.node(apple, "Sick", states = c("yes", "no"))
+add.node(apple, "Dry", states = c("yes", "no"))
+add.node(apple, "Loses", states = c("yes", "no"))
 
 # Add edges
-add.edge(AppleTree, "Loses", "Sick")
-add.edge(AppleTree, "Loses", "Dry")
+add.edge(apple, "Loses", "Sick")
+add.edge(apple, "Loses", "Dry")
 
 # Delete the edge pointing from Sick to Loses
-delete.edge(AppleTree, "Loses", "Sick")
+delete.edge(apple, "Loses", "Sick")
 }
 
 \keyword{programming}

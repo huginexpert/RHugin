@@ -3444,7 +3444,7 @@ SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_indices, SEXP Scase_c
     error("Scase_indices and Scase_counts are not the same length");
 
   PROTECT(Scase_indices = AS_INTEGER(Scase_indices));
-  PROTECT(Scase_counts = AS_INTEGER(Scase_counts));
+  PROTECT(Scase_counts = AS_NUMERIC(Scase_counts));
   case_indices = INTEGER(Scase_indices);
   case_counts = REAL(Scase_counts);
 

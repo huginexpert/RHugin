@@ -38,16 +38,16 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 }
 
 \examples{
-demo("buildChestClinicNetwork", echo = FALSE)
+demo("asia", echo = FALSE)
 
 # Triangulate the domain
-elimination.order <- triangulate(ChestClinic, method = "clique.weight")
+elimination.order <- triangulate(asia, method = "clique.weight")
 
 # Uncompiling removes the triangulation
-uncompile(ChestClinic)
+uncompile(asia)
 
 # Retriangulate using the elimination sequence from the previous triangulation
-triangulate(ChestClinic, order = elimination.order)
+triangulate(asia, order = elimination.order)
 }
 
 \keyword{programming}

@@ -34,10 +34,10 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildChestClinicNetwork", echo = FALSE)
+demo("asia", echo = FALSE)
 
 # The cases from example 11.1 in the Hugin API Manual
-ChestClinic.dat <- data.frame(
+asia.dat <- data.frame(
   Asia = c("yes", "no", "no", "no", "yes", "yes", "yes", "no"),
   Smoking = c("no", "yes", "yes", "no", "yes", "no", "yes", "no"),
   Dyspnoea = c("no", "yes", "yes", "yes", NA, "no", "yes", "no"),
@@ -45,14 +45,14 @@ ChestClinic.dat <- data.frame(
   Freq = c(1, 1, 1, 1, 2, 1, 1, 1))
 
 # Set cases
-set.cases(ChestClinic, ChestClinic.dat, "Freq")
+set.cases(asia, asia.dat, "Freq")
 
 # Write cases to a data file
-write.cases(ChestClinic, filename = "ChestClinicCases.txt",
+write.cases(asia, filename = "asia.txt",
             nodes = c("Asia", "Smoking", "Dyspnoea", "XRay"))
 
 # Read cases from a data file
-read.cases(ChestClinic, filename = "ChestClinicCases.txt")
+read.cases(asia, filename = "asia.txt")
 }
 
 \keyword{programming}

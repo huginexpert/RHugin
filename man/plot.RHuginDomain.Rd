@@ -30,11 +30,11 @@ the \sQuote{graph} object is invisibly returned.
 \examples{
 library(Rgraphviz)
 
-demo("buildChestClinicNetwork", echo = FALSE)
-plot(ChestClinic)
-write.rhd(ChestClinic, file = "ChestClinic.net", type = "net")
+demo("asia", echo = FALSE)
+plot(asia)
+write.rhd(asia, file = "asia.net", type = "net")
 
-# The layout of the bayesian network in "ChestClinic.net" is the same as
+# The layout of the bayesian network in "asia.net" is the same as
 # the layout in the R graphic device.
 }
 

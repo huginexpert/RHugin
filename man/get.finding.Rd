@@ -28,16 +28,16 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
-demo("buildAppleTreeNetwork", echo = FALSE)
+demo("apple", echo = FALSE)
 
 # Compile the domain
-compile(AppleTree)
+compile(apple)
 
 # Set finding
-set.finding(AppleTree, "Loses", c(1, 0))
+set.finding(apple, "Loses", c(1, 0))
 
 # Get finding
-get.finding(AppleTree, "Loses")
+get.finding(apple, "Loses")
 }
 
 \keyword{programming}
