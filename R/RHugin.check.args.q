@@ -1,12 +1,9 @@
 RHugin.check.args <- function(domain, required.nodes, conflicting.nodes,
                               fun.name)
 {
-  nodes <- get.nodes(domain)
+  RHugin.check.domain(domain, fun.name)
 
-  if(class(domain) != "RHuginDomain")
-    stop("in function ", fun.name, ": the first argument to ",
-          fun.name, " does not appear to be an RHugin domain",
-          call. = FALSE)
+  nodes <- get.nodes(domain)
 
   if(length(required.nodes)) {
     temp <- is.element(required.nodes, nodes)
@@ -23,7 +20,7 @@ RHugin.check.args <- function(domain, required.nodes, conflicting.nodes,
             call. = FALSE)
   }
     
-  invisible(NULL)
+  invisible()
 }
 
 

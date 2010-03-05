@@ -12,7 +12,7 @@ hugin.domain <- function(graph, data)
       node.names <- node.names[-Freq]
 
     for(node in node.names) {
-      status <- switch(class(data[[node]])[1],
+      switch(class(data[[node]])[1],
         "integer" = add.node(domain, name = node,
                              states = as.numeric(sort(unique(data[[node]])))),
 

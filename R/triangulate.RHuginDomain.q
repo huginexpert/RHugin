@@ -1,7 +1,7 @@
 triangulate.RHuginDomain <- function(object, method = "fill.in.weight", order,
                                      max.separators = 100000, ...)
 {
-  RHugin.check.args(object, character(0), character(0), "triangulate")
+  RHugin.check.domain(object, "triangulate")
   methods <- c("clique.size", "clique.weight", "fill.in.size", "fill.in.weight",
                "total.weight")
   method <- match.arg(method, choices = methods)

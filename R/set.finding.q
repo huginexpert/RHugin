@@ -1,7 +1,7 @@
 set.finding <- function(domain, node, finding, case = NULL)
 {
   if(!is.null(case)) {
-    RHugin.check.args(domain, character(0), character(0), "set.finding")
+    RHugin.check.domain(domain, "set.finding")
 
     .Call("RHugin_domain_enter_case", domain, case - 1, PACKAGE = "RHugin")
 

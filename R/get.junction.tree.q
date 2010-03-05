@@ -1,6 +1,6 @@
 get.junction.tree <- function(domain)
 {
-  RHugin.check.args(domain, character(0), character(0), "get.junction.tree")
+  RHugin.check.domain(domain, "get.junction.tree")
 
   if(!.Call("RHugin_domain_is_triangulated", domain, PACKAGE = "RHugin"))
     stop("the domain is not triangulated")

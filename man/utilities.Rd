@@ -1,5 +1,6 @@
 \name{utilities}
 \alias{RHugin.check.args}
+\alias{RHugin.check.domain}
 \alias{.First.lib}
 
 \title{Undocumented RHugin Utility Functions}
@@ -10,6 +11,7 @@ These functions are for RHugin's internal use only.
 
 \usage{
 RHugin.check.args(domain, required.nodes, conflicting.nodes, fun.name)
+RHugin.check.domain(domain, fun.name)
 .First.lib(libname, pkgname)
 }
 
