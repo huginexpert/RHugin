@@ -87,8 +87,6 @@
 		DAEFA1AA0DE3081A002B126B /* clone.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.q; path = R/clone.node.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AD0DE3081A002B126B /* delete.edge.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.q; path = R/delete.edge.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1AE0DE3081A002B126B /* delete.node.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.q; path = R/delete.node.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1AF0DE3081A002B126B /* error.code.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = error.code.q; path = R/error.code.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1B00DE3081A002B126B /* error.description.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = error.description.q; path = R/error.description.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B30DE3081B002B126B /* get.belief.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.belief.q; path = R/get.belief.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B40DE3081B002B126B /* get.cases.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.cases.q; path = R/get.cases.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1B50DE3081B002B126B /* get.edges.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.edges.q; path = R/get.edges.q; sourceTree = SOURCE_ROOT; };
@@ -105,7 +103,6 @@
 		DAEFA1C20DE3081B002B126B /* retract.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = retract.q; path = R/retract.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C30DE3081B002B126B /* reverse.edge.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = reverse.edge.q; path = R/reverse.edge.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C40DE3081B002B126B /* RHugin.check.args.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RHugin.check.args.q; path = R/RHugin.check.args.q; sourceTree = SOURCE_ROOT; };
-		DAEFA1C50DE3081B002B126B /* RHugin.handle.error.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RHugin.handle.error.q; path = R/RHugin.handle.error.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C60DE3081B002B126B /* set.cases.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.cases.q; path = R/set.cases.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C80DE3081B002B126B /* set.states.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.states.q; path = R/set.states.q; sourceTree = SOURCE_ROOT; };
 		DAEFA1C90DE3081B002B126B /* set.table.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.table.q; path = R/set.table.q; sourceTree = SOURCE_ROOT; };
@@ -117,7 +114,6 @@
 		DAEFA1CF0DE3083A002B126B /* clone.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clone.node.Rd; path = man/clone.node.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D20DE3083A002B126B /* delete.edge.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.edge.Rd; path = man/delete.edge.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D30DE3083A002B126B /* delete.node.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete.node.Rd; path = man/delete.node.Rd; sourceTree = SOURCE_ROOT; };
-		DAEFA1D40DE3083A002B126B /* errors.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = errors.Rd; path = man/errors.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D70DE3083A002B126B /* get.belief.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.belief.Rd; path = man/get.belief.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D80DE3083A002B126B /* get.cases.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.cases.Rd; path = man/get.cases.Rd; sourceTree = SOURCE_ROOT; };
 		DAEFA1D90DE3083B002B126B /* get.edges.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.edges.Rd; path = man/get.edges.Rd; sourceTree = SOURCE_ROOT; };
@@ -217,8 +213,6 @@
 				DAEFA1AD0DE3081A002B126B /* delete.edge.q */,
 				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
 				0E84068110A8BBBF00E3E8D6 /* delete.table.q */,
-				DAEFA1AF0DE3081A002B126B /* error.code.q */,
-				DAEFA1B00DE3081A002B126B /* error.description.q */,
 				0EA522F0111DF81D00602ED8 /* get.approximation.constant.q */,
 				DAEFA1B30DE3081B002B126B /* get.belief.q */,
 				DAEFA1B40DE3081B002B126B /* get.cases.q */,
@@ -254,7 +248,6 @@
 				DAEFA1C30DE3081B002B126B /* reverse.edge.q */,
 				DAEFA1C40DE3081B002B126B /* RHugin.check.args.q */,
 				DAC2E02D112AA7E1009B99B6 /* RHugin.control.q */,
-				DAEFA1C50DE3081B002B126B /* RHugin.handle.error.q */,
 				DAFA674C1121930400E2E278 /* score.q */,
 				DAEFA1C60DE3081B002B126B /* set.cases.q */,
 				DAD83CD30E1A3764005C9495 /* set.finding.q */,
@@ -284,7 +277,6 @@
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				0EC2510510AAF5B80092BC73 /* delete.table.Rd */,
-				DAEFA1D40DE3083A002B126B /* errors.Rd */,
 				DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */,
 				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
 				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,
