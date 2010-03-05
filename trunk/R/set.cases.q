@@ -1,6 +1,6 @@
 set.cases <- function(domain, data, Freq)
 {
-  RHugin.check.args(domain, character(0), character(0), "set.cases")
+  RHugin.check.domain(domain, "set.cases")
 
   n <- nrow(data)
   data.names <- names(data)

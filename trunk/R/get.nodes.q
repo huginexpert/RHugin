@@ -1,5 +1,7 @@
 get.nodes <- function(domain)
 {
+  RHugin.check.domain(domain, "get.nodes")
+
   nodes <- character(0)
   node.ptr <- .Call("RHugin_domain_get_first_node", domain, PACKAGE = "RHugin")
 

@@ -1,6 +1,6 @@
 get.edges <- function(domain)
 {
-  RHugin.check.args(domain, character(0), character(0), "get.edges")
+  RHugin.check.domain(domain, "get.edges")
 
   node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain,
                       get.nodes(domain), PACKAGE = "RHugin")

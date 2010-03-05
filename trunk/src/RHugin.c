@@ -91,6 +91,14 @@ void RHugin_domain_finalizer(SEXP Sdomain)
 }
 
 
+SEXP RHugin_R_Nilify_externalptr(SEXP ptr)
+{
+  if(R_ExternalPtrAddr(ptr) == NULL) return R_NilValue;
+
+  return ptr;
+}
+
+
 h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 {
   if(R_ExternalPtrAddr(Sdomain) == NULL)
@@ -184,6 +192,7 @@ void RHuginParseError(h_location_t line, h_string_t message, void *data)
 void R_init_RHugin(DllInfo *info)
 {
   R_CallMethodDef dotCallMethods[] = {
+    {"RHugin_R_Nilify_externalptr", (DL_FUNC) RHugin_R_Nilify_externalptr, 1},
     {"RHugin_error_code", (DL_FUNC) RHugin_error_code, 0},
     {"RHugin_error_name", (DL_FUNC) RHugin_error_name, 1},
     {"RHugin_error_description", (DL_FUNC) RHugin_error_description, 1},

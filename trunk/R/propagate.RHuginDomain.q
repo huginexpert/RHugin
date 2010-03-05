@@ -1,7 +1,7 @@
 propagate.RHuginDomain <- function(object, equilibrium = c("sum", "max"),
                                    mode = c("normal", "fast"), ...)
 {
-  RHugin.check.args(object, character(0), character(0), "propagate")
+  RHugin.check.domain(object, "propagate")
   equilibrium <- match.arg(equilibrium)
   mode <- match.arg(mode)
 

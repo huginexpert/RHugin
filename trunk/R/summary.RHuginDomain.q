@@ -1,6 +1,6 @@
 summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
 {
-  RHugin.check.args(object, character(0), character(0), "summary.RHuginDomain")
+  RHugin.check.domain(object, "summary.RHuginDomain")
 
   if(is.logical(nodes)) {
     if(nodes)

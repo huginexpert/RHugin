@@ -32,6 +32,11 @@ void RHugin_handle_status_code(h_status_t status);
 void RHugin_domain_finalizer(SEXP Sdomain);
 
 
+/* External pointer checker */
+
+SEXP RHugin_R_Nilify_externalptr(SEXP ptr);
+
+
 /* Safe accessor methods for Hugin objects */
 
 h_domain_t domainPointerFromSEXP(SEXP Sdomain);

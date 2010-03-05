@@ -1,6 +1,6 @@
 simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
 {
-  RHugin.check.args(object, character(0), character(0), "simulate")
+  RHugin.check.domain(object, "simulate")
 
   equilibrium.is.sum <- .Call("RHugin_domain_equilibrium_is", object, "sum",
                                PACKAGE = "RHugin")

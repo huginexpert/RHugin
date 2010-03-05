@@ -1,6 +1,6 @@
 get.cases <- function(domain)
 {
-  RHugin.check.args(domain, character(0), character(0), "get.cases")
+  RHugin.check.domain(domain, "get.cases")
 
   nodes <- get.nodes(domain)
   data <- list()

@@ -1,7 +1,7 @@
 retract <- function(domain, nodes)
 {
   if(missing(nodes)) {
-    RHugin.check.args(domain, character(0), character(0), "retract")
+    RHugin.check.domain(domain, "retract")
 
     .Call("RHugin_domain_retract_findings", domain, PACKAGE = "RHugin")
   }

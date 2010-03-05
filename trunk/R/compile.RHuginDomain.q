@@ -1,6 +1,6 @@
 compile.RHuginDomain <- function(object, save = FALSE, approximate = NULL, ...)
 {
-  RHugin.check.args(object, character(0), character(0), "compile")
+  RHugin.check.domain(object, "compile")
 
   .Call("RHugin_domain_compile", object, PACKAGE = "RHugin")
 

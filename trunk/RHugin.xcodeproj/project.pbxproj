@@ -67,6 +67,7 @@
 		DAB14A461122C9BB00FB0A16 /* learn.cpt.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = learn.cpt.Rd; path = man/learn.cpt.Rd; sourceTree = SOURCE_ROOT; };
 		DAB14A471122C9BB00FB0A16 /* learn.structure.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = learn.structure.Rd; path = man/learn.structure.Rd; sourceTree = SOURCE_ROOT; };
 		DAC2E02D112AA7E1009B99B6 /* RHugin.control.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RHugin.control.q; path = R/RHugin.control.q; sourceTree = SOURCE_ROOT; };
+		DAC7B05D11414722009AC6CC /* RHugin.check.domain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RHugin.check.domain.q; path = R/RHugin.check.domain.q; sourceTree = SOURCE_ROOT; };
 		DAD83CD30E1A3764005C9495 /* set.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set.finding.q; path = R/set.finding.q; sourceTree = "<group>"; };
 		DAD83CD40E1A4044005C9495 /* get.finding.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.q; path = R/get.finding.q; sourceTree = SOURCE_ROOT; };
 		DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.finding.Rd; path = man/get.finding.Rd; sourceTree = SOURCE_ROOT; };
@@ -247,6 +248,7 @@
 				DAEFA1C20DE3081B002B126B /* retract.q */,
 				DAEFA1C30DE3081B002B126B /* reverse.edge.q */,
 				DAEFA1C40DE3081B002B126B /* RHugin.check.args.q */,
+				DAC7B05D11414722009AC6CC /* RHugin.check.domain.q */,
 				DAC2E02D112AA7E1009B99B6 /* RHugin.control.q */,
 				DAFA674C1121930400E2E278 /* score.q */,
 				DAEFA1C60DE3081B002B126B /* set.cases.q */,
