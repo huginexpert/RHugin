@@ -3841,6 +3841,7 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
                                          RHuginParseError,
                                          NULL);
 
+  UNPROTECT(1);
   RHugin_handle_error();
 
   if(domain) {
