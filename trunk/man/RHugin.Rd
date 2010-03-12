@@ -1,0 +1,47 @@
+\name{RHugin}
+\alias{RHugin}
+
+\title{
+The RHugin Package
+}
+
+\description{
+The RHugin package provides a suite of R functions for controlling the Hugin Decision Engine (HDE). With this package, one can use the HDE, from within the R environment, to build and make inference from Bayesian belief networks (including those with continuous Gaussian nodes) and influence diagrams, to learn network structure, and to learn conditional probability tables. All of the functions in the RHugin package are documented. A list of functions can be obtained using the command \code{ls(pos = "package:RHugin")} and the documentation for each listed function can be accessed using \code{?function}. The package also contains several demos: \code{demo(package = "RHugin")} displays the available demonstration scripts. 
+}
+
+\details{
+The RHugin package attempts to make working with the Hugin Decision Engine as R-like as possible. However, there are two important caveats that users should be aware of.
+
+The first caveat is that a Hugin domain, the object that RHugin uses to represent a domain in the HDE, is a special type of R object called an eternal pointer.  The value of the external pointer corresponds to an actual domain in the HDE.  The caveat is that a copy of an eternal pointer contains the same value as the original and hence still points to the same domain the in the HDE.  An example is given below.  As a best practice, it is recommended that users not copy Hugin domains using the R assignment operators \code{<-} and \code{=}.
+
+The second caveat is that, since the actual Hugin domain exists in the HDE (and not in R), it cannot be saved in an R workspace and hence is lost when quitting R.  The functions \code{read.rhd} and \code{write.rhd} are provided for loading and saving Hugin domains.  Note that \code{write.rhd} must be called before quitting R if the domain is to be saved.
+}
+
+\references{
+The RHugin Project website: \url{http://rhugin.r-forge.r-project.org}
+
+HUGIN EXPERT website: \url{http://www.hugin.com}
+
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}
+}
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+
+\examples{
+# Create an empty domain
+hd.one <- hugin.domain()
+
+# Make a copy of the external pointer hd.one
+hd.two <- hd.one
+
+# Add a node using the copy
+add.node(hd.two, name = "hello")
+
+# Since both hd.one and hd.two reference the same domain in the HDE,
+# accessing the domain using hd.one shows the added node
+hd.one
+}
+
+\keyword{programming}
+
+
