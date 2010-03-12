@@ -3834,12 +3834,12 @@ SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
 SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 {
   SEXP ret = R_NilValue;
+  h_domain_t domain = NULL;
 
   PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
 
-  h_domain_t domain = h_net_parse_domain((h_string_t) CHAR(asChar(Sfile_name)),
-                                         RHuginParseError,
-                                         NULL);
+  domain = h_net_parse_domain((h_string_t) CHAR(asChar(Sfile_name)),
+                              RHuginParseError, NULL);
 
   UNPROTECT(1);
   RHugin_handle_error();
