@@ -1,6 +1,8 @@
 read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
                      generate.tables = TRUE)
 {
+  filename <- path.expand(filename)
+
   type <- match.arg(type)
   if(type == "auto") {
     type <- c("hkb", "net")

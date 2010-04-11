@@ -1,6 +1,7 @@
 write.rhd <- function(domain, filename, type = c("hkb", "net"), password = NULL)
 {
   RHugin.check.domain(domain, "write.hkb")
+  filename <- path.expand(filename)
   type <- match.arg(type)
 
   switch(type,

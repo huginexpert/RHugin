@@ -16,10 +16,12 @@ extern SEXP RHUGIN_ERROR;
 extern SEXP RHUGIN_CHANCE;
 extern SEXP RHUGIN_UTILITY;
 extern SEXP RHUGIN_DECISION;
+extern SEXP RHUGIN_FUNCTION;
 extern SEXP RHUGIN_INSTANCE;
 
 extern SEXP RHUGIN_DISCRETE;
 extern SEXP RHUGIN_CONTINUOUS;
+extern SEXP RHUGIN_OTHER;
 
 extern SEXP RHUGIN_LABELED;
 extern SEXP RHUGIN_BOOLEAN;
@@ -214,7 +216,7 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
   h_domain_t domain = NULL;
   h_node_t node = NULL;
   h_node_category_t category = h_category_error;
-  h_node_kind_t kind = h_kind_error;
+  h_node_kind_t kind = h_kind_other;
 
   PROTECT(Scategory = AS_CHARACTER(Scategory));
   PROTECT(Skind = AS_CHARACTER(Skind));
@@ -278,12 +280,16 @@ SEXP RHugin_node_get_category(SEXP Snodes)
         SET_STRING_ELT(ret, i, RHUGIN_DECISION);
         break;
 
+      case h_category_function:
+        SET_STRING_ELT(ret, i, RHUGIN_FUNCTION);
+        break;
+
       case h_category_instance:
         SET_STRING_ELT(ret, i, RHUGIN_INSTANCE);
         break;
 
       case h_category_error:
-        SET_STRING_ELT(ret, i, NA_STRING);
+        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
         break;
     }
   }
@@ -317,8 +323,12 @@ SEXP RHugin_node_get_kind(SEXP Snodes)
         SET_STRING_ELT(ret, i, RHUGIN_DISCRETE);
         break;
 
+      case h_kind_other:
+        SET_STRING_ELT(ret, i, RHUGIN_OTHER);
+        break;
+
       case h_kind_error:
-        SET_STRING_ELT(ret, i, NA_STRING);
+        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
         break;
     }
   }
@@ -1193,7 +1203,7 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
         break;
 
       case h_subtype_error:
-        SET_STRING_ELT(ret, i, NA_STRING);
+        SET_STRING_ELT(ret, i, RHUGIN_ERROR);
         break;
     }
   }
