@@ -87,9 +87,8 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
     for(node in nodes) {
       category <- categories[node]
       kind <- kinds[node]
-      kind <- if(is.na(kind)) NULL else kind
       subtype <- subtypes[node]
-      subtype <- if(is.na(subtype)) NULL else subtype
+      subtype <- if(subtype == "error") NULL else subtype
       states <- NULL
       evidence.is.entered <- FALSE
       likelihood.is.entered <- FALSE

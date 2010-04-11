@@ -14,10 +14,12 @@ SEXP RHUGIN_ERROR;
 SEXP RHUGIN_CHANCE;
 SEXP RHUGIN_UTILITY;
 SEXP RHUGIN_DECISION;
+SEXP RHUGIN_FUNCTION;
 SEXP RHUGIN_INSTANCE;
 
 SEXP RHUGIN_DISCRETE;
 SEXP RHUGIN_CONTINUOUS;
+SEXP RHUGIN_OTHER;
 
 SEXP RHUGIN_LABELED;
 SEXP RHUGIN_BOOLEAN;
@@ -412,6 +414,8 @@ void R_init_RHugin(DllInfo *info)
   R_PreserveObject(RHUGIN_UTILITY);
   RHUGIN_DECISION = mkChar("decision");
   R_PreserveObject(RHUGIN_DECISION);
+  RHUGIN_FUNCTION = mkChar("function");
+  R_PreserveObject(RHUGIN_FUNCTION);
   RHUGIN_INSTANCE = mkChar("instance");
   R_PreserveObject(RHUGIN_INSTANCE);
 
@@ -419,6 +423,8 @@ void R_init_RHugin(DllInfo *info)
   R_PreserveObject(RHUGIN_DISCRETE);
   RHUGIN_CONTINUOUS = mkChar("continuous");
   R_PreserveObject(RHUGIN_CONTINUOUS);
+  RHUGIN_OTHER = mkChar("other");
+  R_PreserveObject(RHUGIN_OTHER);
 
   RHUGIN_LABELED = mkChar("labeled");
   R_PreserveObject(RHUGIN_LABELED);
