@@ -347,7 +347,14 @@
 			isa = PBXProject;
 			buildConfigurationList = DAEFA19B0DE30792002B126B /* Build configuration list for PBXProject "RHugin" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = DAEFA1960DE30792002B126B;
 			projectDirPath = "";
 			projectRoot = "";
