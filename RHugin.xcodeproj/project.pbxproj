@@ -31,6 +31,7 @@
 		0EB7FDD31129EF9E00FFC778 /* get.junction.tree.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.junction.tree.Rd; path = man/get.junction.tree.Rd; sourceTree = SOURCE_ROOT; };
 		0EC2510410AAF5B80092BC73 /* adapt.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.Rd; path = man/adapt.Rd; sourceTree = SOURCE_ROOT; };
 		0EC2510510AAF5B80092BC73 /* delete.table.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = delete.table.Rd; path = man/delete.table.Rd; sourceTree = SOURCE_ROOT; };
+		0EDBA584128F129F00C07525 /* example.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example.Rd; path = man/example.Rd; sourceTree = SOURCE_ROOT; };
 		0EE02C580EC36B4700F321DA /* get.entropy.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.q; path = R/get.entropy.q; sourceTree = SOURCE_ROOT; };
 		0EE02C630EC38E2700F321DA /* get.entropy.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.entropy.Rd; path = man/get.entropy.Rd; sourceTree = SOURCE_ROOT; };
 		0EECF5C810F8A70100247A90 /* get.distribution.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.distribution.q; path = R/get.distribution.q; sourceTree = SOURCE_ROOT; };
@@ -280,6 +281,7 @@
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				0EC2510510AAF5B80092BC73 /* delete.table.Rd */,
+				0EDBA584128F129F00C07525 /* example.Rd */,
 				DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */,
 				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
 				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,
