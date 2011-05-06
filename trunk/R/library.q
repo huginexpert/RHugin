@@ -29,7 +29,7 @@
       }
 
       else {
-        warning("RHugin did not find Hugin in the expected location")
+        warning("RHugin did not find Hugin in the standard location")
       }
     }
   }
@@ -61,7 +61,7 @@
         Sys.setenv(HUGINHOME = "/usr/local/hugin")
 
       else {
-        warning("RHugin did not find Hugin in the expected location")
+        warning("RHugin did not find Hugin in the standard location")
       }
     }
   }
