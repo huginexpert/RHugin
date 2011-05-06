@@ -12,6 +12,6 @@ endif
 
 PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGIN_INCLUDE_DIR)
 PKG_LIBS=-L$(HUGIN_LIB_DIR) -lhugin2 -lm -lz -lpthread $(RHUGIN_LIBCRYPT) \
-           $(HUGIN_RPATH) $(BLAS_LIBS) $(FLIBS)
+           $(HUGIN_RPATH)
 
 

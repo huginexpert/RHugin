@@ -38,19 +38,19 @@
 
     if(nchar(Sys.getenv("HUGINHOME")) == 0) {
 
-      files <- list.files("/Applications")
+      HuginHomes <- list.files("/Applications", pattern = "*HDE7.4*",
+                                full.names = TRUE)
 
-      if(length(HuginDir <- files[grep("HDE", files)])) {
-        HuginHome <- paste("/Applications", HuginDir[1], sep = "/")
-
-        if(length(HuginDir) >= 2)
-          warning("using HUGINHOME:", HuginHome)
-
-        Sys.setenv(HUGINHOME = HuginHome)
-      }
+      if(!length(HuginHomes))
+        warning("RHugin did not find Hugin in the standard location")
 
       else {
-        warning("RHugin did not find Hugin in the expected location")
+        HuginHome <- HuginHomes[1]
+
+        if(length(HuginHomes) > 1)
+          warning("multiple Hugin Installations found, using: ", HuginHome)
+
+        Sys.setenv(HUGINHOME = HuginHome)
       }
     }
   }
