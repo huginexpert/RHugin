@@ -1,10 +1,6 @@
 #include "R.h"
-#include "Rinternals.h"
 #include "Rdefines.h"
 #include "R_ext/Rdynload.h"
-#include "R_ext/Utils.h"
-#include "R_ext/libextern.h"
-#include "R_ext/BLAS.h"
 #include "hugin.h"
 
 

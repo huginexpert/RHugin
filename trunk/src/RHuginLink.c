@@ -183,7 +183,7 @@ SEXP RHugin_domain_delete(SEXP Sdomain)
   h_status_t status = h_domain_delete(domainPointerFromSEXP(Sdomain));
   R_ClearExternalPtr(Sdomain);
 
-  RHugin_handle_error();
+  RHugin_handle_status_code(status);
 
   return R_NilValue;
 }
@@ -1174,9 +1174,8 @@ SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
 SEXP RHugin_node_get_subtype(SEXP Snodes)
 {
   SEXP ret = R_NilValue;
-  h_error_t error_code = h_error_none;
   h_node_t node = NULL;
-  h_node_subtype_t subtype;
+  h_node_subtype_t subtype = h_subtype_error;
   int i = 0, n = LENGTH(Snodes);
 
   PROTECT(ret = allocVector(STRSXP, n));
@@ -2968,7 +2967,6 @@ SEXP RHugin_node_get_sampled_value(SEXP Snode)
 
 SEXP RHugin_domain_seed_random(SEXP Sdomain, SEXP Sseed)
 {
-  SEXP ret = R_NilValue;
   unsigned int seed = 1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
@@ -3334,7 +3332,6 @@ SEXP RHugin_node_get_case_state(SEXP Snode, SEXP Scase_indices)
 
 SEXP RHugin_node_set_case_value(SEXP Snode, SEXP Scase_indices, SEXP Svalues)
 {
-  SEXP ret = R_NilValue;
   h_status_t status = 0;
   double *values = NULL;
   int i = 0, *case_indices = NULL, n = LENGTH(Scase_indices);
