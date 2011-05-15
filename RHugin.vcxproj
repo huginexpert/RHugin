@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C8F1D94F-C410-46E0-A9A6-CB490613FC6C}</ProjectGuid>
+    <RootNamespace>RHugin</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\RHugin___Win32_Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\RHugin___Win32_Release\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\RHugin___Win32_Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\RHugin___Win32_Debug\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\RHugin___Win32_Release/RHugin.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.4\HDE7.4C\Include;C:\Program Files\R\R-2.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\RHugin___Win32_Release/RHugin.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\RHugin___Win32_Release/</AssemblerListingLocation>
+      <ObjectFileName>.\RHugin___Win32_Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\RHugin___Win32_Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>hugin2-7.4-vc10.lib;R.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\RHugin___Win32_Release/RHugin.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>WIN32;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.4\HDE7.4C\Lib\VC10\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\RHugin___Win32_Release/RHugin.pdb</ProgramDatabaseFile>
+      <ImportLibrary>.\RHugin___Win32_Release/RHugin.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\RHugin___Win32_Release/RHugin.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\RHugin___Win32_Debug/RHugin.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.4\HDE7.4C\Include;C:\Program Files\R\R-2.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\RHugin___Win32_Debug/RHugin.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\RHugin___Win32_Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\RHugin___Win32_Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\RHugin___Win32_Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>hugin2-7.4-vc10d.lib;R.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\RHugin___Win32_Debug/RHugin.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>WIN32;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.4\HDE7.4C\Lib\VC10\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\RHugin___Win32_Debug/RHugin.pdb</ProgramDatabaseFile>
+      <ImportLibrary>.\RHugin___Win32_Debug/RHugin.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\RHugin___Win32_Debug/RHugin.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\RHugin.h" />
+    <ClInclude Include="src\RHuginLink.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="R\adapt.q" />
+    <None Include="R\add.edge.q" />
+    <None Include="R\add.node.q" />
+    <None Include="R\as.graph.RHuginDomain.q" />
+    <None Include="R\clone.node.q" />
+    <None Include="R\compile.RHuginDomain.q" />
+    <None Include="R\compress.q" />
+    <None Include="R\delete.edge.q" />
+    <None Include="R\delete.node.q" />
+    <None Include="R\delete.table.q" />
+    <None Include="R\get.approximation.constant.q" />
+    <None Include="R\get.belief.q" />
+    <None Include="R\get.cases.q" />
+    <None Include="R\get.conflict.q" />
+    <None Include="R\get.dconnected.nodes.q" />
+    <None Include="R\get.distribution.q" />
+    <None Include="R\get.dseparated.nodes.q" />
+    <None Include="R\get.edges.q" />
+    <None Include="R\get.entropy.q" />
+    <None Include="R\get.finding.q" />
+    <None Include="R\get.junction.tree.q" />
+    <None Include="R\get.marginal.q" />
+    <None Include="R\get.nodes.q" />
+    <None Include="R\get.normalization.constant.q" />
+    <None Include="R\get.sensitivity.q" />
+    <None Include="R\get.states.q" />
+    <None Include="R\get.table.q" />
+    <None Include="R\get.utility.q" />
+    <None Include="R\hugin.domain.q" />
+    <None Include="R\initialize.domain.q" />
+    <None Include="R\layoutRHugin.q" />
+    <None Include="R\learn.cpt.q" />
+    <None Include="R\learn.structure.q" />
+    <None Include="R\library.q" />
+    <None Include="R\plot.RHuginDomain.q" />
+    <None Include="R\print.RHuginDomain.q" />
+    <None Include="R\print.summary.RHuginDomain.q" />
+    <None Include="R\propagate.RHuginDomain.q" />
+    <None Include="R\read.cases.q" />
+    <None Include="R\read.rhd.q" />
+    <None Include="R\reset.q" />
+    <None Include="R\retract.q" />
+    <None Include="R\reverse.edge.q" />
+    <None Include="R\RHugin.check.args.q" />
+    <None Include="R\RHugin.check.domain.q" />
+    <None Include="R\RHugin.control.q" />
+    <None Include="R\score.q" />
+    <None Include="R\set.cases.q" />
+    <None Include="R\set.finding.q" />
+    <None Include="R\set.states.q" />
+    <None Include="R\set.table.q" />
+    <None Include="R\simulate.RHuginDomain.q" />
+    <None Include="R\summary.RHuginDomain.q" />
+    <None Include="R\switch.parent.q" />
+    <None Include="R\triangulate.RHuginDomain.q" />
+    <None Include="R\uncompile.q" />
+    <None Include="R\write.cases.q" />
+    <None Include="R\write.rhd.q" />
+    <None Include="man\adapt.Rd" />
+    <None Include="man\add.edge.Rd" />
+    <None Include="man\add.node.Rd" />
+    <None Include="man\as.graph.RHuginDomain.Rd" />
+    <None Include="man\clone.node.Rd" />
+    <None Include="man\compile.RHuginDomain.Rd" />
+    <None Include="man\compress.Rd" />
+    <None Include="man\delete.edge.Rd" />
+    <None Include="man\delete.node.Rd" />
+    <None Include="man\delete.table.Rd" />
+    <None Include="man\get.approximation.constant.Rd" />
+    <None Include="man\get.belief.Rd" />
+    <None Include="man\get.cases.Rd" />
+    <None Include="man\get.conflict.Rd" />
+    <None Include="man\get.dconnected.nodes.Rd" />
+    <None Include="man\get.distribution.Rd" />
+    <None Include="man\get.edges.Rd" />
+    <None Include="man\get.entropy.Rd" />
+    <None Include="man\get.finding.Rd" />
+    <None Include="man\get.junction.tree.Rd" />
+    <None Include="man\get.marginal.Rd" />
+    <None Include="man\get.nodes.Rd" />
+    <None Include="man\get.normalization.constant.Rd" />
+    <None Include="man\get.sensitivity.Rd" />
+    <None Include="man\get.states.Rd" />
+    <None Include="man\get.table.Rd" />
+    <None Include="man\get.utility.Rd" />
+    <None Include="man\hugin.domain.Rd" />
+    <None Include="man\initialize.domain.Rd" />
+    <None Include="man\layoutRHugin.Rd" />
+    <None Include="man\learn.cpt.Rd" />
+    <None Include="man\learn.structure.Rd" />
+    <None Include="man\plot.RHuginDomain.Rd" />
+    <None Include="man\print.RHuginDomain.Rd" />
+    <None Include="man\print.summary.RHuginDomain.Rd" />
+    <None Include="man\propagate.RHuginDomain.Rd" />
+    <None Include="man\reset.Rd" />
+    <None Include="man\retract.Rd" />
+    <None Include="man\reverse.edge.Rd" />
+    <None Include="man\rhd.Rd" />
+    <None Include="man\RHugin.control.Rd" />
+    <None Include="man\RHugin.Rd" />
+    <None Include="man\score.Rd" />
+    <None Include="man\set.cases.Rd" />
+    <None Include="man\set.finding.Rd" />
+    <None Include="man\set.states.Rd" />
+    <None Include="man\set.table.Rd" />
+    <None Include="man\simulate.RHuginDomain.Rd" />
+    <None Include="man\summary.RHuginDomain.Rd" />
+    <None Include="man\switch.parent.Rd" />
+    <None Include="man\triangulate.RHuginDomain.Rd" />
+    <None Include="man\uncompile.Rd" />
+    <None Include="man\utilities.Rd" />
+    <None Include="man\write.cases.Rd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\RHugin.c">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="src\RHuginLink.c">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
