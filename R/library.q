@@ -12,7 +12,7 @@
       HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
                             "Hugin Expert",
                              HuginVersions,
-                            "HDE7.4C\\Lib\\VC8\\Release\\hugin2-7.4-vc8.dll",
+                            "HDE7.4C\\Lib\\VC10\\Release\\hugin2-7.4-vc10.dll",
                              sep = "\\")
 
       if(length(HuginVersion <- which(file.exists(HuginDllPaths)))) {
@@ -22,7 +22,7 @@
         HuginPath <- paste(Sys.getenv("PROGRAMFILES"),
                           "Hugin Expert",
                            HuginVersion,
-                          "HDE7.4C\\Lib\\VC8\\Release",
+                          "HDE7.4C\\Lib\\VC10\\Release",
                            sep = "\\")
 
         Sys.setenv(PATH = paste(path, HuginPath, sep= ";"))
