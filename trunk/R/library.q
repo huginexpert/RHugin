@@ -48,7 +48,7 @@
         HuginHome <- HuginHomes[1]
 
         if(length(HuginHomes) > 1)
-          warning("multiple Hugin Installations found, using: ", HuginHome)
+          warning("multiple Hugin installations found, using: ", HuginHome)
 
         Sys.setenv(HUGINHOME = HuginHome)
       }
