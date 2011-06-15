@@ -160,7 +160,6 @@ SEXP RHugin_domain_get_grain_size(SEXP Sdomain)
 }
 
 
-
 /* 2.2 Domains: Creation and deletion */
 
 SEXP RHugin_new_domain(void)
@@ -1857,8 +1856,8 @@ SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 }
 
 
-// SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata)
-// SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata)
+// SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
+// SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
 
 
 /* 6.4 Getting a compilation log */
@@ -2047,7 +2046,7 @@ SEXP RHugin_jt_get_root(SEXP Sjt)
 // SEXP RHugin_jt_get_total_cg_size(SEXP Sjt);
 
 
-/* Section 7.3 Cliques */
+/* 7.3 Cliques */
 
 SEXP RHugin_clique_get_members(SEXP Sclique)
 {
@@ -2575,7 +2574,7 @@ SEXP RHugin_node_likelihood_is_propagated(SEXP Snode)
 }
 
 
-/* Section 8.9 Case files */
+/* 8.9 Case files */
 
 SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name)
 {
@@ -2587,10 +2586,10 @@ SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name)
 }
 
 
-// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name)
+// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
 
 
-/* Section 9.2 Propagation */
+/* 9.2 Propagation */
 
 SEXP RHugin_domain_propagate(SEXP Sdomain, SEXP Sequilibrium, SEXP Smode)
 {
@@ -2638,7 +2637,12 @@ SEXP RHugin_jt_propagate(SEXP Sjt, SEXP Sequilibrium, SEXP Smode)
 }
 
 
-/* Section 9.3 Conflict of evidence */
+/* 9.3 Inference in LIMIDs: Computing optimal policies */
+
+// SEXP RHugin_domain_update_policies(SEXP Sdomain);
+
+
+/* 9.4 Conflict of evidence */
 
 SEXP RHugin_domain_get_conflict(SEXP Sdomain)
 {
@@ -2670,17 +2674,7 @@ SEXP RHugin_jt_get_conflict(SEXP Sjt)
 }
 
 
-SEXP RHugin_domain_reset_inference_engine(SEXP Sdomain)
-{
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
-
-  RHugin_handle_status_code(h_domain_reset_inference_engine(domain));
-
-  return R_NilValue;
-}
-
-
-/* Secttion 9.4 The normalization constant */
+/* 9.5 The normalization constant */
 
 SEXP RHugin_domain_get_normalization_constant(SEXP Sdomain)
 {
@@ -2712,7 +2706,7 @@ SEXP RHugin_domain_get_log_normalization_constant(SEXP Sdomain)
 }
 
 
-/* Section 9.5 Initializing the domain */
+/* 9.6 Initializing the inference engine */
 
 SEXP RHugin_domain_save_to_memory(SEXP Sdomain)
 {
@@ -2720,6 +2714,16 @@ SEXP RHugin_domain_save_to_memory(SEXP Sdomain)
 
   RHugin_handle_status_code(h_domain_save_to_memory(domain));
 
+  return R_NilValue;
+}
+
+
+SEXP RHugin_domain_reset_inference_engine(SEXP Sdomain)
+{
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  
+  RHugin_handle_status_code(h_domain_reset_inference_engine(domain));
+  
   return R_NilValue;
 }
 
@@ -2734,7 +2738,7 @@ SEXP RHugin_domain_initialize(SEXP Sdomain)
 }
 
 
-/* Section 9.6 Querying the state of the inference engine */
+/* 9.7 Querying the state of the inference engine */
 
 SEXP RHugin_domain_equilibrium_is(SEXP Sdomain, SEXP Sequilibrium)
 {
@@ -2979,7 +2983,7 @@ SEXP RHugin_jt_tables_to_propagate(SEXP Sjt)
 }
 
 
-/* Section 9.7 Simulation */
+/* 9.8 Simulation */
 
 SEXP RHugin_domain_simulate(SEXP Sdomain)
 {
@@ -3019,6 +3023,9 @@ SEXP RHugin_node_get_sampled_value(SEXP Snode)
 
   return ret;
 }
+
+
+// SEXP RHugin_node_get_sampled_utility(SEXP Snode);
 
 
 SEXP RHugin_domain_seed_random(SEXP Sdomain, SEXP Sseed)
@@ -3068,7 +3075,7 @@ SEXP RHugin_domain_get_normal_deviate(SEXP Sdomain, SEXP Smean, SEXP Svariance)
 }
 
 
-/* Section 9.8 Value of information analysis */
+/* 9.9 Value of information analysis */
 
 SEXP RHugin_node_get_entropy(SEXP Snodes)
 {
@@ -3126,7 +3133,7 @@ SEXP RHugin_node_get_mutual_information(SEXP Snodes, SEXP Sothers)
 }
 
 
-/* Section 9.9 Sensitivity analyis */
+/* Section 9.10 Sensitivity analyis */
 
 SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate)
 {
@@ -3213,7 +3220,20 @@ SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
 }
 
 
-/* Section 10.1 Experience counts and fading factors */
+// SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates);
+// SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput);
+// SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput);
+
+
+/* 9.11 Most probable configurations */
+
+// SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin);
+// SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain);
+// SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex);
+// SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex);
+
+
+/* 10.1 Experience counts and fading factors */
 
 SEXP RHugin_node_get_experience_table(SEXP Snode)
 {
@@ -3277,7 +3297,7 @@ SEXP RHugin_node_has_fading_table(SEXP Snode)
 }
 
 
-/* Section 10.2 Updating tables */
+/* 10.2 Updating tables */
 
 SEXP RHugin_domain_adapt(SEXP Sdomain)
 {
@@ -3289,7 +3309,7 @@ SEXP RHugin_domain_adapt(SEXP Sdomain)
 }
 
 
-/* Section 11.1 Data */
+/* 11.1 Data */
 
 SEXP RHugin_domain_set_number_of_cases(SEXP Sdomain, SEXP Scount)
 {
@@ -3567,7 +3587,7 @@ SEXP RHugin_domain_enter_case(SEXP Sdomain, SEXP Scase_index)
 }
 
 
-/* Section 11.2 Scoring of graphical models */
+/* 11.2 Scoring of graphical models */
 
 SEXP RHugin_domain_get_log_likelihood(SEXP Sdomain)
 {
@@ -3614,7 +3634,7 @@ SEXP RHugin_domain_get_BIC(SEXP Sdomain)
 }
 
 
-/* Section 11.3 Data files */
+/* 11.3 Data files */
 
 SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name)
 {
@@ -3681,7 +3701,7 @@ SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
 }
 
 
-/* Section 11.4 Learning network structure */
+/* 11.4 Learning network structure */
 
 SEXP RHugin_domain_learn_structure(SEXP Sdomain)
 {
@@ -3723,7 +3743,7 @@ SEXP RHugin_domain_get_significance_level(SEXP Sdomain)
 }
 
 
-/* Section 11.5 Domain knowledge */
+/* 11.5 Domain knowledge */
 
 SEXP RHugin_node_set_edge_constraint(SEXP Sa, SEXP Sb, SEXP Sconstraint)
 {
@@ -3810,7 +3830,7 @@ SEXP RHugin_node_get_edge_constraint(SEXP Sa, SEXP Sb)
 }
 
 
-/* Section 11.6 Learning conditional probability tables */
+/* 11.6 Learning conditional probability tables */
 
 SEXP RHugin_domain_learn_tables(SEXP Sdomain)
 {
@@ -3882,17 +3902,10 @@ SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain)
 }
 
 
-SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
-{
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
-
-  RHugin_handle_status_code(h_domain_learn_class_tables(domain));
-
-  return R_NilValue;
-}
+// SEXP RHugin_domain_learn_class_tables(SEXP Sdomain);
 
 
-/* Section 12.8 parsing NET files */
+/* 12.8 parsing NET files */
 
 SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 {
@@ -3916,6 +3929,9 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 }
 
 
+// SEXP RHugin_net_parse_classes(SEXP Sfile_name);
+
+
 SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 {
   h_status_t status = 0;
@@ -3931,7 +3947,22 @@ SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 }
 
 
-/* Section 13.2 the position of a node */
+/* 12.9 Saving class collections, classes, and domains as NET files */
+
+// SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
+// SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
+// SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
+// SEXP RHugin_class_get_file_name(SEXP Sclass);
+// SEXP RHugin_domain_get_file_name(SEXP Sdomain);
+
+
+/* 13.1 The label of a node */
+
+// SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel);
+// SEXP RHugin_node_get_label(SEXP Snode);
+
+
+/*  13.2 The position of a node */
 
 SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition)
 {
@@ -3966,7 +3997,7 @@ SEXP RHugin_node_get_position(SEXP Snode)
 }
 
 
-/* Section 13.3 the size of a node */
+/* 13.3 The size of a node */
 
 SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize)
 {
@@ -3999,5 +4030,9 @@ SEXP RHugin_domain_get_node_size(SEXP Sdomain)
 
   return ret;
 }
+
+
+// SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
+// SEXP RHugin_class_get_node_size(SEXP Sclass);
 
 
