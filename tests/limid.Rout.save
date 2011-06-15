@@ -1,7 +1,8 @@
 
-R version 2.9.2 (2009-08-24)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.13.0 (2011-04-13)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
+Platform: i386-apple-darwin9.8.0/i386 (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -16,11 +17,29 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library(RHugin, lib.loc = "../")
-Loading required package: graph
-Loading required package: gRain
 Loading required package: gRbase
 Loading required package: MASS
+Loading required package: graph
 Loading required package: RBGL
+Loading required package: igraph
+
+Attaching package: 'igraph'
+
+The following object(s) are masked from 'package:RBGL':
+
+    transitivity
+
+The following object(s) are masked from 'package:graph':
+
+    degree
+
+
+Attaching package: 'RHugin'
+
+The following object(s) are masked from 'package:igraph':
+
+    get.edges
+
 > demo("limid", echo = FALSE)
 > 
 > compile(limid)
