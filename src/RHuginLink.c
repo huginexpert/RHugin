@@ -2783,7 +2783,12 @@ SEXP RHugin_jt_propagate(SEXP Sjt, SEXP Sequilibrium, SEXP Smode)
 
 /* 9.3 Inference in LIMIDs: Computing optimal policies */
 
-// SEXP RHugin_domain_update_policies(SEXP Sdomain);
+SEXP RHugin_domain_update_policies(SEXP Sdomain)
+{
+  RHugin_handle_status_code(h_domain_update_policies(domainPointerFromSEXP(Sdomain)));
+  
+  return R_NilValue;
+}
 
 
 /* 9.4 Conflict of evidence */
@@ -3169,7 +3174,19 @@ SEXP RHugin_node_get_sampled_value(SEXP Snode)
 }
 
 
-// SEXP RHugin_node_get_sampled_utility(SEXP Snode);
+SEXP RHugin_node_get_sampled_utility(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  PROTECT(ret = allocVector(REALSXP, 1));
+  REAL(ret)[0] = (double) h_node_get_sampled_utility(node);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
 
 
 SEXP RHugin_domain_seed_random(SEXP Sdomain, SEXP Sseed)
