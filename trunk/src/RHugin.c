@@ -444,7 +444,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_jt_propagate", (DL_FUNC) RHugin_jt_propagate, 3},
 
     /* 9.3 Inference in LIMIDs: Computing optimal policies */
-    // SEXP RHugin_domain_update_policies(SEXP Sdomain);
+    {"RHugin_domain_update_policies", (DL_FUNC) RHugin_domain_update_policies, 1},
 
     /* 9.4 Conflict of evidence */
     {"RHugin_domain_get_conflict", (DL_FUNC) RHugin_domain_get_conflict, 1},
@@ -480,7 +480,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_simulate", (DL_FUNC) RHugin_domain_simulate, 1},
     {"RHugin_node_get_sampled_state", (DL_FUNC) RHugin_node_get_sampled_state, 1},
     {"RHugin_node_get_sampled_value", (DL_FUNC) RHugin_node_get_sampled_value, 1},
-    // SEXP RHugin_node_get_sampled_utility(SEXP Snode);
+    {"RHugin_node_get_sampled_utility", (DL_FUNC) RHugin_node_get_sampled_utility, 1},
     {"RHugin_domain_seed_random", (DL_FUNC) RHugin_domain_seed_random, 2},
     {"RHugin_domain_get_uniform_deviate", (DL_FUNC) RHugin_domain_get_uniform_deviate, 1},
     {"RHugin_domain_get_normal_deviate", (DL_FUNC) RHugin_domain_get_normal_deviate, 3},

@@ -337,7 +337,7 @@ DLLEXPORT SEXP RHugin_jt_propagate(SEXP Sjt, SEXP Sequilibrium, SEXP Smode);
 
 /* 9.3 Inference in LIMIDs: Computing optimal policies */
 
-// SEXP RHugin_domain_update_policies(SEXP Sdomain);
+DLLEXPORT SEXP RHugin_domain_update_policies(SEXP Sdomain);
 
 
 /* 9.4 Conflict of evidence */
@@ -383,7 +383,7 @@ DLLEXPORT SEXP RHugin_jt_tables_to_propagate(SEXP Sjt);
 DLLEXPORT SEXP RHugin_domain_simulate(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_node_get_sampled_state(SEXP Snode);
 DLLEXPORT SEXP RHugin_node_get_sampled_value(SEXP Snode);
-// SEXP RHugin_node_get_sampled_utility(SEXP Snode);
+DLLEXPORT SEXP RHugin_node_get_sampled_utility(SEXP Snode);
 DLLEXPORT SEXP RHugin_domain_seed_random(SEXP Sdomain, SEXP Sseed);
 DLLEXPORT SEXP RHugin_domain_get_uniform_deviate(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_get_normal_deviate(SEXP Sdomain, SEXP Smean, SEXP Svariance);
