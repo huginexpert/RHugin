@@ -1,6 +1,10 @@
 #include "RHugin.h"
 #include "RHuginLink.h"
 
+#ifndef WIN32
+  #include "pthread.h"
+#endif
+
 /* Global variables defined in RHugin.c */
 
 extern SEXP RHugin_domain_tag;
@@ -96,18 +100,19 @@ SEXP RHugin_error_description(SEXP Scode)
 
 SEXP RHugin_domain_set_concurrency_level(SEXP Sdomain, SEXP Slevel)
 {
-  h_status_t status = 0;
+  size_t level = -1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Slevel = AS_INTEGER(Slevel));
-  status = h_domain_set_concurrency_level(domain, (size_t) INTEGER(Slevel)[0]);
-
-  if((h_error_t) status != h_error_none) {
-    UNPROTECT(1);
-    RHugin_handle_error_code((h_error_t) status);
-  }
-
+  level = (size_t) INTEGER(Slevel)[0];
   UNPROTECT(1);
+
+  RHugin_handle_status_code(h_domain_set_concurrency_level(domain, level));
+
+#ifndef WIN32
+  pthread_setconcurrency((int) level);
+#endif
+  
   return R_NilValue;
 }
   
@@ -129,18 +134,15 @@ SEXP RHugin_domain_get_concurrency_level(SEXP Sdomain)
 
 SEXP RHugin_domain_set_grain_size(SEXP Sdomain, SEXP Ssize)
 {
-  h_status_t status = 0;
+  size_t size = -1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Ssize = AS_INTEGER(Ssize));
-  status = h_domain_set_grain_size(domain, (size_t) INTEGER(Ssize)[0]);
-
-  if((h_error_t) status != h_error_none) {
-    UNPROTECT(1);
-    RHugin_handle_error_code((h_error_t) status);
-  }
-
+  size = (size_t) INTEGER(Ssize)[0];
   UNPROTECT(1);
+
+  RHugin_handle_status_code(h_domain_set_grain_size(domain, size));
+
   return R_NilValue;
 }
 

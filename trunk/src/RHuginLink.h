@@ -227,7 +227,6 @@ SEXP RHugin_domain_get_max_number_of_separators(SEXP Sdomain);
 SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod);
 SEXP RHugin_domain_triangulate_with_order(SEXP Sdomain, SEXP Sorder);
 SEXP RHugin_domain_is_triangulated(SEXP Sdomain);
-SEXP RHugin_domain_is_triangulated(SEXP Sdomain);
 SEXP RHugin_domain_get_elimination_order(SEXP Sdomain);
 // SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
 // SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
