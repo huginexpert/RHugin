@@ -30,7 +30,7 @@ void RHugin_domain_finalizer(SEXP Sdomain);
 
 /* External pointer checker */
 
-SEXP RHugin_R_Nilify_externalptr(SEXP ptr);
+SEXP RHugin_R_Nilify_externalptr(SEXP Sptr);
 
 
 /* Safe accessor methods for Hugin objects */
