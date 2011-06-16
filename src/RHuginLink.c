@@ -531,8 +531,112 @@ SEXP RHugin_node_get_children(SEXP Snodes)
 
 /* 2.4.1 The requisite parents and ancestors of decision nodes */
 
-// SEXP RHugin_node_get_requisite_parents(SEXP Snodes);
-// SEXP RHugin_node_get_requisite_ancestors(SEXP Snodes);
+SEXP RHugin_node_get_requisite_parents(SEXP Snodes)
+{
+  SEXP ret = R_NilValue, child = R_NilValue, names = R_NilValue;
+  h_node_t node = NULL;
+  h_error_t error_code = h_error_none;
+  h_node_t *req_parents = NULL, *parent = NULL;
+  int i = 0, j = 0, n_parents = 0, n = LENGTH(Snodes);
+  
+  PROTECT(ret = allocVector(VECSXP, n));
+  
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    req_parents = h_node_get_requisite_parents(node);
+    
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
+    
+    if(req_parents) {
+      n_parents = 0;
+      for(parent = req_parents; *parent != NULL; parent++) n_parents++;
+      
+      PROTECT(child = allocVector(VECSXP, n_parents));
+      PROTECT(names = allocVector(STRSXP, n_parents));
+      
+      for(j = 0; j < n_parents; j++) {
+        SET_VECTOR_ELT(child, j, R_MakeExternalPtr(req_parents[j], RHugin_node_tag, R_NilValue));
+        SET_STRING_ELT(names, j, mkChar( (char*) h_node_get_name(req_parents[j])));
+        
+        error_code = h_error_code();
+        if(error_code != h_error_none) {
+          UNPROTECT(2);
+          RHugin_handle_error_code(error_code);
+        }
+      }
+      setAttrib(child, R_NamesSymbol, names);
+      
+      SET_VECTOR_ELT(ret, i, child);
+      UNPROTECT(2);
+    }
+    
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
+  
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+SEXP RHugin_node_get_requisite_ancestors(SEXP Snodes)
+{
+  SEXP ret = R_NilValue, child = R_NilValue, names = R_NilValue;
+  h_node_t node = NULL;
+  h_error_t error_code = h_error_none;
+  h_node_t *req_ancestors = NULL, *ancestor = NULL;
+  int i = 0, j = 0, n_ancestors = 0, n = LENGTH(Snodes);
+  
+  PROTECT(ret = allocVector(VECSXP, n));
+  
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    req_ancestors = h_node_get_requisite_ancestors(node);
+    
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
+    
+    if(req_ancestors) {
+      n_ancestors = 0;
+      for(ancestor = req_ancestors; *ancestor != NULL; ancestor++) n_ancestors++;
+      
+      PROTECT(child = allocVector(VECSXP, n_ancestors));
+      PROTECT(names = allocVector(STRSXP, n_ancestors));
+      
+      for(j = 0; j < n_ancestors; j++) {
+        SET_VECTOR_ELT(child, j, R_MakeExternalPtr(req_ancestors[j], RHugin_node_tag, R_NilValue));
+        SET_STRING_ELT(names, j, mkChar( (char*) h_node_get_name(req_ancestors[j])));
+        
+        error_code = h_error_code();
+        if(error_code != h_error_none) {
+          UNPROTECT(2);
+          RHugin_handle_error_code(error_code);
+        }
+      }
+      setAttrib(child, R_NamesSymbol, names);
+      
+      SET_VECTOR_ELT(ret, i, child);
+      UNPROTECT(2);
+    }
+    
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
+  
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
+  
+  UNPROTECT(1);
+  return ret;
+}
 
 
 /* 2.5 The number of states of a node */
@@ -2044,8 +2148,34 @@ SEXP RHugin_jt_get_root(SEXP Sjt)
 }
 
 
-// SEXP RHugin_jt_get_total_size(SEXP Sjt);
-// SEXP RHugin_jt_get_total_cg_size(SEXP Sjt);
+SEXP RHugin_jt_get_total_size(SEXP Sjt)
+{
+  SEXP ret = R_NilValue;
+  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_jt_get_total_size(jt);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
+
+
+SEXP RHugin_jt_get_total_cg_size(SEXP Sjt)
+{
+  SEXP ret = R_NilValue;
+  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_jt_get_total_cg_size(jt);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
 
 
 /* 7.3 Cliques */
@@ -2422,7 +2552,19 @@ SEXP RHugin_node_get_expected_utility(SEXP Snode, SEXP Sstates)
 }
 
 
-// SEXP RHugin_domain_get_expected_utility(SEXP Sdomain);
+SEXP RHugin_domain_get_expected_utility(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(ret = allocVector(REALSXP, 1));
+  REAL(ret)[0] = (double) h_domain_get_expected_utility(domain);
+  UNPROTECT(1);
+
+  RHugin_handle_error();
+
+  return ret;
+}
 
 
 /* 8.7 Computing function values */

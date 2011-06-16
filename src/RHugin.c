@@ -233,8 +233,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_get_children", (DL_FUNC) RHugin_node_get_children, 1},
 
     /* 2.4.1 The requisite parents and ancestors of decision nodes */
-    // SEXP RHugin_node_get_requisite_parents(SEXP Snodes);
-    // SEXP RHugin_node_get_requisite_ancestors(SEXP Snodes);
+    {"RHugin_node_get_requisite_parents", (DL_FUNC) RHugin_node_get_requisite_parents, 1},
+    {"RHugin_node_get_requisite_ancestors", (DL_FUNC) RHugin_node_get_requisite_ancestors, 1},
 
     /* 2.5 The number of states of a node */
     {"RHugin_node_set_number_of_states", (DL_FUNC) RHugin_node_set_number_of_states, 2},
@@ -391,8 +391,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_get_junction_tree", (DL_FUNC) RHugin_node_get_junction_tree, 1},
     {"RHugin_jt_get_cliques", (DL_FUNC) RHugin_jt_get_cliques, 1},
     {"RHugin_jt_get_root", (DL_FUNC) RHugin_jt_get_root, 1},
-    // SEXP RHugin_jt_get_total_size(SEXP Sjt);
-    // SEXP RHugin_jt_get_total_cg_size(SEXP Sjt);
+    {"RHugin_jt_get_total_size", (DL_FUNC) RHugin_jt_get_total_size, 1},
+    {"RHugin_jt_get_total_cg_size", (DL_FUNC) RHugin_jt_get_total_cg_size, 1},
 
     /* 7.3 Cliques */
     {"RHugin_clique_get_members", (DL_FUNC) RHugin_clique_get_members, 1},
@@ -420,7 +420,7 @@ void R_init_RHugin(DllInfo *info)
 
     /* 8.6 Retrieving expected utilities */
     {"RHugin_node_get_expected_utility", (DL_FUNC) RHugin_node_get_expected_utility, 2},
-    // SEXP RHugin_domain_get_expected_utility(SEXP Sdomain);
+    {"RHugin_domain_get_expected_utility", (DL_FUNC) RHugin_domain_get_expected_utility, 1},
 
     /* 8.7 Computing function values */
     // SEXP RHugin_node_get_value(SEXP Snode);
