@@ -8,12 +8,12 @@ Triangulate a domain.
 }
 
 \usage{
-\method{triangulate}{RHuginDomain}(object, method = "fill.in.weight", order, max.separators = 100000, ...)
+\method{triangulate}{RHuginDomain}(object, method = "best.greedy", order, max.separators = 100000, ...)
 }
 
 \arguments{
   \item{object}{an RHugin domain.}
-  \item{method}{a character string specifying the triangulation method. The choices are \code{"clique.size"}, \code{"clique.weight"}, \code{"fill.in.size"}, \code{"fill.in.weight"} and \code{"total.weight"}. The default, \code{"fill.in.weight"}, is the method used by the \code{compile} function when compiling a domain that has not been triangulated in advance.}
+  \item{method}{a character string specifying the triangulation method. The choices are \code{"clique.size"}, \code{"clique.weight"}, \code{"fill.in.size"}, \code{"fill.in.weight"}, \code{"best.greedy"} and \code{"total.weight"}. The default, \code{"best.greedy"}, is the method used by the \code{compile} function when compiling a domain that has not been triangulated in advance.}
   \item{order}{a character vector specifying the elimination sequence (it must contain each chance and each decision node in the domain exactly once). If \code{order} is provided, it is used to triangulate the domain and the value of \code{method} is ignored.}
   \item{max.separators}{a positive integer value specifying the maximum number of minimal separators for the \code{total.weight} method.}
   \item{\dots}{additional arguments are ignored.}

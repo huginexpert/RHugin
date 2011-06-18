@@ -1,9 +1,9 @@
-triangulate.RHuginDomain <- function(object, method = "fill.in.weight", order,
+triangulate.RHuginDomain <- function(object, method = "best.greedy", order,
                                      max.separators = 100000, ...)
 {
   RHugin.check.domain(object, "triangulate")
   methods <- c("clique.size", "clique.weight", "fill.in.size", "fill.in.weight",
-               "total.weight")
+               "best.greedy", "total.weight")
   method <- match.arg(method, choices = methods)
 
   if(.Call("RHugin_domain_is_triangulated", object, PACKAGE = "RHugin"))
