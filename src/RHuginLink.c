@@ -36,6 +36,7 @@ extern SEXP RHUGIN_TM_CLIQUE_SIZE;
 extern SEXP RHUGIN_TM_CLIQUE_WEIGHT;
 extern SEXP RHUGIN_TM_FILL_IN_SIZE;
 extern SEXP RHUGIN_TM_FILL_IN_WEIGHT;
+extern SEXP RHUGIN_TM_BEST_GREEDY;
 extern SEXP RHUGIN_TM_TOTAL_WEIGHT;
 
 extern SEXP RHUGIN_EQUILIBRIUM_SUM;
@@ -1881,9 +1882,13 @@ SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
   if(asChar(Smethod) == RHUGIN_TM_CLIQUE_SIZE)
     method = h_tm_clique_size;
   else if(asChar(Smethod) == RHUGIN_TM_CLIQUE_WEIGHT)
-    method = h_tm_fill_in_weight;
-  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_SIZE)
     method = h_tm_clique_weight;
+  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_SIZE)
+    method = h_tm_fill_in_size;
+  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_WEIGHT)
+    method = h_tm_fill_in_weight;
+  else if(asChar(Smethod) == RHUGIN_TM_BEST_GREEDY)
+    method = h_tm_best_greedy;
   else if(asChar(Smethod) == RHUGIN_TM_TOTAL_WEIGHT)
     method = h_tm_total_weight;
 
