@@ -3381,17 +3381,199 @@ SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
 }
 
 
-// SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates);
-// SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput);
-// SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput);
+SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates)
+{
+  h_node_t *nodes = NULL;
+  size_t *states = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  int i = 0, n_nodes = LENGTH(Snodes), *p_Sstates = NULL;
+
+  PROTECT(Sstates = AS_INTEGER(Sstates));
+  p_Sstates = INTEGER(Sstates);
+
+  nodes = (h_node_t*) R_alloc(n_nodes + 1, sizeof(h_node_t));
+  states = (size_t*) R_alloc(n_nodes, sizeof(size_t));
+
+  for(i = 0; i < n_nodes; i++) {
+    nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    states[i] = (size_t) p_Sstates[i];
+  }
+  nodes[n_nodes] = NULL;
+
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(h_domain_compute_sensitivity_data(domain, nodes, states));
+
+  return R_NilValue;
+}
+
+
+SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput)
+{
+  SEXP ret = R_NilValue, names = R_NilValue;
+  h_status_t status = 0;
+  double *constants = NULL;
+  h_number_t *pret = NULL;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+
+  PROTECT(Sinput = AS_INTEGER(Sinput));
+  PROTECT(Soutput = AS_INTEGER(Soutput));
+  PROTECT(ret = allocVector(REALSXP, 4));
+  constants = REAL(ret);
+  PROTECT(names = allocVector(STRSXP, 4));
+
+  pret = (h_number_t*) R_alloc(4, sizeof(h_number_t));
+
+  status = h_node_get_sensitivity_constants_by_output(node,
+                                                      (size_t) INTEGER(Sinput)[0],
+                                                      (size_t) INTEGER(Soutput)[0],
+                                                      pret, pret + 1, pret + 2, pret + 3);
+
+  constants[0] = (double) pret[0];
+  SET_STRING_ELT(names, 0, mkChar("alpha"));
+  constants[1] = (double) pret[1];
+  SET_STRING_ELT(names, 1, mkChar("beta"));
+  constants[2] = (double) pret[2];
+  SET_STRING_ELT(names, 2, mkChar("gamma"));
+  constants[3] = (double) pret[3];
+  SET_STRING_ELT(names, 3, mkChar("delta"));
+  setAttrib(ret, R_NamesSymbol, names);
+
+  UNPROTECT(4);
+
+  RHugin_handle_status_code(status);
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput)
+{
+  SEXP ret = R_NilValue, names = R_NilValue;
+  h_error_t error_code = h_error_none;
+  h_node_t *sensitivity_set = NULL, *pnode = NULL;
+  int i = 0, n = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(Soutput = AS_INTEGER(Soutput));
+
+  sensitivity_set = h_domain_get_sensitivity_set_by_output(domain, INTEGER(Soutput)[0]);
+  RHugin_handle_error();
+  
+  if(sensitivity_set) {
+    for(pnode = sensitivity_set; *pnode != NULL; pnode++) n++;
+    
+    PROTECT(ret = allocVector(VECSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
+    
+    for(i = 0; i < n; i++) {
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(sensitivity_set[i], RHugin_node_tag, R_NilValue));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(sensitivity_set[i])));
+      error_code = h_error_code();
+      if(error_code != h_error_none) {
+        UNPROTECT(3);
+        RHugin_handle_error_code(error_code);
+      }
+    }
+    setAttrib(ret, R_NamesSymbol, names);
+    
+    UNPROTECT(3);
+  }
+  
+  return ret;
+}
 
 
 /* 9.11 Most probable configurations */
 
-// SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin);
-// SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain);
-// SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex);
-// SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex);
+SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin)
+{
+  h_node_t *nodes = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  h_double_t pmin = 0.0;
+  int i = 0, n_nodes = LENGTH(Snodes);
+
+  PROTECT(Spmin = AS_NUMERIC(Spmin));
+  pmin = (h_double_t) REAL(Spmin)[0];
+  UNPROTECT(1);
+
+  nodes = (h_node_t*) R_alloc(n_nodes + 1, sizeof(h_node_t));
+
+  for(i = 0; i < n_nodes; i++)
+    nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+  nodes[n_nodes] = NULL;
+
+  RHugin_handle_status_code(h_domain_find_map_configurations(domain, nodes, pmin));
+
+  return R_NilValue;
+}
+
+
+SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_domain_get_number_of_map_configurations(domain);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex, SEXP Sn_nodes)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  size_t *configuration = NULL;
+  int i = 0, n_nodes = -1, *p_ret = NULL;
+  size_t index = 0;
+
+  PROTECT(Sindex = AS_INTEGER(Sindex));
+  PROTECT(Sn_nodes = AS_INTEGER(Sn_nodes));
+  index = (size_t) INTEGER(Sindex)[0];
+  n_nodes = INTEGER(Sn_nodes)[0];
+  UNPROTECT(2);
+
+  configuration = h_domain_get_map_configuration(domain, index);
+
+  if(configuration) {
+    PROTECT(ret = allocVector(INTSXP, n_nodes));
+    p_ret = INTEGER(ret);
+
+    for(i = 0; i < n_nodes; i++)
+      p_ret[i] = (int) configuration[i];
+
+    UNPROTECT(1);
+  }
+
+  RHugin_handle_error();
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  size_t index = 0;
+
+  PROTECT(Sindex = AS_INTEGER(Sindex));
+  index = (size_t) INTEGER(Sindex)[0];
+  UNPROTECT(1);
+
+  PROTECT(ret = allocVector(REALSXP, 1));
+  REAL(ret)[0] = h_domain_get_probability_of_map_configuration(domain, index);
+  UNPROTECT(1);
+
+  RHugin_handle_error();
+
+  return ret;
+}
 
 
 /* 10.1 Experience counts and fading factors */
@@ -4119,8 +4301,34 @@ SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 
 /* 13.1 The label of a node */
 
-// SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel);
-// SEXP RHugin_node_get_label(SEXP Snode);
+SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel)
+{
+  h_status_t status = 0;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  PROTECT(Slabel = AS_CHARACTER(Slabel));
+  status = h_node_set_label(node, (h_string_t) CHAR(asChar(Slabel)));
+  UNPROTECT(1);
+  
+  RHugin_handle_status_code(status);
+  
+  return R_NilValue;
+}
+
+
+SEXP RHugin_node_get_label(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  PROTECT(ret = allocVector(STRSXP, 1));
+  SET_STRING_ELT(ret, 0, mkChar( (char*) h_node_get_label(node)));
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
 
 
 /*  13.2 The position of a node */
