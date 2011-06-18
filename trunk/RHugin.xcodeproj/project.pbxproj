@@ -60,7 +60,6 @@
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
 		DA8FAFC911204A0B0013CA86 /* compress.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compress.Rd; path = man/compress.Rd; sourceTree = SOURCE_ROOT; };
 		DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.approximation.constant.Rd; path = man/get.approximation.constant.Rd; sourceTree = SOURCE_ROOT; };
-		DA8FAFEC1120576D0013CA86 /* TODO */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = TODO; sourceTree = SOURCE_ROOT; };
 		DA8FAFFE11205AA80013CA86 /* uncompile.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = uncompile.q; path = R/uncompile.q; sourceTree = SOURCE_ROOT; };
 		DA8FAFFF11205B8C0013CA86 /* uncompile.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = uncompile.Rd; path = man/uncompile.Rd; sourceTree = SOURCE_ROOT; };
 		DAA2C39A0F8E34F6004C7606 /* Makevars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makevars; path = src/Makevars; sourceTree = SOURCE_ROOT; };
@@ -193,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				DAEFA1F70DE30880002B126B /* DESCRIPTION */,
-				DA8FAFEC1120576D0013CA86 /* TODO */,
 				DAEFA1A40DE307D8002B126B /* R */,
 				DAB14A88112308BD00FB0A16 /* data */,
 				DA5E09C30E711F1B0014FAFE /* demo */,

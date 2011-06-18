@@ -493,15 +493,15 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_compute_sensitivity_data", (DL_FUNC) RHugin_node_compute_sensitivity_data, 2},
     {"RHugin_node_get_sensitivity_constants", (DL_FUNC) RHugin_node_get_sensitivity_constants, 2},
     {"RHugin_domain_get_sensitivity_set", (DL_FUNC) RHugin_domain_get_sensitivity_set, 1},
-    // SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates);
-    // SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput);
-    // SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput);
+    {"RHugin_domain_compute_sensitivity_data", (DL_FUNC) RHugin_domain_compute_sensitivity_data, 3},
+    {"RHugin_node_get_sensitivity_constants_by_output", (DL_FUNC) RHugin_node_get_sensitivity_constants_by_output, 3},
+    {"RHugin_domain_get_sensitivity_set_by_output", (DL_FUNC) RHugin_domain_get_sensitivity_set_by_output, 2},
 
     /* 9.11 Most probable configurations */
-    // SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin);
-    // SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain);
-    // SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex);
-    // SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex);
+    {"RHugin_domain_find_map_configurations", (DL_FUNC) RHugin_domain_find_map_configurations, 3},
+    {"RHugin_domain_get_number_of_map_configurations", (DL_FUNC) RHugin_domain_get_number_of_map_configurations, 1},
+    {"RHugin_domain_get_map_configuration", (DL_FUNC) RHugin_domain_get_map_configuration, 3},
+    {"RHugin_domain_get_probability_of_map_configuration", (DL_FUNC) RHugin_domain_get_probability_of_map_configuration, 2},
 
     /* 10.1 Experience counts and fading factors */
     {"RHugin_node_get_experience_table", (DL_FUNC) RHugin_node_get_experience_table, 1},
@@ -565,8 +565,8 @@ void R_init_RHugin(DllInfo *info)
     // SEXP RHugin_domain_get_file_name(SEXP Sdomain);
 
     /* 13.1 The label of a node */
-    // SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel);
-    // SEXP RHugin_node_get_label(SEXP Snode);
+    {"RHugin_node_set_label", (DL_FUNC) RHugin_node_set_label, 2},
+    {"RHugin_node_get_label", (DL_FUNC) RHugin_node_get_label, 1},
 
     /*  13.2 The position of a node */
     {"RHugin_node_set_position", (DL_FUNC) RHugin_node_set_position, 2},

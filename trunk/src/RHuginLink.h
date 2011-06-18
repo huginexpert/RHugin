@@ -400,17 +400,17 @@ DLLEXPORT SEXP RHugin_node_get_mutual_information(SEXP Snodes, SEXP Sothers);
 DLLEXPORT SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate);
 DLLEXPORT SEXP RHugin_node_get_sensitivity_constants(SEXP Snode, SEXP Sindex);
 DLLEXPORT SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain);
-// SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates);
-// SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput);
-// SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput);
+DLLEXPORT SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates);
+DLLEXPORT SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput);
+DLLEXPORT SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput);
 
 
 /* 9.11 Most probable configurations */
 
-// SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin);
-// SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain);
-// SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex);
-// SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex);
+DLLEXPORT SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin);
+DLLEXPORT SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain);
+DLLEXPORT SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex, SEXP Sn_nodes);
+DLLEXPORT SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex);
 
 
 /* 10.1 Experience counts and fading factors */
@@ -498,8 +498,8 @@ DLLEXPORT SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 
 /* 13.1 The label of a node */
 
-// SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel);
-// SEXP RHugin_node_get_label(SEXP Snode);
+DLLEXPORT SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel);
+DLLEXPORT SEXP RHugin_node_get_label(SEXP Snode);
 
 
 /*  13.2 The position of a node */
@@ -514,3 +514,5 @@ DLLEXPORT SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize);
 DLLEXPORT SEXP RHugin_domain_get_node_size(SEXP Sdomain);
 // SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
 // SEXP RHugin_class_get_node_size(SEXP Sclass);
+
+
