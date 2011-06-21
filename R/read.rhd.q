@@ -31,7 +31,7 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
   oldClass(domain) <- "RHuginDomain"
 
   nodes <- get.nodes(domain)
-  reserved <- c("Freq", "Value", "Cost", "Utility", "Counts", "Lambda")
+  reserved <- c("Freq", "Prob", "Value", "Cost", "Utility", "Counts", "Lambda")
   index <- nodes %in% reserved
 
   if(any(index))
