@@ -58,6 +58,8 @@
 		DA4709AD0FD82EBC001CB5BF /* waste.Rout.save */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = waste.Rout.save; path = tests/waste.Rout.save; sourceTree = SOURCE_ROOT; };
 		DA4C81C40EB2054F00834BEA /* get.sensitivity.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.sensitivity.q; path = R/get.sensitivity.q; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
+		DA858FA613B0CC7900D7E7B1 /* map.configurations.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.configurations.q; path = R/map.configurations.q; sourceTree = SOURCE_ROOT; };
+		DA858FCD13B0D66700D7E7B1 /* map.configurations.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.configurations.Rd; path = man/map.configurations.Rd; sourceTree = SOURCE_ROOT; };
 		DA8FAFC911204A0B0013CA86 /* compress.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compress.Rd; path = man/compress.Rd; sourceTree = SOURCE_ROOT; };
 		DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.approximation.constant.Rd; path = man/get.approximation.constant.Rd; sourceTree = SOURCE_ROOT; };
 		DA8FAFFE11205AA80013CA86 /* uncompile.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = uncompile.q; path = R/uncompile.q; sourceTree = SOURCE_ROOT; };
@@ -238,6 +240,7 @@
 				DAB14A431122AD4F00FB0A16 /* learn.cpt.q */,
 				0E49724B1121FD79003DD117 /* learn.structure.q */,
 				DAEFA1BD0DE3081B002B126B /* library.q */,
+				DA858FA613B0CC7900D7E7B1 /* map.configurations.q */,
 				0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */,
 				DAEFA1BE0DE3081B002B126B /* print.RHuginDomain.q */,
 				0EA791CF0DF17F15007CDD16 /* print.summary.RHuginDomain.q */,
@@ -302,6 +305,7 @@
 				DADF9FC50F4308B900946D22 /* layoutRHugin.Rd */,
 				DAB14A461122C9BB00FB0A16 /* learn.cpt.Rd */,
 				DAB14A471122C9BB00FB0A16 /* learn.structure.Rd */,
+				DA858FCD13B0D66700D7E7B1 /* map.configurations.Rd */,
 				0E39E5850E6AF895008B7B91 /* plot.RHuginDomain.Rd */,
 				DAD83CF20E1A5620005C9495 /* print.RHuginDomain.Rd */,
 				DAD83CF30E1A5620005C9495 /* print.summary.RHuginDomain.Rd */,

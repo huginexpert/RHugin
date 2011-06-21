@@ -8,7 +8,7 @@ add.node <- function(domain, name,
   category <- match.arg(category)
   kind <- match.arg(kind)
 
-  reserved <- c("Freq", "Value", "Cost", "Utility", "Counts", "Lambda")
+  reserved <- c("Freq", "Prob", "Value", "Cost", "Utility", "Counts", "Lambda")
   if(is.element(name, reserved))
     stop("invalid name: ", dQuote(name), " is a reserved word in RHugin")
 
