@@ -4,23 +4,21 @@ get.cases <- function(domain)
 
   nodes <- get.nodes(domain)
   data <- list()
-  n.cases <- .Call("RHugin_domain_get_number_of_cases", domain,
-                    PACKAGE = "RHugin")
+  n.cases <- .Call(RHugin_domain_get_number_of_cases, domain)
 
   if(n.cases < 1)
     return(invisible())
 
   indices <- 0:(n.cases - 1)
 
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
-                      PACKAGE = "RHugin")
-  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
-  subtypes <- .Call("RHugin_node_get_subtype", node.ptrs, PACKAGE = "RHugin")
+  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  kinds <- .Call(RHugin_node_get_kind, node.ptrs)
+  subtypes <- .Call(RHugin_node_get_subtype, node.ptrs)
 
   for(node in nodes) {
     if(kinds[node]  == "discrete") {
-      state.indices <- .Call("RHugin_node_get_case_state", node.ptrs[node],
-                              indices, PACKAGE = "RHugin")
+      state.indices <- .Call(RHugin_node_get_case_state, node.ptrs[node],
+                             indices)
 
       states <- get.states(domain, node)
 
@@ -31,12 +29,11 @@ get.cases <- function(domain)
     }
 
     else
-      data[[node]] <- .Call("RHugin_node_get_case_value", node.ptrs[node],
-                             indices, PACKAGE = "RHugin")
+      data[[node]] <- .Call(RHugin_node_get_case_value, node.ptrs[node],
+                             indices)
   }
 
-  data[["Freq"]] <- .Call("RHugin_domain_get_case_count", domain, indices,
-                           PACKAGE = "RHugin")
+  data[["Freq"]] <- .Call(RHugin_domain_get_case_count, domain, indices)
 
   as.data.frame(data)
 }

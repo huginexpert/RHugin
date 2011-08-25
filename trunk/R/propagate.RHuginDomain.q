@@ -5,8 +5,7 @@ propagate.RHuginDomain <- function(object, equilibrium = c("sum", "max"),
   equilibrium <- match.arg(equilibrium)
   mode <- match.arg(mode)
 
-  .Call("RHugin_domain_propagate", object, equilibrium, mode,
-         PACKAGE = "RHugin")
+  .Call(RHugin_domain_propagate, object, equilibrium, mode)
 
   invisible()
 }

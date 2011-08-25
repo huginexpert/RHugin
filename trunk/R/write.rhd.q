@@ -6,14 +6,13 @@ write.rhd <- function(domain, filename, type = c("hkb", "net"), password = NULL)
 
   switch(type,
     "hkb" = {
-      .Call("RHugin_domain_save_as_kb", domain, filename, password,
-             PACKAGE = "RHugin")
+      .Call(RHugin_domain_save_as_kb, domain, filename, password)
     },
 
     "net" = {
       if(!is.null(password))
         warning(sQuote("password"), " not used in NET file")
-      .Call("RHugin_domain_save_as_net", domain, filename, PACKAGE = "RHugin")
+      .Call(RHugin_domain_save_as_net, domain, filename)
     }
   )
 

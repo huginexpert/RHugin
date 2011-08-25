@@ -1,6 +1,6 @@
 hugin.domain <- function(graph, data)
 {
-  domain <- .Call("RHugin_new_domain", PACKAGE = "RHugin")
+  domain <- .Call(RHugin_new_domain)
   oldClass(domain) <- "RHuginDomain"
 
   if(!missing(graph) && !missing(data)) {

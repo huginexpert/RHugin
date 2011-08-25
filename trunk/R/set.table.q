@@ -9,24 +9,22 @@ set.table <- function(domain, node, data,
     stop("the ", sQuote("data"), " argument must be a data frame, ",
          "a table or a numeric vector")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node[1],
-                     PACKAGE = "RHugin")
+  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
 
-  category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
-  kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+  category <- .Call(RHugin_node_get_category, node.ptr)
+  kind <- .Call(RHugin_node_get_kind, node.ptr)
   kind <- ifelse(is.na(kind), "none", kind)
 
   table.ptr <- switch(type,
-    cpt = .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin"),
-    experience = .Call("RHugin_node_get_experience_table", node.ptr,
-                        PACKAGE = "RHugin"),
-    fading = .Call("RHugin_node_get_fading_table", node.ptr,
-                    PACKAGE = "RHugin"))
+    cpt = .Call(RHugin_node_get_table, node.ptr),
+    experience = .Call(RHugin_node_get_experience_table, node.ptr),
+    fading = .Call(RHugin_node_get_fading_table, node.ptr)
+  )
 
   if(class == "numeric") {
     if(kind == "discrete" || (type %in% c("experience", "fading"))) {
-      .Call("RHugin_table_set_data", table.ptr, table, PACKAGE = "RHugin")
-      .Call("RHugin_node_touch_table", node.ptr, PACKAGE = "RHugin")
+      .Call(RHugin_table_set_data, table.ptr, table)
+      .Call(RHugin_node_touch_table, node.ptr)
       return(invisible())
     }
     else
@@ -34,16 +32,14 @@ set.table <- function(domain, node, data,
            "probability table (cpt) of a discrete node")
   }
 
-  table.node.ptrs <- .Call("RHugin_table_get_nodes", table.ptr,
-                            PACKAGE = "RHugin")
+  table.node.ptrs <- .Call(RHugin_table_get_nodes, table.ptr)
   table.nodes <- names( table.node.ptrs)
 
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]
 
     parent.ptrs <- table.node.ptrs[parent.nodes]
-    parent.kinds <- .Call("RHugin_node_get_kind", parent.ptrs,
-                           PACKAGE = "RHugin")
+    parent.kinds <- .Call(RHugin_node_get_kind, parent.ptrs)
 
     discrete.parents <- parent.nodes[parent.kinds == "discrete"]
     continuous.parents <- parent.nodes[parent.kinds == "continuous"]
@@ -115,20 +111,18 @@ set.table <- function(domain, node, data,
     components <- rep(states[[node]], n.state.space)
     i <- 0:(n.state.space - 1)
 
-    .Call("RHugin_node_set_alpha", node.ptr, table[components == "(Intercept)"],
-           i, PACKAGE = "RHugin")
+    .Call(RHugin_node_set_alpha, node.ptr, table[components == "(Intercept)"], i)
 
     for(n in continuous.parents)
-      .Call("RHugin_node_set_beta", node.ptr, table[components == n],
-             continuous.parent.ptrs[n], i, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_beta, node.ptr, table[components == n],
+            continuous.parent.ptrs[n], i)
 
-    .Call("RHugin_node_set_gamma", node.ptr, table[components == "(Variance)"],
-           i, PACKAGE = "RHugin")
+    .Call(RHugin_node_set_gamma, node.ptr, table[components == "(Variance)"], i)
   }
 
   else {
-    .Call("RHugin_table_set_data", table.ptr, table, PACKAGE = "RHugin")
-    .Call("RHugin_node_touch_table", node.ptr, PACKAGE = "RHugin")
+    .Call(RHugin_table_set_data, table.ptr, table)
+    .Call(RHugin_node_touch_table, node.ptr)
   }
 
   invisible()

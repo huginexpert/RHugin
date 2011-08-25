@@ -2,24 +2,19 @@ get.states <- function(domain, node, values = FALSE)
 {
   RHugin.check.args(domain, node, character(0), "get.states")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain,
-                     as.character(node[1]), PACKAGE = "RHugin")
-  n.states <- .Call("RHugin_node_get_number_of_states", node.ptr,
-                     PACKAGE = "RHugin")
-  subtype <- .Call("RHugin_node_get_subtype", node.ptr, PACKAGE = "RHugin")
+  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  n.states <- .Call(RHugin_node_get_number_of_states, node.ptr)
+  subtype <- .Call(RHugin_node_get_subtype, node.ptr)
 
   switch(subtype,
-    "labeled" = .Call("RHugin_node_get_state_label", node.ptr, 0:(n.states - 1),
-                       PACKAGE = "RHugin"),
+    "labeled" = .Call(RHugin_node_get_state_label, node.ptr, 0:(n.states - 1)),
 
     "boolean" = c(FALSE, TRUE),
 
-    "numbered" = .Call("RHugin_node_get_state_value", node.ptr,
-                        0:(n.states - 1), PACKAGE = "RHugin"),
+    "numbered" = .Call(RHugin_node_get_state_value, node.ptr, 0:(n.states - 1)),
 
     "interval" = {
-      pts <- .Call("RHugin_node_get_state_value", node.ptr, 0:(n.states),
-                    PACKAGE = "RHugin")
+      pts <- .Call(RHugin_node_get_state_value, node.ptr, 0:(n.states))
 
       if(!values) {
         infinite <- is.infinite(c(pts[1], pts[length(pts)]))

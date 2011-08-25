@@ -58,6 +58,7 @@
 		DA4709AD0FD82EBC001CB5BF /* waste.Rout.save */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = waste.Rout.save; path = tests/waste.Rout.save; sourceTree = SOURCE_ROOT; };
 		DA4C81C40EB2054F00834BEA /* get.sensitivity.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get.sensitivity.q; path = R/get.sensitivity.q; sourceTree = "<group>"; };
 		DA5E0A4E0E7161740014FAFE /* 00Index */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 00Index; sourceTree = "<group>"; };
+		DA71F6C01406688C007CB3AB /* NAMESPACE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NAMESPACE; sourceTree = "<group>"; };
 		DA858FA613B0CC7900D7E7B1 /* map.configurations.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.configurations.q; path = R/map.configurations.q; sourceTree = SOURCE_ROOT; };
 		DA858FCD13B0D66700D7E7B1 /* map.configurations.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.configurations.Rd; path = man/map.configurations.Rd; sourceTree = SOURCE_ROOT; };
 		DA8FAFC911204A0B0013CA86 /* compress.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compress.Rd; path = man/compress.Rd; sourceTree = SOURCE_ROOT; };
@@ -194,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				DAEFA1F70DE30880002B126B /* DESCRIPTION */,
+				DA71F6C01406688C007CB3AB /* NAMESPACE */,
 				DAEFA1A40DE307D8002B126B /* R */,
 				DAB14A88112308BD00FB0A16 /* data */,
 				DA5E09C30E711F1B0014FAFE /* demo */,
