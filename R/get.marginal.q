@@ -4,10 +4,9 @@ get.marginal <- function(domain, nodes,
   RHugin.check.args(domain, nodes, character(0), "get.marginal")
   class <- match.arg(class)
 
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
-                      PACKAGE = "RHugin")
-  categories <- .Call("RHugin_node_get_category", node.ptrs, PACKAGE = "RHugin")
-  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
+  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  categories <- .Call(RHugin_node_get_category, node.ptrs)
+  kinds <- .Call(RHugin_node_get_kind, node.ptrs)
 
   if(any(categories != "chance"))
     stop("the ", sQuote("nodes"), " argument is not a set of distinct ",
@@ -19,17 +18,16 @@ get.marginal <- function(domain, nodes,
   nodes <- c(discrete, continuous)
   node.ptrs <- node.ptrs[nodes]
 
-  table.ptr <- .Call("RHugin_domain_get_marginal", domain, node.ptrs,
-                      PACKAGE = "RHugin")
+  table.ptr <- .Call(RHugin_domain_get_marginal, domain, node.ptrs)
 
-  on.exit(.Call("RHugin_table_delete", table.ptr, PACKAGE = "RHugin"))
+  on.exit(.Call(RHugin_table_delete, table.ptr))
 
   states <- lapply(discrete, function(u) get.states(domain, u))
   names(states) <- discrete
   states <- rev(states)
   d <- sapply(states, length)
 
-  table <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
+  table <- .Call(RHugin_table_get_data, table.ptr)
   n.continuous <- length(continuous)
   n.table <- length(table)
 
@@ -39,24 +37,23 @@ get.marginal <- function(domain, nodes,
     cov <- list()
 
     for(j in 1:n.continuous)
-      mean[ , j] <- .Call("RHugin_table_get_mean", table.ptr, 0:(n.table - 1),
-                           node.ptrs[continuous[j]], PACKAGE = "RHugin")
+      mean[ , j] <- .Call(RHugin_table_get_mean, table.ptr, 0:(n.table - 1),
+                          node.ptrs[continuous[j]])
 
     for(k in 1:n.table) {
       tmp <- matrix(0.0, n.continuous, n.continuous)
       dimnames(tmp) <- list(continuous, continuous)
       for(i in 1:n.continuous)
-        tmp[i, i] <- .Call("RHugin_table_get_variance", table.ptr, k - 1,
-                            node.ptrs[continuous[i]], PACKAGE = "RHugin")
+        tmp[i, i] <- .Call(RHugin_table_get_variance, table.ptr, k - 1,
+                           node.ptrs[continuous[i]])
 
       if(n.continuous > 1) {
         for(i in 2:n.continuous) {
           for(j in 1:(i - 1))
-            tmp[i, j] <- tmp[j, i] <- .Call("RHugin_table_get_covariance",
-                                             table.ptr, k - 1,
-                                             node.ptrs[continuous[i]],
-                                             node.ptrs[continuous[j]],
-                                             PACKAGE = "RHugin")
+            tmp[i, j] <- tmp[j, i] <- .Call(RHugin_table_get_covariance,
+                                            table.ptr, k - 1,
+                                            node.ptrs[continuous[i]],
+                                            node.ptrs[continuous[j]])
         }
       }
     cov[[k]] <- tmp  

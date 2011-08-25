@@ -16,13 +16,13 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
 
   domain <- switch(type,
     "hkb" = {
-      .Call("RHugin_kb_load_domain", filename, password, PACKAGE = "RHugin")
+      .Call(RHugin_kb_load_domain, filename, password)
     },
 
     "net" = {
       if(!is.null(password))
         warning(sQuote("password"), " not used in NET file")
-      .Call("RHugin_net_parse_domain", filename, PACKAGE = "RHugin")
+      .Call(RHugin_net_parse_domain, filename)
     }
   )
 
@@ -39,14 +39,13 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
          " used as the name of a node")
 
   if(generate.tables) {
-    node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
-                        PACKAGE = "RHugin")
-    model.ptrs <- .Call("RHugin_node_get_model", node.ptrs, PACKAGE = "RHugin")
+    node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+    model.ptrs <- .Call(RHugin_node_get_model, node.ptrs)
     model.ptrs <- model.ptrs[sapply(model.ptrs, function(u) !is.null(u))]
     models <- names(model.ptrs)
 
-    .Call("RHugin_node_generate_table", node.ptrs[models], PACKAGE = "RHugin")
-    .Call("RHugin_model_delete", model.ptrs, PACKAGE = "RHugin")
+    .Call(RHugin_node_generate_table, node.ptrs[models])
+    .Call(RHugin_model_delete, model.ptrs)
   }
 
   domain

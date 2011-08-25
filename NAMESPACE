@@ -1,0 +1,73 @@
+importFrom(gRbase, compile, propagate, triangulate)
+importFrom(stats, simulate)
+
+export(
+  "adapt",
+  "add.edge",
+  "add.node",
+  "as.graph.RHuginDomain",
+  "clone.node",
+  "compile.RHuginDomain",
+  "compress",
+  "delete.edge",
+  "delete.node",
+  "delete.table",
+  "get.approximation.constant",
+  "get.belief",
+  "get.cases",
+  "get.conflict",
+  "get.dconnected.nodes",
+  "get.distribution",
+  "get.dseparated.nodes",
+  "get.edges",
+  "get.entropy",
+  "get.finding",
+  "get.junction.tree",
+  "get.marginal",
+  "get.nodes",
+  "get.normalization.constant",
+  "get.sensitivity",
+  "get.states",
+  "get.table",
+  "get.utility",
+  "hugin.domain",
+  "initialize.domain",
+  "layoutRHugin",
+  "learn.cpt",
+  "learn.structure",
+  "map.configurations",
+  "plot.RHuginDomain",
+  "print.RHuginDomain",
+  "print.summary.RHuginDomain",
+  "propagate.RHuginDomain",
+  "read.cases",
+  "read.rhd",
+  "reset",
+  "retract",
+  "reverse.edge",
+  "RHugin.check.args",
+  "RHugin.check.domain",
+  "RHugin.control",
+  "score",
+  "set.cases",
+  "set.finding",
+  "set.states",
+  "set.table",
+  "simulate.RHuginDomain",
+  "summary.RHuginDomain",
+  "switch.parent",
+  "triangulate.RHuginDomain",
+  "uncompile",
+  "write.cases",
+  "write.rhd"
+)
+
+S3method(compile, RHuginDomain)
+S3method(plot, RHuginDomain)
+S3method(print, RHuginDomain)
+S3method(propagate, RHuginDomain)
+S3method(simulate, RHuginDomain)
+S3method(summary, RHuginDomain)
+S3method(triangulate, RHuginDomain)
+
+S3method(print, summary.RHuginDomain)

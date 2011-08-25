@@ -18,10 +18,8 @@ add.node <- function(domain, name,
   else
     subtype <- NULL
 
-  node.ptr <- .Call("RHugin_domain_new_node", domain, category, kind,
-                     PACKAGE = "RHugin")
-
-  .Call("RHugin_node_set_name", node.ptr, name, PACKAGE = "RHugin")
+  node.ptr <- .Call(RHugin_domain_new_node, domain, category, kind)
+  .Call(RHugin_node_set_name, node.ptr, name)
 
   if((category == "chance" && kind == "discrete") || category == "decision") {
     if(!is.null(subtype) && !missing(states))

@@ -6,10 +6,9 @@ plot.RHuginDomain <- function(x, y, ...)
     stop("plotting an RHugin domain requires the Rgraphviz package")
 
   nodes <- get.nodes(x)
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", x, nodes,
-                      PACKAGE = "RHugin")
-  categories <- .Call("RHugin_node_get_category", node.ptrs, PACKAGE = "RHugin")
-  kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")
+  node.ptrs <- .Call(RHugin_domain_get_node_by_name, x, nodes)
+  categories <- .Call(RHugin_node_get_category, node.ptrs)
+  kinds <- .Call(RHugin_node_get_kind, node.ptrs)
 
   fill <- character(length(nodes))
   shape <- character(length(nodes))

@@ -10,15 +10,11 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
   else
     state <- state - 1
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, output,
-                     PACKAGE = "RHugin")
-
-  .Call("RHugin_node_compute_sensitivity_data", node.ptr, state,
-         PACKAGE = "RHugin")
+  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, output)
+  .Call(RHugin_node_compute_sensitivity_data, node.ptr, state)
 
   if(set) {
-    set <- .Call("RHugin_domain_get_sensitivity_set", domain,
-                  PACKAGE = "RHugin")
+    set <- .Call(RHugin_domain_get_sensitivity_set, domain)
     return(names(set))
   }
 
@@ -35,8 +31,7 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
   dimnames(constants) <- list(paste(nodes, unlist(dots), sep = ":"),
                               c("alpha", "beta", "gamma", "delta"))
 
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", domain, nodes,
-                      PACKAGE = "RHugin")
+  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
 
   for(i in 1:length(dots)) {
     node.states <- get.states(domain, nodes[i])
@@ -47,8 +42,8 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
     else
       input <- input - 1
 
-    constants[i, ] <- .Call("RHugin_node_get_sensitivity_constants",
-                             node.ptrs[nodes[i]], input, PACKAGE = "RHugin")
+    constants[i, ] <- .Call(RHugin_node_get_sensitivity_constants,
+                            node.ptrs[nodes[i]], input)
   }
 
   constants

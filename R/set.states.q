@@ -4,11 +4,9 @@ set.states <- function(domain, node, states, subtype = "auto")
   subtypes <- c("auto", "labeled", "boolean", "numbered", "interval")
   subtype <- match.arg(subtype, choices = subtypes)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node[1],
-                     PACKAGE = "RHugin")
-
-  category <- .Call("RHugin_node_get_category", node.ptr, PACKAGE = "RHugin")
-  kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  category <- .Call(RHugin_node_get_category, node.ptr)
+  kind <- .Call(RHugin_node_get_kind, node.ptr)
 
   if(!is.element(category, c("chance", "decision")) || kind == "continuous")
     stop(node, " is not a discrete chance or decision node")
@@ -24,33 +22,31 @@ set.states <- function(domain, node, states, subtype = "auto")
 
   switch(subtype,
     "boolean" = {
-      .Call("RHugin_node_set_number_of_states", node.ptr, 2, PACKAGE = "RHugin")
-      .Call("RHugin_node_set_subtype", node.ptr, subtype, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_number_of_states, node.ptr, 2)
+      .Call(RHugin_node_set_subtype, node.ptr, subtype)
     },
 
     "labeled" = {
-      .Call("RHugin_node_set_subtype", node.ptr,subtype, PACKAGE = "RHugin")
-      .Call("RHugin_node_set_number_of_states", node.ptr, length(states),
-             PACKAGE = "RHugin")
-      .Call("RHugin_node_set_state_label", node.ptr, 0:(length(states) - 1),
-             states, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_subtype, node.ptr,subtype)
+      .Call(RHugin_node_set_number_of_states, node.ptr, length(states))
+      .Call(RHugin_node_set_state_label, node.ptr, 0:(length(states) - 1),
+            states)
     },
 
     "numbered" = {
-      .Call("RHugin_node_set_subtype", node.ptr, subtype, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_subtype, node.ptr, subtype)
       states <- as.double(states)
 
       if(any(is.na(states)))
         stop("non numeric states supplied for numbered node")
 
-      .Call("RHugin_node_set_number_of_states", node.ptr, length(states),
-             PACKAGE = "RHugin")
-      .Call("RHugin_node_set_state_value", node.ptr, 0:(length(states) - 1),
-             states, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_number_of_states, node.ptr, length(states))
+      .Call(RHugin_node_set_state_value, node.ptr, 0:(length(states) - 1),
+            states)
     },
 
     "interval" = {
-      .Call("RHugin_node_set_subtype", node.ptr, subtype, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_subtype, node.ptr, subtype)
 
       states <- as.double(states)
       if(any(is.na(states)))
@@ -59,10 +55,9 @@ set.states <- function(domain, node, states, subtype = "auto")
       if(!identical(states, sort(states)))
         stop("states are not disjoint intervals")
 
-      .Call("RHugin_node_set_number_of_states", node.ptr, length(states) - 1,
-             PACKAGE = "RHugin")
-      .Call("RHugin_node_set_state_value", node.ptr, 0:(length(states) - 1),
-             states, PACKAGE = "RHugin")
+      .Call(RHugin_node_set_number_of_states, node.ptr, length(states) - 1)
+      .Call(RHugin_node_set_state_value, node.ptr, 0:(length(states) - 1),
+            states)
     }
   )
 

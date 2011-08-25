@@ -1,4 +1,4 @@
-.First.lib <- function(libname, pkgname)
+.onLoad <- function(libname, pkgname)
 {
   if(Sys.info()["sysname"] == "Windows") {
 
@@ -66,8 +66,14 @@
     }
   }
 
-  library.dynam("RHugin")
-  invisible(NULL)
+  dll <- library.dynam("RHugin", package = "RHugin")
+  dotCallRoutines <- names(getDLLRegisteredRoutines(dll)[[".Call"]])
+  RHuginPkgEnv <- get("env", env = parent.frame())
+
+  for(routine in dotCallRoutines)
+    assign(routine, getNativeSymbolInfo(routine, dll), envir = RHuginPkgEnv)
+
+  invisible()
 }
 
 
