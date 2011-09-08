@@ -66,7 +66,7 @@
     }
   }
 
-  dll <- library.dynam("RHugin", package = "RHugin")
+  dll <- library.dynam(pkgname, package = pkgname, lib.loc = libname)
   dotCallRoutines <- names(getDLLRegisteredRoutines(dll)[[".Call"]])
   RHuginPkgEnv <- get("env", env = parent.frame())
 
