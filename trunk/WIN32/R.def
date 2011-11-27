@@ -291,6 +291,7 @@ R_SignalHandlers
 R_SizeFromEnv
 R_Slave
 R_SourceSymbol
+R_Srcref
 R_Suicide
 R_TempDir
 R_Toplevel
@@ -309,11 +310,13 @@ R_alloc
 R_atof
 R_bcDecode
 R_bcEncode
+R_cairoCdynload
 R_check_class_and_super
 R_chk_calloc
 R_chk_free
 R_chk_realloc
 R_common_command_line
+R_compute_identical
 R_copyDFattr
 R_csort
 R_cumsum
@@ -344,12 +347,14 @@ R_get_primname
 R_get_standardGeneric_ptr
 R_getbcprofcounts
 R_gl_tab_set
+R_gzclose
+R_gzgets
+R_gzopen
 R_has_methods
 R_has_slot
-R_inspect
-R_inspect3
 R_interrupts_pending
 R_interrupts_suspended
+R_isForkedChild
 R_isMethodsDispatchOn
 R_isS4Object
 R_isnancpp
@@ -425,6 +430,7 @@ Rf_EncodeReal
 Rf_EncodeString
 Rf_ErrorMessage
 Rf_GArrow
+Rf_GAxisPars
 Rf_GBox
 Rf_GCheckState
 Rf_GCircle
@@ -484,7 +490,6 @@ Rf_NonNullStringMatch
 Rf_NumDevices
 Rf_PairToVectorList
 Rf_PrintValue
-Rf_PrintVersion_part_1
 Rf_PrintWarnings
 Rf_RGBpar
 Rf_RGBpar3
@@ -746,7 +751,6 @@ Rf_ptukey
 Rf_punif
 Rf_pweibull
 Rf_pwilcox
-Rf_pythag
 Rf_qbeta
 Rf_qbinom
 Rf_qcauchy
@@ -926,15 +930,14 @@ cgmin
 chol_
 cmdlineoptions
 consoleblink
+crc64ToString
+currentTime
 d1mach_
 dblepr_
 dcar
 dcdr
 dchdc_
 dnbinom_mu
-do_devAskNewPage
-do_enc2
-do_readEnviron
 do_set_prim_method
 dpbfa_
 dpbsl_
@@ -974,6 +977,7 @@ getRHOME
 getRHOMElong
 getRUser
 get_R_HOME
+get_workspace_name
 gl_hist_init
 gl_loadhistory
 hqr2_
@@ -1056,9 +1060,6 @@ vsprintf
 wilcox_free
 windelmenus
 xdr_double
-xdr_float
 xdrmem_create
 xerbla_
-yyllocL
-yyllocR
 
