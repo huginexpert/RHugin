@@ -23,9 +23,7 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
       }
       else if(categories[node] == "utility") {
         fill[node] <- "#B4FF6E"
-        ## diamond not yet supported by Rgraphviz ##
-        #shape[node] <- "diamond"
-        shape[node] <- "rectangle"
+        shape[node] <- "diamond"
       }
       else {
         if(kinds[node] == "discrete")
