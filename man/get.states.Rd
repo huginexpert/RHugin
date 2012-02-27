@@ -25,7 +25,7 @@ a vector containing the states of the selected node.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_number_of_states}, \code{h_node_get_state_label} and \code{h_node_get_state_value}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 # Create an RHugin domain

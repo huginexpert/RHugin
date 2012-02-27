@@ -26,7 +26,7 @@ a \code{NULL} value is invisibly returned.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_set_number_of_states}, \code{h_node_set_state_label} and \code{h_node_set_state_value}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 # Create an RHugin domain

@@ -36,7 +36,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 }
 
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 demo("asia", echo = FALSE)

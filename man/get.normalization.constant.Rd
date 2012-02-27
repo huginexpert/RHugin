@@ -24,7 +24,7 @@ A single numeric value containing the (log) normalization constant for the domai
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_normalization_constant} and \code{h_domain_get_log_normalization_constant}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 demo("apple", echo = FALSE)

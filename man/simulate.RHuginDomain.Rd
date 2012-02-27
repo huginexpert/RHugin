@@ -32,7 +32,7 @@ A data frame with one column for each node in the domain (\code{object}) whose r
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_simulate}, \code{h_node_get_sampled_state} and \code{h_node_get_sampled_value}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 demo("apple", echo = FALSE)

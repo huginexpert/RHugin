@@ -26,7 +26,7 @@ RHugin.check.domain(domain, fun.name)
 Undocumented.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \keyword{programming}
 

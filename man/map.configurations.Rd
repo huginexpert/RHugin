@@ -25,7 +25,7 @@ a data.frame with one column for each node in \code{nodes}. Each row contains a 
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{RHugin_domain_find_map_configurations}, \code{RHugin_domain_get_number_of_map_configurations}, \code{RHugin_domain_get_map_configuration} and \code{RHugin_domain_get_probability_of_map_configuration}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 demo("asia", echo = FALSE)

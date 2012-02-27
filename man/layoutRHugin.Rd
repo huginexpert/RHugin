@@ -25,7 +25,7 @@ layoutRHugin(x, domain, ...)
 \url{http://www.graphviz.org/}
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 library(Rgraphviz)

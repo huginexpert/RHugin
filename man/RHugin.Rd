@@ -25,7 +25,7 @@ HUGIN EXPERT website: \url{http://www.hugin.com}
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 # This example is provided to demonstrate why RHugin domain objects #

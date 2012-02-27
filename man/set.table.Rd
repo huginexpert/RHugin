@@ -30,7 +30,7 @@ a \code{NULL} value is invisibly returned.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_table_get_data}, \code{h_node_touch_table}, \code{h_node_set_alpha}, \code{h_node_set_beta} and \code{h_node_set_gamma}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 # (1) Set the CPT of a single node

@@ -29,7 +29,7 @@ A list containing the current concurrency level and grain size. These values wil
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_set_concurrency_level}, \code{h_domain_get_concurrency_level}, \code{h_domain_set_grain_size} and \code{h_domain_get_grain_size}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \note{
 In the current implementation of the Hugin Decision Engine (version 7.2), table operations for compressed domains are not threaded.
