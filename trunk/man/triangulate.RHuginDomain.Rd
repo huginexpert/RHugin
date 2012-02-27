@@ -31,7 +31,7 @@ a character vector containing the node names in the order used to triangulate th
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{RHugin_domain_triangulate}, \code{RHugin_domain_triangulate_with_order}, \code{RHugin_domain_set_max_number_of_separators} and \code{RHugin_domain_get_elimination_order}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \seealso{
 \code{\link{compile.RHuginDomain}}.

@@ -18,7 +18,7 @@ learn.structure(domain, alpha = 0.05, constraints = NULL)
 }
 
 \details{
-The current implementation of the PC algorithm in Hugin is limited to domains of discrete chance nodes. Any prior domain knowledge should be communicated to the learning algorithm via the constraints argument. This function will fail if any actual edges are present in the domain.  Additionally, a set of cases must be entered into the domain.
+The implementation of the PC algorithm in the Hugin Decision Engine requires that the domain be composed solely of chance nodes. Any prior domain knowledge should be communicated to the learning algorithm via the constraints argument. This function will fail if any actual edges are present in the domain.  Additionally, a set of cases must be entered into the domain.
 
 The constraints argument should be a list with two elements: \code{directed} and \code{undirected}.  Each of these elements should in turn be a list with two elements: \code{required} and \code{forbidden}.  The elements of these lists should be lists of length 2 character vectors containing node names (for example \code{c("A", "B")}).  The elements of \code{constraints$directed$required} indicate that an edge from \code{"A"} to \code{"B"} is required, the elements of \code{constraints$directed$forbidden} indicate that an edge from \code{"A"} to \code{"B"} is forbidden, the elements of \code{constraints$undirected$required} indicate that an edge between \code{"A"} and \code{"B"} is required but the learning algorithm is free to choose its direction and the elements of \code{constraints$undirected$forbidden} indicate that no edge may connect \code{"A"} and \code{"B"}.  If there are no constraints of a given type then the corresponding list should be set to \code{NULL}.  If there is no prior domain knowledge then \code{constraints} should be set to 'code{NULL} (this is the default setting). An example is provided below.
 }
@@ -29,9 +29,11 @@ a \code{NULL} value is invisibly returned.
 
 \references{
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_learn_structure} and \code{h_domain_set_significance_level}.
+
+P. Spirtes, C. Glymour, and R. Scheines. Causation, Prediction, and Search. Adaptive Computation and Machine Learning. MIT Press, Cambridge, Massachusetts, second edition, 2000.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \seealso{
 \code{\link{set.cases}}.

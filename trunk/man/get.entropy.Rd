@@ -29,7 +29,7 @@ The computations are done with respect to the (joint) distribution computed by t
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_entropy} and \code{h_node_get_mutual_information}.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+\author{Kjell Konis \email{kjell.konis@me.com}}
 
 \examples{
 demo("asia", echo = FALSE)
