@@ -4,9 +4,9 @@ print.RHuginDomain <- function(x, ...)
   edge.list <- get.edges(x)
 
   if(length(nodes) > 10) {
-    cat("  An RHugin domain : there are", length(nodes),
+    cat("  A Hugin domain: there are", length(nodes),
         "nodes and", sum(sapply(edge.list, function(u) length(u$edges))),
-        "edges.\n\n")
+        "edges\n\n")
   }
 
   else {

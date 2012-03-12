@@ -1,7 +1,7 @@
 print.summary.RHuginDomain <- function(x, ...)
 {
   if(!is.null(domain <- x$domain)) {
-    cat("An RHugin domain:\n")
+    cat("A Hugin domain:\n")
 
     if(domain[["triangulated"]])
       cat("  Triangulated: the domain is triangulated\n", sep = "")
