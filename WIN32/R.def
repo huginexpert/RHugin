@@ -209,6 +209,7 @@ R_InitInPStream
 R_InitOutPStream
 R_InitSrcRefState
 R_Interactive
+R_IoBufferReadOffset
 R_IsNA
 R_IsNaN
 R_IsNamespaceEnv
@@ -916,6 +917,12 @@ User_norm_fun
 User_unif_init
 VECTOR_ELT
 VECTOR_PTR
+_pcre_jit_compile
+_pcre_jit_exec
+_pcre_jit_free
+_pcre_jit_get_size
+_pcre_ucp_typerange
+_pcre_utf8_char_sizes
 balanc_
 balbak_
 bitwiseAnd
@@ -1006,6 +1013,10 @@ optif9
 optline
 optopenfile
 optread
+pcre_assign_jit_stack
+pcre_free_study
+pcre_jit_stack_alloc
+pcre_jit_stack_free
 pnbinom_mu
 pow
 printLogicalVector
