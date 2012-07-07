@@ -23,7 +23,7 @@ set.table <- function(domain, node, data,
 
   if(class == "numeric") {
     if(kind == "discrete" || (type %in% c("experience", "fading"))) {
-      .Call(RHugin_table_set_data, table.ptr, table)
+      .Call(RHugin_table_set_data, table.ptr, data)
       .Call(RHugin_node_touch_table, node.ptr)
       return(invisible())
     }
