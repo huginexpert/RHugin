@@ -1,3 +1,9 @@
+propagate <- function(object, ...) 
+{
+  UseMethod("propagate")
+}
+
+
 propagate.RHuginDomain <- function(object, equilibrium = c("sum", "max"),
                                    mode = c("normal", "fast"), ...)
 {

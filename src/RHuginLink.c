@@ -1677,7 +1677,8 @@ SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalues)
     else
       value = (h_double_t) sv[i];
 
-    status = h_node_set_state_value(node, (size_t) INTEGER(Ss)[i], value);
+    status = h_node_set_state_value(node, (size_t) s[i], value);
+
     if((h_error_t) status != h_error_none) {
       UNPROTECT(2);
       RHugin_handle_error_code((h_error_t) status);
@@ -3866,7 +3867,6 @@ SEXP RHugin_node_case_is_set(SEXP Snode, SEXP Scase_indices)
 SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_indices, SEXP Scase_counts)
 {
   h_status_t status = 0;
-  h_error_t error_code = h_error_none;
   double *case_counts = NULL;
   int i = 0, *case_indices = NULL, n = LENGTH(Scase_indices);
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
@@ -3881,10 +3881,10 @@ SEXP RHugin_domain_set_case_count(SEXP Sdomain, SEXP Scase_indices, SEXP Scase_c
 
   for(i = 0; i < n; i++) {
     status = h_domain_set_case_count(domain, (size_t) case_indices[i], (h_number_t) case_counts[i]);
-    error_code = h_error_code();
-    if(error_code != h_error_none) {
+
+    if(status != 0) {
       UNPROTECT(2);
-      RHugin_handle_error_code(error_code);
+      RHugin_handle_error_code((h_error_t) status);
     }
   }
 

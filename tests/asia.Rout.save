@@ -1,6 +1,6 @@
 
-R version 2.13.0 (2011-04-13)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-apple-darwin9.8.0/i386 (32-bit)
 
@@ -17,29 +17,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library(RHugin, lib.loc = "../")
-Loading required package: gRbase
-Loading required package: MASS
 Loading required package: graph
-Loading required package: RBGL
-Loading required package: igraph
-
-Attaching package: 'igraph'
-
-The following object(s) are masked from 'package:RBGL':
-
-    transitivity
-
-The following object(s) are masked from 'package:graph':
-
-    degree
-
-
-Attaching package: 'RHugin'
-
-The following object(s) are masked from 'package:igraph':
-
-    get.edges
-
 > demo("asia", echo = FALSE)
 > 
 > compile(asia)
@@ -76,3 +54,6 @@ yes  no
 > 
 > 
 > 
+> proc.time()
+   user  system elapsed 
+  0.729   0.037   0.749 

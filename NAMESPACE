@@ -1,4 +1,3 @@
-importFrom(gRbase, compile, propagate, triangulate)
 importFrom(stats, simulate)
 
 export(
@@ -7,6 +6,7 @@ export(
   "add.node",
   "as.graph.RHuginDomain",
   "clone.node",
+  "compile",
   "compile.RHuginDomain",
   "compress",
   "delete.edge",
@@ -39,6 +39,7 @@ export(
   "plot.RHuginDomain",
   "print.RHuginDomain",
   "print.summary.RHuginDomain",
+  "propagate",
   "propagate.RHuginDomain",
   "read.cases",
   "read.rhd",
@@ -56,6 +57,7 @@ export(
   "simulate.RHuginDomain",
   "summary.RHuginDomain",
   "switch.parent",
+  "triangulate",
   "triangulate.RHuginDomain",
   "uncompile",
   "write.cases",

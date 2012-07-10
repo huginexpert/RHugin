@@ -1,3 +1,9 @@
+triangulate <- function(object, ...)
+{
+  UseMethod("triangulate")
+}
+
+
 triangulate.RHuginDomain <- function(object, method = "best.greedy", order,
                                      max.separators = 100000, ...)
 {

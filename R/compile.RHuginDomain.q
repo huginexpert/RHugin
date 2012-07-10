@@ -1,3 +1,9 @@
+compile <- function(object, ...) 
+{
+  UseMethod("compile")
+}
+
+
 compile.RHuginDomain <- function(object, save = FALSE, approximate = NULL, ...)
 {
   RHugin.check.domain(object, "compile")

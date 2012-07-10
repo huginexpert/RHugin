@@ -1,4 +1,5 @@
 \name{triangulate.RHuginDomain}
+\alias{triangulate}
 \alias{triangulate.RHuginDomain}
 
 \title{Triangulate}
@@ -8,6 +9,7 @@ Triangulate a domain.
 }
 
 \usage{
+triangulate(object, ...)
 \method{triangulate}{RHuginDomain}(object, method = "best.greedy", order, max.separators = 100000, ...)
 }
 
