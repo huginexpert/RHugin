@@ -4,7 +4,7 @@
 #include "hugin.h"
 
 
-#ifdef WIN32
+#ifdef WIN32 /* have to have this block on WIN64 too */
   #define DLLEXPORT __declspec(dllexport)
 #else
   #define DLLEXPORT  
