@@ -1,8 +1,8 @@
 #include "RHugin.h"
 #include "RHuginLink.h"
 
-#ifndef WIN32
-  #include "pthread.h"
+#ifndef WIN32 /* have to skip this block on WIN64 too */
+  #include <pthread.h>
 #endif
 
 /* Global variables defined in RHugin.c */
@@ -110,8 +110,9 @@ SEXP RHugin_domain_set_concurrency_level(SEXP Sdomain, SEXP Slevel)
 
   RHugin_handle_status_code(h_domain_set_concurrency_level(domain, level));
 
-#ifndef WIN32
-  pthread_setconcurrency((int) level);
+#ifndef WIN32 /* have to skip this block on WIN64 too */
+  if(pthread_setconcurrency((int) level) != 0)
+    error("pthread_setconcurrency returned a nonzero value");
 #endif
   
   return R_NilValue;
