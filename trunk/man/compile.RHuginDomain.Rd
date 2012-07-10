@@ -1,4 +1,5 @@
 \name{compile.RHuginDomain}
+\alias{compile}
 \alias{compile.RHuginDomain}
 
 \title{Compile an RHugin Domain}
@@ -8,6 +9,7 @@ Compile an RHugin domain using the default triangulation method (unless the doma
 }
 
 \usage{
+compile(object, ...)
 \method{compile}{RHuginDomain}(object, save = FALSE, approximate = NULL, ...)
 }
 

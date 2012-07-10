@@ -68,7 +68,7 @@
 
   dll <- library.dynam(pkgname, package = pkgname, lib.loc = libname)
   dotCallRoutines <- names(getDLLRegisteredRoutines(dll)[[".Call"]])
-  RHuginPkgEnv <- get("env", env = parent.frame())
+  RHuginPkgEnv <- get("env", envir = parent.frame())
 
   for(routine in dotCallRoutines)
     assign(routine, getNativeSymbolInfo(routine, dll), envir = RHuginPkgEnv)
