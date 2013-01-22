@@ -29,6 +29,7 @@
 		0EA791CF0DF17F15007CDD16 /* print.summary.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = print.summary.RHuginDomain.q; path = R/print.summary.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0EB7FDBC1129E96700FFC778 /* get.junction.tree.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.junction.tree.q; path = R/get.junction.tree.q; sourceTree = SOURCE_ROOT; };
 		0EB7FDD31129EF9E00FFC778 /* get.junction.tree.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.junction.tree.Rd; path = man/get.junction.tree.Rd; sourceTree = SOURCE_ROOT; };
+		0EC0C02816AF5807004A7926 /* .Rbuildignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .Rbuildignore; sourceTree = "<group>"; };
 		0EC2510410AAF5B80092BC73 /* adapt.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.Rd; path = man/adapt.Rd; sourceTree = SOURCE_ROOT; };
 		0EC2510510AAF5B80092BC73 /* delete.table.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = delete.table.Rd; path = man/delete.table.Rd; sourceTree = SOURCE_ROOT; };
 		0EDBA584128F129F00C07525 /* example.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example.Rd; path = man/example.Rd; sourceTree = SOURCE_ROOT; };
@@ -196,6 +197,7 @@
 			children = (
 				DAEFA1F70DE30880002B126B /* DESCRIPTION */,
 				DA71F6C01406688C007CB3AB /* NAMESPACE */,
+				0EC0C02816AF5807004A7926 /* .Rbuildignore */,
 				DAEFA1A40DE307D8002B126B /* R */,
 				DAB14A88112308BD00FB0A16 /* data */,
 				DA5E09C30E711F1B0014FAFE /* demo */,
