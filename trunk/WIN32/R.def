@@ -2,6 +2,8 @@ EXPORTS
 ATTRIB
 AllDevicesKilled
 BODY
+BinCode
+BinCount
 Brent_fmin
 CAAR
 CAD4R
@@ -21,10 +23,12 @@ ENCLOS
 ENVFLAGS
 FORMALS
 FRAME
+FindIntervVec
 FixupProb
 GECap
 GECircle
 GEExpressionHeight
+GEExpressionMetric
 GEExpressionWidth
 GELine
 GEMathText
@@ -39,6 +43,7 @@ GERaster
 GERect
 GESetClip
 GEStrHeight
+GEStrMetric
 GEStrWidth
 GESymbol
 GEText
@@ -187,6 +192,8 @@ R_GE_setVFontRoutines
 R_GE_str2col
 R_GUIType
 R_GetCCallable
+R_GetCurrentSrcref
+R_GetSrcFilename
 R_GetTraceback
 R_GetVarLocMISSING
 R_GetVarLocSymbol
@@ -278,6 +285,7 @@ R_SaveGlobalEnv
 R_SaveGlobalEnvToFile
 R_SeedsSymbol
 R_Serialize
+R_SessionContext
 R_SetErrmessage
 R_SetErrorHook
 R_SetExternalPtrAddr
@@ -294,6 +302,7 @@ R_Slave
 R_SourceSymbol
 R_Srcref
 R_Suicide
+R_Tabulate
 R_TempDir
 R_Toplevel
 R_ToplevelContext
@@ -313,6 +322,7 @@ R_bcDecode
 R_bcEncode
 R_cairoCdynload
 R_check_class_and_super
+R_check_class_etc
 R_chk_calloc
 R_chk_free
 R_chk_realloc
@@ -346,7 +356,6 @@ R_getTaskCallbackNames
 R_get_arith_function
 R_get_primname
 R_get_standardGeneric_ptr
-R_getbcprofcounts
 R_gl_tab_set
 R_gzclose
 R_gzgets
@@ -364,6 +373,7 @@ R_lsInternal
 R_max_col
 R_max_num_math_threads
 R_num_math_threads
+R_nwarnings
 R_popen
 R_pow
 R_pow_di
@@ -390,8 +400,6 @@ R_set_quick_method_check
 R_set_standardGeneric_ptr
 R_setupHistory
 R_shortRowNames
-R_startbcprof
-R_stopbcprof
 R_strtod
 R_strtod4
 R_subassign3_dflt
@@ -550,6 +558,7 @@ Rf_col2name
 Rf_conformable
 Rf_cons
 Rf_copyGPar
+Rf_copyListMatrix
 Rf_copyMatrix
 Rf_copyMostAttrib
 Rf_copyVector
@@ -921,8 +930,10 @@ _pcre_jit_compile
 _pcre_jit_exec
 _pcre_jit_free
 _pcre_jit_get_size
+_pcre_jit_get_target
+_pcre_ord2utf
 _pcre_ucp_typerange
-_pcre_utf8_char_sizes
+_pcre_valid_utf
 balanc_
 balbak_
 bitwiseAnd
@@ -945,7 +956,9 @@ dcar
 dcdr
 dchdc_
 dnbinom_mu
+do_mkjunction
 do_set_prim_method
+do_traceback
 dpbfa_
 dpbsl_
 dpoco_
@@ -999,6 +1012,7 @@ libintl_dngettext
 libintl_gettext
 locale2charset
 localeCP
+log1pexp
 machar
 match5
 mbcsToUcs2

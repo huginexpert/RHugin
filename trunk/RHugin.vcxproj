@@ -65,7 +65,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.6\HDE7.6C\Include;C:\Program Files\R\R-2.14.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.7\HDE7.7C\Include;C:\Program Files\R\R-2.15.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -83,10 +83,10 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>hugin2-7.6-vc10.lib;R.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hugin2-7.7-vc10.lib;R.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\RHugin___Win32_Release/RHugin.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>WIN32;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.6\HDE7.6C\Lib\VC10\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>WIN32;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.7\HDE7.7C\Lib\VC10\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\RHugin___Win32_Release/RHugin.pdb</ProgramDatabaseFile>
       <ImportLibrary>.\RHugin___Win32_Release/RHugin.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
@@ -108,7 +108,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.6\HDE7.6C\Include;C:\Program Files\R\R-2.14.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.7\HDE7.7C\Include;C:\Program Files\R\R-2.15.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;H_DOUBLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -127,10 +127,10 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>hugin2-7.6-vc10d.lib;R.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hugin2-7.7-vc10d.lib;R.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\RHugin___Win32_Debug/RHugin.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>WIN32;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.6\HDE7.6C\Lib\VC10\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>WIN32;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.7\HDE7.7C\Lib\VC10\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\RHugin___Win32_Debug/RHugin.pdb</ProgramDatabaseFile>
       <ImportLibrary>.\RHugin___Win32_Debug/RHugin.lib</ImportLibrary>
