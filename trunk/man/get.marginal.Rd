@@ -25,7 +25,7 @@ a list with elements \code{table} and possibly \code{mean} and \code{cov}.  The 
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_marginal}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \keyword{programming}
 

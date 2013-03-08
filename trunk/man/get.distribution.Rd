@@ -25,7 +25,7 @@ a list with elements \code{table}, \code{mean} and \code{cov}.  The \code{table}
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_distribution}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \keyword{programming}
 

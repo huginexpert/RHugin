@@ -29,7 +29,7 @@ a \code{NULL} value is invisibly returned.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_learn_tables}, \code{h_domain_set_log_likelihood_tolerance} and \code{h_domain_set_max_number_of_em_iterations}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \seealso{
 For adding cases: \code{\link{set.cases}}, and for adding experience tables: \code{\link{get.table}}.

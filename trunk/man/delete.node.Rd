@@ -28,7 +28,7 @@ a \code{NULL} value is invisibly returned.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_delete}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
 # Create an RHugin domain

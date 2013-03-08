@@ -33,7 +33,7 @@ HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api
 P. Spirtes, C. Glymour, and R. Scheines. Causation, Prediction, and Search. Adaptive Computation and Machine Learning. MIT Press, Cambridge, Massachusetts, second edition, 2000.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \seealso{
 \code{\link{set.cases}}.

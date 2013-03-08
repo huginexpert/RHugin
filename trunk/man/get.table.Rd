@@ -31,7 +31,7 @@ Depending on the value of the \code{class} argument either (1, default) a data f
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_table}, \code{h_node_get_experience_table}, \code{h_node_get_fading_table}, \code{h_table_get_data}, \code{h_node_get_alpha}, \code{h_node_get_beta} and \code{h_node_get_gamma}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \seealso{
   \code{\link{delete.table}}.

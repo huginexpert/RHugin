@@ -39,10 +39,10 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
     }
 
     gx <- as.graph.RHuginDomain(x)
+    gx <- layoutGraph(gx, layoutFun = layoutRHugin, domain = x)
     nodeRenderInfo(gx) <- list(fill = fill, shape = shape, lwd = 2)
     edgeRenderInfo(gx) <- list(lwd = 2)
     graphRenderInfo(gx) <- list(ratio = 1.0)
-    gx <- layoutGraph(gx, layoutFun = layoutRHugin, domain = x)
     renderGraph(gx)
   }
 

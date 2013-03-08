@@ -29,7 +29,7 @@ a list with one element for each junction tree in the triangulated domain.  Each
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_first_junction_tree}, \code{h_jt_get_next}, \code{h_jt_get_root}, \code{h_jt_get_cliques}, \code{h_clique_get_members} and \code{h_clique_get_neighbors}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
 demo("apple", echo = FALSE)

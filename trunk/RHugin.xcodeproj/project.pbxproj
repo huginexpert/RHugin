@@ -152,6 +152,256 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		0E01F29216E273AE0064BE4A /* 6 Compilation */ = {
+			isa = PBXGroup;
+			children = (
+				0E1A4FE20F1299E100128DF6 /* compile.RHuginDomain.q */,
+				DAEF44591129545600E2B7B2 /* triangulate.RHuginDomain.q */,
+				DA8FAFFE11205AA80013CA86 /* uncompile.q */,
+				0EA522EF111DF81D00602ED8 /* compress.q */,
+				0EA522F0111DF81D00602ED8 /* get.approximation.constant.q */,
+			);
+			name = "6 Compilation";
+			sourceTree = "<group>";
+		};
+		0E01F29316E273D80064BE4A /* 6 Compilation */ = {
+			isa = PBXGroup;
+			children = (
+				0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */,
+				DAEF445A1129566000E2B7B2 /* triangulate.RHuginDomain.Rd */,
+				DA8FAFFF11205B8C0013CA86 /* uncompile.Rd */,
+				DA8FAFC911204A0B0013CA86 /* compress.Rd */,
+				DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */,
+			);
+			name = "6 Compilation";
+			sourceTree = "<group>";
+		};
+		0E01F29516E274A30064BE4A /* 1 General */ = {
+			isa = PBXGroup;
+			children = (
+				DAC2E02D112AA7E1009B99B6 /* RHugin.control.q */,
+			);
+			name = "1 General";
+			sourceTree = "<group>";
+		};
+		0E01F29C16E27E8E0064BE4A /* 4 Tables */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFA1BA0DE3081B002B126B /* get.table.q */,
+				DAEFA1C90DE3081B002B126B /* set.table.q */,
+				0E84068110A8BBBF00E3E8D6 /* delete.table.q */,
+			);
+			name = "4 Tables";
+			sourceTree = "<group>";
+		};
+		0E01F29D16E281B60064BE4A /* 2 Node and domains */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFA1BB0DE3081B002B126B /* hugin.domain.q */,
+				DAEFA1A90DE3081A002B126B /* add.node.q */,
+				DAEFA1AA0DE3081A002B126B /* clone.node.q */,
+				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
+				DAEFA1C80DE3081B002B126B /* set.states.q */,
+				DAEFA1B80DE3081B002B126B /* get.states.q */,
+				DAEFA1A80DE3081A002B126B /* add.edge.q */,
+				DAEFA1AD0DE3081A002B126B /* delete.edge.q */,
+				DAEFA1C30DE3081B002B126B /* reverse.edge.q */,
+				DAEFA1CB0DE3081B002B126B /* switch.parent.q */,
+				DAEFA1B60DE3081B002B126B /* get.nodes.q */,
+				DAEFA1B50DE3081B002B126B /* get.edges.q */,
+			);
+			name = "2 Node and domains";
+			sourceTree = "<group>";
+		};
+		0E01F29E16E282380064BE4A /* 5 Generating Tables */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "5 Generating Tables";
+			sourceTree = "<group>";
+		};
+		0E01F29F16E282580064BE4A /* 7 Cliques and junction trees */ = {
+			isa = PBXGroup;
+			children = (
+				0EB7FDBC1129E96700FFC778 /* get.junction.tree.q */,
+			);
+			name = "7 Cliques and junction trees";
+			sourceTree = "<group>";
+		};
+		0E01F2A016E2826C0064BE4A /* 8 Evidence and beliefs */ = {
+			isa = PBXGroup;
+			children = (
+				DAD83CD30E1A3764005C9495 /* set.finding.q */,
+				DAEFA1C20DE3081B002B126B /* retract.q */,
+				DAE0997811173B0C007BA905 /* get.dconnected.nodes.q */,
+				DAE0997911173B0C007BA905 /* get.dseparated.nodes.q */,
+				DAEFA1B30DE3081B002B126B /* get.belief.q */,
+				0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */,
+				0EECF5C810F8A70100247A90 /* get.distribution.q */,
+				0E2569B60FDA93BF008C9DED /* get.utility.q */,
+				DAD83CD40E1A4044005C9495 /* get.finding.q */,
+			);
+			name = "8 Evidence and beliefs";
+			sourceTree = "<group>";
+		};
+		0E01F2A116E282810064BE4A /* 9 Inference */ = {
+			isa = PBXGroup;
+			children = (
+				0E1A4FE30F1299E100128DF6 /* propagate.RHuginDomain.q */,
+				DA08C9321123104A00463CE1 /* get.conflict.q */,
+				DAEFA1B70DE3081B002B126B /* get.normalization.constant.q */,
+				DAEFA1C10DE3081B002B126B /* reset.q */,
+				DAEFA1BC0DE3081B002B126B /* initialize.domain.q */,
+				DAEFA1CA0DE3081B002B126B /* simulate.RHuginDomain.q */,
+				0EE02C580EC36B4700F321DA /* get.entropy.q */,
+				DA4C81C40EB2054F00834BEA /* get.sensitivity.q */,
+				DA858FA613B0CC7900D7E7B1 /* map.configurations.q */,
+			);
+			name = "9 Inference";
+			sourceTree = "<group>";
+		};
+		0E01F2A216E2829C0064BE4A /* 10 Sequential Updating */ = {
+			isa = PBXGroup;
+			children = (
+				0E84068010A8BBBF00E3E8D6 /* adapt.q */,
+			);
+			name = "10 Sequential Updating";
+			sourceTree = "<group>";
+		};
+		0E01F2A316E282C40064BE4A /* 11 Learning */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFA1C60DE3081B002B126B /* set.cases.q */,
+				DAEFA1B40DE3081B002B126B /* get.cases.q */,
+				DAFA674C1121930400E2E278 /* score.q */,
+				DAFA674D1121983A00E2E278 /* read.cases.q */,
+				DAFA674E1121983A00E2E278 /* write.cases.q */,
+				0E49724B1121FD79003DD117 /* learn.structure.q */,
+				DAB14A431122AD4F00FB0A16 /* learn.cpt.q */,
+			);
+			name = "11 Learning";
+			sourceTree = "<group>";
+		};
+		0E01F2A516E282E80064BE4A /* 13 Display information */ = {
+			isa = PBXGroup;
+			children = (
+				DADF9FBB0F4306B300946D22 /* layoutRHugin.q */,
+			);
+			name = "13 Display information";
+			sourceTree = "<group>";
+		};
+		0E01F2A616E290EE0064BE4A /* 1 General */ = {
+			isa = PBXGroup;
+			children = (
+				0E03CE1A112B391D00A8E0B1 /* RHugin.control.Rd */,
+			);
+			name = "1 General";
+			sourceTree = "<group>";
+		};
+		0E01F2A716E290FA0064BE4A /* 13 Display information */ = {
+			isa = PBXGroup;
+			children = (
+				DADF9FC50F4308B900946D22 /* layoutRHugin.Rd */,
+			);
+			name = "13 Display information";
+			sourceTree = "<group>";
+		};
+		0E01F2A816E291030064BE4A /* 11 Learning */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFA1E70DE3083B002B126B /* set.cases.Rd */,
+				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,
+				DAFA674F1121BA0E00E2E278 /* score.Rd */,
+				DAFA67501121BA0E00E2E278 /* write.cases.Rd */,
+				DAB14A471122C9BB00FB0A16 /* learn.structure.Rd */,
+				DAB14A461122C9BB00FB0A16 /* learn.cpt.Rd */,
+			);
+			name = "11 Learning";
+			sourceTree = "<group>";
+		};
+		0E01F2A916E2910E0064BE4A /* 10 Sequential Learning */ = {
+			isa = PBXGroup;
+			children = (
+				0EC2510410AAF5B80092BC73 /* adapt.Rd */,
+			);
+			name = "10 Sequential Learning";
+			sourceTree = "<group>";
+		};
+		0E01F2AA16E2922B0064BE4A /* 9 Inference */ = {
+			isa = PBXGroup;
+			children = (
+				0E1A4FE90F129ADE00128DF6 /* propagate.RHuginDomain.Rd */,
+				DA08C933112312D900463CE1 /* get.conflict.Rd */,
+				DAEFA1DB0DE3083B002B126B /* get.normalization.constant.Rd */,
+				DAEFA1E40DE3083B002B126B /* reset.Rd */,
+				DAEFA1E10DE3083B002B126B /* initialize.domain.Rd */,
+				DAEFA1EB0DE3083B002B126B /* simulate.RHuginDomain.Rd */,
+				0EE02C630EC38E2700F321DA /* get.entropy.Rd */,
+				0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */,
+				DA858FCD13B0D66700D7E7B1 /* map.configurations.Rd */,
+			);
+			name = "9 Inference";
+			sourceTree = "<group>";
+		};
+		0E01F2AB16E292320064BE4A /* 8 Evidence and beliefs */ = {
+			isa = PBXGroup;
+			children = (
+				DAD83CF00E1A52EE005C9495 /* set.finding.Rd */,
+				DAEFA1E50DE3083B002B126B /* retract.Rd */,
+				DA12B61511185E8200125A4C /* get.dconnected.nodes.Rd */,
+				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
+				DA12B61711185E8200125A4C /* get.marginal.Rd */,
+				DA12B61611185E8200125A4C /* get.distribution.Rd */,
+				0E25697A0FDA92D7008C9DED /* get.utility.Rd */,
+				DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */,
+			);
+			name = "8 Evidence and beliefs";
+			sourceTree = "<group>";
+		};
+		0E01F2AC16E2923E0064BE4A /* 7 Cliques and junction trees */ = {
+			isa = PBXGroup;
+			children = (
+				0EB7FDD31129EF9E00FFC778 /* get.junction.tree.Rd */,
+			);
+			name = "7 Cliques and junction trees";
+			sourceTree = "<group>";
+		};
+		0E01F2AD16E2925D0064BE4A /* 5 Generating tables */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "5 Generating tables";
+			sourceTree = "<group>";
+		};
+		0E01F2AE16E292880064BE4A /* 4 Tables */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFA1DE0DE3083B002B126B /* get.table.Rd */,
+				DAEFA1EA0DE3083B002B126B /* set.table.Rd */,
+				0EC2510510AAF5B80092BC73 /* delete.table.Rd */,
+			);
+			name = "4 Tables";
+			sourceTree = "<group>";
+		};
+		0E01F2AF16E292930064BE4A /* 2 Nodes and domains */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFA1E00DE3083B002B126B /* hugin.domain.Rd */,
+				DAEFA1CE0DE3083A002B126B /* add.node.Rd */,
+				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
+				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
+				DAEFA1E90DE3083B002B126B /* set.states.Rd */,
+				DAEFA1DC0DE3083B002B126B /* get.states.Rd */,
+				DAEFA1CD0DE3083A002B126B /* add.edge.Rd */,
+				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
+				DAEFA1E60DE3083B002B126B /* reverse.edge.Rd */,
+				DAEFA1EC0DE3083B002B126B /* switch.parent.Rd */,
+				DAEFA1DA0DE3083B002B126B /* get.nodes.Rd */,
+				DAEFA1D90DE3083B002B126B /* get.edges.Rd */,
+			);
+			name = "2 Nodes and domains";
+			sourceTree = "<group>";
+		};
 		DA4709910FD82B69001CB5BF /* tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,65 +460,27 @@
 		DAEFA1A40DE307D8002B126B /* R */ = {
 			isa = PBXGroup;
 			children = (
-				0E84068010A8BBBF00E3E8D6 /* adapt.q */,
-				DAEFA1A80DE3081A002B126B /* add.edge.q */,
-				DAEFA1A90DE3081A002B126B /* add.node.q */,
+				DAEFA1C40DE3081B002B126B /* RHugin.check.args.q */,
+				DAC7B05D11414722009AC6CC /* RHugin.check.domain.q */,
 				DADF9F970F42DA9000946D22 /* as.graph.RHuginDomain.q */,
-				DAEFA1AA0DE3081A002B126B /* clone.node.q */,
-				0E1A4FE20F1299E100128DF6 /* compile.RHuginDomain.q */,
-				0EA522EF111DF81D00602ED8 /* compress.q */,
-				DAEFA1AD0DE3081A002B126B /* delete.edge.q */,
-				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
-				0E84068110A8BBBF00E3E8D6 /* delete.table.q */,
-				0EA522F0111DF81D00602ED8 /* get.approximation.constant.q */,
-				DAEFA1B30DE3081B002B126B /* get.belief.q */,
-				DAEFA1B40DE3081B002B126B /* get.cases.q */,
-				DA08C9321123104A00463CE1 /* get.conflict.q */,
-				DAE0997811173B0C007BA905 /* get.dconnected.nodes.q */,
-				0EECF5C810F8A70100247A90 /* get.distribution.q */,
-				DAE0997911173B0C007BA905 /* get.dseparated.nodes.q */,
-				DAEFA1B50DE3081B002B126B /* get.edges.q */,
-				0EE02C580EC36B4700F321DA /* get.entropy.q */,
-				DAD83CD40E1A4044005C9495 /* get.finding.q */,
-				0EB7FDBC1129E96700FFC778 /* get.junction.tree.q */,
-				0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */,
-				DAEFA1B60DE3081B002B126B /* get.nodes.q */,
-				DAEFA1B70DE3081B002B126B /* get.normalization.constant.q */,
-				DA4C81C40EB2054F00834BEA /* get.sensitivity.q */,
-				DAEFA1B80DE3081B002B126B /* get.states.q */,
-				DAEFA1BA0DE3081B002B126B /* get.table.q */,
-				0E2569B60FDA93BF008C9DED /* get.utility.q */,
-				DAEFA1BB0DE3081B002B126B /* hugin.domain.q */,
-				DAEFA1BC0DE3081B002B126B /* initialize.domain.q */,
-				DADF9FBB0F4306B300946D22 /* layoutRHugin.q */,
-				DAB14A431122AD4F00FB0A16 /* learn.cpt.q */,
-				0E49724B1121FD79003DD117 /* learn.structure.q */,
 				DAEFA1BD0DE3081B002B126B /* library.q */,
-				DA858FA613B0CC7900D7E7B1 /* map.configurations.q */,
 				0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */,
 				DAEFA1BE0DE3081B002B126B /* print.RHuginDomain.q */,
 				0EA791CF0DF17F15007CDD16 /* print.summary.RHuginDomain.q */,
-				0E1A4FE30F1299E100128DF6 /* propagate.RHuginDomain.q */,
-				DAFA674D1121983A00E2E278 /* read.cases.q */,
 				DAEFA1C00DE3081B002B126B /* read.rhd.q */,
-				DAEFA1C10DE3081B002B126B /* reset.q */,
-				DAEFA1C20DE3081B002B126B /* retract.q */,
-				DAEFA1C30DE3081B002B126B /* reverse.edge.q */,
-				DAEFA1C40DE3081B002B126B /* RHugin.check.args.q */,
-				DAC7B05D11414722009AC6CC /* RHugin.check.domain.q */,
-				DAC2E02D112AA7E1009B99B6 /* RHugin.control.q */,
-				DAFA674C1121930400E2E278 /* score.q */,
-				DAEFA1C60DE3081B002B126B /* set.cases.q */,
-				DAD83CD30E1A3764005C9495 /* set.finding.q */,
-				DAEFA1C80DE3081B002B126B /* set.states.q */,
-				DAEFA1C90DE3081B002B126B /* set.table.q */,
-				DAEFA1CA0DE3081B002B126B /* simulate.RHuginDomain.q */,
-				DAEFA1CB0DE3081B002B126B /* switch.parent.q */,
 				0EA791AE0DF1755B007CDD16 /* summary.RHuginDomain.q */,
-				DAEF44591129545600E2B7B2 /* triangulate.RHuginDomain.q */,
-				DA8FAFFE11205AA80013CA86 /* uncompile.q */,
-				DAFA674E1121983A00E2E278 /* write.cases.q */,
 				DAEFA1CC0DE3081B002B126B /* write.rhd.q */,
+				0E01F29516E274A30064BE4A /* 1 General */,
+				0E01F29D16E281B60064BE4A /* 2 Node and domains */,
+				0E01F29C16E27E8E0064BE4A /* 4 Tables */,
+				0E01F29E16E282380064BE4A /* 5 Generating Tables */,
+				0E01F29216E273AE0064BE4A /* 6 Compilation */,
+				0E01F29F16E282580064BE4A /* 7 Cliques and junction trees */,
+				0E01F2A016E2826C0064BE4A /* 8 Evidence and beliefs */,
+				0E01F2A116E282810064BE4A /* 9 Inference */,
+				0E01F2A216E2829C0064BE4A /* 10 Sequential Updating */,
+				0E01F2A316E282C40064BE4A /* 11 Learning */,
+				0E01F2A516E282E80064BE4A /* 13 Display information */,
 			);
 			name = R;
 			sourceTree = "<group>";
@@ -276,62 +488,26 @@
 		DAEFA1A50DE307DF002B126B /* man */ = {
 			isa = PBXGroup;
 			children = (
-				0EC2510410AAF5B80092BC73 /* adapt.Rd */,
-				DAEFA1CD0DE3083A002B126B /* add.edge.Rd */,
-				DAEFA1CE0DE3083A002B126B /* add.node.Rd */,
-				DADF9F980F42DAAA00946D22 /* as.graph.RHuginDomain.Rd */,
-				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
-				0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */,
-				DA8FAFC911204A0B0013CA86 /* compress.Rd */,
-				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,
-				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
-				0EC2510510AAF5B80092BC73 /* delete.table.Rd */,
+				DAC7B05E114150B4009AC6CC /* RHugin.Rd */,
 				0EDBA584128F129F00C07525 /* example.Rd */,
-				DA8FAFCA11204A0B0013CA86 /* get.approximation.constant.Rd */,
-				DAEFA1D70DE3083A002B126B /* get.belief.Rd */,
-				DAEFA1D80DE3083A002B126B /* get.cases.Rd */,
-				DA08C933112312D900463CE1 /* get.conflict.Rd */,
-				DA12B61511185E8200125A4C /* get.dconnected.nodes.Rd */,
-				DA12B61611185E8200125A4C /* get.distribution.Rd */,
-				DAEFA1D90DE3083B002B126B /* get.edges.Rd */,
-				0EE02C630EC38E2700F321DA /* get.entropy.Rd */,
-				DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */,
-				0EB7FDD31129EF9E00FFC778 /* get.junction.tree.Rd */,
-				DA12B61711185E8200125A4C /* get.marginal.Rd */,
-				DAEFA1DA0DE3083B002B126B /* get.nodes.Rd */,
-				DAEFA1DB0DE3083B002B126B /* get.normalization.constant.Rd */,
-				0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */,
-				DAEFA1DC0DE3083B002B126B /* get.states.Rd */,
-				DAEFA1DE0DE3083B002B126B /* get.table.Rd */,
-				0E25697A0FDA92D7008C9DED /* get.utility.Rd */,
-				DAEFA1E00DE3083B002B126B /* hugin.domain.Rd */,
-				DAEFA1E10DE3083B002B126B /* initialize.domain.Rd */,
-				DADF9FC50F4308B900946D22 /* layoutRHugin.Rd */,
-				DAB14A461122C9BB00FB0A16 /* learn.cpt.Rd */,
-				DAB14A471122C9BB00FB0A16 /* learn.structure.Rd */,
-				DA858FCD13B0D66700D7E7B1 /* map.configurations.Rd */,
+				DAEFA1ED0DE3083B002B126B /* utilities.Rd */,
+				DADF9F980F42DAAA00946D22 /* as.graph.RHuginDomain.Rd */,
 				0E39E5850E6AF895008B7B91 /* plot.RHuginDomain.Rd */,
 				DAD83CF20E1A5620005C9495 /* print.RHuginDomain.Rd */,
 				DAD83CF30E1A5620005C9495 /* print.summary.RHuginDomain.Rd */,
-				0E1A4FE90F129ADE00128DF6 /* propagate.RHuginDomain.Rd */,
-				DAEFA1E40DE3083B002B126B /* reset.Rd */,
-				DAEFA1E50DE3083B002B126B /* retract.Rd */,
-				DAEFA1E60DE3083B002B126B /* reverse.edge.Rd */,
 				DAEFA1DF0DE3083B002B126B /* rhd.Rd */,
-				DAC7B05E114150B4009AC6CC /* RHugin.Rd */,
-				0E03CE1A112B391D00A8E0B1 /* RHugin.control.Rd */,
-				DAFA674F1121BA0E00E2E278 /* score.Rd */,
-				DAEFA1E70DE3083B002B126B /* set.cases.Rd */,
-				DAD83CF00E1A52EE005C9495 /* set.finding.Rd */,
-				DAEFA1E90DE3083B002B126B /* set.states.Rd */,
-				DAEFA1EA0DE3083B002B126B /* set.table.Rd */,
-				DAEFA1EB0DE3083B002B126B /* simulate.RHuginDomain.Rd */,
 				DAD83CF10E1A52EE005C9495 /* summary.RHuginDomain.Rd */,
-				DAEFA1EC0DE3083B002B126B /* switch.parent.Rd */,
-				DAEF445A1129566000E2B7B2 /* triangulate.RHuginDomain.Rd */,
-				DA8FAFFF11205B8C0013CA86 /* uncompile.Rd */,
-				DAEFA1ED0DE3083B002B126B /* utilities.Rd */,
-				DAFA67501121BA0E00E2E278 /* write.cases.Rd */,
+				0E01F2A616E290EE0064BE4A /* 1 General */,
+				0E01F2AF16E292930064BE4A /* 2 Nodes and domains */,
+				0E01F2AE16E292880064BE4A /* 4 Tables */,
+				0E01F2AD16E2925D0064BE4A /* 5 Generating tables */,
+				0E01F29316E273D80064BE4A /* 6 Compilation */,
+				0E01F2AC16E2923E0064BE4A /* 7 Cliques and junction trees */,
+				0E01F2AB16E292320064BE4A /* 8 Evidence and beliefs */,
+				0E01F2AA16E2922B0064BE4A /* 9 Inference */,
+				0E01F2A916E2910E0064BE4A /* 10 Sequential Learning */,
+				0E01F2A816E291030064BE4A /* 11 Learning */,
+				0E01F2A716E290FA0064BE4A /* 13 Display information */,
 			);
 			name = man;
 			sourceTree = "<group>";

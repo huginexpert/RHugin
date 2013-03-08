@@ -23,7 +23,7 @@ a character vector containing the names of the nodes in the RHugin domain.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_first_node}, \code{h_node_get_next} and \code{h_node_get_name}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
 # Create an RHugin domain

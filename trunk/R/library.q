@@ -4,15 +4,15 @@
 
     path <- Sys.getenv("PATH")
 
-    if(length(grep("HDE7.6C", path)) == 0) {
+    if(length(grep("HDE7.7C", path)) == 0) {
 
-      HuginVersions <- c("Hugin Researcher 7.6",
-                         "Hugin Lite 7.6")
+      HuginVersions <- c("Hugin Researcher 7.7",
+                         "Hugin Lite 7.7")
 
       HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
                             "Hugin Expert",
                              HuginVersions,
-                            "HDE7.6C\\Lib\\VC10\\Release\\hugin2-7.6-vc10.dll",
+                            "HDE7.7C\\Lib\\VC10\\Release\\hugin2-7.7-vc10.dll",
                              sep = "\\")
 
       if(length(HuginVersion <- which(file.exists(HuginDllPaths)))) {
@@ -22,7 +22,7 @@
         HuginPath <- paste(Sys.getenv("PROGRAMFILES"),
                           "Hugin Expert",
                            HuginVersion,
-                          "HDE7.6C\\Lib\\VC10\\Release",
+                          "HDE7.7C\\Lib\\VC10\\Release",
                            sep = "\\")
 
         Sys.setenv(PATH = paste(path, HuginPath, sep= ";"))
