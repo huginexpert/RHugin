@@ -1,6 +1,6 @@
 /*******************************************************************************
  * The Hugin API 
- *******************************************************************************/
+ ******************************************************************************/
 
 /* 1.6 Errors */
 
@@ -222,8 +222,11 @@ DLLEXPORT SEXP RHugin_domain_is_compiled(SEXP Sdomain);
 
 /* 6.3 Triangulation */
 
+DLLEXPORT SEXP RHugin_domain_set_initial_triangulation(SEXP Sdomain, SEXP Sorder);
 DLLEXPORT SEXP RHugin_domain_set_max_number_of_separators(SEXP Sdomain, SEXP Scount);
 DLLEXPORT SEXP RHugin_domain_get_max_number_of_separators(SEXP Sdomain);
+DLLEXPORT SEXP RHugin_domain_set_max_separator_size(SEXP Sdomain, SEXP Ssize);
+DLLEXPORT SEXP RHugin_domain_get_max_separator_size(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod);
 DLLEXPORT SEXP RHugin_domain_triangulate_with_order(SEXP Sdomain, SEXP Sorder);
 DLLEXPORT SEXP RHugin_domain_is_triangulated(SEXP Sdomain);
@@ -308,7 +311,7 @@ DLLEXPORT SEXP RHugin_domain_get_expected_utility(SEXP Sdomain);
 
 /* 8.7 Computing function values */
 
-// SEXP RHugin_node_get_value(SEXP Snode);
+DLLEXPORT SEXP RHugin_node_get_value(SEXP Snode);
 
 
 /* 8.8 Examining Evidence */

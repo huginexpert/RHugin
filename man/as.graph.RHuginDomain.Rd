@@ -20,7 +20,7 @@ as.graph.RHuginDomain(x, ...)
   a representation of \code{x} as a graph (with class \sQuote{graphNEL}).
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \keyword{programming}
 

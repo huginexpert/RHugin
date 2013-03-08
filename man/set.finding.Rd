@@ -26,7 +26,7 @@ a \code{NULL} value is invisibly returned.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_select_state}, \code{h_node_enter_finding}, \code{h_domain_enter_case} and \code{h_node_enter_value}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \seealso{
   \code{\link{set.cases}}.

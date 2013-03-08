@@ -23,7 +23,7 @@ a single numeric value providing a measure of the compression achieved. A value 
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_compress}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
 demo("apple", echo = FALSE)

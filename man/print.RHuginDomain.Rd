@@ -20,7 +20,7 @@
   \code{x} is invisibly returned.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \keyword{methods}
 

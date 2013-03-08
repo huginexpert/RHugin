@@ -3,14 +3,16 @@ triangulate <- function(object, ...)
   UseMethod("triangulate")
 }
 
+TRIANGULATION.METHODS <- c("clique.size", "clique.weight", "fill.in.size",
+                           "fill.in.weight", "best.greedy", "total.weight")
+
+
 
 triangulate.RHuginDomain <- function(object, method = "best.greedy", order,
                                      max.separators = 100000, ...)
 {
   RHugin.check.domain(object, "triangulate")
-  methods <- c("clique.size", "clique.weight", "fill.in.size", "fill.in.weight",
-               "best.greedy", "total.weight")
-  method <- match.arg(method, choices = methods)
+  method <- match.arg(method, choices = TRIANGULATION.METHODS)
 
   if(.Call(RHugin_domain_is_triangulated, object))
     stop(deparse(substitute(object)), " is aleady triangulated")

@@ -31,7 +31,7 @@ write.rhd(domain, filename, type = c("hkb", "net"), password = NULL)
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_kb_load_domain}, \code{h_net_parse_domain}, \code{h_domain_save_as_kb} and \code{h_domain_save_as_net}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \seealso{
   The \code{\link{layoutRHugin}} function to automatically layout a network.

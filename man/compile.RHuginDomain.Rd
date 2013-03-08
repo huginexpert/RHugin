@@ -42,7 +42,7 @@ a \code{NULL} value is invisibly returned.
 HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_compile}, \code{h_domain_approximate} and \code{h_domain_save_to_memory}.
 }
 
-\author{Kjell Konis \email{kjell.konis@me.com}}
+\author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \seealso{
   \code{\link{initialize.domain}}, \code{\link{compress}}, \code{\link{get.approximation.constant}}.

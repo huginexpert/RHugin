@@ -73,7 +73,7 @@ void RHugin_handle_error_code(h_error_t error_code)
 
 void RHugin_handle_status_code(h_status_t status)
 {
-  if((h_error_t) status != h_error_none)
+  if(status != 0)
     error("\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
           (int) status,
           (char*) h_error_name((h_error_t) status),
@@ -424,8 +424,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_expected_utility", (DL_FUNC) RHugin_domain_get_expected_utility, 1},
 
     /* 8.7 Computing function values */
-    // SEXP RHugin_node_get_value(SEXP Snode);
-    
+    {"RHugin_node_get_value", (DL_FUNC) RHugin_node_get_value, 1},
+
     /* 8.8 Examining Evidence */
     {"RHugin_node_get_entered_finding", (DL_FUNC) RHugin_node_get_entered_finding, 2},
     {"RHugin_node_get_propagated_finding", (DL_FUNC) RHugin_node_get_propagated_finding, 2},
