@@ -94,9 +94,10 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
       if(category == "chance" && kind == "discrete")
         fading.table <- .Call(RHugin_node_has_fading_table, node.ptrs[node])
 
-
-      node.summary[[node]] <- list(category = category, kind = kind,
-                                   subtype = subtype, states = states,
+      node.summary[[node]] <- list(category = category,
+                                   kind = kind,
+                                   subtype = subtype,
+                                   states = states,
                                    evidence.is.entered = evidence.is.entered,
                                    likelihood.is.entered = likelihood.is.entered,
                                    evidence.is.propagated = evidence.is.propagated,

@@ -26,7 +26,7 @@ The computations are done with respect to the (joint) distribution computed by t
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_entropy} and \code{h_node_get_mutual_information}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_entropy} and \code{h_node_get_mutual_information}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

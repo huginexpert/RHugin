@@ -52,6 +52,7 @@ export(
   "score",
   "set.cases",
   "set.finding",
+  "set.logfile",
   "set.states",
   "set.table",
   "simulate.RHuginDomain",

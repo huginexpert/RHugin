@@ -1,15 +1,14 @@
 triangulate <- function(object, ...)
-{
   UseMethod("triangulate")
-}
+
 
 TRIANGULATION.METHODS <- c("clique.size", "clique.weight", "fill.in.size",
                            "fill.in.weight", "best.greedy", "total.weight")
 
 
-
 triangulate.RHuginDomain <- function(object, method = "best.greedy", order,
-                                     max.separators = 100000, ...)
+                                     start, max.separators = 0,
+                                     max.separator.size = 0, ...)
 {
   RHugin.check.domain(object, "triangulate")
   method <- match.arg(method, choices = TRIANGULATION.METHODS)
@@ -23,8 +22,15 @@ triangulate.RHuginDomain <- function(object, method = "best.greedy", order,
   }
 
   else {
-    if(method == "total.weight")
+    if(method == "total.weight") {
       .Call(RHugin_domain_set_max_number_of_separators, object, max.separators)
+
+      if(!missing(start)) {
+        node.ptrs <- .Call(RHugin_domain_get_node_by_name, object, start)
+        .Call(RHugin_domain_set_initial_triangulation, object, node.ptrs)
+        .Call(RHugin_domain_set_max_separator_size, object, max.separator.size)
+      }
+    }
 
     .Call(RHugin_domain_triangulate, object, method)
   }

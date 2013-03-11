@@ -6,15 +6,15 @@ The RHugin Package
 }
 
 \description{
-The RHugin package provides an interface to the Hugin Decision Engine (HDE) so that it can be controlled from within the R environment.  Users are able to build and make inference from Bayesian belief networks (including those with continuous Gaussian nodes) and influence diagrams, learn network structure and learn conditional probability tables.  All of the functions in the RHugin package are documented.  A complete list of functions can be obtained using the command \code{ls(pos = "package:RHugin")} and the documentation for each listed function can be accessed using \code{?function}.  The package also contains several demos: \code{demo(package = "RHugin")} will display the available demonstration scripts.
+The RHugin package provides an R interface for the Hugin Decision Engine (HDE). RHugin supports building and making inference from Bayesian belief networks and influence diagrams, learning network structure, and learning conditional probability tables. All the functions in the RHugin package are documented. A complete list of functions can be obtained using the command \code{ls(pos = "package:RHugin")}. The documentation for each function can be accessed using \code{?} or the \code{help} function. The package also contains several demos; see \code{demo(package = "RHugin")} for a list.
 }
 
 \details{
-The RHugin package attempts to make working with the Hugin Decision Engine as R-like as possible. However, there are two important caveats that users should be aware of.
+The RHugin package attempts to make working with the Hugin Decision Engine (HDE) as R-like as possible. However, there are two important caveats:
 
-The first is that an RHugin domain, the object that RHugin uses to represent a domain in the HDE, is a special type of R object called an eternal pointer.  The value of the external pointer points to the actual domain in the HDE.  The consequence of this arrangement is that a copy of an eternal pointer contains the same value as the original and hence still points to the same domain the in the HDE.  An example is given below.  As a best practice, it is recommended that users not copy Hugin domains using the R assignment operators \code{<-} and \code{=}.
+1) an RHugin domain is an eternal pointer. The value of the external pointer is a connection to a Hugin domain in the Hugin Decision Engine. A copy of an eternal pointer contains the same value as the original and thus is a connection to the same Hugin domain in the HDE as the original. An example is given below. As a best practice, do not copy Hugin domains using the R assignment operators \code{<-} and \code{=}.
 
-The second caveat is that, since the actual Hugin domain exists in the HDE (and not in R), it cannot be saved in an R workspace and therefore is lost when quitting R.  The functions \code{read.rhd} and \code{write.rhd} are provided for loading and saving Hugin domains.  Note that \code{write.rhd} must be called before quitting R if the domain is to be saved.
+2) Hugin domains are external to R and cannot be saved in an R workspace. The functions \code{read.rhd} and \code{write.rhd} are provided for loading and saving Hugin domains. Any domains not saved when quitting R will be lost.
 }
 
 \references{
@@ -22,7 +22,7 @@ The RHugin Project website: \url{http://rhugin.r-forge.r-project.org}
 
 HUGIN EXPERT website: \url{http://www.hugin.com}
 
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

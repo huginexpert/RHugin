@@ -27,7 +27,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_switch_parent}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_switch_parent}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

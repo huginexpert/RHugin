@@ -1,4 +1,4 @@
-hugin.domain <- function(graph, data)
+hugin.domain <- function(graph, data, logfile = NULL)
 {
   domain <- .Call(RHugin_new_domain)
   oldClass(domain) <- "RHuginDomain"
@@ -85,6 +85,9 @@ hugin.domain <- function(graph, data)
       )
     }
   }
+
+  if(!is.null(logfile))
+    set.logfile(domain, logfile)
 
   domain
 }

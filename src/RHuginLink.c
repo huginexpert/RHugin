@@ -184,7 +184,7 @@ SEXP RHugin_new_domain(void)
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer);
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_domain_finalizer, TRUE);
   }
 
   return ret;
@@ -214,7 +214,7 @@ SEXP RHugin_domain_clone(SEXP Sdomain)
 
   if(clonedDomain) {
     ret = R_MakeExternalPtr(clonedDomain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer);
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_domain_finalizer, TRUE);
   }
 
   return ret;
@@ -1010,11 +1010,20 @@ SEXP RHugin_domain_save_as_kb(SEXP Sdomain, SEXP Sfile_name, SEXP Spassword)
   h_status_t status = 0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  if(Spassword == R_NilValue)
-    status = h_domain_save_as_kb(domain, (h_string_t) CHAR(asChar(Sfile_name)), NULL);
-  else
-    status = h_domain_save_as_kb(domain, (h_string_t) CHAR(asChar(Sfile_name)),
+  if(Spassword == R_NilValue) {
+    PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+    status = h_domain_save_as_kb(domain,
+                                 (h_string_t) CHAR(asChar(Sfile_name)),
+                                 NULL);
+    UNPROTECT(1);
+  } else {
+    PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+    PROTECT(Spassword = AS_CHARACTER(Spassword));
+    status = h_domain_save_as_kb(domain,
+                                 (h_string_t) CHAR(asChar(Sfile_name)),
                                  (h_string_t) CHAR(asChar(Spassword)));
+    UNPROTECT(2);
+  }
 
   RHugin_handle_status_code(status);
 
@@ -1027,17 +1036,23 @@ SEXP RHugin_kb_load_domain(SEXP Sfile_name, SEXP Spassword)
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
 
-  if(Spassword == R_NilValue)
+  if(Spassword == R_NilValue) {
+    PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
     domain = h_kb_load_domain((h_string_t) CHAR(asChar(Sfile_name)), NULL);
-  else
+    UNPROTECT(1);
+  } else {
+    PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+    PROTECT(Spassword = AS_CHARACTER(Spassword));
     domain = h_kb_load_domain((h_string_t) CHAR(asChar(Sfile_name)),
                               (h_string_t) CHAR(asChar(Spassword)));
+    UNPROTECT(2);
+  }
 
   RHugin_handle_error();
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer); 
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_domain_finalizer, TRUE);
   }
 
   return ret;
@@ -1448,9 +1463,9 @@ SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
   PROTECT(ret = allocVector(VECSXP, 1));
 
   if(model)
-    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(model, RHugin_model_tag, R_NilValue));
   else
-    SET_VECTOR_ELT(ret, i, R_NilValue);
+    SET_VECTOR_ELT(ret, 0, R_NilValue);
 
   setAttrib(ret, R_NamesSymbol, getAttrib(Snode, R_NamesSymbol));
 
@@ -1780,12 +1795,11 @@ SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalues)
 
 /* 5.8 Generating tables */
 
-SEXP RHugin_node_generate_table(SEXP Snodes)
+SEXP RHugin_node_generate_table(SEXP Snode)
 {
-  R_len_t i = 0, n = LENGTH(Snodes);
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
 
-  for(i = 0; i < n; i++)
-    RHugin_handle_status_code(h_node_generate_table(nodePointerFromSEXP(VECTOR_ELT(Snodes, i))));
+  RHugin_handle_status_code(h_node_generate_table(node));
 
   return R_NilValue;
 }
@@ -1793,7 +1807,9 @@ SEXP RHugin_node_generate_table(SEXP Snodes)
 
 SEXP RHugin_domain_generate_tables(SEXP Sdomain)
 {
-  RHugin_handle_status_code(h_domain_generate_tables(domainPointerFromSEXP(Sdomain)));
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  RHugin_handle_status_code(h_domain_generate_tables(domain));
 
   return R_NilValue;
 }
@@ -1841,8 +1857,7 @@ SEXP RHugin_domain_compile(SEXP Sdomain)
 {
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  if(!h_domain_is_compiled(domain))
-    RHugin_handle_status_code(h_domain_compile(domain));
+  RHugin_handle_status_code(h_domain_compile(domain));
 
   return R_NilValue;
 }
@@ -1944,7 +1959,7 @@ SEXP RHugin_domain_get_max_separator_size(SEXP Sdomain)
 
 SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
 {
-  h_triangulation_method_t method = h_tm_fill_in_weight;
+  h_triangulation_method_t method = h_tm_best_greedy;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Smethod = AS_CHARACTER(Smethod));
@@ -2043,7 +2058,49 @@ SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 
 /* 6.4 Getting a compilation log */
 
-// SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Slog_file)
+SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Sfile_name)
+{
+  h_status_t status = 0;
+  log_file_info *lfi = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  lfi = (log_file_info *) h_domain_get_user_data(domain);
+
+  if(Sfile_name != R_NilValue) {
+    if(lfi != NULL) {
+      warning("domain already has a log file");
+      return(R_NilValue);
+    }
+
+    PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+    lfi = RHugin_open_log_file(CHAR(asChar(Sfile_name)));
+    UNPROTECT(1);
+
+    if(lfi != NULL) {
+      status = h_domain_set_log_file(domain, lfi->p_file);
+
+      if(status != 0) {
+        lfi = RHugin_close_log_file(lfi);
+        RHugin_handle_status_code(status);
+      }
+      
+      status = h_domain_set_user_data(domain, (void *) lfi);
+
+      if(status != 0) {
+        lfi = RHugin_close_log_file(lfi);
+        RHugin_handle_status_code(status);
+      }
+    }
+  } else { /* Sfile_name == R_NilValue */
+    if(lfi != NULL) {
+      lfi = RHugin_close_log_file(lfi);
+      RHugin_handle_status_code(h_domain_set_log_file(domain, NULL));
+      RHugin_handle_status_code(h_domain_set_user_data(domain, NULL));
+    }
+  }
+
+  return R_NilValue;
+}
 
 
 /* 6.5 Uncompilation */
@@ -2816,15 +2873,36 @@ SEXP RHugin_node_likelihood_is_propagated(SEXP Snode)
 
 SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name)
 {
+  h_status_t status = 0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  RHugin_handle_status_code(h_domain_save_case(domain, (h_string_t) CHAR(asChar(Sfile_name))));
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_domain_save_case(domain, (h_string_t) CHAR(asChar(Sfile_name)));
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(status);
 
   return R_NilValue;
 }
 
 
-// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
+SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name)
+{
+  h_status_t status = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_domain_parse_case(domain,
+                               (h_string_t) CHAR(asChar(Sfile_name)),
+                               RHuginParseError,
+                               NULL);
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(status);
+
+  return R_NilValue;
+}
+
 
 
 /* 9.2 Propagation */
@@ -4102,8 +4180,10 @@ SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name)
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
-  status = h_domain_parse_cases(domain, (h_string_t) CHAR(asChar(Sfile_name)),
-                                RHuginParseError, NULL);
+  status = h_domain_parse_cases(domain,
+                                (h_string_t) CHAR(asChar(Sfile_name)),
+                                RHuginParseError,
+                                NULL);
   UNPROTECT(1);
 
   RHugin_handle_status_code(status);
@@ -4147,8 +4227,11 @@ SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
 
   include_case_counts = (h_boolean_t) LOGICAL(Sinclude_case_counts)[0];
 
-  status = h_domain_save_cases(domain, (h_string_t) CHAR(asChar(Sfile_name)),
-                               nodes, case_indices, include_case_counts,
+  status = h_domain_save_cases(domain,
+                               (h_string_t) CHAR(asChar(Sfile_name)),
+                               nodes,
+                               case_indices,
+                               include_case_counts,
                                (h_string_t) CHAR(asChar(Sseparator)),
                                (h_string_t) CHAR(asChar(Smissing_data)));
 
@@ -4381,7 +4464,7 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 
   if(domain) {
     ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
-    R_RegisterCFinalizer(ret, (R_CFinalizer_t) RHugin_domain_finalizer); 
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_domain_finalizer, TRUE);
   }
 
   return ret;

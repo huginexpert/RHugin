@@ -8,12 +8,13 @@ Create an RHugin domain.
 }
 
 \usage{
-hugin.domain(graph, data)
+hugin.domain(graph, data, logfile = NULL)
 }
 
 \arguments{
   \item{graph}{an optional directed graph describing the structure of the domain.  See details.}
   \item{data}{an optional data frame.  See details.}
+  \item{logfile}{a character string specifying the name of the log file. If \code{NULL} (the default), no logging is done.  See \code{\link{set.logfile}}.}
 }
 
 \details{
@@ -32,7 +33,7 @@ an RHugin domain.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_new_domain}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_new_domain}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

@@ -10,46 +10,68 @@ Triangulate a domain.
 
 \usage{
 triangulate(object, ...)
-\method{triangulate}{RHuginDomain}(object, method = "best.greedy", order, max.separators = 100000, ...)
+\method{triangulate}{RHuginDomain}(object, method = "best.greedy", order, start, max.separators = 0, max.separator.size = 0, ...)
 }
 
 \arguments{
   \item{object}{an RHugin domain.}
   \item{method}{a character string specifying the triangulation method. The choices are \code{"clique.size"}, \code{"clique.weight"}, \code{"fill.in.size"}, \code{"fill.in.weight"}, \code{"best.greedy"} and \code{"total.weight"}. The default, \code{"best.greedy"}, is the method used by the \code{compile} function when compiling a domain that has not been triangulated in advance.}
-  \item{order}{a character vector specifying the elimination sequence (it must contain each chance and each decision node in the domain exactly once). If \code{order} is provided, it is used to triangulate the domain and the value of \code{method} is ignored.}
-  \item{max.separators}{a positive integer value specifying the maximum number of minimal separators for the \code{total.weight} method.}
+  \item{order}{a character vector specifying the elimination sequence.  It must contain each continuous node and each discrete node in \code{object} exactly once and the continuous nodes must precede the discrete nodes.  When provided, \code{object} is triangulated using this elimination sequence; the method in \code{method} is not used.}
+  \item{start}{a character vector specifying an initial triangulation for the \code{"total.weight"} method. Like \code{order}, it must contain each continuous node and each discrete node in \code{object} exactly once and the continuous nodes must precede the discrete nodes.}
+  \item{max.separators}{a nonnegative integer value specifying the maximum number of minimal separators to generate when using the \code{"total.weight"} method.  The default value of \code{0} is interpreted as unlimited.}
+  \item{max.separator.size}{a nonnegative integer value specifying the maximum size of minimal separators to keep when using the \code{"total.weight"} method.  The default value of \code{0} is interpreted as unlimited. This argument is ignored unless \code{start} is also provided.}
   \item{\dots}{additional arguments are ignored.}
 }
 
 \details{
-The Triangulation section of the Compiling Domains chapter in the HUGIN API Reference Manual describes the triangulations methods in detail.
+The Triangulation section in the Compilation chapter in the HUGIN API Reference Manual describes the triangulations methods in detail.  
+If the \code{order} argument is present then \code{object} is triangulated using the provided elimination sequence.  All other arguments are ignored.
 }
 
 \value{
-a character vector containing the node names in the order used to triangulate the domain.
+a character vector containing the node names in the order used to triangulate \code{object} (that is, the elimination sequence).
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{RHugin_domain_triangulate}, \code{RHugin_domain_triangulate_with_order}, \code{RHugin_domain_set_max_number_of_separators} and \code{RHugin_domain_get_elimination_order}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_domain_triangulate}, \code{h_domain_get_elimination_order}, \code{h_domain_triangulate_with_order}, \code{h_domain_set_initial_triangulation}, \code{h_domain_set_max_number_of_separators} and \code{h_domain_set_max_separator_size}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
 
+\note{
+The \code{\link[RHugin]{compile}} function automatically triangulates an untriangulated domain using the default method ("best.greedy").  If the domain is already triangulated, then that triangulation is used.
+}
+
 \seealso{
-\code{\link{compile.RHuginDomain}}.
+\code{\link[RHugin]{compile}}.
 }
 
 \examples{
 demo("asia", echo = FALSE)
 
-# Triangulate the domain
-elimination.order <- triangulate(asia, method = "clique.weight")
 
-# Uncompiling removes the triangulation
+# Triangulate the domain and store the elimination sequence
+eo <- triangulate(asia, method = "clique.weight")
+
+
+# Uncompile also utriangulates
 uncompile(asia)
 
-# Retriangulate using the elimination sequence from the previous triangulation
-triangulate(asia, order = elimination.order)
+
+# Triangulate using the total.weight method with default settings
+triangulate(asia, method = "total.weight")
+uncompile(asia)
+
+
+# Triangulate using the total.weight method with custom settings
+triangulate(asia, method = "total.weight", start = eo, max.separators = 100000,
+            max.separator.size = 500)
+uncompile(asia)
+
+
+# Triangulate using a known elimination sequence
+triangulate(asia, order = eo)
+uncompile(asia)
 }
 
 \keyword{programming}

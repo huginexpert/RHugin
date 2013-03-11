@@ -81,13 +81,64 @@ void RHugin_handle_status_code(h_status_t status)
 }
 
 
+log_file_info *RHugin_open_log_file(const char *filename)
+{
+  log_file_info *lfi = NULL;
+  size_t n = 0;
+
+  if((lfi = malloc(sizeof(log_file_info))) != NULL) {
+    lfi->p_file = fopen(filename, "a");
+
+    if(lfi->p_file != NULL) {
+      n = strlen(filename);
+      lfi->filename = (char *) malloc((n + 1) * sizeof(char));
+      lfi->filename = strncpy(lfi->filename, filename, n + 1);
+    } else {
+      free(lfi);
+      return NULL;
+    }
+  }
+
+  return lfi;
+}
+
+
+log_file_info *RHugin_close_log_file(log_file_info *lfi)
+{
+  if(lfi != NULL) {
+    if(lfi->p_file != NULL) {
+      fclose(lfi->p_file);
+      lfi->p_file = NULL;
+    }
+
+    if(lfi->filename != NULL) {
+      free(lfi->filename);
+      lfi->filename = NULL;
+    }
+
+    free(lfi);
+  }
+
+  return NULL;
+}
+
+
 void RHugin_domain_finalizer(SEXP Sdomain)
 {
-  h_status_t status = h_domain_delete(domainPointerFromSEXP(Sdomain));
+  log_file_info *lfi = NULL;
+  h_status_t status = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  lfi = (log_file_info *) h_domain_get_user_data(domain);
+  
+  if(lfi != NULL)
+    lfi = RHugin_close_log_file(lfi);
+
+  status = h_domain_delete(domain);
   R_ClearExternalPtr(Sdomain);
 
-  if((h_error_t) status != h_error_none)
-    warning("\nIn RHugin_domain_finalizer:\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+  if(status != 0)
+    warning("in RHugin_domain_finalizer:\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
             (int) status,
             (char*) h_error_name((h_error_t) status),
             (char*) h_error_description((h_error_t) status));
@@ -362,8 +413,11 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_is_compiled", (DL_FUNC) RHugin_domain_is_compiled, 1},
 
     /* 6.3 Triangulation */
+    {"RHugin_domain_set_initial_triangulation", (DL_FUNC) RHugin_domain_set_initial_triangulation, 2},
     {"RHugin_domain_set_max_number_of_separators", (DL_FUNC) RHugin_domain_set_max_number_of_separators, 2},
     {"RHugin_domain_get_max_number_of_separators", (DL_FUNC) RHugin_domain_get_max_number_of_separators, 1},
+    {"RHugin_domain_set_max_separator_size", (DL_FUNC) RHugin_domain_set_max_separator_size, 2},
+    {"RHugin_domain_get_max_separator_size", (DL_FUNC) RHugin_domain_get_max_separator_size, 1},
     {"RHugin_domain_triangulate", (DL_FUNC) RHugin_domain_triangulate, 2},
     {"RHugin_domain_triangulate_with_order", (DL_FUNC) RHugin_domain_triangulate_with_order, 2},
     {"RHugin_domain_is_triangulated", (DL_FUNC) RHugin_domain_is_triangulated, 1},
@@ -372,7 +426,7 @@ void R_init_RHugin(DllInfo *info)
     // SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
 
     /* 6.4 Getting a compilation log */
-    // SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Slog_file)
+    {"RHugin_domain_set_log_file", (DL_FUNC) RHugin_domain_set_log_file, 2},
 
     /* 6.5 Uncompilation */
     {"RHugin_domain_uncompile", (DL_FUNC) RHugin_domain_uncompile, 1},
@@ -438,7 +492,7 @@ void R_init_RHugin(DllInfo *info)
 
     /* 8.9 Case files */
     {"RHugin_domain_save_case", (DL_FUNC) RHugin_domain_save_case, 2},
-    // SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
+    {"RHugin_domain_parse_case", (DL_FUNC) RHugin_domain_parse_case, 2},
 
     /* 9.2 Propagation */
     {"RHugin_domain_propagate", (DL_FUNC) RHugin_domain_propagate, 3},

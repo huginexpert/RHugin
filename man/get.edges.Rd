@@ -20,7 +20,7 @@ a list with one element for each node in \sQuote{domain}.  Each element is in tu
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_children}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_children}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

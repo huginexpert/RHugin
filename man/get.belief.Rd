@@ -21,7 +21,7 @@ for discrete nodes: a numeric vector containing the belief for each state in \co
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_belief}, \code{h_node_get_mean} and \code{h_node_get_variance}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_belief}, \code{h_node_get_mean} and \code{h_node_get_variance}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

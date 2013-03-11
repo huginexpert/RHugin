@@ -20,7 +20,7 @@ a single numeric value providing a measure of the compression achieved. A value 
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_compress}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_domain_compress}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

@@ -202,7 +202,7 @@ DLLEXPORT SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalues);
 
 /* 5.8 Generating tables */
 
-DLLEXPORT SEXP RHugin_node_generate_table(SEXP Snodes);
+DLLEXPORT SEXP RHugin_node_generate_table(SEXP Snode);
 DLLEXPORT SEXP RHugin_domain_generate_tables(SEXP Sdomain);
 // SEXP RHugin_class_generate_tables(SEXP Sclass);
 // SEXP RHugin_class_set_log_file(SEXP Sclass, SEXP Slog_file);
@@ -237,7 +237,7 @@ DLLEXPORT SEXP RHugin_domain_get_elimination_order(SEXP Sdomain);
 
 /* 6.4 Getting a compilation log */
 
-// SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Slog_file)
+DLLEXPORT SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Sfile_name);
 
 
 /* 6.5 Uncompilation */
@@ -329,7 +329,7 @@ DLLEXPORT SEXP RHugin_node_likelihood_is_propagated(SEXP Snode);
 /* 8.9 Case files */
 
 DLLEXPORT SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name);
-// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
 
 
 /* 9.2 Propagation */
