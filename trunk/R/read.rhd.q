@@ -1,5 +1,5 @@
 read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
-                     generate.tables = TRUE)
+                     generate.tables)
 {
   filename <- path.expand(filename)
 
@@ -38,14 +38,9 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
     stop(dQuote(nodes[index][1]), " is a reserved word in RHugin and cannot be",
          " used as the name of a node")
 
-  if(generate.tables) {
-    node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
-    model.ptrs <- .Call(RHugin_node_get_model, node.ptrs)
-    model.ptrs <- model.ptrs[sapply(model.ptrs, function(u) !is.null(u))]
-    models <- names(model.ptrs)
-
-    .Call(RHugin_node_generate_table, node.ptrs[models])
-    .Call(RHugin_model_delete, model.ptrs)
+  if(!missing(generate.tables)) {
+    warning("RHugin 7.7 introduced support for models: ",
+            sQuote("generate.tables"), " is depricated")
   }
 
   domain

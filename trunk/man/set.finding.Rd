@@ -23,7 +23,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_select_state}, \code{h_node_enter_finding}, \code{h_domain_enter_case} and \code{h_node_enter_value}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_select_state}, \code{h_node_enter_finding}, \code{h_domain_enter_case} and \code{h_node_enter_value}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

@@ -22,7 +22,7 @@ a list with elements \code{table}, \code{mean} and \code{cov}.  The \code{table}
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_distribution}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_distribution}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

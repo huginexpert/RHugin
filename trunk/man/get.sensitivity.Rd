@@ -32,7 +32,7 @@ When \code{set = FALSE} a matrix with one row for each \code{\dots} argument and
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_compute_sensitivity_data}, \code{h_node_get_sensitivity_constants} and \code{h_domain_get_sensitivity_set}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_compute_sensitivity_data}, \code{h_node_get_sensitivity_constants} and \code{h_domain_get_sensitivity_set}.
 }
 
 

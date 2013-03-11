@@ -28,7 +28,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_save_cases} and \code{h_domain_parse_cases}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_domain_save_cases} and \code{h_domain_parse_cases}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

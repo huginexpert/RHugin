@@ -22,7 +22,7 @@ a data.frame with one column for each node in \code{nodes}. Each row contains a 
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{RHugin_domain_find_map_configurations}, \code{RHugin_domain_get_number_of_map_configurations}, \code{RHugin_domain_get_map_configuration} and \code{RHugin_domain_get_probability_of_map_configuration}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{RHugin_domain_find_map_configurations}, \code{RHugin_domain_get_number_of_map_configurations}, \code{RHugin_domain_get_map_configuration} and \code{RHugin_domain_get_probability_of_map_configuration}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

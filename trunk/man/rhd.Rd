@@ -9,8 +9,7 @@ Save an RHugin domain as a Hugin Knowledge Base or NET file or load an RHugin do
 }
 
 \usage{
-read.rhd(filename, type = c("auto", "hkb", "net"), password = NULL,
-         generate.tables = TRUE)
+read.rhd(filename, type = c("auto", "hkb", "net"), password = NULL, generate.tables)
 write.rhd(domain, filename, type = c("hkb", "net"), password = NULL)
 }
 
@@ -28,7 +27,7 @@ write.rhd(domain, filename, type = c("hkb", "net"), password = NULL)
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_kb_load_domain}, \code{h_net_parse_domain}, \code{h_domain_save_as_kb} and \code{h_domain_save_as_net}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_kb_load_domain}, \code{h_net_parse_domain}, \code{h_domain_save_as_kb} and \code{h_domain_save_as_net}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

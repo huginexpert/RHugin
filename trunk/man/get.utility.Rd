@@ -21,7 +21,7 @@ a numeric vector containing the expected utility for each state in \code{node}.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_node_get_expected_utility}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_expected_utility}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

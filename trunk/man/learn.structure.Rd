@@ -28,7 +28,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_learn_structure} and \code{h_domain_set_significance_level}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_domain_learn_structure} and \code{h_domain_set_significance_level}.
 
 P. Spirtes, C. Glymour, and R. Scheines. Causation, Prediction, and Search. Adaptive Computation and Machine Learning. MIT Press, Cambridge, Massachusetts, second edition, 2000.
 }

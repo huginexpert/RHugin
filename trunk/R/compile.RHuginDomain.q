@@ -1,7 +1,5 @@
-compile <- function(object, ...) 
-{
+compile <- function(object, ...)
   UseMethod("compile")
-}
 
 
 compile.RHuginDomain <- function(object, save = FALSE, approximate = NULL, ...)

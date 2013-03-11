@@ -7,13 +7,19 @@ set.table <- function(domain, node, data,
   class <- class(data)
   if(!is.element(class, c("data.frame", "table", "numeric")))
     stop("the ", sQuote("data"), " argument must be a data frame, ",
-         "a table or a numeric vector")
+         "table or numeric vector")
 
   node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
 
   category <- .Call(RHugin_node_get_category, node.ptr)
   kind <- .Call(RHugin_node_get_kind, node.ptr)
   kind <- ifelse(is.na(kind), "none", kind)
+
+  if(type == "cpt" &&
+     kind %in% c("discrete", "utility", "function") &&
+     !is.null(.Call(RHugin_node_get_model, node.ptr)[[1]]))
+    warning(dQuote(node), " has a model")
+
 
   table.ptr <- switch(type,
     cpt = .Call(RHugin_node_get_table, node.ptr),
@@ -33,7 +39,7 @@ set.table <- function(domain, node, data,
   }
 
   table.node.ptrs <- .Call(RHugin_table_get_nodes, table.ptr)
-  table.nodes <- names( table.node.ptrs)
+  table.nodes <- names(table.node.ptrs)
 
   if(kind == "continuous" && type == "cpt") {
     parent.nodes <- table.nodes[table.nodes != node]

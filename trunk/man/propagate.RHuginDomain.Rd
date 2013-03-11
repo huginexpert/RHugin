@@ -25,7 +25,7 @@ a \code{NULL} value is invisibly returned.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_propagate}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_domain_propagate}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}

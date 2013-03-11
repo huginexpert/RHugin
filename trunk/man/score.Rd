@@ -25,7 +25,7 @@ a named numeric vector containing the scores.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/api-manuals}: \code{h_domain_get_log_likelihood}, \code{h_domain_get_AIC} and \code{h_domain_get_BIC}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_domain_get_log_likelihood}, \code{h_domain_get_AIC} and \code{h_domain_get_BIC}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
