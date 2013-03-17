@@ -386,7 +386,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_model_get_nodes", (DL_FUNC) RHugin_model_get_nodes, 1},
     {"RHugin_model_get_size", (DL_FUNC) RHugin_model_get_size, 1},
     {"RHugin_model_set_expression", (DL_FUNC) RHugin_model_set_expression, 3},
-    {"RHugin_model_get_expression", (DL_FUNC) RHugin_model_get_expression, 2},
+    {"RHugin_model_get_expression", (DL_FUNC) RHugin_model_get_expression, 1},
 
     /* 5.5 State labels */
     {"RHugin_node_set_state_label", (DL_FUNC) RHugin_node_set_state_label, 3},

@@ -183,7 +183,7 @@ DLLEXPORT SEXP RHugin_model_delete(SEXP Smodels);
 DLLEXPORT SEXP RHugin_model_get_nodes(SEXP Smodel);
 DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodels);
 DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression);
-DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex);
+DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel);
 
 
 /* 5.5 State labels */

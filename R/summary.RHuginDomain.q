@@ -1,4 +1,5 @@
-summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
+summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
+                                 jt = FALSE, ...)
 {
   RHugin.check.domain(object, "summary.RHuginDomain")
 
@@ -68,6 +69,10 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
       subtype <- subtypes[node]
       subtype <- if(subtype == "error") NULL else subtype
       states <- NULL
+      model <- FALSE
+      model.size <- NULL
+      size <- NULL
+      cgsize <- NULL
       evidence.is.entered <- FALSE
       likelihood.is.entered <- FALSE
       evidence.is.propagated <- FALSE
@@ -77,6 +82,18 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
 
       if(is.element(category, c("chance", "decision")) && kind == "discrete")
         states <- get.states(object, node)
+
+      table.ptr <- .Call(RHugin_node_get_table, node.ptrs[node])
+      size <- .Call(RHugin_table_get_size, table.ptr)
+      cgsize <- .Call(RHugin_table_get_cg_size, table.ptr)
+
+      if(kind %in% c("discrete", "utility", "function")) {
+        model.ptr <- .Call(RHugin_node_get_model, node.ptrs[node])
+        if(!is.null(model.ptr[[node]])) {
+          model <- TRUE
+          model.size <- .Call(RHugin_model_get_size, model.ptr)
+        }
+      }
 
       if(is.element(category, c("chance", "decision"))) {
         evidence.is.entered <- .Call(RHugin_node_evidence_is_entered, node.ptrs[node])
@@ -98,12 +115,37 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE, ...)
                                    kind = kind,
                                    subtype = subtype,
                                    states = states,
+                                   model = model,
+                                   model.size = model.size,
+                                   size = size,
+                                   cgsize = cgsize,
                                    evidence.is.entered = evidence.is.entered,
                                    likelihood.is.entered = likelihood.is.entered,
                                    evidence.is.propagated = evidence.is.propagated,
                                    likelihood.is.propagated = likelihood.is.propagated,
                                    experience.table = experience.table,
                                    fading.table = fading.table)
+    }
+  }
+
+  if(jt && .Call(RHugin_domain_is_triangulated, object)) {
+
+    jts <- list(.Call(RHugin_domain_get_first_junction_tree, object))
+
+    while(!is.null(njt <- .Call(RHugin_jt_get_next, jts[[length(jts)]])))
+      jts <- c(jts, njt)
+
+    for(jt in jts) {
+      cliques <- .Call(RHugin_jt_get_cliques, jt)
+      n.cliques <- length(cliques)
+      clique.members <- lapply(cliques, function(u) names(.Call(RHugin_clique_get_members, u)))
+      clique.sizes <- sapply(clique.members, length)
+      clique.names <- sapply(clique.members, paste, collapse = ":")
+
+      for(clique in cliques) {
+        clique.name <- paste(names(.Call(RHugin_clique_get_members, clique)),
+                             collapse = ":")
+      }
     }
   }
 
