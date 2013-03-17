@@ -1417,23 +1417,32 @@ SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
 }
 
 
-SEXP RHugin_expression_to_string(SEXP Sexpression)
+SEXP RHugin_expression_to_string(SEXP Sexpressions)
 {
   SEXP ret = R_NilValue;
+  h_error_t error_code = h_error_none;
+  h_expression_t expression = NULL;
   h_string_t string = NULL;
+  R_len_t i = 0, n = LENGTH(Sexpressions);
 
-  h_expression_t expression = expressionPointerFromSEXP(Sexpression);
-  string = h_expression_to_string(expression);
+  PROTECT(ret = allocVector(STRSXP, n));
 
-  RHugin_handle_error();
+  for(i = 0; i < n; i++) {
+    expression = expressionPointerFromSEXP(VECTOR_ELT(Sexpressions, i));
+    string = h_expression_to_string(expression);
 
-  if(string) {
-    PROTECT(ret = allocVector(STRSXP, 1));
-    SET_STRING_ELT(ret, 0, mkChar( (char*) string));
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
+
+    SET_STRING_ELT(ret, i, mkChar( (char*) string));
     free(string);
     string = NULL;
-    UNPROTECT(1);
   }
+
+  UNPROTECT(1);
 
   return ret;
 }
@@ -1589,22 +1598,30 @@ SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression)
 }
 
 
-SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex)
+SEXP RHugin_model_get_expression(SEXP Smodel)
 {
   SEXP ret = R_NilValue;
-  size_t index = 0;
-  h_expression_t expression = NULL;
+  h_error_t error_code = h_error_none;
+  h_expression_t e = NULL;
+  R_len_t i = 0, size = 0;
   h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
-  
-  PROTECT(Sindex = AS_NUMERIC(Sindex));
-  index = (size_t) REAL(Sindex)[0];
+
+  size = (R_len_t) h_model_get_size(model);
+  PROTECT(ret = allocVector(VECSXP, size));
+
+  for(i = 0; i < size; i++) {
+    e = h_model_get_expression(model, (size_t) i);
+
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
+
+    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(e, RHugin_expression_tag, R_NilValue));
+  }
+
   UNPROTECT(1);
-
-  expression = h_model_get_expression(model, index);
-  RHugin_handle_error();
-
-  if(expression)
-    ret = R_MakeExternalPtr(expression, RHugin_expression_tag, R_NilValue);
 
   return ret;
 }

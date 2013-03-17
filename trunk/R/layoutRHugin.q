@@ -52,13 +52,13 @@ layoutRHugin <- function(x, domain, ...)
         px <- nodeX[parent]
         py <- nodeY[parent]
         parent.shape <- NRIx$shape[parent]
-        if(is.na(parent.shape))
+        if(is.null(parent.shape) || is.na(parent.shape))
           parent.shape <- "ellipse"
 
         cx <- nodeX[child]
         cy <- nodeY[child]
         child.shape <- NRIx$shape[child]
-        if(is.na(child.shape))
+        if(is.null(child.shape) || is.na(child.shape))
           child.shape <- "ellipse"
 
         a <- width[1]
