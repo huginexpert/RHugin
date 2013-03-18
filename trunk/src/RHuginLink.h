@@ -171,8 +171,8 @@ DLLEXPORT SEXP RHugin_node_get_subtype(SEXP Snodes);
 
 /* 5.3 Syntax for expression */
 
-DLLEXPORT SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel);
-DLLEXPORT SEXP RHugin_expression_to_string(SEXP Sexpression);
+// SEXP RHugin_string_parse_expression(SEXP Sstrings, SEXP Smodel);
+// SEXP RHugin_expression_to_string(SEXP Sexpression);
 
 
 /* 5.4 Creating and maintaining models */
@@ -182,7 +182,7 @@ DLLEXPORT SEXP RHugin_node_get_model(SEXP Snodes);
 DLLEXPORT SEXP RHugin_model_delete(SEXP Smodels);
 DLLEXPORT SEXP RHugin_model_get_nodes(SEXP Smodel);
 DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodels);
-DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression);
+DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sexpressions);
 DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel);
 
 
@@ -259,8 +259,9 @@ DLLEXPORT SEXP RHugin_domain_get_approximation_constant(SEXP Sdomain);
 
 /* 7.2 Junction trees */
 
-DLLEXPORT SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain);
-DLLEXPORT SEXP RHugin_jt_get_next(SEXP Sjt);
+// SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
+// SEXP RHugin_jt_get_next(SEXP Sjt)
+DLLEXPORT SEXP RHugin_domain_get_junction_forest(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_clique_get_junction_tree(SEXP Sclique);
 DLLEXPORT SEXP RHugin_node_get_junction_tree(SEXP Snode);
 DLLEXPORT SEXP RHugin_jt_get_cliques(SEXP Sjt);
@@ -271,7 +272,7 @@ DLLEXPORT SEXP RHugin_jt_get_total_cg_size(SEXP Sjt);
 
 /* 7.3 Cliques */
 
-DLLEXPORT SEXP RHugin_clique_get_members(SEXP Sclique);
+DLLEXPORT SEXP RHugin_clique_get_members(SEXP Scliques);
 DLLEXPORT SEXP RHugin_clique_get_neighbors(SEXP Sclique);
 
 

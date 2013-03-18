@@ -56,6 +56,7 @@ h_clique_t cliquePointerFromSEXP(SEXP Sclique);
 
 /* Other utility functions */
 
-void RHuginParseError(h_location_t line, h_string_t message, void *data);
+void RHuginFileParseError(h_location_t line, h_string_t message, void *data);
+void RHuginExpressionParseError(h_location_t index, h_string_t message, void *data);
 
 

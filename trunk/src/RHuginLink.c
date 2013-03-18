@@ -1399,53 +1399,8 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
 
 /* 5.3 Syntax for expression */
 
-SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
-{
-  SEXP ret = R_NilValue;
-  h_expression_t expression = NULL;
-  h_model_t model = modelPointerFromSEXP(Smodel);
-
-  expression = h_string_parse_expression((h_string_t) STRING_ELT(Sstring, 0),
-                                          model, RHuginParseError, NULL);
-
-  RHugin_handle_error();
-
-  if(expression)
-    ret = R_MakeExternalPtr(expression, RHugin_expression_tag, R_NilValue);
-
-  return ret;
-}
-
-
-SEXP RHugin_expression_to_string(SEXP Sexpressions)
-{
-  SEXP ret = R_NilValue;
-  h_error_t error_code = h_error_none;
-  h_expression_t expression = NULL;
-  h_string_t string = NULL;
-  R_len_t i = 0, n = LENGTH(Sexpressions);
-
-  PROTECT(ret = allocVector(STRSXP, n));
-
-  for(i = 0; i < n; i++) {
-    expression = expressionPointerFromSEXP(VECTOR_ELT(Sexpressions, i));
-    string = h_expression_to_string(expression);
-
-    error_code = h_error_code();
-    if(error_code != h_error_none) {
-      UNPROTECT(1);
-      RHugin_handle_error_code(error_code);
-    }
-
-    SET_STRING_ELT(ret, i, mkChar( (char*) string));
-    free(string);
-    string = NULL;
-  }
-
-  UNPROTECT(1);
-
-  return ret;
-}
+// SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
+// SEXP RHugin_expression_to_string(SEXP Sexpressions)
 
 
 /* 5.4 Creating and maintaining models */
@@ -1582,17 +1537,47 @@ SEXP RHugin_model_get_size(SEXP Smodels)
 }
 
 
-SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression)
+SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sexpressions)
 {
-  size_t index = 0;
+  h_status_t status = 0;
+  h_expression_t *expressions = NULL;
+  h_string_t string = NULL;
+  R_len_t i = 0, j = 0, n = LENGTH(Sexpressions);
   h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
-  h_expression_t expression = expressionPointerFromSEXP(Sexpression);
 
-  PROTECT(Sindex = AS_NUMERIC(Sindex));
-  index = (size_t) REAL(Sindex)[0];
+  if((R_len_t) h_model_get_size(model) != n)
+    error("LENGTH(Sexpressions) is not equal to model size");
+
+  PROTECT(Sexpressions = AS_CHARACTER(Sexpressions));
+  expressions = (h_expression_t*) R_alloc(n, sizeof(h_expression_t));
+
+  for(i = 0; i < n; i++) {
+    string = (h_string_t) CHAR(STRING_ELT(Sexpressions, i));
+    expressions[i] = h_string_parse_expression(string,
+                                               model,
+                                               RHuginExpressionParseError,
+                                               NULL);
+
+    if(expressions[i] == NULL) {
+      Rprintf("Unable to parse expression:\n  %s\n", string);
+
+      for(j = 0; j < i; j++) {
+        free(expressions[i]);
+        expressions[i] = NULL;
+      }
+
+      UNPROTECT(1);
+
+      RHugin_handle_error();
+
+      return R_NilValue;
+    }
+  }
+
   UNPROTECT(1);
 
-  RHugin_handle_status_code(h_model_set_expression(model, index, expression));
+  for(i = 0; i < n; i++)
+    RHugin_handle_status_code(h_model_set_expression(model, (size_t) i, expressions[i]));
 
   return R_NilValue;
 }
@@ -1602,15 +1587,17 @@ SEXP RHugin_model_get_expression(SEXP Smodel)
 {
   SEXP ret = R_NilValue;
   h_error_t error_code = h_error_none;
-  h_expression_t e = NULL;
+  h_expression_t expression = NULL;
+  h_string_t string = NULL;
+  char empty_string[] = "";
   R_len_t i = 0, size = 0;
   h_model_t model = modelPointerFromSEXP(VECTOR_ELT(Smodel, 0));
 
   size = (R_len_t) h_model_get_size(model);
-  PROTECT(ret = allocVector(VECSXP, size));
+  PROTECT(ret = allocVector(STRSXP, size));
 
   for(i = 0; i < size; i++) {
-    e = h_model_get_expression(model, (size_t) i);
+    expression = h_model_get_expression(model, (size_t) i);
 
     error_code = h_error_code();
     if(error_code != h_error_none) {
@@ -1618,7 +1605,14 @@ SEXP RHugin_model_get_expression(SEXP Smodel)
       RHugin_handle_error_code(error_code);
     }
 
-    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(e, RHugin_expression_tag, R_NilValue));
+    if(expression) {
+      string = h_expression_to_string(expression);
+      SET_STRING_ELT(ret, i, mkChar( (char*) string));
+      string = NULL;
+    }
+    
+    else
+      SET_STRING_ELT(ret, i, mkChar(empty_string));
   }
 
   UNPROTECT(1);
@@ -2195,32 +2189,35 @@ SEXP RHugin_domain_get_approximation_constant(SEXP Sdomain)
 
 /* 7.2 Junction trees */
 
-SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
+// SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
+// SEXP RHugin_jt_get_next(SEXP Sjt)
+
+SEXP RHugin_domain_get_junction_forest(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_junction_tree_t jt = NULL;
+  h_junction_tree_t jt = NULL, jf = NULL;
+  R_len_t i = 0, n = 1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  jt = h_domain_get_first_junction_tree(domain);
+  jf = h_domain_get_first_junction_tree(domain);
   RHugin_handle_error();
 
-  if(jt)
-    ret = R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue);
+  jt = jf;
+  while(jt = h_jt_get_next(jt)) {
+    RHugin_handle_error();
+    n++;
+  }
 
-  return ret;
-}
+  PROTECT(ret = allocVector(VECSXP, n));
 
+  jt = jf;
 
-SEXP RHugin_jt_get_next(SEXP Sjt)
-{
-  SEXP ret = R_NilValue;
-  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  for(i = 0; i < n; i++) {
+    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue));
+    jt = h_jt_get_next(jt);
+  }
 
-  jt = h_jt_get_next(jt);
-  RHugin_handle_error();
-
-  if(jt)
-    ret = R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue);
+  UNPROTECT(1);
 
   return ret;
 }
@@ -2235,8 +2232,11 @@ SEXP RHugin_clique_get_junction_tree(SEXP Sclique)
   jt = h_clique_get_junction_tree(clique);
   RHugin_handle_error();
 
-  if(jt)
-    ret = R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue);
+  if(jt) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue));
+    UNPROTECT(1);
+  }
 
   return ret;
 }
@@ -2251,8 +2251,11 @@ SEXP RHugin_node_get_junction_tree(SEXP Snode)
   jt = h_node_get_junction_tree(node);
   RHugin_handle_error();
 
-  if(jt)
-    ret = R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue);
+  if(jt) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue));
+    UNPROTECT(1);
+  }
 
   return ret;
 }
@@ -2263,7 +2266,7 @@ SEXP RHugin_jt_get_cliques(SEXP Sjt)
   SEXP ret = R_NilValue;
   h_clique_t *clique = NULL, *cliques = NULL;
   R_len_t i = 0, n = 0;
-  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  h_junction_tree_t jt = jtPointerFromSEXP(VECTOR_ELT(Sjt, 0));
 
   cliques = h_jt_get_cliques(jt);
   RHugin_handle_error();
@@ -2285,13 +2288,16 @@ SEXP RHugin_jt_get_root(SEXP Sjt)
 {
   SEXP ret = R_NilValue;
   h_clique_t clique = NULL;
-  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  h_junction_tree_t jt = jtPointerFromSEXP(VECTOR_ELT(Sjt, 0));
 
   clique = h_jt_get_root(jt);
   RHugin_handle_error();
 
-  if(clique)
-    ret = R_MakeExternalPtr(clique, RHugin_clique_tag, R_NilValue);
+  if(clique) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(clique, RHugin_clique_tag, R_NilValue));
+    UNPROTECT(1);
+  }
 
   return ret;
 }
@@ -2301,7 +2307,7 @@ SEXP RHugin_jt_get_total_size(SEXP Sjt)
 {
   SEXP ret = R_NilValue;
   size_t total_size = 0;
-  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  h_junction_tree_t jt = jtPointerFromSEXP(VECTOR_ELT(Sjt, 0));
 
   total_size = h_jt_get_total_size(jt);
 
@@ -2317,7 +2323,7 @@ SEXP RHugin_jt_get_total_cg_size(SEXP Sjt)
 {
   SEXP ret = R_NilValue;
   size_t total_size = 0;
-  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  h_junction_tree_t jt = jtPointerFromSEXP(VECTOR_ELT(Sjt, 0));
 
   total_size = h_jt_get_total_cg_size(jt);
 
@@ -2331,36 +2337,53 @@ SEXP RHugin_jt_get_total_cg_size(SEXP Sjt)
 
 /* 7.3 Cliques */
 
-SEXP RHugin_clique_get_members(SEXP Sclique)
+SEXP RHugin_clique_get_members(SEXP Scliques)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
+  SEXP ret = R_NilValue, node_list = R_NilValue, names = R_NilValue;
   h_error_t error_code = h_error_none;
   h_node_t *node = NULL, *nodes = NULL;
-  R_len_t i = 0, n = 0;
-  h_clique_t clique = cliquePointerFromSEXP(Sclique);
+  R_len_t i = 0, j = 0, n = 0, n_cliques = LENGTH(Scliques);
+  h_clique_t clique = NULL;
 
-  nodes = h_clique_get_members(clique);
-  RHugin_handle_error();
+  PROTECT(ret = allocVector(VECSXP, n_cliques));
 
-  if(nodes) {
-    for(node = nodes; *node != NULL; node++) n++;
+  for(i = 0; i < n_cliques; i++) {
 
-    PROTECT(ret = allocVector(VECSXP, n));
-    PROTECT(names = allocVector(STRSXP, n));
+    clique = cliquePointerFromSEXP(VECTOR_ELT(Scliques, i));
 
-    for(i = 0; i < n; i++) {
-      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(nodes[i], RHugin_node_tag, R_NilValue));
-      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(nodes[i])));
-      error_code = h_error_code();
-      if(error_code != h_error_none) {
-        UNPROTECT(2);
-        RHugin_handle_error_code(error_code);
-      }
+    nodes = h_clique_get_members(clique);
+
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
     }
-    setAttrib(ret, R_NamesSymbol, names);
 
-    UNPROTECT(2);
+    if(nodes) {
+      n = 0;
+      for(node = nodes; *node != NULL; node++) n++;
+
+      PROTECT(node_list = allocVector(VECSXP, n));
+      PROTECT(names = allocVector(STRSXP, n));
+
+      for(j = 0; j < n; j++) {
+        SET_VECTOR_ELT(node_list, j, R_MakeExternalPtr(nodes[j], RHugin_node_tag, R_NilValue));
+        SET_STRING_ELT(names, j, mkChar( (char*) h_node_get_name(nodes[j])));
+
+        error_code = h_error_code();
+        if(error_code != h_error_none) {
+          UNPROTECT(3);
+          RHugin_handle_error_code(error_code);
+        }
+      }
+
+      setAttrib(node_list, R_NamesSymbol, names);
+      SET_VECTOR_ELT(ret, i, node_list);
+      UNPROTECT(2);
+    }
   }
+
+  UNPROTECT(1);
 
   return ret;
 }
@@ -2371,7 +2394,7 @@ SEXP RHugin_clique_get_neighbors(SEXP Sclique)
   SEXP ret = R_NilValue;
   h_clique_t *neighbor = NULL, *neighbors = NULL;
   R_len_t i = 0, n = 0;
-  h_clique_t clique = cliquePointerFromSEXP(Sclique);
+  h_clique_t clique = cliquePointerFromSEXP(VECTOR_ELT(Sclique, 0));
 
   neighbors = h_clique_get_neighbors(clique);
   RHugin_handle_error();
@@ -2911,7 +2934,7 @@ SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name)
   PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
   status = h_domain_parse_case(domain,
                                (h_string_t) CHAR(asChar(Sfile_name)),
-                               RHuginParseError,
+                               RHuginFileParseError,
                                NULL);
   UNPROTECT(1);
 
@@ -4199,7 +4222,7 @@ SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name)
   PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
   status = h_domain_parse_cases(domain,
                                 (h_string_t) CHAR(asChar(Sfile_name)),
-                                RHuginParseError,
+                                RHuginFileParseError,
                                 NULL);
   UNPROTECT(1);
 
@@ -4474,7 +4497,7 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
   PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
 
   domain = h_net_parse_domain((h_string_t) CHAR(asChar(Sfile_name)),
-                              RHuginParseError, NULL);
+                              RHuginFileParseError, NULL);
 
   UNPROTECT(1);
   RHugin_handle_error();
