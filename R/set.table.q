@@ -18,8 +18,7 @@ set.table <- function(domain, node, data,
   if(type == "cpt" &&
      kind %in% c("discrete", "utility", "function") &&
      !is.null(.Call(RHugin_node_get_model, node.ptr)[[1]]))
-    warning(dQuote(node), " has a model")
-
+    stop(dQuote(node), " has a model")
 
   table.ptr <- switch(type,
     cpt = .Call(RHugin_node_get_table, node.ptr),

@@ -1,7 +1,7 @@
 print.summary.RHuginDomain <- function(x, ...)
 {
   if(!is.null(domain <- x$domain)) {
-    cat("A Hugin domain:\n")
+    cat("Hugin Domain:\n")
 
     if(domain[["triangulated"]])
       cat("  Triangulated: the domain is triangulated\n", sep = "")
@@ -41,8 +41,10 @@ print.summary.RHuginDomain <- function(x, ...)
   }
 
   if(!is.null(nodes <- x$nodes)) {
+    cat("Nodes:\n")
+
     for(name in names(nodes)) {
-      cat(name, ":\n", sep = "")
+      cat("  ", name, ":\n", sep = "")
       cat("    category: ", nodes[[name]]$category, "\n", sep = "")
       if(!is.null(nodes[[name]]$kind))
         cat("        kind: ", nodes[[name]]$kind, "\n", sep = "")
@@ -62,6 +64,26 @@ print.summary.RHuginDomain <- function(x, ...)
       tables <- c("experience", "fading")[tables]
       if(length(tables))
         cat("      tables: ", paste(tables, collapse = ", "), sep = "")
+      cat("\n")
+    }
+  }
+
+  if(!is.null(jt <- x$jt)) {
+    for(i in 1:length(jt)) {
+      if(length(jt) == 1)
+        cat("Junction Tree:")
+      else
+        cat("Junction Tree ", i, ":", sep = "")
+
+      cat("\n       size:", jt[[i]]$size)
+      cat("\n     cgsize:", jt[[i]]$cgsize)
+      cat("\n\n    clique membership:\n")
+      cliques <- jt[[1]]$cliques
+      for(j in 1:length(cliques)) {
+        cat("      ", names(cliques)[j], ": {", sep = "")
+        cat(paste(cliques[[j]], collapse = " "))
+        cat("}\n")
+      }
       cat("\n")
     }
   }

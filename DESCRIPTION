@@ -4,9 +4,9 @@ Date: 2013-03-02
 Title: RHugin
 Author: Kjell Konis <kjell.konis@icloud.com>.
 Maintainer: Kjell Konis <kjell.konis@icloud.com>
-Depends: R (>= 2.15.1), Rgraphviz, graph
+Depends: R (>= 2.15.1), Rgraphviz (>= 1.32.0), graph
 SystemRequirements: Hugin Decision Engine 7.7
-Suggests: MASS, Rgraphviz (>= 1.32.0)
+Suggests: MASS
 Description: The RHugin package provides an R API for the Hugin Decision \
              Engine. The RHugin package is free software and is distributed \
              under the terms of the LGPL. The Hugin Decision Engine is \

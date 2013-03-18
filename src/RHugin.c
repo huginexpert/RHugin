@@ -159,7 +159,7 @@ h_domain_t domainPointerFromSEXP(SEXP Sdomain)
     error("NULL value passed as domain");
 
   if(TYPEOF(Sdomain) != EXTPTRSXP || R_ExternalPtrTag(Sdomain) != RHugin_domain_tag)
-    error("the domain argument does not appear to be a valid Hugin domain");
+    error("the domain argument is not a valid Hugin domain");
 
   return (h_domain_t) R_ExternalPtrAddr(Sdomain);
 }
@@ -183,7 +183,7 @@ h_table_t tablePointerFromSEXP(SEXP Stable)
     error("NULL value passed as table");
 
   if(TYPEOF(Stable) != EXTPTRSXP || R_ExternalPtrTag(Stable) != RHugin_table_tag)
-    error("the table argument does not appear to be a valid Hugin table");
+    error("the table argument is not a valid Hugin table");
 
   return (h_table_t) R_ExternalPtrAddr(Stable);
 }
@@ -195,7 +195,7 @@ h_expression_t expressionPointerFromSEXP(SEXP Sexpression)
     error("NULL value passed as expression");
 
   if(TYPEOF(Sexpression) != EXTPTRSXP || R_ExternalPtrTag(Sexpression) != RHugin_expression_tag)
-    error("the expression argument does not appear to be a valid Hugin expression");
+    error("the expression argument is not a valid Hugin expression");
 
   return (h_expression_t) R_ExternalPtrAddr(Sexpression);
 }
@@ -207,7 +207,7 @@ h_model_t modelPointerFromSEXP(SEXP Smodel)
     error("NULL value passed as model");
 
   if(TYPEOF(Smodel) != EXTPTRSXP || R_ExternalPtrTag(Smodel) != RHugin_model_tag)
-    error("the model argument does not appear to be a valid Hugin model");
+    error("the model argument is not a valid Hugin model");
 
   return (h_model_t) R_ExternalPtrAddr(Smodel);
 }
@@ -219,7 +219,7 @@ h_junction_tree_t jtPointerFromSEXP(SEXP Sjt)
     error("NULL value passed as junction tree");
 
   if(TYPEOF(Sjt) != EXTPTRSXP || R_ExternalPtrTag(Sjt) != RHugin_junction_tree_tag)
-    error("the junction tree argument does not appear to be a valid Hugin junction tree");
+    error("the junction tree argument is not a valid Hugin junction tree");
 
   return (h_junction_tree_t) R_ExternalPtrAddr(Sjt);
 }
@@ -231,15 +231,21 @@ h_clique_t cliquePointerFromSEXP(SEXP Sclique)
     error("NULL value passed as clique");
 
   if(TYPEOF(Sclique) != EXTPTRSXP || R_ExternalPtrTag(Sclique) != RHugin_clique_tag)
-    error("the clique argument does not appear to be a valid Hugin clique");
+    error("the clique argument is not a valid Hugin clique");
 
   return (h_clique_t) R_ExternalPtrAddr(Sclique);
 }
 
 
-void RHuginParseError(h_location_t line, h_string_t message, void *data)
+void RHuginFileParseError(h_location_t line, h_string_t message, void *data)
 {
-  Rprintf("Parse error at line %d: %s\n\n", (int) line, message);
+  Rprintf("Parse error at line %d: %s\n", (int) line, message);
+}
+
+
+void RHuginExpressionParseError(h_location_t index, h_string_t message, void *data)
+{
+  Rprintf("Parse error at index %d: %s\n", (int) index, message);
 }
 
 
@@ -376,8 +382,8 @@ void R_init_RHugin(DllInfo *info)
     // SEXP RHugin_expression_clone(SEXP Se);
 
     /* 5.3 Syntax for expression */
-    {"RHugin_string_parse_expression", (DL_FUNC) RHugin_string_parse_expression, 2},
-    {"RHugin_expression_to_string", (DL_FUNC) RHugin_expression_to_string, 1},
+    // SEXP RHugin_string_parse_expression(SEXP Sstrings, SEXP Smodel);
+    // SEXP RHugin_expression_to_string(SEXP Sexpression);
 
     /* 5.4 Creating and maintaining models */
     {"RHugin_node_new_model", (DL_FUNC) RHugin_node_new_model, 2},
@@ -385,7 +391,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_model_delete", (DL_FUNC) RHugin_model_delete, 1},
     {"RHugin_model_get_nodes", (DL_FUNC) RHugin_model_get_nodes, 1},
     {"RHugin_model_get_size", (DL_FUNC) RHugin_model_get_size, 1},
-    {"RHugin_model_set_expression", (DL_FUNC) RHugin_model_set_expression, 3},
+    {"RHugin_model_set_expression", (DL_FUNC) RHugin_model_set_expression, 2},
     {"RHugin_model_get_expression", (DL_FUNC) RHugin_model_get_expression, 1},
 
     /* 5.5 State labels */
@@ -440,8 +446,9 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_approximation_constant", (DL_FUNC) RHugin_domain_get_approximation_constant, 1},
 
     /* 7.2 Junction trees */
-    {"RHugin_domain_get_first_junction_tree", (DL_FUNC) RHugin_domain_get_first_junction_tree, 1},
-    {"RHugin_jt_get_next", (DL_FUNC) RHugin_jt_get_next, 1},
+    // SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
+    // SEXP RHugin_jt_get_next(SEXP Sjt)
+    {"RHugin_domain_get_junction_forest", (DL_FUNC) RHugin_domain_get_junction_forest, 1},
     {"RHugin_clique_get_junction_tree", (DL_FUNC) RHugin_clique_get_junction_tree, 1},
     {"RHugin_node_get_junction_tree", (DL_FUNC) RHugin_node_get_junction_tree, 1},
     {"RHugin_jt_get_cliques", (DL_FUNC) RHugin_jt_get_cliques, 1},

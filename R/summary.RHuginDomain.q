@@ -128,30 +128,29 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
     }
   }
 
+  jt.summary <- NULL
+
   if(jt && .Call(RHugin_domain_is_triangulated, object)) {
 
-    jts <- list(.Call(RHugin_domain_get_first_junction_tree, object))
+    jt.summary <- list()
+    jf <- .Call(RHugin_domain_get_junction_forest, object)
 
-    while(!is.null(njt <- .Call(RHugin_jt_get_next, jts[[length(jts)]])))
-      jts <- c(jts, njt)
-
-    for(jt in jts) {
-      cliques <- .Call(RHugin_jt_get_cliques, jt)
-      n.cliques <- length(cliques)
-      clique.members <- lapply(cliques, function(u) names(.Call(RHugin_clique_get_members, u)))
-      clique.sizes <- sapply(clique.members, length)
-      clique.names <- sapply(clique.members, paste, collapse = ":")
-
-      for(clique in cliques) {
-        clique.name <- paste(names(.Call(RHugin_clique_get_members, clique)),
-                             collapse = ":")
-      }
+    for(i in 1:length(jf)) {
+      jt.summary[[i]] <- list()
+      jt.summary[[i]]$size <- .Call(RHugin_jt_get_total_size, jf[i])
+      jt.summary[[i]]$cgsize <- .Call(RHugin_jt_get_total_cg_size, jf[i])
+      cliques <- .Call(RHugin_jt_get_cliques, jf[i])
+      clique.members <- .Call(RHugin_clique_get_members, cliques)
+      clique.nodes <- lapply(clique.members, names)
+      names(clique.nodes) <- paste("clique", 1:length(clique.nodes))
+      jt.summary[[i]]$cliques <- clique.nodes
     }
   }
 
   ans <- list()
   ans[["domain"]] <- domain.summary
   ans[["nodes"]] <- node.summary
+  ans[["jt"]] <- jt.summary
   oldClass(ans) <- "summary.RHuginDomain"
   ans
 }

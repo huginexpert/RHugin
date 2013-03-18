@@ -50,10 +50,7 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
     if(!.Call(RHugin_domain_is_triangulated, x))
       stop("the domain is not triangulated")
 
-    jts <- list(.Call(RHugin_domain_get_first_junction_tree, x))
-
-    while(!is.null(njt <- .Call(RHugin_jt_get_next, jts[[length(jts)]])))
-      jts <- c(jts, njt)
+    jts <- .Call(RHugin_domain_get_junction_forest, x)
 
     g <- new("graphNEL")
     nAttrs <- list()
@@ -65,27 +62,26 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
     label.width <- 1.5 * max(max(strwidth(get.nodes(x), units = "inches")), 1.0)
     line.height <- 2 * max(strheight(get.nodes(x), units = "inches"))
 
-    for(jt in jts) {
-      cliques <- .Call(RHugin_jt_get_cliques, jt)
+    for(i in 1:length(jts)) {
+      cliques <- .Call(RHugin_jt_get_cliques, jts[i])
       n.cliques <- length(cliques)
-      clique.members <- lapply(cliques, function(u)
-        names(.Call(RHugin_clique_get_members, u)))
+      clique.members <- lapply(.Call(RHugin_clique_get_members, cliques), names)
       clique.sizes <- sapply(clique.members, length)
       clique.names <- sapply(clique.members, paste, collapse = ":")
 
       g <- addNode(clique.names, g)
 
-      for(clique in cliques) {
-        clique.name <- paste(names(.Call(RHugin_clique_get_members, clique)),
-                             collapse = ":")
+      for(j in 1:length(cliques)) {
+        clique.name <- clique.names[j]
 
-      neighbors <- .Call(RHugin_clique_get_neighbors, clique)
-      neighbor.names <- sapply(neighbors, function(u)
-        paste(names(.Call(RHugin_clique_get_members, u)), collapse = ":"))
+        neighbors <- .Call(RHugin_clique_get_neighbors, cliques[j])
+        neighbor.members <- .Call(RHugin_clique_get_members, neighbors)
+        neighbor.names <- sapply(neighbor.members, function(u)
+                                 paste(names(u), collapse = ":"))
 
-      for(neighbor in neighbor.names)
-        if(!is.element(clique.name, edges(g)[[neighbor]]))
-          g <- addEdge(neighbor, clique.name, g)
+        for(neighbor in neighbor.names)
+          if(!is.element(clique.name, edges(g)[[neighbor]]))
+            g <- addEdge(neighbor, clique.name, g)
       }
 
       node.heights <- clique.sizes * line.height
