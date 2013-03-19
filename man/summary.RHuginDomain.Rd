@@ -24,6 +24,7 @@ a list with class \code{summary.RHuginDomain} containing the following elements.
 
 \item{domain}{a list containing:
   \describe{
+    \item{logfile}{a character string containing the file name of an open log file connection.  If there is no open log file then \code{logfile} is \code{NULL}.}
     \item{triangulated}{a logical value indicating whether \code{object} is triangulated.}
     \item{compiled}{a logical value indicating whether \code{object} is compiled.}
     \item{compressed}{a logical value indicating whether \code{object} is compressed.}

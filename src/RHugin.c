@@ -123,6 +123,26 @@ log_file_info *RHugin_close_log_file(log_file_info *lfi)
 }
 
 
+SEXP RHugin_domain_get_logfile(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  log_file_info *lfi = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  lfi = (log_file_info *) h_domain_get_user_data(domain);
+
+  if(lfi != NULL) {
+    if(lfi->filename != NULL) {
+      PROTECT(ret = allocVector(STRSXP, 1));
+      SET_STRING_ELT(ret, 0, mkChar(lfi->filename));
+      UNPROTECT(1);
+    }
+  }
+
+  return ret;
+}
+
+
 void RHugin_domain_finalizer(SEXP Sdomain)
 {
   log_file_info *lfi = NULL;
@@ -253,6 +273,7 @@ void R_init_RHugin(DllInfo *info)
 {
   R_CallMethodDef dotCallMethods[] = {
     /* Helper funtions from RHugin.c */
+    {"RHugin_domain_get_logfile", (DL_FUNC) RHugin_domain_get_logfile, 1},
     {"RHugin_R_Nilify_externalptr", (DL_FUNC) RHugin_R_Nilify_externalptr, 1},
 
     /* 1.6 Errors */

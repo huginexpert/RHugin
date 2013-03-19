@@ -31,6 +31,7 @@ typedef struct {
 
 log_file_info *RHugin_open_log_file(const char *filename);
 log_file_info *RHugin_close_log_file(log_file_info *lfi);
+DLLEXPORT SEXP RHugin_domain_get_logfile(SEXP Sdomain);
 
 
 /* Finalizer */
@@ -40,7 +41,7 @@ void RHugin_domain_finalizer(SEXP Sdomain);
 
 /* External pointer checker */
 
-SEXP RHugin_R_Nilify_externalptr(SEXP Sptr);
+DLLEXPORT SEXP RHugin_R_Nilify_externalptr(SEXP Sptr);
 
 
 /* Safe accessor methods for Hugin objects */

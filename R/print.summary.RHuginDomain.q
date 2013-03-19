@@ -3,6 +3,9 @@ print.summary.RHuginDomain <- function(x, ...)
   if(!is.null(domain <- x$domain)) {
     cat("Hugin Domain:\n")
 
+    if(!is.null(domain[["logfile"]]))
+      cat("      Log File: ", domain[["logfile"]], "\n", sep = "")
+
     if(domain[["triangulated"]])
       cat("  Triangulated: the domain is triangulated\n", sep = "")
     else

@@ -9,7 +9,6 @@
 /* Begin PBXFileReference section */
 		0E03CE1A112B391D00A8E0B1 /* RHugin.control.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = RHugin.control.Rd; path = man/RHugin.control.Rd; sourceTree = SOURCE_ROOT; };
 		0E06219E0EB4B7D60084E761 /* get.sensitivity.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.sensitivity.Rd; path = man/get.sensitivity.Rd; sourceTree = "<group>"; };
-		0E10999516F8291E00EEDA44 /* get.requisites.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.requisites.q; path = R/get.requisites.q; sourceTree = "<group>"; };
 		0E1A4FE20F1299E100128DF6 /* compile.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compile.RHuginDomain.q; path = R/compile.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E1A4FE30F1299E100128DF6 /* propagate.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = propagate.RHuginDomain.q; path = R/propagate.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E1A4FE80F129ADE00128DF6 /* compile.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compile.RHuginDomain.Rd; path = man/compile.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
@@ -23,6 +22,8 @@
 		0E49452716F7E0AD00FC6E57 /* get.parents.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.parents.q; path = R/get.parents.q; sourceTree = "<group>"; };
 		0E49452816F7E0D400FC6E57 /* get.children.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.children.q; path = R/get.children.q; sourceTree = "<group>"; };
 		0E49724B1121FD79003DD117 /* learn.structure.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = learn.structure.q; path = R/learn.structure.q; sourceTree = SOURCE_ROOT; };
+		0E53151016F8EA85003B6DBD /* get.children.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.children.Rd; path = man/get.children.Rd; sourceTree = "<group>"; };
+		0E53151116F8EA85003B6DBD /* get.parents.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.parents.Rd; path = man/get.parents.Rd; sourceTree = "<group>"; };
 		0E7BA1B916EE99E4007BB1D2 /* set.logfile.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.logfile.q; path = R/set.logfile.q; sourceTree = "<group>"; };
 		0E7BA1BA16EE9D0A007BB1D2 /* set.logfile.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.logfile.Rd; path = man/set.logfile.Rd; sourceTree = "<group>"; };
 		0E84068010A8BBBF00E3E8D6 /* adapt.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.q; path = R/adapt.q; sourceTree = SOURCE_ROOT; };
@@ -206,7 +207,6 @@
 				DAEFA1B50DE3081B002B126B /* get.edges.q */,
 				DAEFA1B60DE3081B002B126B /* get.nodes.q */,
 				0E49452716F7E0AD00FC6E57 /* get.parents.q */,
-				0E10999516F8291E00EEDA44 /* get.requisites.q */,
 				DAEFA1B80DE3081B002B126B /* get.states.q */,
 				DAEFA1BB0DE3081B002B126B /* hugin.domain.q */,
 				DAEFA1C30DE3081B002B126B /* reverse.edge.q */,
@@ -378,6 +378,8 @@
 				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				DAEFA1E90DE3083B002B126B /* set.states.Rd */,
+				0E53151016F8EA85003B6DBD /* get.children.Rd */,
+				0E53151116F8EA85003B6DBD /* get.parents.Rd */,
 				DAEFA1DC0DE3083B002B126B /* get.states.Rd */,
 				DAEFA1CD0DE3083A002B126B /* add.edge.Rd */,
 				DAEFA1D20DE3083A002B126B /* delete.edge.Rd */,

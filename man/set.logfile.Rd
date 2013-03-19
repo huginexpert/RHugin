@@ -32,6 +32,13 @@ HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-ma
 # Create an RHugin domain
 hd <- hugin.domain()
 
+# Set the log file
+set.logfile(hd, "hd.log")
+
+# Compile, triangulate, etc.
+
+# Close log file
+set.logfile(hd, NULL)
 }
 
 \keyword{programming}

@@ -27,7 +27,6 @@ export(
   "get.nodes",
   "get.normalization.constant",
   "get.parents",
-  "get.requisites",
   "get.sensitivity",
   "get.states",
   "get.table",
