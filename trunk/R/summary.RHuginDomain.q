@@ -16,6 +16,7 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
   domain.summary <- NULL
   
   if(domain) {
+    logfile <- .Call(RHugin_domain_get_logfile, object)
     triangulated <- .Call(RHugin_domain_is_triangulated, object)
     compressed <- .Call(RHugin_domain_is_compressed, object)
     evidence.normal <- .Call(RHugin_domain_evidence_mode_is, object, "normal")
@@ -40,7 +41,8 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
       tables.to.propagate <- NULL
     }
 
-    domain.summary <- list(triangulated = triangulated,
+    domain.summary <- list(logfile = logfile,
+                           triangulated = triangulated,
                            compiled = compiled,
                            compressed = compressed,
                            evidence.propagated = evidence.propagated,
