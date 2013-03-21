@@ -8,7 +8,7 @@ Summary method for RHugin domains.
 }
 
 \usage{
-\method{summary}{RHuginDomain}(object, domain = TRUE, nodes = FALSE, jt = FALSE, ...)
+\method{summary}{RHuginDomain}(object, domain = TRUE, nodes = FALSE, jt = FALSE, print.cliques = FALSE, ...)
 }
 
 \arguments{
@@ -16,6 +16,7 @@ Summary method for RHugin domains.
   \item{domain}{a logical value indicating whether a summary of the domain should be computed.}
   \item{nodes}{a logical value or a character vector containing the names of one or more nodes in \code{object}.  The default value \code{FALSE} skips the node summary.  Alternatively, \code{TRUE} causes a summary to be computed for all nodes in \code{object}.}
   \item{jt}{a logical value indicating whether a summary of the junction tree(s) should be computed.}
+  \item{print.cliques}{a logical value. Set this to \code{TRUE} to force printing of cliques. By default the cliques are not printed when there are more than 10.}
   \item{\dots}{additional arguments are ignored.}
 }
 

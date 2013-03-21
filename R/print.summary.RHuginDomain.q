@@ -80,12 +80,15 @@ print.summary.RHuginDomain <- function(x, ...)
 
       cat("\n       size:", jt[[i]]$size)
       cat("\n     cgsize:", jt[[i]]$cgsize)
-      cat("\n\n    clique membership:\n")
+
       cliques <- jt[[1]]$cliques
-      for(j in 1:length(cliques)) {
-        cat("      ", names(cliques)[j], ": {", sep = "")
-        cat(paste(cliques[[j]], collapse = " "))
-        cat("}\n")
+      if(length(cliques) <= 8 || attr(jt, "print.cliques")) {
+        cat("\n\n  clique membership:\n")
+        for(j in 1:length(cliques)) {
+          cat("    ", names(cliques)[j], ": {", sep = "")
+          cat(paste(cliques[[j]], collapse = " "))
+          cat("}\n")
+        }
       }
       cat("\n")
     }

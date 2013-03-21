@@ -71,3 +71,5 @@ S3method(summary, RHuginDomain)
 S3method(triangulate, RHuginDomain)
 
 S3method(print, summary.RHuginDomain)
+
+

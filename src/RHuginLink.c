@@ -1539,7 +1539,6 @@ SEXP RHugin_model_get_size(SEXP Smodels)
 
 SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sexpressions)
 {
-  h_status_t status = 0;
   h_expression_t *expressions = NULL;
   h_string_t string = NULL;
   R_len_t i = 0, j = 0, n = LENGTH(Sexpressions);
@@ -2203,7 +2202,7 @@ SEXP RHugin_domain_get_junction_forest(SEXP Sdomain)
   RHugin_handle_error();
 
   jt = jf;
-  while(jt = h_jt_get_next(jt)) {
+  while( (jt = h_jt_get_next(jt)) ) {
     RHugin_handle_error();
     n++;
   }
