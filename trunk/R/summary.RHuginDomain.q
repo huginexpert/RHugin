@@ -1,5 +1,5 @@
 summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
-                                 jt = FALSE, ...)
+                                 jt = FALSE, print.cliques = FALSE, ...)
 {
   RHugin.check.domain(object, "summary.RHuginDomain")
 
@@ -147,6 +147,9 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
       names(clique.nodes) <- paste("clique", 1:length(clique.nodes))
       jt.summary[[i]]$cliques <- clique.nodes
     }
+
+    if(print.cliques)
+      attr(jt.summary, "print.cliques") <- TRUE
   }
 
   ans <- list()
