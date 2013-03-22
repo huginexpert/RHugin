@@ -57,9 +57,9 @@ print.summary.RHuginDomain <- function(x, ...)
         cat("      states: ", "{", paste(nodes[[name]]$states, collapse = ", "),
             "}\n", sep = "")
       if(!is.null(nodes[[name]]$size))
-        cat("        size: ", nodes[[name]]$size, "\n", sep = "")
+        cat("        size: ", format(nodes[[name]]$size, digits = 11), "\n", sep = "")
       if(!is.null(nodes[[name]]$cgsize) && nodes[[name]]$cgsize > 0)
-        cat("      cgsize: ", nodes[[name]]$cgsize, "\n", sep = "")
+        cat("      cgsize: ", format(nodes[[name]]$cgsize, digits = 11), "\n", sep = "")
       cat("       model: ", ifelse(nodes[[name]]$model, "yes", "no"), "\n", sep = "")
       if(nodes[[name]]$model)
         cat("  model.size: ", nodes[[name]]$model.size, "\n", sep = "")
@@ -78,12 +78,12 @@ print.summary.RHuginDomain <- function(x, ...)
       else
         cat("Junction Tree ", i, ":", sep = "")
 
-      cat("\n       size:", jt[[i]]$size)
-      cat("\n     cgsize:", jt[[i]]$cgsize)
+      cat("\n       size:", format(jt[[i]]$size, digits = 11))
+      cat("\n     cgsize:", format(jt[[i]]$cgsize, digits = 11))
 
       cliques <- jt[[1]]$cliques
-      if(length(cliques) <= 8 || attr(jt, "print.cliques")) {
-        cat("\n\n  clique membership:\n")
+      if(length(cliques) <= 10 || attr(jt, "print.cliques")) {
+        cat("\n\n  Cliques:\n")
         for(j in 1:length(cliques)) {
           cat("    ", names(cliques)[j], ": {", sep = "")
           cat(paste(cliques[[j]], collapse = " "))

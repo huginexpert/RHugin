@@ -28,6 +28,15 @@
 		0E7BA1BA16EE9D0A007BB1D2 /* set.logfile.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.logfile.Rd; path = man/set.logfile.Rd; sourceTree = "<group>"; };
 		0E84068010A8BBBF00E3E8D6 /* adapt.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.q; path = R/adapt.q; sourceTree = SOURCE_ROOT; };
 		0E84068110A8BBBF00E3E8D6 /* delete.table.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = delete.table.q; path = R/delete.table.q; sourceTree = SOURCE_ROOT; };
+		0E9AF16616FC14D40083A4B1 /* delete.model.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = delete.model.q; path = R/delete.model.q; sourceTree = "<group>"; };
+		0E9AF16716FC14D40083A4B1 /* generate.table.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = generate.table.q; path = R/generate.table.q; sourceTree = "<group>"; };
+		0E9AF16816FC14D40083A4B1 /* get.model.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.model.q; path = R/get.model.q; sourceTree = "<group>"; };
+		0E9AF16916FC14D40083A4B1 /* print.RHugin.model.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = print.RHugin.model.q; path = R/print.RHugin.model.q; sourceTree = "<group>"; };
+		0E9AF16A16FC14D40083A4B1 /* set.model.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.model.q; path = R/set.model.q; sourceTree = "<group>"; };
+		0E9AF16B16FC1D880083A4B1 /* delete.model.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = delete.model.Rd; path = man/delete.model.Rd; sourceTree = "<group>"; };
+		0E9AF16C16FC1D880083A4B1 /* generate.table.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = generate.table.Rd; path = man/generate.table.Rd; sourceTree = "<group>"; };
+		0E9AF16D16FC1D880083A4B1 /* get.model.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.model.Rd; path = man/get.model.Rd; sourceTree = "<group>"; };
+		0E9AF16E16FC1D880083A4B1 /* set.model.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.model.Rd; path = man/set.model.Rd; sourceTree = "<group>"; };
 		0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.marginal.q; path = R/get.marginal.q; sourceTree = SOURCE_ROOT; };
 		0EA522EF111DF81D00602ED8 /* compress.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compress.q; path = R/compress.q; sourceTree = SOURCE_ROOT; };
 		0EA522F0111DF81D00602ED8 /* get.approximation.constant.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.approximation.constant.q; path = R/get.approximation.constant.q; sourceTree = SOURCE_ROOT; };
@@ -219,6 +228,11 @@
 		0E01F29E16E282380064BE4A /* 5 Generating Tables */ = {
 			isa = PBXGroup;
 			children = (
+				0E9AF16616FC14D40083A4B1 /* delete.model.q */,
+				0E9AF16716FC14D40083A4B1 /* generate.table.q */,
+				0E9AF16816FC14D40083A4B1 /* get.model.q */,
+				0E9AF16916FC14D40083A4B1 /* print.RHugin.model.q */,
+				0E9AF16A16FC14D40083A4B1 /* set.model.q */,
 			);
 			name = "5 Generating Tables";
 			sourceTree = "<group>";
@@ -356,6 +370,10 @@
 		0E01F2AD16E2925D0064BE4A /* 5 Generating tables */ = {
 			isa = PBXGroup;
 			children = (
+				0E9AF16B16FC1D880083A4B1 /* delete.model.Rd */,
+				0E9AF16C16FC1D880083A4B1 /* generate.table.Rd */,
+				0E9AF16D16FC1D880083A4B1 /* get.model.Rd */,
+				0E9AF16E16FC1D880083A4B1 /* set.model.Rd */,
 			);
 			name = "5 Generating tables";
 			sourceTree = "<group>";
