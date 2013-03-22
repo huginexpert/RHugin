@@ -10,8 +10,10 @@ export(
   "compile.RHuginDomain",
   "compress",
   "delete.edge",
+  "delete.model",
   "delete.node",
   "delete.table",
+  "generate.table",
   "get.approximation.constant",
   "get.belief",
   "get.cases",
@@ -24,6 +26,7 @@ export(
   "get.entropy",
   "get.finding",
   "get.marginal",
+  "get.model",
   "get.nodes",
   "get.normalization.constant",
   "get.parents",
@@ -50,6 +53,7 @@ export(
   "set.cases",
   "set.finding",
   "set.logfile",
+  "set.model",
   "set.states",
   "set.table",
   "simulate.RHuginDomain",
@@ -70,6 +74,7 @@ S3method(simulate, RHuginDomain)
 S3method(summary, RHuginDomain)
 S3method(triangulate, RHuginDomain)
 
+S3method(print, RHugin.model)
 S3method(print, summary.RHuginDomain)
 
 
