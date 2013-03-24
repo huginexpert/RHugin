@@ -467,9 +467,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_approximation_constant", (DL_FUNC) RHugin_domain_get_approximation_constant, 1},
 
     /* 7.2 Junction trees */
-    // SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
-    // SEXP RHugin_jt_get_next(SEXP Sjt)
-    {"RHugin_domain_get_junction_forest", (DL_FUNC) RHugin_domain_get_junction_forest, 1},
+    {"RHugin_domain_get_first_junction_tree", (DL_FUNC) RHugin_domain_get_first_junction_tree, 1},
+    {"RHugin_jt_get_next", (DL_FUNC) RHugin_jt_get_next, 1},
     {"RHugin_clique_get_junction_tree", (DL_FUNC) RHugin_clique_get_junction_tree, 1},
     {"RHugin_node_get_junction_tree", (DL_FUNC) RHugin_node_get_junction_tree, 1},
     {"RHugin_jt_get_cliques", (DL_FUNC) RHugin_jt_get_cliques, 1},

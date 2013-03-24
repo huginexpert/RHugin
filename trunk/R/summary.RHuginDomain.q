@@ -135,13 +135,16 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
   if(jt && .Call(RHugin_domain_is_triangulated, object)) {
 
     jt.summary <- list()
-    jf <- .Call(RHugin_domain_get_junction_forest, object)
+    jts <- list(.Call(RHugin_domain_get_first_junction_tree, object))
 
-    for(i in 1:length(jf)) {
+    while(!is.null(njt <- .Call(RHugin_jt_get_next, jts[[length(jts)]])))
+      jts <- c(jts, njt)
+
+    for(i in 1:length(jts)) {
       jt.summary[[i]] <- list()
-      jt.summary[[i]]$size <- .Call(RHugin_jt_get_total_size, jf[i])
-      jt.summary[[i]]$cgsize <- .Call(RHugin_jt_get_total_cg_size, jf[i])
-      cliques <- .Call(RHugin_jt_get_cliques, jf[i])
+      jt.summary[[i]]$size <- .Call(RHugin_jt_get_total_size, jts[i])
+      jt.summary[[i]]$cgsize <- .Call(RHugin_jt_get_total_cg_size, jts[i])
+      cliques <- .Call(RHugin_jt_get_cliques, jts[i])
       clique.members <- .Call(RHugin_clique_get_members, cliques)
       clique.nodes <- lapply(clique.members, names)
       names(clique.nodes) <- paste("clique", 1:length(clique.nodes))

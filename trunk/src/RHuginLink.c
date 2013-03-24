@@ -2188,36 +2188,33 @@ SEXP RHugin_domain_get_approximation_constant(SEXP Sdomain)
 
 /* 7.2 Junction trees */
 
-// SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
-// SEXP RHugin_jt_get_next(SEXP Sjt)
-
-SEXP RHugin_domain_get_junction_forest(SEXP Sdomain)
+SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_junction_tree_t jt = NULL, jf = NULL;
-  R_len_t i = 0, n = 1;
+  h_junction_tree_t jt = NULL;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
-
-  jf = h_domain_get_first_junction_tree(domain);
+  
+  jt = h_domain_get_first_junction_tree(domain);
   RHugin_handle_error();
+  
+  if(jt)
+    ret = R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue);
+  
+  return ret;
+}
 
-  jt = jf;
-  while( (jt = h_jt_get_next(jt)) ) {
-    RHugin_handle_error();
-    n++;
-  }
 
-  PROTECT(ret = allocVector(VECSXP, n));
-
-  jt = jf;
-
-  for(i = 0; i < n; i++) {
-    SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue));
-    jt = h_jt_get_next(jt);
-  }
-
-  UNPROTECT(1);
-
+SEXP RHugin_jt_get_next(SEXP Sjt)
+{
+  SEXP ret = R_NilValue;
+  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  
+  jt = h_jt_get_next(jt);
+  RHugin_handle_error();
+  
+  if(jt)
+    ret = R_MakeExternalPtr(jt, RHugin_junction_tree_tag, R_NilValue);
+  
   return ret;
 }
 
