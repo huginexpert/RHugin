@@ -50,7 +50,10 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
     if(!.Call(RHugin_domain_is_triangulated, x))
       stop("the domain is not triangulated")
 
-    jts <- .Call(RHugin_domain_get_junction_forest, x)
+    jts <- list(.Call(RHugin_domain_get_first_junction_tree, x))
+
+    while(!is.null(njt <- .Call(RHugin_jt_get_next, jts[[length(jts)]])))
+      jts <- c(jts, njt)
 
     g <- new("graphNEL")
     nAttrs <- list()

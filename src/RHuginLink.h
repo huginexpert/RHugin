@@ -259,9 +259,8 @@ DLLEXPORT SEXP RHugin_domain_get_approximation_constant(SEXP Sdomain);
 
 /* 7.2 Junction trees */
 
-// SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
-// SEXP RHugin_jt_get_next(SEXP Sjt)
-DLLEXPORT SEXP RHugin_domain_get_junction_forest(SEXP Sdomain);
+DLLEXPORT SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain);
+DLLEXPORT SEXP RHugin_jt_get_next(SEXP Sjt);
 DLLEXPORT SEXP RHugin_clique_get_junction_tree(SEXP Sclique);
 DLLEXPORT SEXP RHugin_node_get_junction_tree(SEXP Snode);
 DLLEXPORT SEXP RHugin_jt_get_cliques(SEXP Sjt);

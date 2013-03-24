@@ -81,7 +81,7 @@ print.summary.RHuginDomain <- function(x, ...)
       cat("\n       size:", format(jt[[i]]$size, digits = 11))
       cat("\n     cgsize:", format(jt[[i]]$cgsize, digits = 11))
 
-      cliques <- jt[[1]]$cliques
+      cliques <- jt[[i]]$cliques
       if(length(cliques) <= 10 || attr(jt, "print.cliques")) {
         cat("\n\n  Cliques:\n")
         for(j in 1:length(cliques)) {
