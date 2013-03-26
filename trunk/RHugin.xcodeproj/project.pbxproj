@@ -38,6 +38,8 @@
 		0E9AF16D16FC1D880083A4B1 /* get.model.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.model.Rd; path = man/get.model.Rd; sourceTree = "<group>"; };
 		0E9AF16E16FC1D880083A4B1 /* set.model.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.model.Rd; path = man/set.model.Rd; sourceTree = "<group>"; };
 		0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.marginal.q; path = R/get.marginal.q; sourceTree = SOURCE_ROOT; };
+		0EA18FF9170258FB000890B7 /* models.R */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rez; name = models.R; path = tests/models.R; sourceTree = "<group>"; };
+		0EA18FFA170266F2000890B7 /* models.Rout.save */ = {isa = PBXFileReference; lastKnownFileType = text; name = models.Rout.save; path = tests/models.Rout.save; sourceTree = "<group>"; };
 		0EA522EF111DF81D00602ED8 /* compress.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = compress.q; path = R/compress.q; sourceTree = SOURCE_ROOT; };
 		0EA522F0111DF81D00602ED8 /* get.approximation.constant.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = get.approximation.constant.q; path = R/get.approximation.constant.q; sourceTree = SOURCE_ROOT; };
 		0EA791AE0DF1755B007CDD16 /* summary.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = summary.RHuginDomain.q; path = R/summary.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
@@ -418,6 +420,8 @@
 				DA4709AB0FD82EBC001CB5BF /* asia.Rout.save */,
 				0E25694C0FDA54D5008C9DED /* limid.R */,
 				0E2569D10FDA9709008C9DED /* limid.Rout.save */,
+				0EA18FF9170258FB000890B7 /* models.R */,
+				0EA18FFA170266F2000890B7 /* models.Rout.save */,
 				DA47098F0FD82B5E001CB5BF /* simpleGaussianExample.R */,
 				DA4709AC0FD82EBC001CB5BF /* simpleGaussianExample.Rout.save */,
 				DA4709900FD82B5E001CB5BF /* waste.R */,
