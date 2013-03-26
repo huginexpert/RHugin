@@ -1,13 +1,15 @@
-delete.model <- function(domain, node)
+delete.model <- function(domain, nodes)
 {
-  node <- node[1]
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
-  model.ptr <- .Call(RHugin_node_get_model, node.ptr)
+  RHugin.check.args(domain, nodes, character(0), "delete.model")
+  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  model.ptrs <- .Call(RHugin_node_get_model, node.ptrs)
 
-  if(is.null(model.ptr[[node]]))
-    warning(dQuote(node), " does not have a model")
-  else
-    .Call(RHugin_model_delete, model.ptr)
+  for(node in nodes) {
+    if(is.null(model.ptrs[[node]]))
+      warning(dQuote(node), " does not have a model")
+    else
+      .Call(RHugin_model_delete, model.ptrs[node])
+  }
 
   invisible()
 }

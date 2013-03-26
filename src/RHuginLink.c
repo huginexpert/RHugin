@@ -1408,8 +1408,7 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
 SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
 {
   SEXP ret = R_NilValue;
-  h_node_t node = NULL;
-  h_node_t *model_nodes = NULL;
+  h_node_t node = NULL, *model_nodes = NULL;
   h_model_t model = NULL;
   R_len_t i = 0, n = LENGTH(Smodel_nodes);
 

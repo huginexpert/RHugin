@@ -17,10 +17,6 @@ set.model(domain, node, model)
   \item{model}{a data.frame containing the R representation of the model for \code{node}.}
 }
 
-\details{
-Details to come.
-}
-
 \value{
 a \code{NULL} value is invisibly returned.
 }
@@ -32,7 +28,18 @@ HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-ma
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
-demo("asia", echo = FALSE)
+# Create an RHugin domain
+hd <- hugin.domain()
+
+# Add node
+add.node(hd, "Node", states = 0:10)
+
+# Generate a template for Node's model and enter expression
+model <- get.model(hd, "Node", character(0))
+model$Expression <- "Poisson (2.25)"
+
+# Set the model
+set.model(hd, "Node", model)
 }
 
 \keyword{programming}

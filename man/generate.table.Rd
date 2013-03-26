@@ -4,7 +4,7 @@
 \title{Generate Table}
 
 \description{
-Generate a node's conditional probability table from its model.
+Generate a conditional probability table from a node's model.
 }
 
 \usage{
@@ -13,7 +13,7 @@ generate.table(domain, nodes)
 
 \arguments{
   \item{domain}{an RHugin domain.}
-  \item{nodes}{a character vector specifying the names of the nodes in \code{domain} whose tables are to be generated.  If missing, tables for all nodes with models will be generated.}
+  \item{nodes}{an optional character vector specifying the names of the nodes in \code{domain} whose tables are to be generated.  If missing, tables for all nodes with models will be generated.}
 }
 
 \value{
@@ -27,7 +27,21 @@ HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-ma
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
-demo("asia", echo = FALSE)
+# Create an RHugin domain
+d <- hugin.domain()
+
+# Add nodes
+add.node(d, "Node", states = 0:10)
+
+# Add a model
+model <- get.model(d, "Node", character(0))
+model$Expression <- "Poisson (2.25)"
+set.model(d, "Node", model)
+
+# Generate conditional probability table
+generate.table(d, "Node")
+
+get.table(d, "Node")
 }
 
 \keyword{programming}

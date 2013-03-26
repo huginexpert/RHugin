@@ -4,7 +4,7 @@
 \title{Set Table}
 
 \description{
-Set the conditional probability table (CPT), experience table or fading table of a node in an RHugin domain.
+Set the conditional probability table (CPT), experience table or fading table of a node.
 }
 
 \usage{

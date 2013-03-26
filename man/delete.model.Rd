@@ -8,12 +8,12 @@ Delete a node's model.
 }
 
 \usage{
-delete.model(domain, node)
+delete.model(domain, nodes)
 }
 
 \arguments{
   \item{domain}{an RHugin domain.}
-  \item{node}{a character string specifying the name of a node in \code{domain}.}
+  \item{nodes}{a character string specifying the name of a node in \code{domain}.}
 }
 
 \value{
@@ -27,13 +27,25 @@ HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-ma
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
-demo("asia", echo = FALSE)
+# Create an RHugin domain
+d <- hugin.domain()
 
-# Add an empty model to node Either
-get.model(asia, "Either")
+# Add a node
+add.node(d, "Node", states = 0:1)
 
-# Delete the model for Either
-delete.model(asia, "Either")
+# Add a model
+model <- get.model(d, "Node", character(0))
+model$Expression <- "Binomial (1, 0.1)"
+set.model(d, "Node", model)
+
+# Verify that Node has a model
+summary(d, domain = FALSE, nodes = "Node")
+
+# Delete the model from Node
+delete.model(d, "Node")
+
+# Verify that the model has been deleted
+summary(d, domain = FALSE, nodes = "Node")
 }
 
 \keyword{programming}

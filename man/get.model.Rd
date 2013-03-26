@@ -14,11 +14,11 @@ get.model(domain, node, model.nodes)
 \arguments{
   \item{domain}{an RHugin domain.}
   \item{node}{a character string specifying the name of a node in \code{domain}.}
-  \item{model.nodes}{an optional character vector of \emph{model nodes}. If provided, the model will have one expression for each configuration of the states of the model nodes.}
+  \item{model.nodes}{an optional character vector of \emph{model nodes}. If provided, an empty model suitable for \code{node} is returned.  Use \code{model.nodes = character(0)} to create an empty model containing a single expression.}
 }
 
 \details{
-This function returns an R representation of the model for \code{node} (if \code{node} does not have a model, a new, empty model is created and returned).  If the R representation of the model is modified, it must be set using the \code{\link{set.model}} function before calling any function that could potentially generate tables (e.g., compilation). If not, the old model will be used.
+This function has two uses.  The first is simply to retrieve the model from a node (an error is generated if the node does not have a model).  In this case, the \code{model.nodes} argument must be omitted.  The second use is to create a template for a node's model.  In this case, the \code{model.nodes} argument must be provided.
 }
 
 \value{
@@ -32,7 +32,21 @@ HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-ma
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \examples{
-demo("asia", echo = FALSE)
+# Create an RHugin domain
+hd <- hugin.domain()
+
+# Add node
+add.node(hd, "Node", states = 0:10)
+
+# Generate a template for Node's model
+model <- get.model(hd, "Node", character(0))
+
+# Enter an expression can call set.model
+model$Expression <- "Poisson (2.25)"
+set.model(hd, "Node", model)
+
+# Retrieve the model from Note
+get.model(hd, "Node")
 }
 
 \keyword{programming}
