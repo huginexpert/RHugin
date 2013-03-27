@@ -31,8 +31,7 @@ read.rhd <- function(filename, type = c("auto", "hkb", "net"), password = NULL,
   oldClass(domain) <- "RHuginDomain"
 
   nodes <- get.nodes(domain)
-  reserved <- c("Freq", "Prob", "Value", "Cost", "Utility", "Counts", "Lambda")
-  index <- nodes %in% reserved
+  index <- (nodes %in% RHUGIN.RESERVED)
 
   if(any(index))
     stop(dQuote(nodes[index][1]), " is a reserved word in RHugin and cannot be",

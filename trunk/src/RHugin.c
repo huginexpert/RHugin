@@ -684,10 +684,10 @@ void R_init_RHugin(DllInfo *info)
 
   RHUGIN_CHANCE = mkChar("chance");
   R_PreserveObject(RHUGIN_CHANCE);
-  RHUGIN_UTILITY = mkChar("utility");
-  R_PreserveObject(RHUGIN_UTILITY);
   RHUGIN_DECISION = mkChar("decision");
   R_PreserveObject(RHUGIN_DECISION);
+  RHUGIN_UTILITY = mkChar("utility");
+  R_PreserveObject(RHUGIN_UTILITY);
   RHUGIN_FUNCTION = mkChar("function");
   R_PreserveObject(RHUGIN_FUNCTION);
   RHUGIN_INSTANCE = mkChar("instance");

@@ -1,6 +1,6 @@
 add.node <- function(domain, name,
-                     category = c("chance", "decision", "utility"),
-                     kind = c("discrete", "continuous"),
+                     category = c("chance", "decision", "utility", "function"),
+                     kind = c("discrete", "continuous", "other"),
                      subtype, states)
 {
   RHugin.check.args(domain, character(0), name, "add.node")
@@ -8,13 +8,11 @@ add.node <- function(domain, name,
   category <- match.arg(category)
   kind <- match.arg(kind)
 
-  reserved <- c("Freq", "Prob", "Value", "Cost", "Utility", "Counts", "Lambda")
-  if(is.element(name, reserved))
+  if(is.element(name, RHUGIN.RESERVED))
     stop("invalid name: ", dQuote(name), " is a reserved word in RHugin")
 
   if(!missing(subtype))
-    subtype <- match.arg(subtype,
-                         c("labeled", "boolean", "numbered", "interval"))
+    subtype <- match.arg(subtype, RHUGIN.SUBTYPES)
   else
     subtype <- NULL
 

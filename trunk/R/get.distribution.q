@@ -1,10 +1,11 @@
 get.distribution <- function(domain, node, class = c("data.frame", "table",
                              "ftable", "numeric"))
 {
+  node <- node[1]
   RHugin.check.args(domain, node, character(0), "get.distribution")
   class <- match.arg(class)
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
 
   kind <- .Call(RHugin_node_get_kind, node.ptr)
   if(kind[node] != "continuous")
