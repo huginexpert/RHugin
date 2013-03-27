@@ -18,8 +18,8 @@ extern SEXP RHugin_clique_tag;
 extern SEXP RHUGIN_ERROR;
 
 extern SEXP RHUGIN_CHANCE;
-extern SEXP RHUGIN_UTILITY;
 extern SEXP RHUGIN_DECISION;
+extern SEXP RHUGIN_UTILITY;
 extern SEXP RHUGIN_FUNCTION;
 extern SEXP RHUGIN_INSTANCE;
 
@@ -229,7 +229,7 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
   h_domain_t domain = NULL;
   h_node_t node = NULL;
   h_node_category_t category = h_category_error;
-  h_node_kind_t kind = h_kind_other;
+  h_node_kind_t kind = h_kind_error;
 
   PROTECT(Scategory = AS_CHARACTER(Scategory));
   PROTECT(Skind = AS_CHARACTER(Skind));
@@ -238,10 +238,12 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 
   if(asChar(Scategory) == RHUGIN_CHANCE)
     category = h_category_chance;
-  else if(asChar(Scategory) == RHUGIN_UTILITY)
-    category = h_category_utility;
   else if(asChar(Scategory) == RHUGIN_DECISION)
     category = h_category_decision;
+  else if(asChar(Scategory) == RHUGIN_UTILITY)
+    category = h_category_utility;
+  else if(asChar(Scategory) == RHUGIN_FUNCTION)
+    category = h_category_function;
   else if(asChar(Scategory) == RHUGIN_INSTANCE)
     category = h_category_instance;
 
@@ -249,6 +251,10 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
     kind = h_kind_discrete;
   else if(asChar(Skind) == RHUGIN_CONTINUOUS)
     kind = h_kind_continuous;
+  else if(asChar(Skind) == RHUGIN_OTHER)
+    kind = h_kind_other;
+
+  UNPROTECT(2);
 
   node = h_domain_new_node(domain, category, kind);
   RHugin_handle_error();
@@ -259,7 +265,6 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
     UNPROTECT(1);
   }
 
-  UNPROTECT(2);
   return ret;
 }
 

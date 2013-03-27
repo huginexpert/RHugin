@@ -19,6 +19,11 @@
 		0E2569D10FDA9709008C9DED /* limid.Rout.save */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = limid.Rout.save; path = tests/limid.Rout.save; sourceTree = SOURCE_ROOT; };
 		0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.q; path = R/plot.RHuginDomain.q; sourceTree = SOURCE_ROOT; };
 		0E39E5850E6AF895008B7B91 /* plot.RHuginDomain.Rd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plot.RHuginDomain.Rd; path = man/plot.RHuginDomain.Rd; sourceTree = SOURCE_ROOT; };
+		0E3C2EA917038B2400D164FD /* RHugin.global.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = RHugin.global.q; path = R/RHugin.global.q; sourceTree = "<group>"; };
+		0E3C2EAA17038E1500D164FD /* get.value.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.value.q; path = R/get.value.q; sourceTree = "<group>"; };
+		0E3C2EAB170395C000D164FD /* get.value.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.value.Rd; path = man/get.value.Rd; sourceTree = "<group>"; };
+		0E3C2EAC1703ABB900D164FD /* clone.domain.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = clone.domain.q; path = R/clone.domain.q; sourceTree = "<group>"; };
+		0E3C2EAD1703AE3600D164FD /* clone.domain.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = clone.domain.Rd; path = man/clone.domain.Rd; sourceTree = "<group>"; };
 		0E49452716F7E0AD00FC6E57 /* get.parents.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.parents.q; path = R/get.parents.q; sourceTree = "<group>"; };
 		0E49452816F7E0D400FC6E57 /* get.children.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.children.q; path = R/get.children.q; sourceTree = "<group>"; };
 		0E49724B1121FD79003DD117 /* learn.structure.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = learn.structure.q; path = R/learn.structure.q; sourceTree = SOURCE_ROOT; };
@@ -211,6 +216,7 @@
 			children = (
 				DAEFA1A80DE3081A002B126B /* add.edge.q */,
 				DAEFA1A90DE3081A002B126B /* add.node.q */,
+				0E3C2EAC1703ABB900D164FD /* clone.domain.q */,
 				DAEFA1AA0DE3081A002B126B /* clone.node.q */,
 				DAEFA1AD0DE3081A002B126B /* delete.edge.q */,
 				DAEFA1AE0DE3081A002B126B /* delete.node.q */,
@@ -250,6 +256,7 @@
 				0E9BF27A108B9CD500C5B5F7 /* get.marginal.q */,
 				0EECF5C810F8A70100247A90 /* get.distribution.q */,
 				0E2569B60FDA93BF008C9DED /* get.utility.q */,
+				0E3C2EAA17038E1500D164FD /* get.value.q */,
 				DAD83CD40E1A4044005C9495 /* get.finding.q */,
 			);
 			name = "8 Evidence and beliefs";
@@ -364,6 +371,7 @@
 				DA12B61711185E8200125A4C /* get.marginal.Rd */,
 				DA12B61611185E8200125A4C /* get.distribution.Rd */,
 				0E25697A0FDA92D7008C9DED /* get.utility.Rd */,
+				0E3C2EAB170395C000D164FD /* get.value.Rd */,
 				DAD83CEF0E1A52EE005C9495 /* get.finding.Rd */,
 			);
 			name = "8 Evidence and beliefs";
@@ -395,6 +403,7 @@
 			children = (
 				DAEFA1E00DE3083B002B126B /* hugin.domain.Rd */,
 				DAEFA1CE0DE3083A002B126B /* add.node.Rd */,
+				0E3C2EAD1703AE3600D164FD /* clone.domain.Rd */,
 				DAEFA1CF0DE3083A002B126B /* clone.node.Rd */,
 				DAEFA1D30DE3083A002B126B /* delete.node.Rd */,
 				DAEFA1E90DE3083B002B126B /* set.states.Rd */,
@@ -473,6 +482,7 @@
 			children = (
 				DAEFA1C40DE3081B002B126B /* RHugin.check.args.q */,
 				DAC7B05D11414722009AC6CC /* RHugin.check.domain.q */,
+				0E3C2EA917038B2400D164FD /* RHugin.global.q */,
 				DADF9F970F42DA9000946D22 /* as.graph.RHuginDomain.q */,
 				DAEFA1BD0DE3081B002B126B /* library.q */,
 				0E39E5430E6AD475008B7B91 /* plot.RHuginDomain.q */,

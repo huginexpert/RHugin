@@ -1,8 +1,7 @@
 set.states <- function(domain, node, states, subtype = "auto")
 {
   RHugin.check.args(domain, node, character(0), "set.states")
-  subtypes <- c("auto", "labeled", "boolean", "numbered", "interval")
-  subtype <- match.arg(subtype, choices = subtypes)
+  subtype <- match.arg(subtype, choices = c("auto", RHUGIN.SUBTYPES))
 
   node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
   category <- .Call(RHugin_node_get_category, node.ptr)

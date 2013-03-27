@@ -9,8 +9,8 @@ Add a node to an RHugin domain.
 
 \usage{
 add.node(domain, name,
-         category = c("chance", "decision", "utility"),
-         kind = c("discrete", "continuous"),
+         category = c("chance", "decision", "utility", "function"),
+         kind = c("discrete", "continuous", "other"),
          subtype, states)
 }
 

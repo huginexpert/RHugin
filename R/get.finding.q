@@ -1,7 +1,9 @@
 get.finding <- function(domain, node, type = c("entered", "propagated"))
 {
-  RHugin.check.args(domain, node, character(0), "get.finding")
   type <- match.arg(type)
+
+  node <- node[1]
+  RHugin.check.args(domain, node, character(0), "get.finding")
 
   node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
   kind <- .Call(RHugin_node_get_kind, node.ptr)

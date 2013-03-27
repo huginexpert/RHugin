@@ -1,10 +1,10 @@
 \name{get.utility}
 \alias{get.utility}
 
-\title{Retrieve Expected Utility}
+\title{Get Expected Utility}
 
 \description{
-Retrieve the expected utility from a node in an RHugin domain.
+Retrieve the expected utility for a node or a domain.
 }
 
 \usage{
@@ -13,15 +13,15 @@ get.utility(domain, node)
 
 \arguments{
   \item{domain}{an RHugin domain.}
-  \item{node}{a character string specifying the name of the node from which the expected utilities are to be retrieved.}
+  \item{node}{an optional character string specifying the name of the node for which the expected utilities are to be retrieved.  If missing, the expected utility for the domain is returned.}
 }
 
 \value{
-a numeric vector containing the expected utility for each state in \code{node}.
+a numeric vector containing the expected utilities.
 }
 
 \references{
-HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_expected_utility}.
+HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-manual.pdf}: \code{h_node_get_expected_utility} and \code{h_domain_get_expected_utility}.
 }
 
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
