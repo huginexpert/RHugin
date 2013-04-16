@@ -6,31 +6,22 @@
 
     if(length(grep("HDE7.7C", path)) == 0) {
 
-      HuginVersions <- c("Hugin Researcher 7.7",
-                         "Hugin Lite 7.7")
+      HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = "\\")
+      HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
+      HuginDll <- HuginFiles[grep("hugin2-7.7-vc10.dll", HuginFiles, fixed = TRUE)]
 
-      HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
-                            "Hugin Expert",
-                             HuginVersions,
-                            "HDE7.7C\\Lib\\VC10\\Release\\hugin2-7.7-vc10.dll",
-                             sep = "\\")
+      if(!length(HuginDll))
+        warning("RHugin could not find Hugin in the usual location")
 
-      if(length(HuginVersion <- which(file.exists(HuginDllPaths)))) {
-
-        HuginVersion <- HuginVersions[HuginVersion[1]]
-
-        HuginPath <- paste(Sys.getenv("PROGRAMFILES"),
-                          "Hugin Expert",
-                           HuginVersion,
-                          "HDE7.7C\\Lib\\VC10\\Release",
-                           sep = "\\")
-
-        Sys.setenv(PATH = paste(path, HuginPath, sep= ";"))
+      else if(length(HuginDll) >= 2) {
+        HuginDll <- HuginDll[1]
+        warning("multiple Hugin installations found, using: ", HuginDll)
       }
 
-      else {
-        warning("RHugin did not find Hugin in the standard location")
-      }
+      HuginDllDir <- strsplit(HuginDll, split = "/", fixed = TRUE)[[1]]
+      HuginDllDir <- paste(HuginDllDir[-length(HuginDllDir)], collapse = "\\")
+
+      Sys.setenv(PATH = paste(HuginDllDir, path, sep= ";"))
     }
   }
 
@@ -38,20 +29,18 @@
 
     if(nchar(Sys.getenv("HUGINHOME")) == 0) {
 
-      HuginHomes <- list.files("/Applications", pattern = "*HDE*",
-                                full.names = TRUE)
+      Apps <- list.files("/Applications", full.names = TRUE)
+      HuginHome <- Apps[grep("HDE", Apps, fixed = TRUE)]
 
-      if(!length(HuginHomes))
-        warning("RHugin did not find Hugin in the standard location")
+      if(!length(HuginHome))
+        warning("RHugin could not find Hugin in the usual location")
 
-      else {
-        HuginHome <- HuginHomes[1]
-
-        if(length(HuginHomes) > 1)
-          warning("multiple Hugin installations found, using: ", HuginHome)
-
-        Sys.setenv(HUGINHOME = HuginHome)
+      else if(length(HuginHome) >= 2) {
+        HuginHome <- HuginHome[1]
+        warning("multiple Hugin installations found, using: ", HuginHome)
       }
+
+      Sys.setenv(HUGINHOME = HuginHome)
     }
   }
 
@@ -61,7 +50,7 @@
         Sys.setenv(HUGINHOME = "/usr/local/hugin")
 
       else {
-        warning("RHugin did not find Hugin in the standard location")
+        warning("RHugin could not find Hugin in the usual location")
       }
     }
   }
