@@ -4,11 +4,11 @@
 
     path <- Sys.getenv("PATH")
 
-    if(length(grep("HDE7.7C", path)) == 0) {
+    if(length(grep("HDE7.8C", path)) == 0) {
 
       HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = "\\")
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
-      HuginDll <- HuginFiles[grep("hugin2-7.7-vc10.dll", HuginFiles, fixed = TRUE)]
+      HuginDll <- HuginFiles[grep("hugin2-7.8-vc10.dll", HuginFiles, fixed = TRUE)]
 
       if(!length(HuginDll))
         warning("RHugin could not find Hugin in the usual location")
