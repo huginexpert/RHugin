@@ -1,7 +1,7 @@
 #include "RHugin.h"
 #include "RHuginLink.h"
 
-#ifndef WIN32 /* have to skip this block on WIN64 too */
+#ifndef WIN32 /* WIN32 defined for both 32 bit and 64 bit windows builds */
   #include <pthread.h>
 #endif
 
