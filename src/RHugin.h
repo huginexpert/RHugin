@@ -39,11 +39,6 @@ DLLEXPORT SEXP RHugin_domain_get_logfile(SEXP Sdomain);
 void RHugin_domain_finalizer(SEXP Sdomain);
 
 
-/* External pointer checker */
-
-DLLEXPORT SEXP RHugin_R_Nilify_externalptr(SEXP Sptr);
-
-
 /* Safe accessor methods for Hugin objects */
 
 h_domain_t domainPointerFromSEXP(SEXP Sdomain);

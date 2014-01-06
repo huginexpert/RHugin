@@ -1,4 +1,4 @@
-library(RHugin, lib.loc = "../")
+library(RHugin)
 demo("apple", echo = FALSE)
 
 compile(apple)

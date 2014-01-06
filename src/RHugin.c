@@ -165,95 +165,115 @@ void RHugin_domain_finalizer(SEXP Sdomain)
 }
 
 
-SEXP RHugin_R_Nilify_externalptr(SEXP Sptr)
-{
-  if(R_ExternalPtrAddr(Sptr) == NULL) return R_NilValue;
-
-  return Sptr;
-}
-
-
 h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 {
-  if(R_ExternalPtrAddr(Sdomain) == NULL)
-    error("NULL value passed as domain");
+  h_domain_t domain = NULL;
 
   if(TYPEOF(Sdomain) != EXTPTRSXP || R_ExternalPtrTag(Sdomain) != RHugin_domain_tag)
-    error("the domain argument is not a valid Hugin domain");
+    error("Sdomain is not a Hugin domain");
 
-  return (h_domain_t) R_ExternalPtrAddr(Sdomain);
+  domain = (h_domain_t) R_ExternalPtrAddr(Sdomain);
+
+  if(domain == NULL)
+    error("domain is NULL");
+
+  return domain;
 }
 
 
 h_node_t nodePointerFromSEXP(SEXP Snode)
 {
-  if(R_ExternalPtrAddr(Snode) == NULL)
-    return NULL;
+  h_node_t node = NULL;
 
   if(TYPEOF(Snode) != EXTPTRSXP || R_ExternalPtrTag(Snode) != RHugin_node_tag)
     return NULL;
 
-  return (h_node_t) R_ExternalPtrAddr(Snode);
+  node = (h_node_t) R_ExternalPtrAddr(Snode);
+
+  if(node == NULL)
+    return NULL;
+
+  return node;
 }
 
 
 h_table_t tablePointerFromSEXP(SEXP Stable)
 {
-  if(R_ExternalPtrAddr(Stable) == NULL)
-    error("NULL value passed as table");
+  h_table_t table = NULL;
 
   if(TYPEOF(Stable) != EXTPTRSXP || R_ExternalPtrTag(Stable) != RHugin_table_tag)
-    error("the table argument is not a valid Hugin table");
+    error("Stable is not a Hugin table");
 
-  return (h_table_t) R_ExternalPtrAddr(Stable);
+  table = (h_table_t) R_ExternalPtrAddr(Stable);
+
+  if(table == NULL)
+    error("table is NULL");
+
+  return table;
 }
 
 
 h_expression_t expressionPointerFromSEXP(SEXP Sexpression)
 {
-  if(R_ExternalPtrAddr(Sexpression) == NULL)
-    error("NULL value passed as expression");
+  h_expression_t expression = NULL;
 
   if(TYPEOF(Sexpression) != EXTPTRSXP || R_ExternalPtrTag(Sexpression) != RHugin_expression_tag)
-    error("the expression argument is not a valid Hugin expression");
+    error("Sexpression is not a Hugin expression");
 
-  return (h_expression_t) R_ExternalPtrAddr(Sexpression);
+  expression = (h_expression_t) R_ExternalPtrAddr(Sexpression);
+
+  if(expression == NULL)
+    error("expresion is NULL");
+
+  return expression;
 }
 
 
 h_model_t modelPointerFromSEXP(SEXP Smodel)
 {
-  if(R_ExternalPtrAddr(Smodel) == NULL)
-    error("NULL value passed as model");
-
+  h_model_t model = NULL;
+  
   if(TYPEOF(Smodel) != EXTPTRSXP || R_ExternalPtrTag(Smodel) != RHugin_model_tag)
-    error("the model argument is not a valid Hugin model");
+    error("Smodel is not a Hugin model");
 
-  return (h_model_t) R_ExternalPtrAddr(Smodel);
+  model = (h_model_t) R_ExternalPtrAddr(Smodel);
+
+  if(model == NULL)
+    error("model is NULL");
+
+  return model;
 }
 
 
 h_junction_tree_t jtPointerFromSEXP(SEXP Sjt)
 {
-  if(R_ExternalPtrAddr(Sjt) == NULL)
-    error("NULL value passed as junction tree");
+  h_junction_tree_t jt = NULL;
 
   if(TYPEOF(Sjt) != EXTPTRSXP || R_ExternalPtrTag(Sjt) != RHugin_junction_tree_tag)
-    error("the junction tree argument is not a valid Hugin junction tree");
+    error("Sjt is not a Hugin junction tree");
 
-  return (h_junction_tree_t) R_ExternalPtrAddr(Sjt);
+  jt = (h_junction_tree_t) R_ExternalPtrAddr(Sjt);
+
+  if(jt == NULL)
+    error("jt is NULL");
+
+  return jt;
 }
 
 
 h_clique_t cliquePointerFromSEXP(SEXP Sclique)
 {
-  if(R_ExternalPtrAddr(Sclique) == NULL)
-    error("NULL value passed as clique");
+  h_clique_t clique = NULL;
 
   if(TYPEOF(Sclique) != EXTPTRSXP || R_ExternalPtrTag(Sclique) != RHugin_clique_tag)
-    error("the clique argument is not a valid Hugin clique");
+    error("Sclique is not a Hugin clique");
 
-  return (h_clique_t) R_ExternalPtrAddr(Sclique);
+  clique = (h_clique_t) R_ExternalPtrAddr(Sclique);
+
+  if(clique == NULL)
+    error("clique is NULL");
+
+  return clique;
 }
 
 
@@ -274,7 +294,6 @@ void R_init_RHugin(DllInfo *info)
   R_CallMethodDef dotCallMethods[] = {
     /* Helper funtions from RHugin.c */
     {"RHugin_domain_get_logfile", (DL_FUNC) RHugin_domain_get_logfile, 1},
-    {"RHugin_R_Nilify_externalptr", (DL_FUNC) RHugin_R_Nilify_externalptr, 1},
 
     /* 1.6 Errors */
     {"RHugin_error_code", (DL_FUNC) RHugin_error_code, 0},

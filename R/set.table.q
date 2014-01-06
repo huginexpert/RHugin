@@ -1,7 +1,6 @@
 set.table <- function(domain, node, data,
                       type = c("cpt", "experience", "fading"))
 {
-  RHugin.check.args(domain, node, character(0), "set.table")
   type <- match.arg(type)
 
   class <- class(data)
@@ -9,7 +8,7 @@ set.table <- function(domain, node, data,
     stop("the ", sQuote("data"), " argument must be a data frame, ",
          "table or numeric vector")
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  node.ptr <- nodePointersFromNames(domain, node[1])
 
   category <- .Call(RHugin_node_get_category, node.ptr)
   kind <- .Call(RHugin_node_get_kind, node.ptr)

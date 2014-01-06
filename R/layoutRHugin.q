@@ -3,7 +3,7 @@ layoutRHugin <- function(x, domain, ...)
   nodes <- get.nodes(domain)
   n.nodes <- length(nodes)
   size <- .Call(RHugin_domain_get_node_size, domain)
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
 
   if(abs(prod(size)) < 1e-3) {
     x <- layoutGraph(x)

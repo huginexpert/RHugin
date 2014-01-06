@@ -5,10 +5,7 @@ get.utility <- function(domain, node)
   }
 
   else {
-    node <- node[1]
-    RHugin.check.args(domain, node, character(0), "get.utility")
-
-    node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
+    node.ptr <- nodePointersFromNames(domain, node[1])
 
     states <- get.states(domain, node)
     states.idx <- 0:(length(states) - 1)

@@ -1,11 +1,10 @@
 get.table <- function(domain, node, type = c("cpt", "experience", "fading"),
                       class = c("data.frame", "table", "ftable", "numeric"))
 {
-  RHugin.check.args(domain, node, character(0), "get.table")
   type <- match.arg(type)
   class <- match.arg(class)
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  node.ptr <- nodePointersFromNames(domain, node[1])
   category <- .Call(RHugin_node_get_category, node.ptr)
   kind <- .Call(RHugin_node_get_kind, node.ptr)
   kind <- ifelse(is.na(kind), "none", kind)

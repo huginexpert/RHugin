@@ -1,9 +1,7 @@
 delete.edge <- function(domain, node, parent)
 {
-  RHugin.check.args(domain, c(node, parent), character(0), "delete.edge")
-
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
-  parent.ptr <- .Call(RHugin_domain_get_node_by_name, domain, parent)
+  node.ptr <- nodePointersFromNames(domain, node[1])
+  parent.ptr <- nodePointersFromNames(domain, parent[1])
   .Call(RHugin_node_remove_parent, node.ptr, parent.ptr)
 
   invisible()

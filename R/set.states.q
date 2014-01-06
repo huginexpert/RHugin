@@ -1,14 +1,13 @@
 set.states <- function(domain, node, states, subtype = "auto")
 {
-  RHugin.check.args(domain, node, character(0), "set.states")
   subtype <- match.arg(subtype, choices = c("auto", RHUGIN.SUBTYPES))
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  node.ptr <- nodePointersFromNames(domain, node[1])
   category <- .Call(RHugin_node_get_category, node.ptr)
   kind <- .Call(RHugin_node_get_kind, node.ptr)
 
   if(!is.element(category, c("chance", "decision")) || kind == "continuous")
-    stop(node, " is not a discrete chance or decision node")
+    stop(dQuote(node[1]), " is not a discrete chance or decision node")
 
   if(subtype == "auto")
     subtype <- switch(class(states),

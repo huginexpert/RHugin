@@ -1,16 +1,12 @@
 summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
                                  jt = FALSE, print.cliques = FALSE, ...)
 {
-  RHugin.check.domain(object, "summary.RHuginDomain")
-
   if(is.logical(nodes)) {
     if(nodes)
       nodes <- get.nodes(object)
     else
       nodes <- character(0)
   }
-
-  RHugin.check.args(object, nodes, character(0), "summary.RHuginDomain")
 
   compiled <- .Call(RHugin_domain_is_compiled, object)
   domain.summary <- NULL
@@ -60,7 +56,7 @@ summary.RHuginDomain <- function(object, domain = TRUE, nodes = FALSE,
   if(length(nodes)) {
     node.summary <- list()
 
-    node.ptrs <- .Call(RHugin_domain_get_node_by_name, object, nodes)
+    node.ptrs <- nodePointersFromNames(object, nodes)
     categories <- .Call(RHugin_node_get_category, node.ptrs)
     kinds <- .Call(RHugin_node_get_kind, node.ptrs)
     subtypes <- .Call(RHugin_node_get_subtype, node.ptrs)

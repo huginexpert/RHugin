@@ -1,27 +1,30 @@
 .onLoad <- function(libname, pkgname)
 {
+  fs <- .Platform$file.sep
+  ps <- .Platform$path.sep
+
   if(Sys.info()["sysname"] == "Windows") {
 
     path <- Sys.getenv("PATH")
 
     if(length(grep("HDE7.8C", path)) == 0) {
 
-      HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = "\\")
+      HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = fs)
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
       HuginDll <- HuginFiles[grep("hugin2-7.8-vc10.dll", HuginFiles, fixed = TRUE)]
 
       if(!length(HuginDll))
-        warning("RHugin could not find Hugin in the usual location")
+        warning("RHugin could not find the Hugin dll")
 
       else if(length(HuginDll) >= 2) {
         HuginDll <- HuginDll[1]
         warning("multiple Hugin installations found, using: ", HuginDll)
       }
 
-      HuginDllDir <- strsplit(HuginDll, split = "/", fixed = TRUE)[[1]]
-      HuginDllDir <- paste(HuginDllDir[-length(HuginDllDir)], collapse = "\\")
+      HuginDllDir <- strsplit(HuginDll, split = fs, fixed = TRUE)[[1]]
+      HuginDllDir <- paste(HuginDllDir[-length(HuginDllDir)], collapse = fs)
 
-      Sys.setenv(PATH = paste(HuginDllDir, path, sep= ";"))
+      Sys.setenv(PATH = paste(HuginDllDir, path, sep = ps))
     }
   }
 
@@ -46,12 +49,13 @@
 
   else {
     if(nchar(Sys.getenv("HUGINHOME")) == 0) {
-      if(file.exists("/usr/local/hugin"))
-        Sys.setenv(HUGINHOME = "/usr/local/hugin")
+      ulh <- paste(c(paste(c(fs, "usr"), collapse = ""), "local", "hugin"),
+                   collapse = fs)
 
-      else {
-        warning("RHugin could not find Hugin in the usual location")
-      }
+      if(file.exists(ulh))
+        Sys.setenv(HUGINHOME = ulh)
+      else
+        warning("RHugin did not find Hugin in ", ulh)
     }
   }
 

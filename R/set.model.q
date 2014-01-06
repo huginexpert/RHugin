@@ -1,8 +1,6 @@
 set.model <- function(domain, node, model)
 {
   node <- node[1]
-  RHugin.check.args(domain, node, character(0), "set.model")
-
   expressions <- as.character(model$Expression)
   model.nodes <- names(model)[-length(model)]
 
@@ -29,8 +27,8 @@ set.model <- function(domain, node, model)
       stop(sQuote("model"), " is not the correct size")
   }
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
-  model.node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, rev(model.nodes))
+  node.ptr <- nodePointersFromNames(domain, node)
+  model.node.ptrs <- nodePointersFromNames(domain, rev(model.nodes))
 
   model.ptr <- .Call(RHugin_node_new_model, node.ptr, model.node.ptrs)
   .Call(RHugin_model_set_expression, model.ptr, expressions)

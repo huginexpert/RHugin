@@ -1,14 +1,9 @@
 generate.table <- function(domain, nodes)
 {
-  if(missing(nodes)) {
-    RHugin.check.domain(domain, "generate.table")
-    .Call(RHugin_domain_generate_tables, domain)
-    return(invisible())
-  }
+  if(missing(nodes))
+    return(invisible(.Call(RHugin_domain_generate_tables, domain)))
 
-  RHugin.check.args(domain, nodes, character(0), "generate.table")
-
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
   model.ptrs <- .Call(RHugin_node_get_model, node.ptrs)
 
   for(node in nodes) {

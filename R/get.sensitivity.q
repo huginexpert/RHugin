@@ -1,7 +1,5 @@
 get.sensitivity <- function(domain, output, state, ..., set = FALSE)
 {
-  RHugin.check.args(domain, output, character(0), "get.sensitvity")
-
   output.states <- get.states(domain, output)
   state <- match(state, output.states, nomatch = NA)[1]
 
@@ -10,7 +8,7 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
   else
     state <- state - 1
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, output)
+  node.ptr <- nodePointersFromNames(domain, output)
   .Call(RHugin_node_compute_sensitivity_data, node.ptr, state)
 
   if(set) {
@@ -31,7 +29,7 @@ get.sensitivity <- function(domain, output, state, ..., set = FALSE)
   dimnames(constants) <- list(paste(nodes, unlist(dots), sep = ":"),
                               c("alpha", "beta", "gamma", "delta"))
 
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
 
   for(i in 1:length(dots)) {
     node.states <- get.states(domain, nodes[i])

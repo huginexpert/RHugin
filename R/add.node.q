@@ -3,13 +3,15 @@ add.node <- function(domain, name,
                      kind = c("discrete", "continuous", "other"),
                      subtype, states)
 {
-  RHugin.check.args(domain, character(0), name, "add.node")
+  if(name[1] %in% RHUGIN.RESERVED)
+    stop("invalid name: ", dQuote(name[1]), " is a reserved word in RHugin")
+
+  name.ptr <- .Call(RHugin_domain_get_node_by_name, domain, name[1])
+  if(!is.null(name.ptr[[1]]))
+    stop("Node ", dQuote(name[1]), " already exists")
 
   category <- match.arg(category)
   kind <- match.arg(kind)
-
-  if(is.element(name, RHUGIN.RESERVED))
-    stop("invalid name: ", dQuote(name), " is a reserved word in RHugin")
 
   if(!missing(subtype))
     subtype <- match.arg(subtype, RHUGIN.SUBTYPES)
@@ -17,7 +19,7 @@ add.node <- function(domain, name,
     subtype <- NULL
 
   node.ptr <- .Call(RHugin_domain_new_node, domain, category, kind)
-  .Call(RHugin_node_set_name, node.ptr, name)
+  .Call(RHugin_node_set_name, node.ptr, name[1])
 
   if((category == "chance" && kind == "discrete") || category == "decision") {
     if(!is.null(subtype) && !missing(states))

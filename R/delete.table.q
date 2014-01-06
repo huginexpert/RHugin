@@ -1,9 +1,7 @@
 delete.table <- function(domain, node, type = c("experience", "fading"))
 {
-  RHugin.check.args(domain, node, character(0), "delete.table")
   type <- match.arg(type)
-
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
+  node.ptr <- nodePointersFromNames(domain, node[1])
 
   switch(type,
     experience = {
@@ -15,7 +13,7 @@ delete.table <- function(domain, node, type = c("experience", "fading"))
       }
 
       else
-        warning(dQuote(node), " does not have an experience table")
+        warning(dQuote(node[1]), " does not have an experience table")
 
       NULL
     },
@@ -29,7 +27,7 @@ delete.table <- function(domain, node, type = c("experience", "fading"))
       }
 
       else
-        warning(dQuote(node), " does not have a fading table")
+        warning(dQuote(node[1]), " does not have a fading table")
 
       NULL
     }

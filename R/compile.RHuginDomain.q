@@ -4,8 +4,6 @@ compile <- function(object, ...)
 
 compile.RHuginDomain <- function(object, save = FALSE, approximate = NULL, ...)
 {
-  RHugin.check.domain(object, "compile")
-
   .Call(RHugin_domain_compile, object)
 
   if(!is.null(approximate)) {

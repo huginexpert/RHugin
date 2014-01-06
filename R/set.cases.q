@@ -1,12 +1,10 @@
 set.cases <- function(domain, data, Freq)
 {
-  RHugin.check.domain(domain, "set.cases")
-
   n <- nrow(data)
   data.names <- names(data)
   nodes <- intersect(get.nodes(domain), data.names)
 
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
   kinds <- .Call(RHugin_node_get_kind, node.ptrs)
   subtypes <- .Call(RHugin_node_get_subtype, node.ptrs)
 
