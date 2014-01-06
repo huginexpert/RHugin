@@ -1,14 +1,10 @@
 plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
 {
   what <- match.arg(what)
-  RHugin.check.domain(x, "plot.RHuginDomain")
-
-  if(!require(Rgraphviz))
-    stop("plotting an RHugin domain requires the Rgraphviz package")
 
   if(what == "network") {
     nodes <- get.nodes(x)
-    node.ptrs <- .Call(RHugin_domain_get_node_by_name, x, nodes)
+    node.ptrs <- nodePointersFromNames(x, nodes)
     categories <- .Call(RHugin_node_get_category, node.ptrs)
     kinds <- .Call(RHugin_node_get_kind, node.ptrs)
 
@@ -102,8 +98,7 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
       node.colors <- character(0)
       for(i in 1:n.cliques) {
         colors <- rep("#00FF13", clique.sizes[[i]])
-        node.ptrs <- .Call(RHugin_domain_get_node_by_name, x,
-                           clique.members[[i]])
+        node.ptrs <- nodePointersFromNames(x, clique.members[[i]])
         for(j in 1:clique.sizes[[i]])
           if(.Call(RHugin_node_evidence_is_entered, node.ptrs[j]))
             colors[j] <- "#FF0000"
@@ -115,8 +110,7 @@ plot.RHuginDomain <- function(x, y, what = c("network", "jt"), ...)
       node.fillcolors <- character(0)
       for(i in 1:n.cliques) {
         colors <- rep("#FFFFC0", clique.sizes[[i]])
-        node.ptrs <- .Call(RHugin_domain_get_node_by_name, x,
-                           clique.members[[i]])
+        node.ptrs <- nodePointersFromNames(x, clique.members[[i]])
         for(j in 1:clique.sizes[[i]]) {
           if(.Call(RHugin_node_get_kind, node.ptrs[j]) == "continuous")
             colors[j] <- "#FFFF02"

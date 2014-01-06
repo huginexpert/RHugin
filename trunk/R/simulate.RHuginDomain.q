@@ -1,7 +1,5 @@
 simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
 {
-  RHugin.check.domain(object, "simulate")
-
   equilibrium.is.sum <- .Call(RHugin_domain_equilibrium_is, object, "sum")
   evidence.mode.is.normal <- .Call(RHugin_domain_evidence_mode_is, object,
                                   "normal")
@@ -17,7 +15,7 @@ simulate.RHuginDomain <- function(object, nsim = 1, seed = NULL, ...)
     .Call(RHugin_domain_seed_random, object, abs(seed))
 
   nodes <- get.nodes(object)
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, object, nodes)
+  node.ptrs <- nodePointersFromNames(object, nodes)
   kinds <- .Call(RHugin_node_get_kind, node.ptrs)
 
   ans <- list()

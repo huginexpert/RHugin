@@ -1,8 +1,6 @@
 get.states <- function(domain, node, values = FALSE)
 {
-  RHugin.check.args(domain, node, character(0), "get.states")
-
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node[1])
+  node.ptr <- nodePointersFromNames(domain, node[1])
   n.states <- .Call(RHugin_node_get_number_of_states, node.ptr)
   subtype <- .Call(RHugin_node_get_subtype, node.ptr)
 
@@ -25,13 +23,11 @@ get.states <- function(domain, node, values = FALSE)
           pts <- paste(ifelse(infinite[1], "(", "["), pts,
                        ifelse(infinite[2], ")", "]"), sep = "")
         else {
-          pts[1] <- paste(ifelse(infinite[1], "(", "["), pts[1], ")",
-                          sep = "")
+          pts[1] <- paste(ifelse(infinite[1], "(", "["), pts[1], ")", sep = "")
           pts[l.pts] <- paste("[", pts[l.pts], ifelse(infinite[2], ")", "]"),
                               sep = "")
           if(l.pts > 2)
-            pts[2:(l.pts - 1)] <- paste("[", pts[2:(l.pts - 1)], ")",
-                                        sep = "")
+            pts[2:(l.pts - 1)] <- paste("[", pts[2:(l.pts - 1)], ")", sep = "")
         }
       }
 

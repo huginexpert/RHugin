@@ -1,6 +1,5 @@
 score <- function(domain, measure = c("log-likelihood", "AIC", "BIC"))
 {
-  RHugin.check.domain(domain, "score")
   measure <- match.arg(measure, choices = c("log-likelihood", "AIC", "BIC"),
                        several.ok = TRUE)
 

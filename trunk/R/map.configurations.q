@@ -1,12 +1,10 @@
 map.configurations <- function(domain, nodes, pmin)
 {
-  RHugin.check.args(domain, nodes, character(0), "map.configurations")
-
   if(pmin <= 0.0 || pmin > 1.0)
     stop("pmin is not between 0 and 1")
 
   n.nodes <- length(nodes)
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
 
   .Call(RHugin_domain_find_map_configurations, domain, node.ptrs, pmin)
 

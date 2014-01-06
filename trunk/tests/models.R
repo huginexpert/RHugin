@@ -1,4 +1,4 @@
-library(RHugin, lib.loc = "../")
+library(RHugin)
 
 
 # Create an RHugin domain

@@ -1,7 +1,5 @@
 get.cases <- function(domain)
 {
-  RHugin.check.domain(domain, "get.cases")
-
   nodes <- get.nodes(domain)
   data <- list()
   n.cases <- .Call(RHugin_domain_get_number_of_cases, domain)
@@ -11,7 +9,7 @@ get.cases <- function(domain)
 
   indices <- 0:(n.cases - 1)
 
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
   kinds <- .Call(RHugin_node_get_kind, node.ptrs)
   subtypes <- .Call(RHugin_node_get_subtype, node.ptrs)
 

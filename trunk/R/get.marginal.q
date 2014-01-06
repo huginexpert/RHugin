@@ -1,10 +1,9 @@
 get.marginal <- function(domain, nodes,
                          class = c("data.frame", "table", "ftable", "numeric"))
 {
-  RHugin.check.args(domain, nodes, character(0), "get.marginal")
   class <- match.arg(class)
 
-  node.ptrs <- .Call(RHugin_domain_get_node_by_name, domain, nodes)
+  node.ptrs <- nodePointersFromNames(domain, nodes)
   categories <- .Call(RHugin_node_get_category, node.ptrs)
   kinds <- .Call(RHugin_node_get_kind, node.ptrs)
 

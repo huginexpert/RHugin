@@ -1,17 +1,9 @@
 set.finding <- function(domain, node, finding, case = NULL)
 {
-  if(!is.null(case)) {
-    RHugin.check.domain(domain, "set.finding")
+  if(!is.null(case))
+    return(invisible(.Call(RHugin_domain_enter_case, domain, case - 1)))
 
-    .Call(RHugin_domain_enter_case, domain, case - 1)
-
-    return(invisible())
-  }
-
-  node <- node[1]
-  RHugin.check.args(domain, node, character(0), "set.finding")
-
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
+  node.ptr <- nodePointersFromNames(domain, node[1])
   category <- .Call(RHugin_node_get_category, node.ptr)
   kind <- .Call(RHugin_node_get_kind, node.ptr)
   subtype <- .Call(RHugin_node_get_subtype, node.ptr)

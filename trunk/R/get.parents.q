@@ -1,11 +1,11 @@
 get.parents <- function(domain, node, type = "parents")
 {
-  node <- node[1]
-  RHugin.check.args(domain, node, character(0), "get.parents")
-  type <- match.arg(type,
-                    c("parents", "requisite.parents", "requisite.ancestors"))
+  type <- match.arg(type, c("parents",
+                            "requisite.parents",
+                            "requisite.ancestors"))
 
-  node.ptr <- .Call(RHugin_domain_get_node_by_name, domain, node)
+  node <- node[1]
+  node.ptr <- nodePointersFromNames(domain, node)
 
   if(type == "parents")
     names(.Call(RHugin_node_get_parents, node.ptr)[[node]])

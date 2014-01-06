@@ -1,5 +1,13 @@
 importFrom(stats, simulate)
 
+importFrom(graph, edgeRenderInfo)
+importFrom(graph, graphNEL)
+importFrom(graph, graphRenderInfo)
+importFrom(graph, nodeRenderInfo)
+
+importFrom(Rgraphviz, layoutGraph)
+importFrom(Rgraphviz, agopen)
+
 export(
   "adapt",
   "add.edge",
