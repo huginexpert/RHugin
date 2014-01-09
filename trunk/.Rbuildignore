@@ -1,6 +1,8 @@
+^RDLL
 ^RHugin.sln
 ^RHugin.vcxproj
 ^RHugin.xcodeproj
-^WIN32
+^redist-x64
+^redist-x86
 
 
