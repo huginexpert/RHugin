@@ -11,7 +11,12 @@
 
       HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = fs)
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
-      HuginDll <- HuginFiles[grep("hugin2-7.8-vc10.dll", HuginFiles, fixed = TRUE)]
+
+      dllName <- ifelse(.Machine$sizeof.pointer == 4,
+                        "hugin2-7.8-vc11.dll",
+                        "hugin2-7.8-vc11-x64.dll")
+
+      HuginDll <- HuginFiles[grep(dllName, HuginFiles, fixed = TRUE)]
 
       if(!length(HuginDll))
         warning("RHugin could not find the Hugin dll")
@@ -21,8 +26,9 @@
         warning("multiple Hugin installations found, using: ", HuginDll)
       }
 
-      HuginDllDir <- strsplit(HuginDll, split = fs, fixed = TRUE)[[1]]
-      HuginDllDir <- paste(HuginDllDir[-length(HuginDllDir)], collapse = fs)
+      HuginDllDir <- dirname(HuginDll)
+      HuginDllDir <- strsplit(HuginDllDir, split = fs, fixed = TRUE)[[1]]
+      HuginDllDir <- paste(HuginDllDir, collapse = "\\")
 
       Sys.setenv(PATH = paste(HuginDllDir, path, sep = ps))
     }
