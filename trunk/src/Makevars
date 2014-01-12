@@ -6,10 +6,10 @@ ifeq ($(shell uname),Darwin)
 else
   RHUGIN_LIBCRYPT=-lcrypt
   HUGIN_INCLUDE_DIR=$(HUGINHOME)/include
-  ifeq ($(shell ls $(HUGINHOME)/lib64),$(HUGINHOME)/lib64)
-    HUGIN_LIB_DIR=$(HUGINHOME)/lib64
-  else
+  ifeq "$(wildcard $(HUGINHOME)/lib64 )" ""
     HUGIN_LIB_DIR=$(HUGINHOME)/lib
+  else
+    HUGIN_LIB_DIR=$(HUGINHOME)/lib64
   endif
   HUGIN_RPATH=-Wl,-rpath=$(HUGIN_LIB_DIR)
 endif
@@ -19,3 +19,6 @@ PKG_LIBS=-L$(HUGIN_LIB_DIR) -lhugin2 -lm -lz -lpthread $(RHUGIN_LIBCRYPT) \
            $(HUGIN_RPATH)
 
 
+ifeq "$(wildcard $(MY_DIRNAME) )" ""
+  -mkdir $(MY_DIRNAME)
+endif
