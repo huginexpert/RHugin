@@ -2,12 +2,16 @@ ifeq ($(shell uname),Darwin)
   RHUGIN_LIBCRYPT=
   HUGIN_INCLUDE_DIR=$(HUGINHOME)/Headers
   HUGIN_LIB_DIR=$(HUGINHOME)/Libraries
-  HUGIN_RPATH=-Wl,-rpath,$(HUGINHOME)/Libraries
+  HUGIN_RPATH=-Wl,-rpath,$(HUGIN_LIB_DIR)
 else
   RHUGIN_LIBCRYPT=-lcrypt
   HUGIN_INCLUDE_DIR=$(HUGINHOME)/include
-  HUGIN_LIB_DIR=$(HUGINHOME)/$(LIBnn)
-  HUGIN_RPATH=-Wl,-rpath=$(HUGINHOME)/$(LIBnn)
+  ifeq ($(shell ls $(HUGINHOME)/lib64),$(HUGINHOME)/lib64)
+    HUGIN_LIB_DIR=$(HUGINHOME)/lib64
+  else
+    HUGIN_LIB_DIR=$(HUGINHOME)/lib
+  endif
+  HUGIN_RPATH=-Wl,-rpath=$(HUGIN_LIB_DIR)
 endif
 
 PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGIN_INCLUDE_DIR)
