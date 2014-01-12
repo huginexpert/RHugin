@@ -19,6 +19,4 @@ PKG_LIBS=-L$(HUGIN_LIB_DIR) -lhugin2 -lm -lz -lpthread $(RHUGIN_LIBCRYPT) \
            $(HUGIN_RPATH)
 
 
-ifeq "$(wildcard $(MY_DIRNAME) )" ""
-  -mkdir $(MY_DIRNAME)
-endif
+
