@@ -1,4 +1,4 @@
-ifeq ($(shell uname),Darwin)
+ifeq "$(shell uname)" "Darwin"
   RHUGIN_LIBCRYPT=
   HUGIN_INCLUDE_DIR=$(HUGINHOME)/Headers
   HUGIN_LIB_DIR=$(HUGINHOME)/Libraries
