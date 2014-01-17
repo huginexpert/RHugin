@@ -39,11 +39,11 @@ HUGIN API Reference Manual \url{http://download.hugin.com/webdocs/manuals/api-ma
 \author{Kjell Konis \email{kjell.konis@icloud.com}}
 
 \note{
-The \code{\link[RHugin]{compile}} function automatically triangulates an untriangulated domain using the default method ("best.greedy").  If the domain is already triangulated, then that triangulation is used.
+The \code{\link[=compile.RHuginDomain]{compile}} function automatically triangulates an untriangulated domain using the default method ("best.greedy").  If the domain is already triangulated, then that triangulation is used.
 }
 
 \seealso{
-\code{\link[RHugin]{compile}}.
+\code{\link[=compile.RHuginDomain]{compile}}.
 }
 
 \examples{
