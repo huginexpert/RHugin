@@ -60,30 +60,30 @@
     <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>i386/Debug</OutDir>
-    <IntDir>i386/Debug</IntDir>
+    <OutDir>i386/Debug/</OutDir>
+    <IntDir>i386/Debug/</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>x64/Debug</OutDir>
-    <IntDir>x64/debug</IntDir>
+    <OutDir>x64/Debug/</OutDir>
+    <IntDir>x64/Debug/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>i386/Release</OutDir>
-    <IntDir>i386/Release</IntDir>
+    <OutDir>i386/Release/</OutDir>
+    <IntDir>i386/Release/</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>x64/Release</OutDir>
-    <IntDir>x64/Release</IntDir>
+    <OutDir>x64/Release/</OutDir>
+    <IntDir>x64/Release/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.8\HDE7.8C\Include;C:\Program Files\R\R-3.0.2\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>H_DOUBLE;WIN32;_DEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H_DOUBLE;WIN32</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -95,7 +95,7 @@
       <AdditionalDependencies>R.lib;hugin2-7.8-vc11d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.8\HDE7.8C\Lib\VC11\Debug;Windows/i386</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -103,7 +103,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>C:\Program Files\Hugin Expert\Hugin Lite 7.8 (x64)\HDE7.8C\Include;C:\Program Files\R\R-3.0.2\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>H_DOUBLE;WIN32;_DEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H_DOUBLE;WIN32</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -115,45 +115,45 @@
       <AdditionalDependencies>R.lib;hugin2-7.8-vc11d-x64.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files\Hugin Expert\Hugin Lite 7.8 (x64)\HDE7.8C\Lib\VC11\Debug;Windows/x64</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>H_DOUBLE;WIN32;NDEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H_DOUBLE;WIN32</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <AdditionalIncludeDirectories>C:\Program Files\R\R-3.0.2\include;C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.8\HDE7.8C\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>R.lib;hugin2-7.8-vc11.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>R.lib;hugin2-7.8-vc11.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Hugin Expert\Hugin Lite 7.8\HDE7.8C\Lib\VC11\Release;Windows/i386</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>H_DOUBLE;WIN32;NDEBUG;_WINDOWS;_USRDLL;RHUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H_DOUBLE;WIN32</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <AdditionalIncludeDirectories>C:\Program Files\Hugin Expert\Hugin Lite 7.8 (x64)\HDE7.8C\Include;C:\Program Files\R\R-3.0.2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>C:\Program Files\Hugin Expert\Hugin Lite 7.8 (x64)\HDE7.8C\Lib\VC11\Release;Windows/x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>hugin2-7.8-vc11-x64.lib;R.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hugin2-7.8-vc11-x64.lib;R.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
