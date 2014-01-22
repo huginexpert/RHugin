@@ -10,13 +10,20 @@ if(!file.exists("../inst/libs/x64")) dir.create("../inst/libs/x64")
 redist.i386 <- c("msvcp110.dll", "msvcr110.dll", "vccorlib110.dll")
 for(f in redist.i386)
   file.copy(paste("redist-i386", f, sep = fs), paste("../inst/libs/i386", f, sep = fs))
-file.copy("../i386/Release/RHugin.dll", "../inst/libs/i386/RHugin.dll")
+file.copy("RHugin/Win32/Release/RHugin.dll", "../inst/libs/i386/RHugin.dll")
 
 redist.x64 <- c("msvcp110.dll", "msvcr110.dll", "vccorlib110.dll")
 for(f in redist.x64)
   file.copy(paste("redist-x64", f, sep = fs), paste("../inst/libs/x64", f, sep = fs))
-file.copy("../x64/Release/RHugin.dll", "../inst/libs/x64/RHugin.dll")
+file.copy("RHugin/x64/Release/RHugin.dll", "../inst/libs/x64/RHugin.dll")
 
 if(file.exists("../src")) file.rename("../src", "../HIDE-src")
+
+description <- readLines("../DESCRIPTION")
+os.type <- which(substring(description, 1, 7) == "OS_type")
+description[os.type] <- "OS_type: windows"
+file.remove("../DESCRIPTION")
+writeLines(description, "../DESCRIPTION")
+
 
 
