@@ -3,7 +3,7 @@
 #include "R_ext/Rdynload.h"
 #include "hugin.h"
 
-#ifdef WINDOWS
+#ifdef WIN32
   #define DLLEXPORT __declspec(dllexport)
 #else
   #define DLLEXPORT  
