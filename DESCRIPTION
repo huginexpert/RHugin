@@ -15,6 +15,6 @@ Description: The RHugin package provides an R API for the Hugin Decision \
              supported by Hugin Expert A/S.
 License: LGPL-2.1
 URL: http://rhugin.r-forge.r-project.org
-OS_type: windows
+OS_type: unix
 
 
