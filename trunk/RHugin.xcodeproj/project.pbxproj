@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,6 @@
 		0E49724B1121FD79003DD117 /* learn.structure.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = learn.structure.q; path = R/learn.structure.q; sourceTree = SOURCE_ROOT; };
 		0E53151016F8EA85003B6DBD /* get.children.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.children.Rd; path = man/get.children.Rd; sourceTree = "<group>"; };
 		0E53151116F8EA85003B6DBD /* get.parents.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = get.parents.Rd; path = man/get.parents.Rd; sourceTree = "<group>"; };
-		0E6D2AE318772C300053119C /* theBurnsOmniTest.R */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rez; name = theBurnsOmniTest.R; path = tests/theBurnsOmniTest.R; sourceTree = "<group>"; };
 		0E7BA1B916EE99E4007BB1D2 /* set.logfile.q */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.logfile.q; path = R/set.logfile.q; sourceTree = "<group>"; };
 		0E7BA1BA16EE9D0A007BB1D2 /* set.logfile.Rd */ = {isa = PBXFileReference; lastKnownFileType = text; name = set.logfile.Rd; path = man/set.logfile.Rd; sourceTree = "<group>"; };
 		0E84068010A8BBBF00E3E8D6 /* adapt.q */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = adapt.q; path = R/adapt.q; sourceTree = SOURCE_ROOT; };
@@ -433,7 +432,6 @@
 				0EA18FFA170266F2000890B7 /* models.Rout.save */,
 				DA47098F0FD82B5E001CB5BF /* simpleGaussianExample.R */,
 				DA4709AC0FD82EBC001CB5BF /* simpleGaussianExample.Rout.save */,
-				0E6D2AE318772C300053119C /* theBurnsOmniTest.R */,
 				DA4709900FD82B5E001CB5BF /* waste.R */,
 				DA4709AD0FD82EBC001CB5BF /* waste.Rout.save */,
 			);
@@ -548,9 +546,10 @@
 		DAEFA1980DE30792002B126B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = DAEFA19B0DE30792002B126B /* Build configuration list for PBXProject "RHugin" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -572,6 +571,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
