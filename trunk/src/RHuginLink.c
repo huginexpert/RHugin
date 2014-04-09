@@ -1,7 +1,7 @@
 #include "RHugin.h"
 #include "RHuginLink.h"
 
-#ifndef WIN32 /* WIN32 defined for both 32 bit and 64 bit windows builds */
+#ifndef WINDOWS
   #include <pthread.h>
 #endif
 
@@ -120,7 +120,7 @@ SEXP RHugin_domain_set_concurrency_level(SEXP Sdomain, SEXP Slevel)
 
   RHugin_handle_status_code(h_domain_set_concurrency_level(domain, level));
 
-#ifndef WIN32 /* have to skip this block on WIN64 too */
+#ifndef WINDOWS
   if(pthread_setconcurrency((int) level) != 0)
     error("pthread_setconcurrency returned a nonzero value");
 #endif

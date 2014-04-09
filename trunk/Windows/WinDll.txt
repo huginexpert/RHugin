@@ -2,7 +2,7 @@
 
 Rscript preflight.R x64
 
-cl.exe /D_USRDLL /D_WINDLL /DH_DOUBLE /DWINDOWS /I"C:\Program Files\Hugin Expert\Hugin Lite 8.0 (x64)\HDE8.0C\Include" /I"C:\Program Files\R\R-3.0.2\include" ../src/RHugin.c ../src/RHuginLink.c /link R.lib hugin2-8.0-vc10-x64.lib /LIBPATH:"C:\Program Files\Hugin Expert\Hugin Lite 8.0 (x64)\HDE8.0C\Lib\VC10\Release" /LIBPATH:"x64" /DLL /OUT:x64/RHugin.dll
+cl.exe /D_USRDLL /D_WINDLL /DH_DOUBLE /DWINDOWS /I"C:\Program Files\Hugin Expert\Hugin Lite 8.0 (x64)\HDE8.0C\Include" /I"C:\Program Files\R\R-3.0.2\include" ../src/RHugin.c ../src/RHuginLink.c /link R.lib hugin2-8.0-vc10-x64.lib /LIBPATH:"C:\Program Files\Hugin Expert\Hugin Lite 8.0 (x64)\HDE8.0C\Lib\VC10\Release" /LIBPATH:"x64" /DLL /MACHINE:x64 /OUT:x64/RHugin.dll
 
 del RHugin.obj RHuginLink.obj
 
@@ -11,7 +11,7 @@ del RHugin.obj RHuginLink.obj
 
 Rscript preflight.R x86
 
-cl.exe /D_USRDLL /D_WINDLL /DH_DOUBLE /DWINDOWS /I"C:\Program Files (x86)\Hugin Expert\Hugin Lite 8.0\HDE8.0C\Include" /I"C:\Program Files\R\R-3.0.2\include" ../src/RHugin.c ../src/RHuginLink.c /link R.lib hugin2-8.0-vc10.lib /LIBPATH:"C:\Program Files (x86)\Hugin Expert\Hugin Lite 8.0\HDE8.0C\Lib\VC10\Release" /LIBPATH:"i386" /DLL /OUT:i386/RHugin.dll
+cl.exe /D_USRDLL /D_WINDLL /DH_DOUBLE /DWINDOWS /I"C:\Program Files (x86)\Hugin Expert\Hugin Lite 8.0\HDE8.0C\Include" /I"C:\Program Files\R\R-3.0.2\include" ../src/RHugin.c ../src/RHuginLink.c /link R.lib hugin2-8.0-vc10.lib /LIBPATH:"C:\Program Files (x86)\Hugin Expert\Hugin Lite 8.0\HDE8.0C\Lib\VC10\Release" /LIBPATH:"i386" /DLL /MACHINE:x86 /OUT:i386/RHugin.dll
 
 del RHugin.obj RHuginLink.obj
 
