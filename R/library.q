@@ -7,14 +7,14 @@
 
     path <- Sys.getenv("PATH")
 
-    if(length(grep("HDE7.8C", path)) == 0) {
+    if(length(grep("HDE8.0C", path)) == 0) {
 
       HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = fs)
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
 
       dllName <- ifelse(.Machine$sizeof.pointer == 4,
-                        "hugin2-7.8-vc10.dll",
-                        "hugin2-7.8-vc10-x64.dll")
+                        "hugin2-8.0-vc10d.dll",
+                        "hugin2-8.0-vc10d-x64.dll")
 
       HuginDll <- HuginFiles[grep(dllName, HuginFiles, fixed = TRUE)]
 
