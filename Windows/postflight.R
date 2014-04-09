@@ -3,19 +3,21 @@ if(basename(getwd()) != "Windows" || basename(dirname(getwd())) != "RHugin")
 
 fs <- .Platform$file.sep
 
-if(!file.exists("../inst/libs")) tmp <- dir.create("../inst/libs")
-if(!file.exists("../inst/libs/i386")) tmp <- dir.create("../inst/libs/i386")
-if(!file.exists("../inst/libs/x64")) tmp <- dir.create("../inst/libs/x64")
+if(file.exists("../inst/libs")) unlink("../inst/libs", recursive = TRUE, force = TRUE)
+
+tmp <- dir.create("../inst/libs")
+tmp <- dir.create("../inst/libs/i386")
+tmp <- dir.create("../inst/libs/x64")
 
 redist.i386 <- c("msvcp100.dll", "msvcr100.dll")
 for(f in redist.i386)
   tmp <- file.copy(paste("redist-i386", f, sep = fs), paste("../inst/libs/i386", f, sep = fs))
-tmp <- file.copy("RHuginVS2010E/Win32/Release/RHugin.dll", "../inst/libs/i386/RHugin.dll")
+tmp <- file.copy("i386/RHugin.dll", "../inst/libs/i386/RHugin.dll")
 
 redist.x64 <- c("msvcp100.dll", "msvcr100.dll")
 for(f in redist.x64)
   tmp <- file.copy(paste("redist-x64", f, sep = fs), paste("../inst/libs/x64", f, sep = fs))
-tmp <- file.copy("RHuginVS2010E/x64/Release/RHugin.dll", "../inst/libs/x64/RHugin.dll")
+tmp <- file.copy("x64/RHugin.dll", "../inst/libs/x64/RHugin.dll")
 
 if(file.exists("../src")) tmp <- file.rename("../src", "../HIDE-src")
 

@@ -1,17 +1,24 @@
 if(basename(getwd()) != "Windows" || basename(dirname(getwd())) != "RHugin")
   stop("working directory is not .../RHugin/Windows")
 
-dir.create("i386")
-dir.create("x64")
+arch <- commandArgs(TRUE)[1]
+arch <- match.arg(arch, c("x86", "x64"))
 
-  ## i386 ##
+Rarch <- switch(arch,
+  "x86" = "i386",
+  "x64" = "x64",
+  stop("architecture not recognized")
+)
 
-R32 <- paste(Sys.getenv("R_HOME"), "bin", "i386", "R.dll", sep = .Platform$file.sep)
-cmd <- paste("dumpbin.exe", "/exports", R32)
+if(file.exists(Rarch)) unlink(Rarch, recursive = TRUE, force = TRUE)
+dir.create(Rarch)
+
+fs <- .Platform$file.sep
+
+R <- paste(Sys.getenv("R_HOME"), "bin", Rarch, "R.dll", sep = fs)
+cmd <- paste("dumpbin.exe", "/exports", R)
 
 dump <- system(cmd, intern = TRUE)
-
-
 p <- strsplit(dump[15], split = " ", fixed = TRUE)[[1]]
 n.funs <- as.numeric((p[nchar(p) > 0])[1])
 
@@ -20,40 +27,10 @@ exports <- sapply(exports, function(u) u[length(u)])
 exports <- c("EXPORTS", paste(" ", exports), "")
 exports <- paste(exports, collapse = "\n")
 
-cat(exports, file = "i386/R.def")
+cat(exports, file = paste(Rarch, "R.def", sep = fs))
 
 cwd <- getwd()
-setwd("i386")
-system("lib /def:R.def /machine:x86")
-
+setwd(Rarch)
+system(paste("lib /def:R.def /machine:", arch, sep = ""))
 setwd(cwd)
-
-
-  ## x64 ##
-
-R64 <- paste(Sys.getenv("R_HOME"), "bin", "x64", "R.dll", sep = .Platform$file.sep)
-cmd <- paste("dumpbin.exe", "/exports", R64)
-
-dump <- system(cmd, intern = TRUE)
-
-
-p <- strsplit(dump[15], split = " ", fixed = TRUE)[[1]]
-n.funs <- as.numeric((p[nchar(p) > 0])[1])
-
-exports <- strsplit(dump[20:(n.funs + 19)], split = " ", fixed = TRUE)
-exports <- sapply(exports, function(u) u[length(u)])
-exports <- c("EXPORTS", paste(" ", exports), "")
-exports <- paste(exports, collapse = "\n")
-
-cat(exports, file = "x64/R.def")
-
-cwd <- getwd()
-setwd("x64")
-system("lib /def:R.def /machine:x64")
-
-setwd(cwd)
-
-
-
-
 

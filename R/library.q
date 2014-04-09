@@ -13,8 +13,8 @@
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
 
       dllName <- ifelse(.Machine$sizeof.pointer == 4,
-                        "hugin2-8.0-vc10d.dll",
-                        "hugin2-8.0-vc10d-x64.dll")
+                        "hugin2-8.0-vc10.dll",
+                        "hugin2-8.0-vc10-x64.dll")
 
       HuginDll <- HuginFiles[grep(dllName, HuginFiles, fixed = TRUE)]
 
