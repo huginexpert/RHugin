@@ -6,22 +6,24 @@
   if(Sys.info()["sysname"] == "Windows") {
 
     path <- Sys.getenv("PATH")
+    pv <- packageDescription(pkgname, libname, fields = "Version")
+	pv <- strsplit(pv, split = "-", fixed = TRUE)[[1]][1]
 
-    if(length(grep("HDE8.0C", path)) == 0) {
+    if(!length(grep(paste("HDE", pv, "C", sep = ""), path))) {
 
       HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = fs)
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
 
       dllName <- ifelse(.Machine$sizeof.pointer == 4,
-                        "hugin2-8.0-vc10.dll",
-                        "hugin2-8.0-vc10-x64.dll")
+                        paste("hugin2", pv, "vc10.dll", sep = "-"),
+                        paste("hugin2", pv, "vc10-x64.dll", sep = "-"))
 
       HuginDll <- HuginFiles[grep(dllName, HuginFiles, fixed = TRUE)]
 
       if(!length(HuginDll))
         warning("RHugin could not find the Hugin dll")
 
-      else if(length(HuginDll) >= 2) {
+      else if(length(HuginDll) > 1) {
         HuginDll <- HuginDll[1]
         warning("multiple Hugin installations found, using: ", HuginDll)
       }
@@ -36,7 +38,7 @@
 
   else if(Sys.info()["sysname"] == "Darwin") {
 
-    if(nchar(Sys.getenv("HUGINHOME")) == 0) {
+    if(!nchar(Sys.getenv("HUGINHOME"))) {
 
       Apps <- list.files("/Applications", full.names = TRUE)
       HuginHome <- Apps[grep("HDE", Apps, fixed = TRUE)]
@@ -54,7 +56,7 @@
   }
 
   else {
-    if(nchar(Sys.getenv("HUGINHOME")) == 0) {
+    if(!nchar(Sys.getenv("HUGINHOME"))) {
       ulh <- paste(c(paste(c(fs, "usr"), collapse = ""), "local", "hugin"),
                    collapse = fs)
 

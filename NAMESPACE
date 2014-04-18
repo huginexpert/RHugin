@@ -1,5 +1,3 @@
-importFrom(stats, simulate)
-
 importFrom(graph, edgeRenderInfo)
 importFrom(graph, graphNEL)
 importFrom(graph, graphRenderInfo)
@@ -7,6 +5,10 @@ importFrom(graph, nodeRenderInfo)
 
 importFrom(Rgraphviz, layoutGraph)
 importFrom(Rgraphviz, agopen)
+
+importFrom(stats, simulate)
+
+importFrom(utils, packageDescription)
 
 export(
   "adapt",
