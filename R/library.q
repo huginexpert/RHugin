@@ -41,7 +41,7 @@
       HuginHome <- Apps[grep("HDE", Apps, fixed = TRUE)]
 
       if(!length(HuginHome))
-        warning("RHugin could not find Hugin in the usual location")
+        warning("RHugin could not find Hugin in /Applications")
 
       else if(length(HuginHome) >= 2) {
         HuginHome <- HuginHome[1]
