@@ -7,21 +7,18 @@
 
     path <- Sys.getenv("PATH")
     pv <- packageDescription(pkgname, libname, fields = "Version")
-	pv <- strsplit(pv, split = "-", fixed = TRUE)[[1]][1]
+    pv <- strsplit(pv, split = "-", fixed = TRUE)[[1]][1]
 
     if(!length(grep(paste("HDE", pv, "C", sep = ""), path))) {
 
       HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = fs)
       HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
-
-      dllName <- ifelse(.Machine$sizeof.pointer == 4,
-                        paste("hugin2", pv, "vc10.dll", sep = "-"),
-                        paste("hugin2", pv, "vc10-x64.dll", sep = "-"))
-
+      x64 <- ifelse(.Machine$sizeof.pointer == 4, "", "-x64")
+      dllName <- paste("hugin2-", pv, "-vc10", x64, ".dll", sep = "")
       HuginDll <- HuginFiles[grep(dllName, HuginFiles, fixed = TRUE)]
 
       if(!length(HuginDll))
-        warning("RHugin could not find the Hugin dll")
+        warning("RHugin ", pv, ": could not find Hugin Expert ", pv)
 
       else if(length(HuginDll) > 1) {
         HuginDll <- HuginDll[1]
