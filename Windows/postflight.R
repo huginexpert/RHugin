@@ -1,23 +1,20 @@
 if(basename(getwd()) != "Windows" || basename(dirname(getwd())) != "RHugin")
   stop("working directory is not .../RHugin/Windows")
 
-fs <- .Platform$file.sep
-
 if(file.exists("../inst/libs")) unlink("../inst/libs", recursive = TRUE, force = TRUE)
 
 tmp <- dir.create("../inst/libs")
 tmp <- dir.create("../inst/libs/i386")
 tmp <- dir.create("../inst/libs/x64")
 
-redist.i386 <- c("msvcp100.dll", "msvcr100.dll")
-for(f in redist.i386)
-  tmp <- file.copy(paste("redist-i386", f, sep = fs), paste("../inst/libs/i386", f, sep = fs))
+msvcr <- "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/redist/x86/Microsoft.VC100.CRT/msvcr100.dll"
+tmp <- file.copy(msvcr, "../inst/libs/i386/msvcr100.dll")
 tmp <- file.copy("i386/RHugin.dll", "../inst/libs/i386/RHugin.dll")
 
-redist.x64 <- c("msvcp100.dll", "msvcr100.dll")
-for(f in redist.x64)
-  tmp <- file.copy(paste("redist-x64", f, sep = fs), paste("../inst/libs/x64", f, sep = fs))
+msvcr <- "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/redist/x64/Microsoft.VC100.CRT/msvcr100.dll"
+tmp <- file.copy(msvcr, "../inst/libs/x64/msvcr100.dll")
 tmp <- file.copy("x64/RHugin.dll", "../inst/libs/x64/RHugin.dll")
+
 
 if(file.exists("../src")) tmp <- file.rename("../src", "../HIDE-src")
 
