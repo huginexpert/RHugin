@@ -1,4 +1,4 @@
-"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /Release /x64
+"C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x64
 
 Rscript preflight.R x64
 
@@ -6,8 +6,7 @@ cl.exe /D_USRDLL /D_WINDLL /DH_DOUBLE /DWIN32 /I"C:\Program Files\Hugin Expert\H
 
 del RHugin.obj RHuginLink.obj
 
-
-"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /Release /x86
+"C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
 
 Rscript preflight.R x86
 
