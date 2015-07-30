@@ -1,7 +1,4 @@
 ^Windows
-^HIDE-src
-^RHugin.sln
-^RHugin.vcxproj
-^RHugin.xcodeproj
 
-
+^.*\.Rproj$
+^\.Rproj\.user$
