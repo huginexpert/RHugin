@@ -1,5 +1,4 @@
 import(Rgraphviz, graph, stats)
-importFrom(utils, packageDescription)
 
 export(
   "adapt",

@@ -1,39 +1,25 @@
 .onLoad <- function(libname, pkgname)
 {
-  fs <- .Platform$file.sep
-  ps <- .Platform$path.sep
+  sysname <- Sys.info()["sysname"]
 
-  if(Sys.info()["sysname"] == "Windows") {
+  if(sysname == "Windows") {
 
     path <- Sys.getenv("PATH")
-    pv <- packageDescription(pkgname, libname, fields = "Version")
-    pv <- strsplit(pv, split = "-", fixed = TRUE)[[1]][1]
+    HuginDll <- NULL
 
-    if(!length(grep(paste("HDE", pv, "C", sep = ""), path))) {
+    if(is.null(HuginDll))
+      stop("RHugin was not properly configured during installation")
 
-      HuginExpert <- paste(Sys.getenv("ProgramFiles"), "Hugin Expert", sep = fs)
-      HuginFiles <- list.files(HuginExpert, full.names = TRUE, recursive = TRUE)
-      x64 <- ifelse(.Machine$sizeof.pointer == 4, "", "-x64")
-      dllName <- paste("hugin2-", pv, "-vc10", x64, ".dll", sep = "")
-      HuginDll <- HuginFiles[grep(dllName, HuginFiles, fixed = TRUE)]
+    if(!file.exists(HuginDll))
+      stop("Hugin Decision Engine (HDE) not found; reinstalling RHugin may fix this problem")
 
-      if(!length(HuginDll))
-        warning("RHugin ", pv, ": could not find Hugin Expert ", pv)
+    HuginDllDir <- strsplit(dirname(HuginDll), split = .Platform$file.sep, fixed = TRUE)[[1]]
+    HuginDllDir <- paste(HuginDllDir, collapse = "\\")
 
-      else if(length(HuginDll) > 1) {
-        HuginDll <- HuginDll[1]
-        warning("multiple Hugin installations found, using: ", HuginDll)
-      }
-
-      HuginDllDir <- dirname(HuginDll)
-      HuginDllDir <- strsplit(HuginDllDir, split = fs, fixed = TRUE)[[1]]
-      HuginDllDir <- paste(HuginDllDir, collapse = "\\")
-
-      Sys.setenv(PATH = paste(HuginDllDir, path, sep = ps))
-    }
+    Sys.setenv(PATH = file.path(HuginDllDir, path, fsep = .Platform$path.sep))
   }
 
-  else if(Sys.info()["sysname"] == "Darwin") {
+  else if(sysname == "Darwin") {
 
     if(!nchar(Sys.getenv("HUGINHOME"))) {
 
@@ -41,7 +27,7 @@
       HuginHome <- Apps[grep("HDE", Apps, fixed = TRUE)]
 
       if(!length(HuginHome))
-        warning("RHugin could not find Hugin in /Applications")
+        stop("RHugin did not find Hugin in /Applications")
 
       else if(length(HuginHome) >= 2) {
         HuginHome <- HuginHome[1]
@@ -54,10 +40,8 @@
 
   else {
     if(!nchar(Sys.getenv("HUGINHOME"))) {
-      ulh <- paste(c(paste(c(fs, "usr"), collapse = ""), "local", "hugin"),
-                   collapse = fs)
 
-      if(file.exists(ulh))
+      if(file.exists(ulh <- file.path("usr", "local", "hugin")))
         Sys.setenv(HUGINHOME = ulh)
       else
         warning("RHugin did not find Hugin in ", ulh)
