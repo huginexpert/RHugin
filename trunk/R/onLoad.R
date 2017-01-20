@@ -6,8 +6,7 @@
 
     path <- Sys.getenv("PATH")
 
-    #Sys.getenv("PROGRAMFILES")
-    HuginDllDir <- NULL ###ConfigureHuginDllDirHere###
+    HuginDllDir <- "C:/Program Files/Hugin Expert/Hugin Lite 8.4 (x64)/HDE8.4C/Lib/VC10/Release" ###ConfigureHuginDllDirHere###
 
     if(is.null(HuginDllDir))
       stop("RHugin was not properly configured during installation")
