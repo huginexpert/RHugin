@@ -4,7 +4,7 @@ Date: 2017-01-18
 Title: RHugin
 Author: Kjell Konis <kjell.konis@me.com>.
 Maintainer: Kjell Konis <kjell.konis@me.com>
-Depends: graph, Rgraphviz (>= 1.32.0), stats
+Depends: graph, Rgraphviz (>= 1.32.0), stats, tools
 SystemRequirements: Hugin Decision Engine 8.4
 Suggests: MASS
 Description: The RHugin package provides an R API for the Hugin Decision \

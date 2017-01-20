@@ -4,9 +4,9 @@
 
   if(sysname == "Windows") {
 
-    path <- Sys.getenv("PATH")
-
-    HuginDllDir <- "C:/Program Files/Hugin Expert/Hugin Lite 8.4 (x64)/HDE8.4C/Lib/VC10/Release" ###ConfigureHuginDllDirHere###
+    HuginVersion <- NULL ###ConfigureHuginVersionHere###
+    HuginInst <- NULL ###ConfigureHuginDirHere###
+    HuginDllDir <- NULL ###ConfigureHuginDllDirHere###
 
     if(is.null(HuginDllDir))
       stop("RHugin was not properly configured during installation")
@@ -14,7 +14,19 @@
     if(!file.exists(HuginDllDir))
       stop("Hugin Decision Engine (HDE) not found; reinstalling RHugin may fix this problem")
 
+    path <- Sys.getenv("PATH")
     Sys.setenv(PATH = file.path(HuginDllDir, path, fsep = .Platform$path.sep))
+    
+    cat("\nLoading RHugin package...\n")
+    cat("  RHugin package version:",
+        as.character(packageVersion("RHugin", lib.loc = libname)),
+        "\n")
+    cat("  Hugin Version:",
+        HuginVersion,
+        "\n")
+    cat("  Hugin Location:",
+        HuginInst,
+        "\n\n")
   }
 
   else if(sysname == "Darwin") {
