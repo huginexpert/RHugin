@@ -5,16 +5,15 @@
   if(sysname == "Windows") {
 
     path <- Sys.getenv("PATH")
-    HuginDll <- NULL
 
-    if(is.null(HuginDll))
+    #Sys.getenv("PROGRAMFILES")
+    HuginDllDir <- NULL ###ConfigureHuginDllDirHere###
+
+    if(is.null(HuginDllDir))
       stop("RHugin was not properly configured during installation")
 
-    if(!file.exists(HuginDll))
+    if(!file.exists(HuginDllDir))
       stop("Hugin Decision Engine (HDE) not found; reinstalling RHugin may fix this problem")
-
-    HuginDllDir <- strsplit(dirname(HuginDll), split = .Platform$file.sep, fixed = TRUE)[[1]]
-    HuginDllDir <- paste(HuginDllDir, collapse = "\\")
 
     Sys.setenv(PATH = file.path(HuginDllDir, path, fsep = .Platform$path.sep))
   }

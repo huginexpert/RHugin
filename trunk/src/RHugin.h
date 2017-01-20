@@ -24,13 +24,16 @@ void RHugin_handle_status_code(h_status_t status);
 
 /* little doohickey to store open log file info */
 
-typedef struct {
-  FILE *p_file;
-  char *filename;
-} log_file_info;
+#ifndef WIN32
+  typedef struct {
+    FILE *p_file;
+    char *filename;
+  } log_file_info;
 
-log_file_info *RHugin_open_log_file(const char *filename);
-log_file_info *RHugin_close_log_file(log_file_info *lfi);
+  log_file_info *RHugin_open_log_file(const char *filename);
+  log_file_info *RHugin_close_log_file(log_file_info *lfi);
+#endif
+
 DLLEXPORT SEXP RHugin_domain_get_logfile(SEXP Sdomain);
 
 
