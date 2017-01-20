@@ -2072,49 +2072,57 @@ SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 
 /* 6.4 Getting a compilation log */
 
-SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Sfile_name)
-{
-  h_status_t status = 0;
-  log_file_info *lfi = NULL;
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+#ifndef WIN32
+  SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Sfile_name)
+  {
+    h_status_t status = 0;
+    log_file_info *lfi = NULL;
+    h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-  lfi = (log_file_info *) h_domain_get_user_data(domain);
+    lfi = (log_file_info *) h_domain_get_user_data(domain);
 
-  if(Sfile_name != R_NilValue) {
-    if(lfi != NULL) {
-      warning("domain already has a log file");
-      return(R_NilValue);
-    }
-
-    PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
-    lfi = RHugin_open_log_file(CHAR(asChar(Sfile_name)));
-    UNPROTECT(1);
-
-    if(lfi != NULL) {
-      status = h_domain_set_log_file(domain, lfi->p_file);
-
-      if(status != 0) {
-        lfi = RHugin_close_log_file(lfi);
-        RHugin_handle_status_code(status);
+    if(Sfile_name != R_NilValue) {
+      if(lfi != NULL) {
+        warning("domain already has a log file");
+        return(R_NilValue);
       }
+
+      PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+      lfi = RHugin_open_log_file(CHAR(asChar(Sfile_name)));
+      UNPROTECT(1);
+
+      if(lfi != NULL) {
+        status = h_domain_set_log_file(domain, lfi->p_file);
+
+        if(status != 0) {
+          lfi = RHugin_close_log_file(lfi);
+          RHugin_handle_status_code(status);
+        }
       
-      status = h_domain_set_user_data(domain, (void *) lfi);
+        status = h_domain_set_user_data(domain, (void *) lfi);
 
-      if(status != 0) {
+        if(status != 0) {
+          lfi = RHugin_close_log_file(lfi);
+          RHugin_handle_status_code(status);
+        }
+      }
+    } else { /* Sfile_name == R_NilValue */
+      if(lfi != NULL) {
         lfi = RHugin_close_log_file(lfi);
-        RHugin_handle_status_code(status);
+        RHugin_handle_status_code(h_domain_set_log_file(domain, NULL));
+        RHugin_handle_status_code(h_domain_set_user_data(domain, NULL));
       }
     }
-  } else { /* Sfile_name == R_NilValue */
-    if(lfi != NULL) {
-      lfi = RHugin_close_log_file(lfi);
-      RHugin_handle_status_code(h_domain_set_log_file(domain, NULL));
-      RHugin_handle_status_code(h_domain_set_user_data(domain, NULL));
-    }
-  }
 
-  return R_NilValue;
-}
+    return R_NilValue;
+  }
+#else
+  SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Sfile_name)
+  {
+    warning("log files are not supported on Microsoft Windows\n");
+    return R_NilValue;
+  }
+#endif
 
 
 /* 6.5 Uncompilation */

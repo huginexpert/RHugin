@@ -1,7 +1,7 @@
 ifeq "$(shell uname)" "Darwin"
   RHUGIN_LIBCRYPT=
-  HUGIN_INCLUDE_DIR=$(HUGINHOME)/Headers
-  HUGIN_LIB_DIR=$(HUGINHOME)/Libraries
+  HUGIN_INCLUDE_DIR=$(HUGINHOME)/include
+  HUGIN_LIB_DIR=$(HUGINHOME)/lib64
   HUGIN_RPATH=-Wl,-rpath,$(HUGIN_LIB_DIR)
 else
   RHUGIN_LIBCRYPT=-lcrypt

@@ -1,11 +1,11 @@
 Package: RHugin
-Version: 8.2
-Date: 2015-11-20
+Version: 8.4
+Date: 2017-01-18
 Title: RHugin
 Author: Kjell Konis <kjell.konis@me.com>.
 Maintainer: Kjell Konis <kjell.konis@me.com>
 Depends: graph, Rgraphviz (>= 1.32.0), stats
-SystemRequirements: Hugin Decision Engine 8.2
+SystemRequirements: Hugin Decision Engine 8.4
 Suggests: MASS
 Description: The RHugin package provides an R API for the Hugin Decision \
              Engine. The RHugin package is free software and is distributed \
@@ -15,6 +15,5 @@ Description: The RHugin package provides an R API for the Hugin Decision \
              supported by Hugin Expert A/S.
 License: LGPL-2.1
 URL: http://rhugin.r-forge.r-project.org
-OS_type: unix
 
 

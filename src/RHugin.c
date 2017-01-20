@@ -81,78 +81,90 @@ void RHugin_handle_status_code(h_status_t status)
 }
 
 
-log_file_info *RHugin_open_log_file(const char *filename)
-{
-  log_file_info *lfi = NULL;
-  size_t n = 0;
+#ifndef WIN32
+  log_file_info *RHugin_open_log_file(const char *filename)
+  {
+    log_file_info *lfi = NULL;
+    size_t n = 0;
 
-  if((lfi = malloc(sizeof(log_file_info))) != NULL) {
-    lfi->p_file = fopen(filename, "a");
+    if((lfi = malloc(sizeof(log_file_info))) != NULL) {
+      lfi->p_file = fopen(filename, "a");
 
-    if(lfi->p_file != NULL) {
-      n = strlen(filename);
-      lfi->filename = (char *) malloc((n + 1) * sizeof(char));
-      lfi->filename = strncpy(lfi->filename, filename, n + 1);
-    } else {
+      if(lfi->p_file != NULL) {
+        n = strlen(filename);
+        lfi->filename = (char *) malloc((n + 1) * sizeof(char));
+        lfi->filename = strncpy(lfi->filename, filename, n + 1);
+      } else {
+        free(lfi);
+        return NULL;
+      }
+    }
+
+    return lfi;
+  }
+
+
+  log_file_info *RHugin_close_log_file(log_file_info *lfi)
+  {
+    if(lfi != NULL) {
+      if(lfi->p_file != NULL) {
+        fclose(lfi->p_file);
+        lfi->p_file = NULL;
+      }
+
+      if(lfi->filename != NULL) {
+        free(lfi->filename);
+        lfi->filename = NULL;
+      }
+
       free(lfi);
-      return NULL;
     }
+
+    return NULL;
   }
 
-  return lfi;
-}
 
+  SEXP RHugin_domain_get_logfile(SEXP Sdomain)
+  {
+    SEXP ret = R_NilValue;
+    log_file_info *lfi = NULL;
+    h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
-log_file_info *RHugin_close_log_file(log_file_info *lfi)
-{
-  if(lfi != NULL) {
-    if(lfi->p_file != NULL) {
-      fclose(lfi->p_file);
-      lfi->p_file = NULL;
+    lfi = (log_file_info *) h_domain_get_user_data(domain);
+
+    if(lfi != NULL) {
+      if(lfi->filename != NULL) {
+        PROTECT(ret = allocVector(STRSXP, 1));
+        SET_STRING_ELT(ret, 0, mkChar(lfi->filename));
+        UNPROTECT(1);
+      }
     }
 
-    if(lfi->filename != NULL) {
-      free(lfi->filename);
-      lfi->filename = NULL;
-    }
-
-    free(lfi);
+    return ret;
   }
-
-  return NULL;
-}
-
-
-SEXP RHugin_domain_get_logfile(SEXP Sdomain)
-{
-  SEXP ret = R_NilValue;
-  log_file_info *lfi = NULL;
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
-
-  lfi = (log_file_info *) h_domain_get_user_data(domain);
-
-  if(lfi != NULL) {
-    if(lfi->filename != NULL) {
-      PROTECT(ret = allocVector(STRSXP, 1));
-      SET_STRING_ELT(ret, 0, mkChar(lfi->filename));
-      UNPROTECT(1);
-    }
+#else
+  SEXP RHugin_domain_get_logfile(SEXP Sdomain)
+  {
+    warning("log files are not supported on Microsoft Windows\n");
+    return R_NilValue;
   }
-
-  return ret;
-}
+#endif
 
 
 void RHugin_domain_finalizer(SEXP Sdomain)
 {
+#ifndef WIN32
   log_file_info *lfi = NULL;
+#endif
   h_status_t status = 0;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
+#ifndef WIN32
   lfi = (log_file_info *) h_domain_get_user_data(domain);
   
   if(lfi != NULL)
     lfi = RHugin_close_log_file(lfi);
+#endif
 
   status = h_domain_delete(domain);
   R_ClearExternalPtr(Sdomain);
