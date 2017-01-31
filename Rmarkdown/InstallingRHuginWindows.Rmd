@@ -1,7 +1,7 @@
 ---
 title: "Installing RHugin on Microsoft Windows"
 author: "Kjell Konis"
-date: "January 27, 2017"
+date: "January 31, 2017"
 output: html_document
 ---
 
@@ -18,21 +18,21 @@ Read the *Preliminaries* section even if you already have R, Rtools, and the Hug
 
 ***
 
-## Preliminaries
+### Preliminaries
 
 The RHugin package provides an R API for the Hugin Decision Engine (HDE): both the HDE and R must be installed on the computer in order for the RHugin package to function.
 
 
-### Install HUGIN and the HUGIN Decision Engine (HDE)
+#### Install HUGIN and the HUGIN Decision Engine (HDE)
 
 The Hugin Decision Engine is commercial software available from HUGIN EXPERT.
 
 > [http://www.hugin.com](http://www.hugin.com)
 
-The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the Hugin Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate the HUGIN software).
+The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the Hugin Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate HUGIN).
 
 
-### Install the Microsoft Visual C++ 2010 Redistributable Package (x64)
+#### Install the Microsoft Visual C++ 2010 Redistributable Package (x64)
 
 The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 2010 and requires runtime components for this compiler to be installed. These runtime components are provided in the package *Microsoft Visual C++ 2010 Redistributable Package (x64)* that should be downloaded directly from Microsoft.
 
@@ -41,7 +41,7 @@ The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 20
 If installation fails, the most likely reason is that you already have these components installed (some manufacturers, e.g., Lenovo, preinstall these packages; others don't).  Read the message carefully.
 
 
-### Install R
+#### Install R
 
 R is available from the CRAN repository.
 
@@ -50,7 +50,7 @@ R is available from the CRAN repository.
 The installer for the most recent version of R can be found by following *Download R for Windows > base*.
 
 
-### Install Rtools
+#### Install Rtools
 
 Since RHugin is distributed as a source package you will also need to install Rtools (the compilers, etc. used to build R). The Rtools installer can be found by following *Download R for Windows > Rtools*.  The most recent version is at the top of the list.
 
@@ -59,7 +59,7 @@ Once these four pieces of software are installed, start R and proceed to the nex
 
 ***
 
-## RHugin Package Depedencies
+### RHugin Package Depedencies
 
 ```{r uninstallBiocPackages, echo = FALSE, message = FALSE, results = "hide"}
 p <- intersect(pkgs <- installed.packages()[, 1],
@@ -77,7 +77,7 @@ biocLite(c("graph", "Rgraphviz"))
 
 ***
 
-## Install the RHugin Package
+### Install the RHugin Package
 
 ```{r unInstallRHugin, echo = FALSE, result = "hide", message = FALSE}
 if("RHugin" %in% pkgs) remove.packages("RHugin")
@@ -93,7 +93,7 @@ install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org",
 
 ***
 
-## Quick Test
+### Quick Test
 
 To check that everything went as planned run the following code to plot one of the example networks provided by HUGIN.
 

@@ -1,10 +1,10 @@
 .onLoad <- function(libname, pkgname)
 {
-      HuginDllDir <- NULL ###ConfigureHuginDllDirHere###
+      HuginDllDir <- "C:/Program Files/Hugin Expert/Hugin Lite 8.4 (x64)/HDE8.4C/Lib/VC10/Release" ###ConfigureHuginDllDirHere###
   
   if(Sys.info()["sysname"] == "Windows") {
-      HuginVersion <- NULL ###ConfigureHuginVersionHere###
-      HuginInst <- NULL ###ConfigureHuginDirHere###
+      HuginVersion <- "Hugin Lite 8.4 (x64)" ###ConfigureHuginVersionHere###
+      HuginInst <- "C:/Program Files/Hugin Expert/Hugin Lite 8.4 (x64)" ###ConfigureHuginDirHere###
 
     if(is.null(HuginDllDir))
       stop("RHugin was not properly configured during installation")
@@ -12,11 +12,13 @@
     if(!file.exists(HuginDllDir))
       stop("Hugin Decision Engine (HDE) not found; reinstalling RHugin may fix this problem")
 
-    packageStartupMessage("Loading RHugin package...")
-    packageStartupMessage("  RHugin package version: ",
-                          as.character(packageVersion("RHugin", lib.loc = libname)))
-    packageStartupMessage("  Hugin Version: ", HuginVersion)
-    packageStartupMessage("  Hugin Location: ", HuginInst)
+    m <- "Loading RHugin package..."
+    m[2] <- paste("  RHugin package version:",
+                  as.character(packageVersion("RHugin", lib.loc = libname)))
+    m[3] <- paste("  Hugin Version:", HuginVersion)
+    m[4] <- paste("  Hugin Location:", HuginInst)
+      
+    packageStartupMessage(paste(m, collapse = "\n"))
   }
 
   # Load the package dll
