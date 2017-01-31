@@ -1,4 +1,8 @@
-import(Rgraphviz, graph, stats)
+import(graph, Rgraphviz, stats)
+
+importFrom("graphics", "par", "points", "rect", "strheight", "strwidth", "text")
+importFrom("methods", "new")
+importFrom("utils", "packageVersion")
 
 export(
   "adapt",
