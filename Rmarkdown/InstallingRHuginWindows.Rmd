@@ -1,7 +1,7 @@
 ---
 title: "Installing RHugin on Microsoft Windows"
 author: "Kjell Konis"
-date: "January 26, 2017"
+date: "January 27, 2017"
 output: html_document
 ---
 
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ***
 
-Read the *Preliminaries* section even if you already have R, Rtools, and the Hugin Decision Engine installed. You probably will need to install the *Microsoft Visual C++ Redistributable Package (x64)*.  These instructions have only been tested with 64 bit versions of R and the HDE.
+Read the *Preliminaries* section even if you already have R, Rtools, and the Hugin Decision Engine installed. You probably will need to install the *Microsoft Visual C++ 2010 Redistributable Package (x64)*.  These instructions have only been tested with 64 bit versions of R and the HDE running on Windows 10 (64 bit).
 
 
 ***
@@ -32,8 +32,13 @@ The Hugin Decision Engine is commercial software available from HUGIN EXPERT.
 The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the Hugin Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate the HUGIN software).
 
 
-### Install the Microsoft Visual C++ Redistributable Package (x64)
+### Install the Microsoft Visual C++ 2010 Redistributable Package (x64)
 
+The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 2010 and requires runtime components for this compiler to be installed. These runtime components are provided in the package *Microsoft Visual C++ 2010 Redistributable Package (x64)* that should be downloaded directly from Microsoft.
+
+> [https://www.microsoft.com/en-us/download/details.aspx?id=14632](https://www.microsoft.com/en-us/download/details.aspx?id=14632)
+
+If installation fails, the most likely reason is that you already have these components installed (some manufacturers, e.g., Lenovo, preinstall these packages; others don't).  Read the message carefully.
 
 
 ### Install R
@@ -47,9 +52,9 @@ The installer for the most recent version of R can be found by following *Downlo
 
 ### Install Rtools
 
-Since RHugin is distributed as a source package you will also need to install Rtools. The Rtools installer can be found by following *Download R for Windows > Rtools*.  The most recent version is at the top of the list.
+Since RHugin is distributed as a source package you will also need to install Rtools (the compilers, etc. used to build R). The Rtools installer can be found by following *Download R for Windows > Rtools*.  The most recent version is at the top of the list.
 
-Once these three pieces of software are installed, start R and proceed to the next section.
+Once these four pieces of software are installed, start R and proceed to the next section.
 
 
 ***
@@ -62,7 +67,7 @@ p <- intersect(pkgs <- installed.packages()[, 1],
 remove.packages(p)
 ```
 
-
+The RHugin package has dependencies on the `graph` and `Rgraphviz` packages.  These packages are part of Bioconductor and can be installed by running the following two R commands.
 
 ```{r installRgraphviz, message = FALSE, results = "hide"}
 source("https://bioconductor.org/biocLite.R")
@@ -70,17 +75,49 @@ biocLite(c("graph", "Rgraphviz"))
 ```
 
 
+***
+
 ## Install the RHugin Package
 
-```{r unInstallRHugin}
+```{r unInstallRHugin, echo = FALSE, result = "hide", message = FALSE}
 if("RHugin" %in% pkgs) remove.packages("RHugin")
 ```
 
+Finally, install the `RHugin` package from RHugin's R-Forge repository with the following R command.
 
-```{r installRHugin}
+```{r installRHugin, result = "hide", message = FALSE}
 install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org",
                  type = "source", INSTALL_opts="--no-multiarch")
 ```
+
+
+***
+
+## Quick Test
+
+To check that everything went as planned run the following code to plot one of the example networks provided by HUGIN.
+
+```{r testRHuginInstallation, fig.align = "center"}
+library(RHugin)
+demo("asia", echo = FALSE)
+plot(asia)
+```
+
+***
+
+Happy HUGINing with RHugin!
+
+
+***
+***
+***
+
+Copyright 2017 Kjell Konis
+
+
+
+
+
 
 
 

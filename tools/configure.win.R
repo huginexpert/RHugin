@@ -58,33 +58,33 @@ pkglibs <- paste("PKG_LIBS=-L\"", file.path(getwd(), "src", "HuginDll"), "\"",
 
 writeLines(c(cppflags, pkglibs), con = m)
 
-onLoad <- readLines(ol <- file.path("R", "onLoad.R"))
+zzz <- readLines(f <- file.path("R", "zzz.R"))
 
-i <- grep("###ConfigureHuginVersionHere###", onLoad)[1]
-onLoad[i] <- paste("    HuginVersion <- ",
+i <- grep("###ConfigureHuginVersionHere###", zzz)[1]
+zzz[i] <- paste("      HuginVersion <- ",
                    "\"",
                    hugin,
                    "\"",
                    " ###ConfigureHuginVersionHere###",
                    sep = "")
 
-i <- grep("###ConfigureHuginDirHere###", onLoad)[1]
-onLoad[i] <- paste("    HuginInst <- ",
+i <- grep("###ConfigureHuginDirHere###", zzz)[1]
+zzz[i] <- paste("      HuginInst <- ",
                    "\"",
                    file.path(HEDir, hugin),
                    "\" ",
                    "###ConfigureHuginDirHere###",
                    sep = "")
 
-i <- grep("###ConfigureHuginDllDirHere###", onLoad)[1]
-onLoad[i] <- paste("    HuginDllDir <- ",
+i <- grep("###ConfigureHuginDllDirHere###", zzz)[1]
+zzz[i] <- paste("      HuginDllDir <- ",
                    "\"",
                    HuginDllDir,
                    "\" ",
                    "###ConfigureHuginDllDirHere###",
                    sep = "")
 
-status <- file.remove(ol)
-writeLines(onLoad, con = ol)
+status <- file.remove(f)
+writeLines(zzz, con = f)
 
 
