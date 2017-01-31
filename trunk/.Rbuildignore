@@ -1,4 +1,4 @@
-^Windows
+^Rmarkdown
 
 ^.*\.Rproj$
 ^\.Rproj\.user$

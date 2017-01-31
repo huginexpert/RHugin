@@ -1,4 +1,4 @@
-#!\bin\sh
+#!/bin/sh
 
 ${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe tools/configure.win.R
 
