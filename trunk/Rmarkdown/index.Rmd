@@ -1,0 +1,30 @@
+---
+title: "The `RHugin` Project"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+***
+
+### `RHugin`
+
+`RHugin` is an R package that provides an R API for the HUGIN Decision Engine (HDE). The `RHugin` package itself is free software and is distributed under the terms of the [LGPL](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html). The HUGIN Decision Engine is commercial software developed by [Hugin Expert A/S](http://www.hugin.com/) and is required for the `RHugin` package to function (please note that the `RHugin` package is not supported by Hugin Expert A/S).
+
+
+***
+
+### Installing `RHugin`
+             
+The `RHugin` package is supported on all the platforms where the HUGIN Decision Engine is supported. Installation instructions are platform dependent.
+
+1. [Microsoft Windows](InstallingRHuginWindows.html)
+2. Mac OS X (coming soon)
+3. Linux (coming soon)
+
+
+
+
