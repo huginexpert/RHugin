@@ -1,31 +1,30 @@
 ---
-title: "Installing RHugin on Microsoft Windows"
-author: "Kjell Konis"
-date: "January 31, 2017"
 output: html_document
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# `RHugin` Install Instructions for Microsoft Windows
+Last updated by Kjell Konis on 2017-02-02.
+
 
 ***
 
-Read the *Preliminaries* section even if you already have R, Rtools, and the Hugin Decision Engine installed. You probably will need to install the *Microsoft Visual C++ 2010 Redistributable Package (x64)*.  These instructions have only been tested with 64 bit versions of R and the HDE running on Windows 10 (64 bit).
+Read the *Preliminaries* section even if you already have R, Rtools, and the HUGIN Decision Engine installed. You probably will need to install the *Microsoft Visual C++ 2010 Redistributable Package (x64)*.  These instructions have only been tested with 64 bit versions of R and the HDE running on Windows 10 (64 bit).
 
 
 ***
 
 ### Preliminaries
 
-The RHugin package provides an R API for the Hugin Decision Engine (HDE): both the HDE and R must be installed on the computer in order for the RHugin package to function.
+The `RHugin` package provides an R API for the HUGIN Decision Engine (HDE): both the HDE and R must be installed on the computer in order for the `RHugin` package to function.
 
 
 #### Install HUGIN and the HUGIN Decision Engine (HDE)
 
-The Hugin Decision Engine is commercial software available from HUGIN EXPERT.
+The HUGIN Decision Engine is commercial software available from HUGIN EXPERT.
 
 > [http://www.hugin.com](http://www.hugin.com)
 
@@ -34,7 +33,7 @@ The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic
 
 #### Install the Microsoft Visual C++ 2010 Redistributable Package (x64)
 
-The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 2010 and requires runtime components for this compiler to be installed. These runtime components are provided in the package *Microsoft Visual C++ 2010 Redistributable Package (x64)* that should be downloaded directly from Microsoft.
+The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 2010 and requires the runtime components for this compiler to be installed. These runtime components are provided in the package *Microsoft Visual C++ 2010 Redistributable Package (x64)* that should be downloaded directly from Microsoft.
 
 > [https://www.microsoft.com/en-us/download/details.aspx?id=14632](https://www.microsoft.com/en-us/download/details.aspx?id=14632)
 
@@ -52,7 +51,7 @@ The installer for the most recent version of R can be found by following *Downlo
 
 #### Install Rtools
 
-Since RHugin is distributed as a source package you will also need to install Rtools (the compilers, etc. used to build R). The Rtools installer can be found by following *Download R for Windows > Rtools*.  The most recent version is at the top of the list.
+Since `RHugin` is distributed as a source package you will also need to install Rtools (the compilers, etc. used to build R). The Rtools installer can be found by following *Download R for Windows > Rtools*.  The most recent version is at the top of the list.
 
 Once these four pieces of software are installed, start R and proceed to the next section.
 
@@ -67,7 +66,7 @@ p <- intersect(pkgs <- installed.packages()[, 1],
 remove.packages(p)
 ```
 
-The RHugin package has dependencies on the `graph` and `Rgraphviz` packages.  These packages are part of Bioconductor and can be installed by running the following two R commands.
+The `RHugin` package has dependencies on the `graph` and `Rgraphviz` packages.  These packages are part of Bioconductor and can be installed by running the following two R commands.
 
 ```{r installRgraphviz, message = FALSE, results = "hide"}
 source("https://bioconductor.org/biocLite.R")
@@ -77,13 +76,13 @@ biocLite(c("graph", "Rgraphviz"))
 
 ***
 
-### Install the RHugin Package
+### Install the `RHugin` Package
 
 ```{r unInstallRHugin, echo = FALSE, result = "hide", message = FALSE}
 if("RHugin" %in% pkgs) remove.packages("RHugin")
 ```
 
-Finally, install the `RHugin` package from RHugin's R-Forge repository with the following R command.
+Use the following R command to install the `RHugin` package from `RHugin`'s R-Forge repository.
 
 ```{r installRHugin, result = "hide", message = FALSE}
 install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org",
@@ -105,7 +104,7 @@ plot(asia)
 
 ***
 
-Happy HUGINing with RHugin!
+Happy HUGINing with `RHugin`!
 
 
 ***
