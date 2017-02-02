@@ -1,0 +1,124 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# `RHugin` Install Instructions for Mac OS X
+Last updated by Kjell Konis on 2017-02-02.
+
+
+***
+
+### Preliminaries
+
+The `RHugin` package provides an R API for the HUGIN Decision Engine (HDE): both the HDE and R must be installed on the computer in order for the `RHugin` package to function.  Since `RHugin` is distributed as a source package, the *command line developer tools* are also required.
+
+
+#### Install HUGIN and the HUGIN Decision Engine (HDE)
+
+The HUGIN Decision Engine is commercial software available from HUGIN EXPERT.
+
+> [http://www.hugin.com](http://www.hugin.com)
+
+The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the HUGIN Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate HUGIN). The software is distributed on a disk image (i.e., a `.dmg` file). Mount the disk image by double clicking on it. Navigate to the mounted disk and install the HDE by dragging the HDE folder and dropping it onto the *Applications* alias. You may also install the other components (HUGIN GUI, documentation, etc.) but these are not required for `RHugin`.
+
+
+#### Install R
+
+Just in case you don't already have R installed... R is available from the CRAN repository.
+
+> [https://cloud.r-project.org/](https://cloud.r-project.org)
+
+The installer for the most recent version of R can be found by following the *Download R for (Mac) OS X* link.
+
+
+#### Install *Command Line Developer Tools*
+
+Start R and run the following command to install the *command line developer tools*.
+
+```{r installCLDT, eval = FALSE}
+system2("xcode-select", "--install")
+```
+
+A dialog box will pop up and prompt you to install the command line developer tools. Click *Install* (note: this command must be run by a user with administrative privileges).
+
+If you get the following error
+
+```{r CLDTAlreadyInstalled, echo = FALSE, comment = NA}
+cat("xcode-select: error: command line tools are already installed, use \"Software Update\" to install updates")
+```
+
+the command line developer tools are already installed and you could have skipped this section.
+
+
+***
+
+### RHugin Package Depedencies
+
+```{r uninstallBiocPackages, echo = FALSE, message = FALSE, results = "hide"}
+p <- intersect(pkgs <- installed.packages()[, 1],
+               c("Rgraphviz", "graph", "BiocGenerics", "BiocInstaller"))
+remove.packages(p)
+```
+
+The RHugin package has dependencies on the `graph` and `Rgraphviz` packages.  These packages are part of Bioconductor and can be installed by running the following two R commands.
+
+```{r installRgraphviz, message = FALSE, results = "hide"}
+source("https://bioconductor.org/biocLite.R")
+biocLite(c("graph", "Rgraphviz"))
+```
+
+
+***
+
+### Install the RHugin Package
+
+```{r unInstallRHugin, echo = FALSE, result = "hide", message = FALSE}
+if("RHugin" %in% pkgs) remove.packages("RHugin")
+```
+
+```{r setHUGINHOME}
+Sys.setenv(HUGINHOME = "/Applications/HDE8.4-x64")
+```
+
+Finally, install the `RHugin` package from RHugin's R-Forge repository with the following R command.
+
+```{r installRHugin, result = "hide", message = FALSE}
+install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org",
+                 type = "source", INSTALL_opts="--no-multiarch")
+```
+
+
+***
+
+### Quick Test
+
+To check that everything went as planned run the following code to plot one of the example networks provided by HUGIN.
+
+```{r testRHuginInstallation, fig.align = "center"}
+library(RHugin)
+demo("asia", echo = FALSE)
+plot(asia)
+```
+
+***
+
+Happy HUGINing with RHugin!
+
+
+***
+***
+***
+
+Copyright 2017 Kjell Konis
+
+
+
+
+
+
+
+
