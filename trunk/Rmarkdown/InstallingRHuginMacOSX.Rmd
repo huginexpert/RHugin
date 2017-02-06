@@ -23,7 +23,7 @@ The HUGIN Decision Engine is commercial software available from HUGIN EXPERT.
 
 > [http://www.hugin.com](http://www.hugin.com)
 
-The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the HUGIN Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate HUGIN). The software is distributed on a disk image (i.e., a `.dmg` file). Mount the disk image by double clicking on it. Navigate to the mounted disk and install the HDE by dragging the HDE folder and dropping it onto the *Applications* alias. You may also install the other components (HUGIN GUI, documentation, etc.) but these are not required for `RHugin`.
+The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the HUGIN Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate HUGIN). HUGIN is distributed on a disk image (i.e., a `.dmg` file). Mount the disk image by double clicking on it, navigate to the mounted disk, and install the HDE by dragging the HDE folder and dropping it onto the *Applications* alias. You may also want to install the other components (HUGIN GUI, documentation, etc.) but these are not required for `RHugin`.
 
 
 #### Install R
@@ -80,11 +80,13 @@ biocLite(c("graph", "Rgraphviz"))
 if("RHugin" %in% pkgs) remove.packages("RHugin")
 ```
 
+First, set the `HUGINHOME` environment variable so that `RHugin` can find the HUGIN Decision Engine (HDE).  The value (i.e., the `"/Applications/HDE8.4-x64"` in the code below) should be the full path to the HDE folder that you installed in the *Preliminaries* section.
+
 ```{r setHUGINHOME}
 Sys.setenv(HUGINHOME = "/Applications/HDE8.4-x64")
 ```
 
-Finally, install the `RHugin` package from RHugin's R-Forge repository with the following R command.
+Then, install the `RHugin` package from `RHugin`'s R-Forge repository with the following R command.
 
 ```{r installRHugin, result = "hide", message = FALSE}
 install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org",
@@ -106,7 +108,7 @@ plot(asia)
 
 ***
 
-Happy HUGINing with RHugin!
+Happy HUGINing with `RHugin`!
 
 
 ***
