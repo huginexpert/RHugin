@@ -1,12 +1,19 @@
 ---
-title: "The `RHugin` Project"
-output: html_document
+output:
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+# The `RHugin` Project
+R-Forge: &ensp;
+[Summary](https://r-forge.r-project.org/projects/rhugin/) &emsp;
+[Activity](https://r-forge.r-project.org/activity/?group_id=209) &emsp;
+[Lists](https://r-forge.r-project.org/mail/?group_id=209) &emsp;
+[SCM](https://r-forge.r-project.org/scm/?group_id=209)
 
 ***
 
