@@ -23,7 +23,7 @@ The `RHugin` package is supported on all the platforms where the HUGIN Decision 
 
 1. [Microsoft Windows](InstallingRHuginWindows.html)
 2. [Mac OS X](InstallingRHuginMacOSX.html)
-3. Linux (coming soon)
+3. [Linux](InstallingRHuginLinux.html)
 
 
 

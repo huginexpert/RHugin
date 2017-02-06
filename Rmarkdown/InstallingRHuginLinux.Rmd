@@ -1,0 +1,100 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# `RHugin` Install Instructions for Linux
+Last updated by Kjell Konis on 2017-02-06.
+
+
+***
+
+These instructions are a little sparse compared to the instrcutions for Windows and Mac OS X. There are many flavors of Linux so it is not really possible to provide a one-size-fits-all set of instrctions. Please feel free to contact me if you need any help.
+
+### Preliminaries
+
+The `RHugin` package provides an R API for the HUGIN Decision Engine (HDE): both the HDE and R must be installed on the computer in order for the `RHugin` package to function.  Since `RHugin` is distributed as a source package, the tools (compilers, etc.) needed to install R source packages must be installed on your computer.
+
+
+#### Install HUGIN and the HUGIN Decision Engine (HDE)
+
+The HUGIN Decision Engine is commercial software available from HUGIN EXPERT.
+
+> [http://www.hugin.com](http://www.hugin.com)
+
+The products *HUGIN Developer* (commercial use) and *HUGIN Researcher* (academic use) include the HUGIN Decision Engine. The HDE is also included with the free demo *HUGIN Lite* (the only permitted use of the free demo is to evaluate HUGIN). These instructions assume that the HDE you want to link `RHugin` against is installed in `/usr/local/hugin`.
+
+
+***
+
+### RHugin Package Depedencies
+
+```{r uninstallBiocPackages, echo = FALSE, message = FALSE, results = "hide"}
+p <- intersect(pkgs <- installed.packages()[, 1],
+               c("Rgraphviz", "graph", "BiocGenerics", "BiocInstaller"))
+remove.packages(p)
+```
+
+The `RHugin` package has dependencies on the `graph` and `Rgraphviz` packages.  These packages are part of Bioconductor and can be installed by running the following two R commands.
+
+```{r installRgraphviz, message = FALSE, results = "hide"}
+source("https://bioconductor.org/biocLite.R")
+biocLite(c("graph", "Rgraphviz"))
+```
+
+
+***
+
+### Install the RHugin Package
+
+```{r unInstallRHugin, echo = FALSE, result = "hide", message = FALSE}
+if("RHugin" %in% pkgs) remove.packages("RHugin")
+```
+
+First, set the `HUGINHOME` environment variable so that `RHugin` can find the HUGIN Decision Engine (HDE). The value (i.e., the "/usr/local/hugin" in the code below) should be the full path to the HDE folder that you installed in the *Preliminaries* section.
+
+```{r setHUGINHOME}
+Sys.setenv(HUGINHOME = "/usr/local/hugin")
+```
+
+Then, install the `RHugin` package from RHugin's R-Forge repository with the following R command.
+
+```{r installRHugin, result = "hide", message = FALSE}
+install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org",
+                 type = "source", INSTALL_opts="--no-multiarch")
+```
+
+
+***
+
+### Quick Test
+
+To check that everything went as planned run the following code to plot one of HUGIN's example networks.
+
+```{r testRHuginInstallation, fig.align = "center"}
+library(RHugin)
+demo("asia", echo = FALSE)
+plot(asia)
+```
+
+***
+
+Happy HUGINing with RHugin!
+
+
+***
+***
+***
+
+Copyright 2017 Kjell Konis
+
+
+
+
+
+
+
+
