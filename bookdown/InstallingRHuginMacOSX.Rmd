@@ -1,12 +1,4 @@
----
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# `RHugin` Install Instructions for Mac OS X
+## `RHugin` Install Instructions for Mac OS X
 Last updated by Kjell Konis on 2017-02-02.
 
 
