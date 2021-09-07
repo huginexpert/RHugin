@@ -14,7 +14,7 @@ if(nchar(hugins <- Sys.getenv("RHUGIN_HUGINHOME"))) {
 
 hugins <- strsplit(hugins, split = " ", fixed = TRUE)
 l4 <- sapply(hugins, length) == 4
-isHugin <- sapply(hugins, function(u) u[1]) == "Hugin"
+isHugin <- sapply(hugins, function(u) u[1]) == "HUGIN"
 hugins <- hugins[l4 & isHugin]
 
 if(!length(hugins))
