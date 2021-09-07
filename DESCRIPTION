@@ -3,7 +3,7 @@ Version: 9.0
 Date: 2021-09-07
 Title: RHugin
 Author: Kjell Konis <kjell.konis@me.com>.
-Maintainer: HuginExpert
+Maintainer: HuginExpert <info@hugin.com>
 Imports: graph, graphics, methods, Rgraphviz (>= 1.32.0), stats, utils
 SystemRequirements: Hugin Decision Engine 9.0
 Suggests: MASS
