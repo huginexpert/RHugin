@@ -13,7 +13,7 @@ if(nchar(hugins <- Sys.getenv("RHUGIN_HUGINHOME"))) {
 }
 
 hugins <- strsplit(hugins, split = " ", fixed = TRUE)
-l4 <- sapply(hugins, length) == 4
+l4 <- sapply(hugins, length) == 3
 isHugin <- sapply(hugins, function(u) u[1]) == "HUGIN"
 hugins <- hugins[l4 & isHugin]
 
@@ -27,7 +27,7 @@ if(sum(DorR)) {
   types <- types[DorR]
 }
 
-versions <- as.numeric(sapply(hugins, function(u) u[3]))
+versions <- as.numeric(sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
 latest <- which.max(versions)
 
 hugin <- paste(hugins[[latest]], collapse = " ")
