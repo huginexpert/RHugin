@@ -5,9 +5,9 @@ RHugin is a middleware built to enable R developers to use the HUGIN API from an
 ## Installation
 The newest version of RHugin is now on github instead of r-forge.
 To install the package run: 
-`devtools::install_github("huginexpert/rhugin@HUGIN_9.0")`
+`devtools::install_github("huginexpert/rhugin@Hugin_lite")`
 
-The branch HUGIN_9.0 should also work for other versions of Hugin.
+The branch Hugin_lite should also work for other versions of Hugin lite.
 
 The Hugin versions Education and Explorer can not be used with RHugin.
 
@@ -20,4 +20,4 @@ RHugin was initiated by Kjell Konis (kjellpk) at his [GitHub](https://github.com
 
 ## How To Get Help?
 
-For assistance with the RHugin package please contact support@hugin.com
+For assistance with the RHugin package please contact info@hugin.com
