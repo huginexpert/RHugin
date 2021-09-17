@@ -11,10 +11,9 @@ if(nchar(hugins <- Sys.getenv("RHUGIN_HUGINHOME"))) {
   HEDir <- file.path(dirname(HEDir), basename(HEDir))
   hugins <- list.files(HEDir)
 }
-
 hugins <- strsplit(hugins, split = " ", fixed = TRUE)
-l4 <- sapply(hugins, length) == 3
-isHugin <- sapply(hugins, function(u) u[1]) == "HUGIN"
+l4 <- sapply(hugins, length) == 4
+isHugin <- sapply(hugins, function(u) u[1]) == "Hugin"
 hugins <- hugins[l4 & isHugin]
 
 if(!length(hugins))
@@ -26,7 +25,7 @@ if(sum(DorR)) {
   hugins <- hugins[DorR]
   types <- types[DorR]
 }
-versions <- (sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
+versions <- (sapply(hugins, function(u) u[3])) #OBS Change u[2] to u[3] if hugin is not found
 #versions <- as.numeric(sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
 latest <- which.max(versions)
 
