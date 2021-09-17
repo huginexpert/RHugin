@@ -26,14 +26,13 @@ if(sum(DorR)) {
   hugins <- hugins[DorR]
   types <- types[DorR]
 }
-
-versions <- as.numeric(sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
+versions <- (sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
+#versions <- as.numeric(sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
 latest <- which.max(versions)
 
 hugin <- paste(hugins[[latest]], collapse = " ")
 type <- types[latest]
 version <- versions[latest]
-
 HuginCHDEDir <- file.path(HEDir, hugin, paste("HDE", version, "C", sep = ""))
 HuginIncludeDir <- file.path(HuginCHDEDir, "Include")
 dllName <- paste("hugin2", version, compilerID, "x64.dll", sep = "-")
