@@ -1,10 +1,10 @@
 .onLoad <- function(libname, pkgname)
 {
-      HuginDllDir <- "C:/Program Files/Hugin Expert/HUGIN 9.1 (x64)/HDE9.1C/Lib/VC10/Release" ###ConfigureHuginDllDirHere###
+      HuginDllDir <- "C:/Program Files/Hugin Expert/Hugin Lite 9.1 (x64)/HDE9.1C/Lib/VC10/Release" ###ConfigureHuginDllDirHere###
   
   if(Sys.info()["sysname"] == "Windows") {
-      HuginVersion <- "HUGIN 9.1 (x64)" ###ConfigureHuginVersionHere###
-      HuginInst <- "C:/Program Files/Hugin Expert/HUGIN 9.1 (x64)" ###ConfigureHuginDirHere###
+      HuginVersion <- "Hugin Lite 9.1 (x64)" ###ConfigureHuginVersionHere###
+      HuginInst <- "C:/Program Files/Hugin Expert/Hugin Lite 9.1 (x64)" ###ConfigureHuginDirHere###
 
     if(is.null(HuginDllDir))
       stop("RHugin was not properly configured during installation")
