@@ -8,6 +8,8 @@ SEXP RHugin_expression_tag;
 SEXP RHugin_model_tag;
 SEXP RHugin_junction_tree_tag;
 SEXP RHugin_clique_tag;
+SEXP RHugin_class_tag;
+SEXP RHugin_class_collection_tag;
 
 SEXP RHUGIN_ERROR;
 
@@ -176,6 +178,53 @@ void RHugin_domain_finalizer(SEXP Sdomain)
             (char*) h_error_description((h_error_t) status));
 }
 
+void RHugin_class_collection_finalizer(SEXP Sclass_collection)
+{
+#ifndef WIN32
+  log_file_info *lfi = NULL;
+#endif
+  h_status_t status = 0;
+  h_class_collection_t* cc = (h_class_collection_t) classCollectionPointerFromSEXP(Sclass_collection);
+
+  status = h_cc_delete(cc);
+  R_ClearExternalPtr(Sclass_collection);
+
+  if(status != 0)
+    warning("in RHugin_domain_finalizer:\nHugin Error Code: %d\nError Name: %s\nError Description: %s\n",
+            (int) status,
+            (char*) h_error_name((h_error_t) status),
+            (char*) h_error_description((h_error_t) status));
+}
+
+h_class_collection_t classCollectionPointerFromSEXP(SEXP Sclass_collection)
+{
+  h_class_collection_t cc = NULL;
+
+  if(TYPEOF(Sclass_collection) != EXTPTRSXP || R_ExternalPtrTag(Sclass_collection) != RHugin_class_collection_tag)
+    error("Sclass_collection is not a Hugin class collection");
+
+  cc = (h_class_collection_t) R_ExternalPtrAddr(Sclass_collection);
+
+  if(cc == NULL)
+    error("class collection is NULL");
+
+  return cc;
+}
+
+h_class_t classPointerFromSEXP(SEXP Sclass)
+{
+  h_class_t class = NULL;
+
+  if(TYPEOF(Sclass) != EXTPTRSXP || R_ExternalPtrTag(Sclass) != RHugin_class_tag)
+    error("Sclass is not a Hugin class");
+
+  class = (h_class_t) R_ExternalPtrAddr(Sclass);
+
+  if(class == NULL)
+    error("class is NULL");
+
+  return class;
+}
 
 h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 {
@@ -390,12 +439,95 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_save_as_kb", (DL_FUNC) RHugin_domain_save_as_kb, 3},
     {"RHugin_kb_load_domain", (DL_FUNC) RHugin_kb_load_domain, 2},
 
-    /* 4.1 What is a table? */
+    /* 3 Object-Oriented Belief Networks and LIMIDs */
+    /* 3.2 */
+    {"RHugin_new_class_collection", (DL_FUNC) RHugin_new_class_collection, 0},
+    {"RHugin_cc_new_class", (DL_FUNC) RHugin_cc_new_class, 1},
+    {"RHugin_cc_get_members", (DL_FUNC) RHugin_cc_get_members, 1},
+    {"RHugin_class_get_class_collection", (DL_FUNC) RHugin_class_get_class_collection, 1},
+
+    /* 3.3 Deleting classes and class collections */
+    {"RHugin_cc_delete", (DL_FUNC) RHugin_cc_delete, 1},
+    {"RHugin_class_delete", (DL_FUNC) RHugin_class_delete, 1},
+
+    /* 3.4 Naming classes */
+    {"RHugin_class_set_name", (DL_FUNC) RHugin_class_set_name, 2},
+    {"RHugin_class_get_name", (DL_FUNC) RHugin_class_get_name, 1},
+    {"RHugin_cc_get_class_by_name", (DL_FUNC) RHugin_cc_get_class_by_name, 2},
+
+    /* 3.5 Creating basic nodes */
+    {"RHugin_class_new_node", (DL_FUNC) RHugin_class_new_node, 3},
+    {"RHugin_node_get_home_class", (DL_FUNC) RHugin_node_get_home_class, 1},
+
+    /* 3.6 Naming nodes */
+    {"RHugin_class_get_node_by_name", (DL_FUNC) RHugin_class_get_node_by_name, 2},
+
+    /* 3.7 The interface of a class */
+    {"RHugin_node_add_to_input", (DL_FUNC) RHugin_node_add_to_input, 1},
+    {"RHugin_class_get_inputs", (DL_FUNC) RHugin_class_get_inputs, 1},
+    {"RHugin_node_remove_from_inputs", (DL_FUNC) RHugin_node_remove_from_inputs, 1},
+    {"RHugin_node_add_to_outputs", (DL_FUNC) RHugin_node_add_to_outputs, 1},
+    {"RHugin_class_get_outputs", (DL_FUNC) RHugin_class_get_outputs, 1},
+    {"RHugin_node_remove_from_outputs", (DL_FUNC) RHugin_node_remove_from_outputs, 1},
+
+    /* 3.8 Creating instances of classes */
+    {"RHugin_class_new_instance", (DL_FUNC) RHugin_class_new_instance, 2},
+    {"RHugin_node_get_instance_class", (DL_FUNC) RHugin_node_get_instance_class, 1},
+    {"RHugin_class_get_instance", (DL_FUNC) RHugin_class_get_instance, 1},
+    {"RHugin_node_get_master", (DL_FUNC) RHugin_node_get_master, 1},
+    {"RHugin_node_get_instance", (DL_FUNC) RHugin_node_get_instance, 1},
+    {"RHugin_node_get_output", (DL_FUNC) RHugin_node_get_output, 2},
+    {"RHugin_node_substitute_class", (DL_FUNC) RHugin_node_substitute_class, 2},
+    
+    /* 3.9 Putting the pieces together */
+    {"RHugin_node_set_input", (DL_FUNC) RHugin_node_set_input, 3},
+    {"RHugin_node_get_input", (DL_FUNC) RHugin_node_get_input, 2},
+    {"RHugin_node_unset_input", (DL_FUNC) RHugin_node_unset_input, 2},
+    
+    /* 3.10 Creating a runtime domain */
+    {"RHugin_class_create_domain", (DL_FUNC) RHugin_class_create_domain, 1},
+    {"RHugin_node_get_source", (DL_FUNC) RHugin_node_get_source, 1},
+
+    /* 3.11 Node iterator */
+    {"RHugin_class_get_first_node", (DL_FUNC) RHugin_class_get_first_node, 1},
+
+    /* 3.13 Saving class collections as HKB files */
+    {"RHugin_cc_save_as_kb", (DL_FUNC) RHugin_cc_save_as_kb, 3},
+    {"RHugin_kb_load_class_collection", (DL_FUNC) RHugin_kb_load_class_collection, 2},
+    {"RHugin_class_get_file_name", (DL_FUNC) RHugin_class_get_file_name, 1},
+
+    /* 4 Dynamic Bayesian Network */ 
+    /* 4.1 Temporal clones */
+    {"RHugin_node_create_temporal_clone", (DL_FUNC) RHugin_node_create_temporal_clone, 1},
+    {"RHugin_node_get_temporal_clone", (DL_FUNC) RHugin_node_get_temporal_clone, 1},
+    {"RHugin_node_get_temporal_master", (DL_FUNC) RHugin_node_get_temporal_master, 1},
+
+    /* 4.2 DBN runtime domains */
+    {"RHugin_class_create_dbn_domain", (DL_FUNC) RHugin_class_create_dbn_domain, 2},
+
+    /* 4.3 Inference in DBNs */
+    {"RHugin_domain_triangulate_dbn", (DL_FUNC) RHugin_domain_triangulate_dbn, 2},
+    {"RHugin_domain_move_dbn_window", (DL_FUNC) RHugin_domain_move_dbn_window, 2},
+    {"RHugin_domain_get_dbn_window_offset", (DL_FUNC) RHugin_domain_get_dbn_window_offset, 1},
+    {"RHugin_domain_initialize_dbn_window", (DL_FUNC) RHugin_domain_initialize_dbn_window, 1},
+
+    /* 4.4 Prediction */
+    {"RHugin_domain_compute_dbn_predictions", (DL_FUNC) RHugin_domain_compute_dbn_predictions, 2},
+    {"RHugin_node_get_predicted_belief", (DL_FUNC) RHugin_node_get_predicted_belief, 3},
+    {"RHugin_node_get_predicted_mean", (DL_FUNC) RHugin_node_get_predicted_mean, 2},
+    {"RHugin_node_get_predicted_variance", (DL_FUNC) RHugin_node_get_predicted_variance, 2},
+    {"RHugin_node_get_predicted_value", (DL_FUNC) RHugin_node_get_predicted_value, 2},
+
+    /* 4.5 The Boyen-Koller approximation algorithm */
+    {"RHugin_domain_triangulate_dbn_for_bk", (DL_FUNC) RHugin_domain_triangulate_dbn_for_bk, 2},
+    {"RHugin_domain_is_triangulated_for_bk", (DL_FUNC) RHugin_domain_is_triangulated_for_bk, 1},
+
+    /* 5.1 What is a table? */
 
     // SEXP RHugin_table_get_index_from_configuration(SEXP Stable, SEXP Sconfiguration);
     // SEXP RHugin_table_get_configuration_from_index(SEXP Stable, SEXP Sconfiguration, SEXP Sindex);
 
-    /* 4.2 The nodes and the contents of a table */
+    /* 5.2 The nodes and the contents of a table */
     {"RHugin_table_get_nodes", (DL_FUNC) RHugin_table_get_nodes, 1},
     {"RHugin_table_get_data", (DL_FUNC) RHugin_table_get_data, 1},
     {"RHugin_table_set_data", (DL_FUNC) RHugin_table_set_data, 2},
@@ -403,21 +535,21 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_table_get_covariance", (DL_FUNC) RHugin_table_get_covariance, 4},
     {"RHugin_table_get_variance", (DL_FUNC) RHugin_table_get_variance, 3},
 
-    /* 4.3 Deleting tables */
+    /* 5.3 Deleting tables */
     {"RHugin_table_delete", (DL_FUNC) RHugin_table_delete, 1},
 
-    /* 4.4 The size of a table */
+    /* 5.4 The size of a table */
     {"RHugin_table_get_size", (DL_FUNC) RHugin_table_get_size, 1},
     {"RHugin_table_get_cg_size", (DL_FUNC) RHugin_table_get_cg_size, 1},
 
-    /* 4.5 Rearranging the contents of a table */
+    /* 5.5 Rearranging the contents of a table */
     {"RHugin_table_reorder_nodes", (DL_FUNC) RHugin_table_reorder_nodes, 2},
 
-    /* 5.1 Subtyping of discrete nodes */
+    /* 6.1 Subtyping of discrete nodes */
     {"RHugin_node_set_subtype", (DL_FUNC) RHugin_node_set_subtype, 2},
     {"RHugin_node_get_subtype", (DL_FUNC) RHugin_node_get_subtype, 1},
 
-    /* 5.2 Expressions */
+    /* 6.2 Expressions */
     // SEXP RHugin_node_make_expression(SEXP Snode);
     // SEXP RHugin_label_make_expression(SEXP Slabel);
     // SEXP RHugin_boolean_make_expression(SEXP Sb);
@@ -433,11 +565,11 @@ void R_init_RHugin(DllInfo *info)
     // SEXP RHugin_expression_delete(SEXP Se);
     // SEXP RHugin_expression_clone(SEXP Se);
 
-    /* 5.3 Syntax for expression */
+    /* 6.3 Syntax for expression */
     // SEXP RHugin_string_parse_expression(SEXP Sstrings, SEXP Smodel);
     // SEXP RHugin_expression_to_string(SEXP Sexpression);
 
-    /* 5.4 Creating and maintaining models */
+    /* 6.4 Creating and maintaining models */
     {"RHugin_node_new_model", (DL_FUNC) RHugin_node_new_model, 2},
     {"RHugin_node_get_model", (DL_FUNC) RHugin_node_get_model, 1},
     {"RHugin_model_delete", (DL_FUNC) RHugin_model_delete, 1},
@@ -446,31 +578,31 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_model_set_expression", (DL_FUNC) RHugin_model_set_expression, 2},
     {"RHugin_model_get_expression", (DL_FUNC) RHugin_model_get_expression, 1},
 
-    /* 5.5 State labels */
+    /* 6.5 State labels */
     {"RHugin_node_set_state_label", (DL_FUNC) RHugin_node_set_state_label, 3},
     {"RHugin_node_get_state_label", (DL_FUNC) RHugin_node_get_state_label, 2},
     {"RHugin_node_get_state_index_from_label", (DL_FUNC) RHugin_node_get_state_index_from_label, 2},
 
-    /* 5.6 State values */
+    /* 6.6 State values */
     {"RHugin_node_set_state_value", (DL_FUNC) RHugin_node_set_state_value, 3},
     {"RHugin_node_get_state_value", (DL_FUNC) RHugin_node_get_state_value, 2},
     {"RHugin_node_get_state_index_from_value", (DL_FUNC) RHugin_node_get_state_index_from_value, 2},
 
-    /* 5.8 Generating tables */
+    /* 6.8 Generating tables */
     {"RHugin_node_generate_table", (DL_FUNC) RHugin_node_generate_table, 1},
     {"RHugin_domain_generate_tables", (DL_FUNC) RHugin_domain_generate_tables, 1},
     // SEXP RHugin_class_generate_tables(SEXP Sclass);
     // SEXP RHugin_class_set_log_file(SEXP Sclass, SEXP Slog_file);
 
-    /* 5.9 How the computations are done */
+    /* 6.9 How the computations are done */
     {"RHugin_model_set_number_of_samples_per_interval", (DL_FUNC) RHugin_model_set_number_of_samples_per_interval, 2},
     {"RHugin_model_get_number_of_samples_per_interval", (DL_FUNC) RHugin_model_get_number_of_samples_per_interval, 1},
 
-    /* 6.2 Compilation */
+    /* 7.2 Compilation */
     {"RHugin_domain_compile", (DL_FUNC) RHugin_domain_compile, 1},
     {"RHugin_domain_is_compiled", (DL_FUNC) RHugin_domain_is_compiled, 1},
 
-    /* 6.3 Triangulation */
+    /* 7.3 Triangulation */
     {"RHugin_domain_set_initial_triangulation", (DL_FUNC) RHugin_domain_set_initial_triangulation, 2},
     {"RHugin_domain_set_max_number_of_separators", (DL_FUNC) RHugin_domain_set_max_number_of_separators, 2},
     {"RHugin_domain_get_max_number_of_separators", (DL_FUNC) RHugin_domain_get_max_number_of_separators, 1},
@@ -483,21 +615,21 @@ void R_init_RHugin(DllInfo *info)
     // SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
     // SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
 
-    /* 6.4 Getting a compilation log */
+    /* 7.4 Getting a compilation log */
     {"RHugin_domain_set_log_file", (DL_FUNC) RHugin_domain_set_log_file, 2},
 
-    /* 6.5 Uncompilation */
+    /* 7.5 Uncompilation */
     {"RHugin_domain_uncompile", (DL_FUNC) RHugin_domain_uncompile, 1},
 
-    /* 6.6 Compression */
+    /* 7.6 Compression */
     {"RHugin_domain_compress", (DL_FUNC) RHugin_domain_compress, 1},
     {"RHugin_domain_is_compressed", (DL_FUNC) RHugin_domain_is_compressed, 1},
 
-    /* 6.7 Approximation */
+    /* 7.7 Approximation */
     {"RHugin_domain_approximate", (DL_FUNC) RHugin_domain_approximate, 2},
     {"RHugin_domain_get_approximation_constant", (DL_FUNC) RHugin_domain_get_approximation_constant, 1},
 
-    /* 7.2 Junction trees */
+    /* 8.2 Junction trees */
     {"RHugin_domain_get_first_junction_tree", (DL_FUNC) RHugin_domain_get_first_junction_tree, 1},
     {"RHugin_jt_get_next", (DL_FUNC) RHugin_jt_get_next, 1},
     {"RHugin_clique_get_junction_tree", (DL_FUNC) RHugin_clique_get_junction_tree, 1},
@@ -507,38 +639,38 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_jt_get_total_size", (DL_FUNC) RHugin_jt_get_total_size, 1},
     {"RHugin_jt_get_total_cg_size", (DL_FUNC) RHugin_jt_get_total_cg_size, 1},
 
-    /* 7.3 Cliques */
+    /* 8.3 Cliques */
     {"RHugin_clique_get_members", (DL_FUNC) RHugin_clique_get_members, 1},
     {"RHugin_clique_get_neighbors", (DL_FUNC) RHugin_clique_get_neighbors, 1},
 
-    /* 8.2 Entering evidence */
+    /* 9.2 Entering evidence */
     {"RHugin_node_select_state", (DL_FUNC) RHugin_node_select_state, 2},
     {"RHugin_node_enter_finding", (DL_FUNC) RHugin_node_enter_finding, 3},
     {"RHugin_node_enter_value", (DL_FUNC) RHugin_node_enter_value, 2},
 
-    /* 8.3 Retracting evidence */
+    /* 9.3 Retracting evidence */
     {"RHugin_node_retract_findings", (DL_FUNC) RHugin_node_retract_findings, 1},
     {"RHugin_domain_retract_findings", (DL_FUNC) RHugin_domain_retract_findings, 1},
 
-    /* 8.4 Determining independence properties */
+    /* 9.4 Determining independence properties */
     {"RHugin_domain_get_d_connected_nodes", (DL_FUNC) RHugin_domain_get_d_connected_nodes, 4},
     {"RHugin_domain_get_d_separated_nodes", (DL_FUNC) RHugin_domain_get_d_separated_nodes, 4},
 
-    /* 8.5 Retreiving beliefs */
+    /* 9.5 Retreiving beliefs */
     {"RHugin_node_get_belief", (DL_FUNC) RHugin_node_get_belief, 2},
     {"RHugin_node_get_mean", (DL_FUNC) RHugin_node_get_mean, 1},
     {"RHugin_node_get_variance", (DL_FUNC) RHugin_node_get_variance, 1},
     {"RHugin_domain_get_marginal", (DL_FUNC) RHugin_domain_get_marginal, 2},
     {"RHugin_node_get_distribution", (DL_FUNC) RHugin_node_get_distribution, 1},
 
-    /* 8.6 Retrieving expected utilities */
+    /* 9.6 Retrieving expected utilities */
     {"RHugin_node_get_expected_utility", (DL_FUNC) RHugin_node_get_expected_utility, 2},
     {"RHugin_domain_get_expected_utility", (DL_FUNC) RHugin_domain_get_expected_utility, 1},
 
-    /* 8.7 Computing function values */
+    /* 9.7 Computing function values */
     {"RHugin_node_get_value", (DL_FUNC) RHugin_node_get_value, 1},
 
-    /* 8.8 Examining Evidence */
+    /* 9.8 Examining Evidence */
     {"RHugin_node_get_entered_finding", (DL_FUNC) RHugin_node_get_entered_finding, 2},
     {"RHugin_node_get_propagated_finding", (DL_FUNC) RHugin_node_get_propagated_finding, 2},
     {"RHugin_node_get_entered_value", (DL_FUNC) RHugin_node_get_entered_value, 1},
@@ -548,31 +680,31 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_evidence_is_propagated", (DL_FUNC) RHugin_node_evidence_is_propagated, 1},
     {"RHugin_node_likelihood_is_propagated", (DL_FUNC) RHugin_node_likelihood_is_propagated, 1},
 
-    /* 8.9 Case files */
+    /* 9.9 Case files */
     {"RHugin_domain_save_case", (DL_FUNC) RHugin_domain_save_case, 2},
     {"RHugin_domain_parse_case", (DL_FUNC) RHugin_domain_parse_case, 2},
 
-    /* 9.2 Propagation */
+    /* 10.2 Propagation */
     {"RHugin_domain_propagate", (DL_FUNC) RHugin_domain_propagate, 3},
     {"RHugin_jt_propagate", (DL_FUNC) RHugin_jt_propagate, 3},
 
-    /* 9.3 Inference in LIMIDs: Computing optimal policies */
+    /* 10.3 Inference in LIMIDs: Computing optimal policies */
     {"RHugin_domain_update_policies", (DL_FUNC) RHugin_domain_update_policies, 1},
 
-    /* 9.4 Conflict of evidence */
+    /* 10.4 Conflict of evidence */
     {"RHugin_domain_get_conflict", (DL_FUNC) RHugin_domain_get_conflict, 1},
     {"RHugin_jt_get_conflict", (DL_FUNC) RHugin_jt_get_conflict, 1},
 
-    /* 9.5 The normalization constant */
+    /* 10.5 The normalization constant */
     {"RHugin_domain_get_normalization_constant", (DL_FUNC) RHugin_domain_get_normalization_constant, 1},
     {"RHugin_domain_get_log_normalization_constant", (DL_FUNC) RHugin_domain_get_log_normalization_constant, 1},
 
-    /* 9.6 Initializing the inference engine */
+    /* 10.6 Initializing the inference engine */
     {"RHugin_domain_save_to_memory", (DL_FUNC) RHugin_domain_save_to_memory, 1},
     {"RHugin_domain_reset_inference_engine", (DL_FUNC) RHugin_domain_reset_inference_engine, 1},
     {"RHugin_domain_initialize", (DL_FUNC) RHugin_domain_initialize, 1},
 
-    /* 9.7 Querying the state of the inference engine */
+    /* 10.7 Querying the state of the inference engine */
     {"RHugin_domain_equilibrium_is", (DL_FUNC) RHugin_domain_equilibrium_is, 2},
     {"RHugin_jt_equilibrium_is", (DL_FUNC) RHugin_jt_equilibrium_is, 2},
     {"RHugin_domain_evidence_mode_is", (DL_FUNC) RHugin_domain_evidence_mode_is, 2},
@@ -589,7 +721,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_tables_to_propagate", (DL_FUNC) RHugin_domain_tables_to_propagate, 1},
     {"RHugin_jt_tables_to_propagate", (DL_FUNC) RHugin_jt_tables_to_propagate, 1},
 
-    /* 9.8 Simulation */
+    /* 10.8 Simulation */
     {"RHugin_domain_simulate", (DL_FUNC) RHugin_domain_simulate, 1},
     {"RHugin_node_get_sampled_state", (DL_FUNC) RHugin_node_get_sampled_state, 1},
     {"RHugin_node_get_sampled_value", (DL_FUNC) RHugin_node_get_sampled_value, 1},
@@ -598,11 +730,11 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_uniform_deviate", (DL_FUNC) RHugin_domain_get_uniform_deviate, 1},
     {"RHugin_domain_get_normal_deviate", (DL_FUNC) RHugin_domain_get_normal_deviate, 3},
 
-    /* 9.9 Value of information analysis */
+    /* 10.9 Value of information analysis */
     {"RHugin_node_get_entropy", (DL_FUNC) RHugin_node_get_entropy, 1},
     {"RHugin_node_get_mutual_information", (DL_FUNC) RHugin_node_get_mutual_information, 2},
 
-    /* Section 9.10 Sensitivity analyis */
+    /* Section 10.10 Sensitivity analyis */
     {"RHugin_node_compute_sensitivity_data", (DL_FUNC) RHugin_node_compute_sensitivity_data, 2},
     {"RHugin_node_get_sensitivity_constants", (DL_FUNC) RHugin_node_get_sensitivity_constants, 2},
     {"RHugin_domain_get_sensitivity_set", (DL_FUNC) RHugin_domain_get_sensitivity_set, 1},
@@ -610,22 +742,22 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_get_sensitivity_constants_by_output", (DL_FUNC) RHugin_node_get_sensitivity_constants_by_output, 3},
     {"RHugin_domain_get_sensitivity_set_by_output", (DL_FUNC) RHugin_domain_get_sensitivity_set_by_output, 2},
 
-    /* 9.11 Most probable configurations */
+    /* 10.11 Most probable configurations */
     {"RHugin_domain_find_map_configurations", (DL_FUNC) RHugin_domain_find_map_configurations, 3},
     {"RHugin_domain_get_number_of_map_configurations", (DL_FUNC) RHugin_domain_get_number_of_map_configurations, 1},
     {"RHugin_domain_get_map_configuration", (DL_FUNC) RHugin_domain_get_map_configuration, 3},
     {"RHugin_domain_get_probability_of_map_configuration", (DL_FUNC) RHugin_domain_get_probability_of_map_configuration, 2},
 
-    /* 10.1 Experience counts and fading factors */
+    /* 11.1 Experience counts and fading factors */
     {"RHugin_node_get_experience_table", (DL_FUNC) RHugin_node_get_experience_table, 1},
     {"RHugin_node_has_experience_table", (DL_FUNC) RHugin_node_has_experience_table, 1},
     {"RHugin_node_get_fading_table", (DL_FUNC) RHugin_node_get_fading_table, 1},
     {"RHugin_node_has_fading_table", (DL_FUNC) RHugin_node_has_fading_table, 1},
 
-    /* 10.2 Updating tables */
+    /* 11.2 Updating tables */
     {"RHugin_domain_adapt", (DL_FUNC) RHugin_domain_adapt, 1},
 
-    /* 11.1 Data */
+    /* 12.1 Data */
     {"RHugin_domain_set_number_of_cases", (DL_FUNC) RHugin_domain_set_number_of_cases, 2},
     {"RHugin_domain_new_case", (DL_FUNC) RHugin_domain_new_case, 1},
     {"RHugin_domain_get_number_of_cases", (DL_FUNC) RHugin_domain_get_number_of_cases, 1},
@@ -639,25 +771,25 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_case_count", (DL_FUNC) RHugin_domain_get_case_count, 2},
     {"RHugin_domain_enter_case", (DL_FUNC) RHugin_domain_enter_case, 2},
 
-    /* 11.2 Scoring of graphical models */
+    /* 12.2 Scoring of graphical models */
     {"RHugin_domain_get_log_likelihood", (DL_FUNC) RHugin_domain_get_log_likelihood, 1},
     {"RHugin_domain_get_AIC", (DL_FUNC) RHugin_domain_get_AIC, 1},
     {"RHugin_domain_get_BIC", (DL_FUNC) RHugin_domain_get_BIC, 1},
 
-    /* 11.3 Data files */
+    /* 12.3 Data files */
     {"RHugin_domain_parse_cases", (DL_FUNC) RHugin_domain_parse_cases, 2},
     {"RHugin_domain_save_cases", (DL_FUNC) RHugin_domain_save_cases, 7},
 
-    /* 11.4 Learning network structure */
+    /* 12.4 Learning network structure */
     {"RHugin_domain_learn_structure", (DL_FUNC) RHugin_domain_learn_structure, 1},
     {"RHugin_domain_set_significance_level", (DL_FUNC) RHugin_domain_set_significance_level, 2},
     {"RHugin_domain_get_significance_level", (DL_FUNC) RHugin_domain_get_significance_level, 1},
 
-    /* 11.5 Domain knowledge */
+    /* 12.5 Domain knowledge */
     {"RHugin_node_set_edge_constraint", (DL_FUNC) RHugin_node_set_edge_constraint, 3},
     {"RHugin_node_get_edge_constraint", (DL_FUNC) RHugin_node_get_edge_constraint, 2},
 
-    /* 11.6 Learning conditional probability tables */
+    /* 12.6 Learning conditional probability tables */
     {"RHugin_domain_learn_tables", (DL_FUNC) RHugin_domain_learn_tables, 1},
     {"RHugin_domain_set_log_likelihood_tolerance", (DL_FUNC) RHugin_domain_set_log_likelihood_tolerance, 2},
     {"RHugin_domain_get_log_likelihood_tolerance", (DL_FUNC) RHugin_domain_get_log_likelihood_tolerance, 1},
@@ -665,27 +797,27 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_max_number_of_em_iterations", (DL_FUNC) RHugin_domain_get_max_number_of_em_iterations, 1},
     // SEXP RHugin_domain_learn_class_tables(SEXP Sdomain);
 
-    /* 12.8 parsing NET files */
+    /* 13.8 parsing NET files */
     {"RHugin_net_parse_domain", (DL_FUNC) RHugin_net_parse_domain, 1},
     // SEXP RHugin_net_parse_classes(SEXP Sfile_name);
     {"RHugin_domain_save_as_net", (DL_FUNC) RHugin_domain_save_as_net, 2},
 
-    /* 12.9 Saving class collections, classes, and domains as NET files */
+    /* 13.9 Saving class collections, classes, and domains as NET files */
     // SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
     // SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
     // SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
     // SEXP RHugin_class_get_file_name(SEXP Sclass);
     // SEXP RHugin_domain_get_file_name(SEXP Sdomain);
 
-    /* 13.1 The label of a node */
+    /* 14.1 The label of a node */
     {"RHugin_node_set_label", (DL_FUNC) RHugin_node_set_label, 2},
     {"RHugin_node_get_label", (DL_FUNC) RHugin_node_get_label, 1},
 
-    /*  13.2 The position of a node */
+    /*  14.2 The position of a node */
     {"RHugin_node_set_position", (DL_FUNC) RHugin_node_set_position, 2},
     {"RHugin_node_get_position", (DL_FUNC) RHugin_node_get_position, 1},
 
-    /* 13.3 The size of a node */
+    /* 14.3 The size of a node */
     {"RHugin_domain_set_node_size", (DL_FUNC) RHugin_domain_set_node_size, 2},
     {"RHugin_domain_get_node_size", (DL_FUNC) RHugin_domain_get_node_size, 1},
     // SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
@@ -709,6 +841,10 @@ void R_init_RHugin(DllInfo *info)
   R_PreserveObject(RHugin_junction_tree_tag);
   RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
   R_PreserveObject(RHugin_clique_tag);
+  RHugin_class_tag = install("RHUGIN_CLASS_TAG");
+  R_PreserveObject(RHugin_class_tag);
+  RHugin_class_collection_tag = install("RHUGIN_CLASS_COLLECTION_TAG");
+  R_PreserveObject(RHugin_class_collection_tag);
 
   RHUGIN_ERROR = mkChar("error");
   R_PreserveObject(RHUGIN_ERROR);

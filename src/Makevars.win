@@ -1,0 +1,2 @@
+PKG_CPPFLAGS=-DH_DOUBLE -I"C:/Program Files/Hugin Expert/Hugin Lite 9.1 (x64)/HDE9.1C/Include"
+PKG_LIBS=-L"C:/Users/MarkChristiansen/Documents/github/RHugin/src/HuginDll" -l"hugin2-9.1-vc10-x64" -lm -lz

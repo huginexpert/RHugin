@@ -1,0 +1,4 @@
+Chapter 3 mangler i RHugin. Det handler om OOBN (class collections)
+Chapter 4 mangler i RHugin. DBN
+
+tilføjet class collections og DBN support

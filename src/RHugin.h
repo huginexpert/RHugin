@@ -51,7 +51,7 @@ h_expression_t expressionPointerFromSEXP(SEXP Sexpression);
 h_model_t modelPointerFromSEXP(SEXP Smodel);
 h_junction_tree_t jtPointerFromSEXP(SEXP Sjt);
 h_clique_t cliquePointerFromSEXP(SEXP Sclique);
-
+h_class_t classPointerFromSEXP(SEXP Sclass);
 
 /* Other utility functions */
 

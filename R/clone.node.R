@@ -13,5 +13,3 @@ clone.node <- function(domain, node, name)
 
   invisible()
 }
-
-
