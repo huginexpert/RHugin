@@ -1,7 +1,7 @@
 rm(list = ls())
 library(tools)
 
-compilerID <- "vc10"
+compilerID <- "vc17"
 
 if(nchar(hugins <- Sys.getenv("RHUGIN_HUGINHOME"))) {
   HEDir <- dirname(hugins)
@@ -21,11 +21,11 @@ if(!length(hugins))
   stop("Hugin not found in ", HEDir)
 
 types <- sapply(hugins, function(u) u[2])
-DorR <- types == "Developer" || types == "Researcher"
-if(sum(DorR)) {
-  hugins <- hugins[DorR]
-  types <- types[DorR]
-}
+#DorR <- types == "Developer" || types == "Researcher"
+#if(sum(DorR)) {
+#  hugins <- hugins[DorR]
+#  types <- types[DorR]
+#}
 versions <- (sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
 #versions <- as.numeric(sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
 latest <- which.max(versions)
