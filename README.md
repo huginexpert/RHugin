@@ -3,12 +3,27 @@
 RHugin is a middleware built to enable R developers to use the HUGIN API from any R program.
 
 ## Installation
+### Hugin Developer and Researcher
 The newest version of RHugin is now on github instead of r-forge.
 To install the package run: 
-`devtools::install_github("huginexpert/rhugin@HUGIN_9.0")`
+`devtools::install_github("huginexpert/rhugin")`
 
-The branch HUGIN_9.0 should also work for other versions of Hugin.
+The master branch should also work for other versions of Hugin.
 
+### Hugin Lite
+To install the package run: 
+`devtools::install_github("huginexpert/rhugin@Hugin_lite")`
+
+### Dependencies
+Make sure to install to have installed devtools and rtools.
+devtools can be installed by running the command `install.packages("devtools")`.
+rtools is installed from this website [link](https://cran.r-project.org/bin/windows/Rtools/)
+
+It may be required to install the package Rgraphviz by running: 
+`install.packages("BiocManager")` and
+`BiocManager::install("Rgraphviz")`
+
+### Not supported
 The Hugin versions Education and Explorer can not be used with RHugin.
 
 ## Who Maintains RHugin ?
