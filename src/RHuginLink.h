@@ -575,7 +575,7 @@ DLLEXPORT SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain);
 /* 13.8 parsing NET files */
 
 DLLEXPORT SEXP RHugin_net_parse_domain(SEXP Sfile_name);
-// SEXP RHugin_net_parse_classes(SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_net_parse_classes(SEXP Sfile_name);
 DLLEXPORT SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 
 

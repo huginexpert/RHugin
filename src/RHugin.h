@@ -40,11 +40,9 @@ DLLEXPORT SEXP RHugin_domain_get_logfile(SEXP Sdomain);
 /* Finalizer */
 
 void RHugin_domain_finalizer(SEXP Sdomain);
-
+void RHugin_class_collection_finalizer(SEXP Sclass_collection);
 
 /* Safe accessor methods for Hugin objects */
-void RHugin_class_collection_finalizer(SEXP Sclass_collection);
-h_class_collection_t classCollectionPointerFromSEXP(SEXP Sclass_collection);
 h_domain_t domainPointerFromSEXP(SEXP Sdomain);
 h_node_t nodePointerFromSEXP(SEXP Snode);
 h_table_t tablePointerFromSEXP(SEXP Stable);
@@ -53,6 +51,7 @@ h_model_t modelPointerFromSEXP(SEXP Smodel);
 h_junction_tree_t jtPointerFromSEXP(SEXP Sjt);
 h_clique_t cliquePointerFromSEXP(SEXP Sclique);
 h_class_t classPointerFromSEXP(SEXP Sclass);
+h_class_collection_t classCollectionPointerFromSEXP(SEXP Sclass_collection);
 
 /* Other utility functions */
 

@@ -799,7 +799,7 @@ void R_init_RHugin(DllInfo *info)
 
     /* 13.8 parsing NET files */
     {"RHugin_net_parse_domain", (DL_FUNC) RHugin_net_parse_domain, 1},
-    // SEXP RHugin_net_parse_classes(SEXP Sfile_name);
+    {"RHugin_net_parse_classes", (DL_FUNC) RHugin_net_parse_classes, 1},
     {"RHugin_domain_save_as_net", (DL_FUNC) RHugin_domain_save_as_net, 2},
 
     /* 13.9 Saving class collections, classes, and domains as NET files */

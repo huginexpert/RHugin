@@ -1472,11 +1472,15 @@ SEXP RHugin_node_unset_input(SEXP Snode1, SEXP Snode2)
 SEXP RHugin_class_create_domain(SEXP Sclass)
 {
   SEXP ret = R_NilValue;
-  h_class_t class = NULL;
-  class = classPointerFromSEXP(Sclass);
-  h_domain_t domain = NULL;
-  domain = h_class_create_domain(class);
-  ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
+  h_class_t class = classPointerFromSEXP(Sclass);
+  h_domain_t domain = h_class_create_domain(class);
+  RHugin_handle_error();
+
+  if (domain) {
+    ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_domain_finalizer, TRUE);
+  }
+
   return ret;
 }
 
@@ -1659,18 +1663,20 @@ SEXP RHugin_class_create_dbn_domain(SEXP Sclass, SEXP Snumber_of_slices)
 {
   SEXP ret = R_NilValue;
   h_domain_t domain = NULL;
-  h_class_t class = NULL;
-  size_t number_of_slices = NULL;
+  h_class_t class = classPointerFromSEXP(Sclass);
 
   PROTECT(Snumber_of_slices = AS_NUMERIC(Snumber_of_slices));
-  number_of_slices = REAL(Snumber_of_slices);
+  size_t number_of_slices = REAL(Snumber_of_slices)[0];
 
-  class = classPointerFromSEXP(VECTOR_ELT(Sclass, 0));
   domain = h_class_create_dbn_domain(class, number_of_slices);
+  UNPROTECT(1);
 
-  PROTECT(ret = allocVector(VECSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue));
-  UNPROTECT(2);
+  RHugin_handle_error();
+
+  if(domain) {
+    ret = R_MakeExternalPtr(domain, RHugin_domain_tag, R_NilValue);
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_domain_finalizer, TRUE);
+  }
 
   return ret;
 }
@@ -5326,7 +5332,25 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 }
 
 
-// SEXP RHugin_net_parse_classes(SEXP Sfile_name);
+SEXP RHugin_net_parse_classes(SEXP Sfile_name) 
+{
+  SEXP ret = R_NilValue;
+  h_status_t status = 0;
+  h_class_collection_t cc = NULL;
+  cc = h_new_class_collection();
+
+  PROTECT(Sfile_name = CHAR(asChar(Sfile_name)));
+  status = h_net_parse_classes((h_string_t) Sfile_name, cc, NULL, 
+                                RHuginFileParseError, NULL);
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(status);
+
+  ret = R_MakeExternalPtr(cc, RHugin_class_collection_tag, R_NilValue);
+  R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_class_collection_finalizer, TRUE);
+
+  return ret;
+}
 
 
 SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
