@@ -184,7 +184,7 @@ void RHugin_class_collection_finalizer(SEXP Sclass_collection)
   log_file_info *lfi = NULL;
 #endif
   h_status_t status = 0;
-  h_class_collection_t* cc = (h_class_collection_t) classCollectionPointerFromSEXP(Sclass_collection);
+  h_class_collection_t cc = classCollectionPointerFromSEXP(Sclass_collection);
 
   status = h_cc_delete(cc);
   R_ClearExternalPtr(Sclass_collection);

@@ -1075,7 +1075,7 @@ SEXP RHugin_new_class_collection()
   //RHugin_handle_error();
   if(cc){
     ret = R_MakeExternalPtr(cc, RHugin_class_collection_tag, R_NilValue);
-    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_class_collection_finalizer,TRUE)
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t)RHugin_class_collection_finalizer, TRUE);
   }
   return ret;
 }
