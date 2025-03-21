@@ -1715,18 +1715,16 @@ SEXP RHugin_domain_triangulate_dbn(SEXP Sdomain, SEXP Smethod)
 
 SEXP RHugin_domain_move_dbn_window(SEXP Sdomain, SEXP Ssize)
 {
-  h_domain_t domain = NULL;
-  h_status_t status = 0;
-  size_t size = NULL;
-  domain = domainPointerFromSEXP(VECTOR_ELT(Sdomain, 0));
+  // h_domain_t domain = domainPointerFromSEXP(VECTOR_ELT(Sdomain, 0));
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
   PROTECT(Ssize = AS_NUMERIC(Ssize));
-  size = REAL(Ssize);
-
-  status = h_domain_move_dbn_window(domain, size);
+  size_t size = REAL(Ssize)[0];
+  Rprintf("test: %d", size);
+  h_status_t status = h_domain_move_dbn_window(domain, size);
   UNPROTECT(1);
-  if(status != 0) {
-    RHugin_handle_status_code(status);
-  }
+
+  RHugin_handle_status_code(status);
+
   return R_NilValue;
 }
 
