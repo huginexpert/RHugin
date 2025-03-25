@@ -1159,21 +1159,21 @@ SEXP RHugin_class_set_name(SEXP Sclass, SEXP Sname)
   class = classPointerFromSEXP(Sclass);
   PROTECT(Sname = AS_CHARACTER(Sname));
   status = h_class_set_name(class, (h_string_t) CHAR(asChar(Sname)));
-  if(status != 0) {
-    RHugin_handle_status_code(status);
-  }
   UNPROTECT(1);
+
+  RHugin_handle_status_code(status);
+
   return R_NilValue;
 }
 
 SEXP RHugin_class_get_name(SEXP Sclass)
 {
   SEXP ret = R_NilValue;
-  h_class_t class = NULL;
-  class = classPointerFromSEXP(Sclass);
-  h_string_t name = NULL;
-  name = h_class_get_name(class);
+  h_class_t class = classPointerFromSEXP(Sclass);
+  h_string_t name = h_class_get_name(class);
+  PROTECT(ret = allocVector(STRSXP, 1));
   SET_STRING_ELT(ret, 0, mkChar( (char*) name));
+  UNPROTECT(1);
   return ret;
 }
 
