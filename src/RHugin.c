@@ -211,6 +211,24 @@ h_class_collection_t classCollectionPointerFromSEXP(SEXP Sclass_collection)
   return cc;
 }
 
+SEXP isDomainOrClass(SEXP SdomainOrClass) {
+  SEXP res = PROTECT(allocVector(REALSXP, 1));
+
+  if (TYPEOF(SdomainOrClass) != EXTPTRSXP){
+    error("SdomainOrClass is not a pointer");
+    REAL(res)[0] = (-1);
+    return res;
+  }
+
+  if (R_ExternalPtrTag(SdomainOrClass) == RHugin_domain_tag) {
+    REAL(res)[0] = 0;
+  } else if (R_ExternalPtrTag(SdomainOrClass) == RHugin_class_tag) {
+    REAL(res)[0] = 1;
+  }
+
+  return res;
+}
+
 h_class_t classPointerFromSEXP(SEXP Sclass)
 {
   h_class_t class = NULL;
@@ -355,6 +373,7 @@ void R_init_RHugin(DllInfo *info)
   R_CallMethodDef dotCallMethods[] = {
     /* Helper funtions from RHugin.c */
     {"RHugin_domain_get_logfile", (DL_FUNC) RHugin_domain_get_logfile, 1},
+    {"isDomainOrClass", (DL_FUNC) isDomainOrClass, 1},
 
     /* 1.6 Errors */
     {"RHugin_error_code", (DL_FUNC) RHugin_error_code, 0},
@@ -805,6 +824,7 @@ void R_init_RHugin(DllInfo *info)
     /* 13.9 Saving class collections, classes, and domains as NET files */
     // SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
     // SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
+    {"RHugin_class_save_as_net", (DL_FUNC) RHugin_class_save_as_net, 2},
     // SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
     // SEXP RHugin_class_get_file_name(SEXP Sclass);
     // SEXP RHugin_domain_get_file_name(SEXP Sdomain);

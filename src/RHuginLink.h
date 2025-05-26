@@ -582,7 +582,7 @@ DLLEXPORT SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 /* 13.9 Saving class collections, classes, and domains as NET files */
 
 // SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
-// SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
 // SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 // SEXP RHugin_class_get_file_name(SEXP Sclass);
 // SEXP RHugin_domain_get_file_name(SEXP Sdomain);

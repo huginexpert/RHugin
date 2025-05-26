@@ -1190,18 +1190,46 @@ SEXP RHugin_cc_get_class_by_name(SEXP Sclass_collection, SEXP Sname)
   return ret;
 }
 
-// OBS
 /* 3.5 Creating basic nodes */
 SEXP RHugin_class_new_node(SEXP Sclass, SEXP Scategory, SEXP Skind)
 {
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  h_class_t class = NULL;
-  class = classPointerFromSEXP(Sclass);
+  h_class_t class = classPointerFromSEXP(Sclass);
+  h_node_category_t category = h_category_error;
+  h_node_kind_t kind = h_kind_error;
 
-  node = h_class_new_node(class, (h_node_category_t) Scategory, (h_node_kind_t) Skind);
-  // Make pointer to hugin node
-  return node;
+  PROTECT(Scategory = AS_CHARACTER(Scategory));
+  PROTECT(Skind = AS_CHARACTER(Skind));
+
+  if(asChar(Scategory) == RHUGIN_CHANCE)
+    category = h_category_chance;
+  else if(asChar(Scategory) == RHUGIN_DECISION)
+    category = h_category_decision;
+  else if(asChar(Scategory) == RHUGIN_UTILITY)
+    category = h_category_utility;
+  else if(asChar(Scategory) == RHUGIN_FUNCTION)
+    category = h_category_function;
+  else if(asChar(Scategory) == RHUGIN_INSTANCE)
+    category = h_category_instance;
+
+  if(asChar(Skind) == RHUGIN_DISCRETE)
+    kind = h_kind_discrete;
+  else if(asChar(Skind) == RHUGIN_CONTINUOUS)
+    kind = h_kind_continuous;
+  else if(asChar(Skind) == RHUGIN_OTHER)
+    kind = h_kind_other;
+
+  UNPROTECT(2);
+
+  node = h_class_new_node(class, category, kind);
+  RHugin_handle_error();
+
+  if (node) {
+    ret = R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue);
+  }
+
+  return ret;
 }
 
 SEXP RHugin_node_get_home_class(SEXP Snode)
@@ -1218,20 +1246,53 @@ SEXP RHugin_node_get_home_class(SEXP Snode)
 }
 
 /* 3.6 Naming nodes */
-SEXP RHugin_class_get_node_by_name(SEXP Sclass, SEXP Sname)
+// SEXP RHugin_class_get_node_by_name(SEXP Sclass, SEXP Sname)
+// {
+//   SEXP ret = R_NilValue, names = R_NilValue;
+//   PROTECT(Sname = AS_CHARACTER(Sname));
+//   h_class_t class = NULL;
+//   class = classPointerFromSEXP(Sclass);
+//   h_node_t node = NULL;
+//   h_string_t name = (h_string_t) CHAR(asChar(Sname));
+//   node = h_class_get_node_by_name(class, name);
+//   RHugin_handle_error();
+
+//   if (node)
+//     ret = R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue);
+
+//   // PROTECT(ret = allocVector(VECSXP, 1));
+//   // PROTECT(names = allocVector(STRSXP, 1));
+//   // SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));  
+//   // SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(node)));
+//   // setAttrib(ret, R_NamesSymbol, names);
+//   // setAttrib(ret, R_NameSymbol, name);
+//   UNPROTECT(1);
+//   // UNPROTECT(3);
+//   return ret;
+// }
+
+SEXP RHugin_class_get_node_by_name(SEXP Sclass, SEXP Snames)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
-  PROTECT(Sname = AS_CHARACTER(Sname));
-  h_class_t class = NULL;
-  class = classPointerFromSEXP(Sclass);
+  SEXP ret = R_NilValue;
   h_node_t node = NULL;
-  node = h_class_get_node_by_name(class, (h_string_t) CHAR(asChar(Sname)));
-  PROTECT(ret = allocVector(VECSXP, 1));
-  PROTECT(names = allocVector(STRSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));  
-  SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(node)));
-  setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(3);
+  R_len_t i = 0, n = LENGTH(Snames);
+  h_class_t class = classPointerFromSEXP(Sclass);
+
+  PROTECT(Snames = AS_CHARACTER(Snames));
+  PROTECT(ret = allocVector(VECSXP, n));
+
+  for(i = 0; i < n; i++) {
+    node = h_class_get_node_by_name(class, (h_string_t) CHAR(STRING_ELT(Snames, i)));
+
+    if(node)
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
+
+  setAttrib(ret, R_NamesSymbol, Snames);
+
+  UNPROTECT(2);
   return ret;
 }
 
@@ -5369,7 +5430,18 @@ SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 /* 13.9 Saving class collections, classes, and domains as NET files */
 
 // SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
-// SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
+SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name) {
+  h_status_t status = 0;
+  h_class_t class = classPointerFromSEXP(Sclass);
+
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_class_save_as_net(class, (h_string_t) CHAR(asChar(Sfile_name)));
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(status);
+
+  return R_NilValue;
+}
 // SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 // SEXP RHugin_class_get_file_name(SEXP Sclass);
 // SEXP RHugin_domain_get_file_name(SEXP Sdomain);

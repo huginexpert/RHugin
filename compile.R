@@ -1,9 +1,12 @@
 # This file can be used to recompile and re-install the package
-# if other means do not work properly.
+# (run one command at a time (and do it slowly))
 
 # Restart R-environment: Ctrl + Shift + F10
 library(devtools)
-# Windows won't release lock on package without this(!?)
+# Windows won't release lock on package binaries without this
 cc <- hugin.class.collection()
-remove.packages("RHugin") # Ensure package gets removed.
-install() # If install failed try running again (usually works).
+# Ensure earlier version package gets removed.
+remove.packages("RHugin") 
+install() 
+install() # Sometimes first time does not work so try again.
+
