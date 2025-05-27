@@ -1782,7 +1782,6 @@ SEXP RHugin_domain_move_dbn_window(SEXP Sdomain, SEXP Ssize)
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
   PROTECT(Ssize = AS_NUMERIC(Ssize));
   size_t size = REAL(Ssize)[0];
-  Rprintf("test: %d", size);
   h_status_t status = h_domain_move_dbn_window(domain, size);
   UNPROTECT(1);
 

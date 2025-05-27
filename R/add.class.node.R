@@ -18,16 +18,11 @@ add.class.node <- function(class, name,
   else
     subtype <- NULL
 
-  print(category)
-  print(kind)
-  
   node <- .Call(RHugin_class_new_node, class, category, kind)
   if(is.null(node))
     stop("node is null")
   
-  print("R: node was not null")
   .Call(RHugin_node_set_name, c(node), name[1])
-  print("???")
 
   if((category == "chance" && kind == "discrete") || category == "decision") {
     if(!is.null(subtype) && !missing(states))
