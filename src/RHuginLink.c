@@ -1085,9 +1085,8 @@ SEXP RHugin_cc_new_class(SEXP Sclass_collection)
   SEXP ret = R_NilValue;
   h_class_t class = NULL;
   h_class_collection_t cc = NULL;
-  cc = h_new_class_collection();
-  //cc = classCollectionPointerFromSEXP(Sclass_collection);
-  if(Sclass_collection != R_NilValue) {
+  cc = classCollectionPointerFromSEXP(Sclass_collection);
+  if(cc) {
     class = h_cc_new_class(cc);
     ret = R_MakeExternalPtr(class, RHugin_class_tag, R_NilValue);
   }
