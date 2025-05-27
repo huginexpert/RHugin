@@ -1180,11 +1180,14 @@ SEXP RHugin_cc_get_class_by_name(SEXP Sclass_collection, SEXP Sname)
 {
   SEXP ret = R_NilValue;
   PROTECT(Sname = AS_CHARACTER(Sname));
+  h_string_t class_name = CHAR(asChar(Sname));
   h_class_t class = NULL;
   h_class_collection_t cc = NULL;
   cc = classCollectionPointerFromSEXP(Sclass_collection);
-  class = h_cc_get_class_by_name(cc, (h_string_t) CHAR(asChar(Sname)));
+  class = h_cc_get_class_by_name(cc, class_name);
+
   ret = R_MakeExternalPtr(class, RHugin_class_tag, R_NilValue);
+
   UNPROTECT(1);
   return ret;
 }
@@ -1300,7 +1303,7 @@ SEXP RHugin_node_add_to_input(SEXP Snode)
 {
   h_status_t status = 0;
   h_node_t node = NULL;
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  node = nodePointerFromSEXP(Snode);
   status = h_node_add_to_inputs(node);
   if(status != 0) {
     RHugin_handle_status_code(status);
