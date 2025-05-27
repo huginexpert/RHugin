@@ -1313,17 +1313,26 @@ SEXP RHugin_node_add_to_input(SEXP Snode)
 
 SEXP RHugin_class_get_inputs(SEXP Sclass)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
+  SEXP ret = R_NilValue;
   h_class_t class = NULL;
   class = classPointerFromSEXP(Sclass);
   h_node_t* nodes = NULL;
+  h_node_t* node = NULL;
+  R_len_t i = 0, n_nodes = 0;
+
   nodes = h_class_get_inputs(class);
-  PROTECT(ret = allocVector(VECSXP, 1));
-  PROTECT(names = allocVector(STRSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(nodes, RHugin_node_tag, R_NilValue));  
-  SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(nodes)));
-  setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(2);
+
+  if (nodes) {
+    for (node = nodes; *node != NULL; node++) n_nodes++;
+
+    PROTECT(ret = allocVector(STRSXP, n_nodes));
+
+    for (i = 0; i < n_nodes; i++) {
+      SET_STRING_ELT(ret, i, mkChar((char *)h_node_get_name(nodes[i])));
+    }
+    UNPROTECT(1);
+  }
+
   return ret;
 }
 

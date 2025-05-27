@@ -8,6 +8,8 @@ export(
   "adapt",
   "add.edge",
   "add.node",
+  "add.node.input",
+  "add.class.node",
   "as.graph.RHuginDomain",
   "clone.domain",
   "clone.node",
@@ -40,13 +42,15 @@ export(
   "get.table",
   "get.utility",
   "get.value",
+  "get.class.name",
+  "get.class.inputs",
   "hugin.domain",
   "hugin.domain.class",
   "hugin.domain.dbn",
   "hugin.domain.dbn.move",
   "hugin.class.collection",
   "hugin.class.collection.parse",
-  "hugin.class.collection.by_name",
+  "hugin.class.collection.get.class.by_name",
   "hugin.class",
   "initialize.domain",
   "layoutRHugin",
@@ -69,6 +73,7 @@ export(
   "set.model",
   "set.states",
   "set.table",
+  "set.class.name",
   "simulate.RHuginDomain",
   "summary.RHuginDomain",
   "switch.parent",
@@ -76,7 +81,8 @@ export(
   "triangulate.RHuginDomain",
   "uncompile",
   "write.cases",
-  "write.rhd"
+  "write.rhd",
+  "write.rhc"
 )
 
 S3method(compile, RHuginDomain)
