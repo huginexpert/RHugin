@@ -226,6 +226,8 @@ SEXP isDomainOrClass(SEXP SdomainOrClass) {
     REAL(res)[0] = 1;
   }
 
+  UNPROTECT(1);
+
   return res;
 }
 
