@@ -1406,12 +1406,17 @@ SEXP RHugin_class_new_instance(SEXP Sclass1, SEXP Sclass2)
   class2 = classPointerFromSEXP(Sclass2);
   h_node_t node = NULL;
   node = h_class_new_instance(class1, class2);
-  PROTECT(ret = allocVector(VECSXP, 1));
-  PROTECT(names = allocVector(STRSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));  
-  SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(node)));
-  setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(2);
+  RHugin_handle_error();
+
+  if (node) {
+    PROTECT(ret = allocVector(VECSXP, 1));
+    PROTECT(names = allocVector(STRSXP, 1));
+    SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(node, RHugin_node_tag, R_NilValue));  
+    SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(node)));
+    setAttrib(ret, R_NamesSymbol, names);
+    UNPROTECT(2);
+  }
+
   return ret;
 }
 
@@ -5450,7 +5455,19 @@ SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 
 /* 13.9 Saving class collections, classes, and domains as NET files */
 
-// SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
+SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name) {
+  h_status_t status = 0;
+  h_class_collection_t cc = classCollectionPointerFromSEXP(Scc);
+
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_cc_save_as_net(cc, (h_string_t) CHAR(asChar(Sfile_name)));
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(status);
+
+  return R_NilValue;
+}
+
 SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name) {
   h_status_t status = 0;
   h_class_t class = classPointerFromSEXP(Sclass);
