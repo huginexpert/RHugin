@@ -213,10 +213,11 @@ h_class_collection_t classCollectionPointerFromSEXP(SEXP Sclass_collection)
 
 SEXP isDomainOrClass(SEXP SdomainOrClass) {
   SEXP res = PROTECT(allocVector(REALSXP, 1));
-
+  
   if (TYPEOF(SdomainOrClass) != EXTPTRSXP){
     error("SdomainOrClass is not a pointer");
     REAL(res)[0] = (-1);
+    UNPROTECT(1);
     return res;
   }
 
