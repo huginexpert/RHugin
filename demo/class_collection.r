@@ -21,13 +21,16 @@ add.class.node(fruits_class, "banana", states = c("yes", "no", "maybe"))
 add.class.node(fruits_class, "pear", states = c("yes", "no", "maybe"))
 
 # Add node to inputs of its home class
-add.node.input(fruits_class, c("apple", "banana"))
+set.node.input(fruits_class, c("apple", "banana"))
 
 # Get inputs of class
 inputs <- get.class.inputs(class)
 
 # Add node to output of its home class
+set.node.output(fruits_class, c("pear"))
 
+# Get outputs of class
+outputs <- get.class.outputs(class)
 
 # Add node to outputs of its home class
 write.rhc(fruits_class, "test.oobn")

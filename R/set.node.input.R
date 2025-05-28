@@ -1,4 +1,4 @@
-add.node.input <- function(class, nodes) 
+set.node.input <- function(class, nodes) 
 {
     node.ptrs <- nodePointersFromNames(class, nodes)
     for (node in nodes) {
