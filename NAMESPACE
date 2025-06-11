@@ -53,6 +53,7 @@ export(
   "hugin.class.collection.parse",
   "hugin.class.collection.get.class.by_name",
   "hugin.class",
+  "hugin.class.instance",
   "initialize.domain",
   "layoutRHugin",
   "learn.cpt",
@@ -84,7 +85,8 @@ export(
   "uncompile",
   "write.cases",
   "write.rhd",
-  "write.rhc"
+  "write.rhc",
+  "write.rhcc"
 )
 
 S3method(compile, RHuginDomain)
