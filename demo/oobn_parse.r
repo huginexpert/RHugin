@@ -8,7 +8,7 @@ time_slices <- 1
 cc <- hugin.class.collection.parse(file_name)
 
 # Get class by name
-class <- hugin.class.collection.by_name(cc, class_name)
+class <- hugin.class.collection.get.class.by_name(cc, class_name)
 
 # Create DBN
 dbn <- hugin.domain.dbn(class, time_slices)

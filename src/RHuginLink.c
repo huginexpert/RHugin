@@ -1433,18 +1433,19 @@ SEXP RHugin_node_get_instance_class(SEXP Snode)
 
 SEXP RHugin_class_get_instance(SEXP Snode)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
-  h_node_t* nodes = NULL;
-  h_node_t node = NULL;
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  nodes = h_class_get_instances(node);
-  PROTECT(ret = allocVector(VECSXP, 1));
-  PROTECT(names = allocVector(STRSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(nodes, RHugin_node_tag, R_NilValue));  
-  SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(nodes)));
-  setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(2);
-  return nodes;
+  // SEXP ret = R_NilValue, names = R_NilValue;
+  // h_node_t* nodes = NULL;
+  // h_node_t node = NULL;
+  // node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  // nodes = h_class_get_instances(node);
+  // PROTECT(ret = allocVector(VECSXP, 1));
+  // PROTECT(names = allocVector(STRSXP, 1));
+  // SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(nodes, RHugin_node_tag, R_NilValue));  
+  // SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(nodes)));
+  // setAttrib(ret, R_NamesSymbol, names);
+  // UNPROTECT(2);
+  // return nodes;
+  return R_NilValue;
 }
 
 SEXP RHugin_node_get_master(SEXP Snode)
@@ -1574,18 +1575,19 @@ SEXP RHugin_class_create_domain(SEXP Sclass)
 
 SEXP RHugin_node_get_source(SEXP Snode)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
-  h_node_t* nodes = NULL;
-  h_node_t node = NULL;
-  node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  nodes = h_node_get_source(node);
-  PROTECT(ret = allocVector(VECSXP, 1));
-  PROTECT(names = allocVector(STRSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(nodes, RHugin_node_tag, R_NilValue));  
-  SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(nodes)));
-  setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(2);
-  return ret;
+  // SEXP ret = R_NilValue, names = R_NilValue;
+  // h_node_t* nodes = NULL;
+  // h_node_t node = NULL;
+  // node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  // nodes = h_node_get_source(node);
+  // PROTECT(ret = allocVector(VECSXP, 1));
+  // PROTECT(names = allocVector(STRSXP, 1));
+  // SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(nodes, RHugin_node_tag, R_NilValue));  
+  // SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(nodes)));
+  // setAttrib(ret, R_NamesSymbol, names);
+  // UNPROTECT(2);
+  // return ret;
+  return R_NilValue;
 }
 
 /* 3.11 Node iterator */
@@ -1655,7 +1657,7 @@ SEXP RHugin_class_get_first_attribute(SEXP Sclass)
   return attribute;
 }
 
-/* 3.13 Saving class collections as HKB files */
+3.13 Saving class collections as HKB files */
 SEXP RHugin_cc_save_as_kb(SEXP Sclass_collection, SEXP Sfile_name, SEXP Spassword)
 {
   h_status_t status = 0;
@@ -1677,7 +1679,8 @@ SEXP RHugin_kb_load_class_collection(SEXP Sfile_name, SEXP Spassword)
   PROTECT(Spassword = AS_CHARACTER(Spassword));
   class_collection = h_kb_load_class_collection((h_string_t) CHAR(asChar(Sfile_name)), (h_string_t) CHAR(asChar(Spassword)));
   UNPROTECT(2);
-  return class_collection;
+  ret = R_MakeExternalPtr(class_collection, RHugin_class_collection_tag, R_NilValue);
+  return ret;
 }
 
 SEXP RHugin_class_get_file_name(SEXP Sclass)
@@ -1798,7 +1801,7 @@ SEXP RHugin_domain_triangulate_dbn(SEXP Sdomain, SEXP Smethod)
   if(status != 0) {
     RHugin_handle_status_code(status);
   }
-  return R_NilValue;
+  return ret;
 }
 
 SEXP RHugin_domain_move_dbn_window(SEXP Sdomain, SEXP Ssize)
@@ -1820,8 +1823,7 @@ SEXP RHugin_domain_get_dbn_window_offset(SEXP Sdomain)
   h_domain_t domain = NULL;
   SEXP ret = R_NilValue;
   domain = domainPointerFromSEXP(VECTOR_ELT(Sdomain, 0));
-  h_count_t count = NULL;
-  count = h_domain_get_dbn_window_offset(domain);
+  h_count_t count = h_domain_get_dbn_window_offset(domain);
   // create R vector with real
   PROTECT(ret = allocVector(INTSXP, (int) count));
   UNPROTECT(1);
@@ -1845,9 +1847,8 @@ SEXP RHugin_domain_compute_dbn_predictions(SEXP Sdomain, SEXP Snumber_of_time_in
 {
   h_status_t status = 0;
   h_domain_t domain = NULL;
-  size_t size = NULL;
   PROTECT(Snumber_of_time_instants = AS_NUMERIC(Snumber_of_time_instants));
-  size = REAL(Snumber_of_time_instants);
+  size_t size = (size_t)REAL(Snumber_of_time_instants);
   domain = domainPointerFromSEXP(VECTOR_ELT(Sdomain, 0));
   status = h_domain_compute_dbn_predictions(domain, size);
   if(status != 0) {
@@ -1861,12 +1862,11 @@ SEXP RHugin_node_get_predicted_belief(SEXP Snode, SEXP Ss, SEXP Stime)
   SEXP ret = R_NilValue;
   h_node_t node = NULL;
   h_number_t number;
-  size_t s = NULL, time = NULL;
   node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   PROTECT(Ss = AS_NUMERIC(Ss));
   PROTECT(Stime = AS_NUMERIC(Stime));
-  s = REAL(Ss);
-  time = REAL(Stime);
+  size_t s = (size_t)REAL(Ss);
+  size_t time = (size_t)REAL(Stime);
   number = h_node_get_predicted_belief(node, s, time);
   PROTECT(ret = allocVector(REALSXP, (double) number));
   UNPROTECT(3);
@@ -1878,10 +1878,10 @@ SEXP RHugin_node_get_predicted_mean(SEXP Snode, SEXP Stime)
   SEXP ret = R_NilValue;
   h_number_t number;
   h_node_t node = NULL;
-  size_t time = NULL;
+  size_t time;
   node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   PROTECT(Stime = AS_NUMERIC(Stime));
-  time = REAL(Stime);
+  time = (size_t)REAL(Stime);
   number = h_node_get_predicted_mean(node, time);
   PROTECT(ret = allocVector(REALSXP, (double) number));
   UNPROTECT(2);
@@ -1893,10 +1893,10 @@ SEXP RHugin_node_get_predicted_variance(SEXP Snode, SEXP Stime)
   SEXP ret = R_NilValue;
   h_number_t number;
   h_node_t node = NULL;
-  size_t time = NULL;
+  size_t time = 0;
   node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   PROTECT(Stime = AS_NUMERIC(Stime));
-  time = REAL(Stime);
+  time = (size_t)REAL(Stime);
   number = h_node_get_predicted_variance(node, time);
   PROTECT(ret = allocVector(REALSXP, (double) number));
   UNPROTECT(2);
@@ -1908,10 +1908,10 @@ SEXP RHugin_node_get_predicted_value(SEXP Snode, SEXP Stime)
   SEXP ret = R_NilValue;
   h_number_t number;
   h_node_t node = NULL;
-  size_t time = NULL;
+  size_t time = 0;
   node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
   PROTECT(Stime = AS_NUMERIC(Stime));
-  time = REAL(Stime);
+  time = (size_t)REAL(Stime);
   number = h_node_get_predicted_value(node, time);
   PROTECT(ret = allocVector(REALSXP, (double) number));
   UNPROTECT(2);
@@ -1953,10 +1953,9 @@ SEXP RHugin_domain_triangulate_dbn_for_bk(SEXP Sdomain, SEXP Smethod)
 SEXP RHugin_domain_is_triangulated_for_bk(SEXP Sdomain)
 {
   SEXP ret = R_NilValue;
-  h_boolean_t boolean = NULL;
   h_domain_t domain = NULL;
   domain = domainPointerFromSEXP(VECTOR_ELT(Sdomain, 0));
-  boolean = h_domain_is_triangulated_for_bk(domain);
+  h_boolean_t boolean = h_domain_is_triangulated_for_bk(domain);
   PROTECT(ret = allocVector(LGLSXP, boolean));
   UNPROTECT(1);
   return ret;
@@ -5424,8 +5423,9 @@ SEXP RHugin_net_parse_classes(SEXP Sfile_name)
   h_class_collection_t cc = NULL;
   cc = h_new_class_collection();
 
-  PROTECT(Sfile_name = CHAR(asChar(Sfile_name)));
-  status = h_net_parse_classes((h_string_t) Sfile_name, cc, NULL, 
+  // PROTECT(Sfile_name = CHAR(asChar(Sfile_name)));
+  PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
+  status = h_net_parse_classes((h_string_t) CHAR(asChar(Sfile_name)), cc, NULL, 
                                 RHuginFileParseError, NULL);
   UNPROTECT(1);
 

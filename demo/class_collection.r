@@ -3,10 +3,12 @@ library(RHugin)
 # Create a class collection
 cc <- hugin.class.collection()
 
+# Make main class
+main <- hugin.class(cc)
+set.class.name(main, "main")
+
 # Create a class
 class <- hugin.class(cc)
-
-# Set class name
 set.class.name(class, "fruits")
 
 # Get class name
@@ -20,6 +22,9 @@ add.class.node(fruits_class, "apple", states = c("yes", "no", "maybe"))
 add.class.node(fruits_class, "banana", states = c("yes", "no", "maybe"))
 add.class.node(fruits_class, "pear", states = c("yes", "no", "maybe"))
 
+add.edge(fruits_class, "pear", "apple")
+add.edge(fruits_class, "pear", "banana")
+
 # Add node to inputs of its home class
 set.node.input(fruits_class, c("apple", "banana"))
 
@@ -32,8 +37,11 @@ set.node.output(fruits_class, c("pear"))
 # Get outputs of class
 outputs <- get.class.outputs(class)
 
-# Add node to outputs of its home class
-write.rhc(fruits_class, "test.oobn")
+# Make instance of class
+hugin.class.instance(main, class, "fruit_box1")
+hugin.class.instance(main, class, "fruit_box2")
+
+write.rhcc(cc, "main.net", "net")
 
 
 
