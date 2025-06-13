@@ -41,7 +41,7 @@ outputs <- get.class.outputs(class)
 hugin.class.instance(main, class, "fruit_box1")
 hugin.class.instance(main, class, "fruit_box2")
 
-write.rhcc(cc, "main.net", "net")
+write.rhcc(cc, "main.oobn", "oobn")
 
 
 
