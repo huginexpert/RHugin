@@ -41,6 +41,21 @@ outputs <- get.class.outputs(class)
 hugin.class.instance(main, class, "fruit_box1")
 hugin.class.instance(main, class, "fruit_box2")
 
+# Make input class
+input_class <- hugin.class(cc)
+set.class.name(input_class, "fruit_in")
+add.class.node(input_class, "apple", states = c("yes", "no", "maybe"))
+set.node.output(input_class, "apple")
+
+hugin.class.instance(main, input_class, "fruits_in")
+
+add.class.node(main, "is_fruit", states = c("yes", "no"))
+add.edge(main, "is_fruit", "fruit_box1_pear")
+
+set.instance.input(main, "fruits_in_apple", "fruit_box1.apple")
+
+#set.instance.input(main,  "fruit_box1", "apple", "apple1_in")
+
 write.rhcc(cc, "main.oobn", "oobn")
 
 
