@@ -1480,18 +1480,28 @@ SEXP RHugin_node_get_instance(SEXP Snode)
 
 SEXP RHugin_node_get_output(SEXP Snode1, SEXP Snode2)
 {
+  // Snode1 is the instance node.
+  // Snode2 is the class node
   SEXP ret = R_NilValue, names = R_NilValue;
-  h_node_t node1 = NULL, tmp_node = NULL;
-  node1 = nodePointerFromSEXP(VECTOR_ELT(Snode1, 0));
-  h_node_t node2 = NULL;
-  node2 = nodePointerFromSEXP(VECTOR_ELT(Snode2, 0));
-  tmp_node = h_node_get_output(node1, node2);
-  PROTECT(ret = allocVector(VECSXP, 1));
-  PROTECT(names = allocVector(STRSXP, 1));
-  SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(tmp_node, RHugin_node_tag, R_NilValue));  
-  SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(tmp_node)));
-  setAttrib(ret, R_NamesSymbol, names);
-  UNPROTECT(2);
+  h_node_t instance_node = NULL, output_node = NULL;
+  instance_node = nodePointerFromSEXP(Snode1);
+  output_node = nodePointerFromSEXP(Snode2);
+  h_node_t output_clone = h_node_get_output(instance_node, output_node);
+  RHugin_handle_error();
+
+  if (output_clone) {
+    ret = R_MakeExternalPtr(output_clone, RHugin_node_tag, R_NilValue);
+  }
+  // h_node_t node2 = NULL;
+  // node2 = nodePointerFromSEXP(VECTOR_ELT(Snode2, 0));
+  // tmp_node = h_node_get_output(node1, node2);
+  // PROTECT(ret = allocVector(VECSXP, 1));
+  // PROTECT(names = allocVector(STRSXP, 1));
+  // SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(tmp_node, RHugin_node_tag, R_NilValue));  
+  // SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(tmp_node)));
+  // setAttrib(ret, R_NamesSymbol, names);
+  // UNPROTECT(2);
+  // return ret;
   return ret;
 }
 

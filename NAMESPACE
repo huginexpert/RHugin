@@ -3,6 +3,7 @@ import(graph, Rgraphviz, stats)
 importFrom("graphics", "par", "points", "rect", "strheight", "strwidth", "text")
 importFrom("methods", "new")
 importFrom("utils", "packageVersion")
+importFrom("stringr", "str_split")
 
 export(
   "adapt",
@@ -77,6 +78,7 @@ export(
   "set.table",
   "set.class.name",
   "set.node.output",
+  "set.instance.input",
   "simulate.RHuginDomain",
   "summary.RHuginDomain",
   "switch.parent",
