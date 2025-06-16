@@ -54,8 +54,6 @@ add.edge(main, "is_fruit", "fruit_box1_pear")
 
 set.instance.input(main, "fruits_in_apple", "fruit_box1.apple")
 
-#set.instance.input(main,  "fruit_box1", "apple", "apple1_in")
-
 write.rhcc(cc, "main.oobn", "oobn")
 
 
