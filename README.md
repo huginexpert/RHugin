@@ -26,6 +26,16 @@ It may be required to install the package Rgraphviz by running:
 ### Not supported
 The Hugin versions Education and Explorer can not be used with RHugin.
 
+## Activating the library
+
+After installing **RHugin**, you need to load the library in your R session so that its functions become available.
+
+Run the following command to activate it:
+
+```r
+library(RHugin)
+```
+
 ## Who Maintains RHugin ?
 RHugin is currently maintained by Hugin Expert.
 Please visit your website [here](http://www.hugin.com).
