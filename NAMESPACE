@@ -12,6 +12,7 @@ export(
   "set.node.input",
   "add.class.node",
   "as.graph.RHuginDomain",
+  "class.collection.get.members",
   "clone.domain",
   "clone.node",
   "compile",

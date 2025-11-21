@@ -1095,14 +1095,50 @@ SEXP RHugin_cc_new_class(SEXP Sclass_collection)
 
 SEXP RHugin_cc_get_members(SEXP Sclass_collection)
 {
-  SEXP ret = R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
+  h_error_t error_code = h_error_none;
   h_class_collection_t cc = NULL;
+  h_class_t *classes = NULL, *class = NULL;
+  R_len_t i = 0, n = 0;
   cc = classCollectionPointerFromSEXP(Sclass_collection);
-  if(Sclass_collection != R_NilValue) {
-    h_class_t *classes = NULL;
-    classes = h_cc_get_members(cc);
-    ret = R_MakeExternalPtr(classes, RHugin_class_tag, R_NilValue);
+  RHugin_handle_error();
+
+  if(!cc) 
+    return ret;
+
+  classes = h_cc_get_members(cc);
+  RHugin_handle_error();
+
+  if (classes) {
+    for (class = classes; *class != NULL; class++) n++;
+
+    PROTECT(ret = allocVector(VECSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
+
+    for (i = 0; i < n; i++) {
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(classes[i], RHugin_class_tag, R_NilValue));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_class_get_name(classes[i])));
+      error_code = h_error_code();
+      if(error_code != h_error_none) {
+        UNPROTECT(2);
+        RHugin_handle_error_code(error_code);
+      }
+    }
+    setAttrib(ret, R_NamesSymbol, names);
+    
+    UNPROTECT(2);
   }
+  // h_class_t *class = NULL;
+
+  // if (classes) {
+  //   for (class = classes; *class != null; class++)
+  //     n++;
+    
+  // }
+
+  // ret = R_MakeExternalPtr(classes, RHugin_class_tag, R_NilValue);
+
+
   return ret;
 }
 
