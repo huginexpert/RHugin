@@ -146,7 +146,7 @@ DLLEXPORT SEXP RHugin_node_remove_from_outputs(SEXP Snode);
 /* 3.8 Creating instances of classes */
 DLLEXPORT SEXP RHugin_class_new_instance(SEXP Sclass1, SEXP Sclass2);
 DLLEXPORT SEXP RHugin_node_get_instance_class(SEXP Snode);
-DLLEXPORT SEXP RHugin_class_get_instance(SEXP Snode);
+DLLEXPORT SEXP RHugin_class_get_instances(SEXP Snode);
 DLLEXPORT SEXP RHugin_node_get_master(SEXP Snode);
 DLLEXPORT SEXP RHugin_node_get_instance(SEXP Snode);
 DLLEXPORT SEXP RHugin_node_get_output(SEXP Snode1, SEXP Snode2);

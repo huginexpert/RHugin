@@ -495,7 +495,7 @@ void R_init_RHugin(DllInfo *info)
     /* 3.8 Creating instances of classes */
     {"RHugin_class_new_instance", (DL_FUNC) RHugin_class_new_instance, 2},
     {"RHugin_node_get_instance_class", (DL_FUNC) RHugin_node_get_instance_class, 1},
-    {"RHugin_class_get_instance", (DL_FUNC) RHugin_class_get_instance, 1},
+    {"RHugin_class_get_instances", (DL_FUNC) RHugin_class_get_instances, 1},
     {"RHugin_node_get_master", (DL_FUNC) RHugin_node_get_master, 1},
     {"RHugin_node_get_instance", (DL_FUNC) RHugin_node_get_instance, 1},
     {"RHugin_node_get_output", (DL_FUNC) RHugin_node_get_output, 2},

@@ -1128,16 +1128,6 @@ SEXP RHugin_cc_get_members(SEXP Sclass_collection)
     
     UNPROTECT(2);
   }
-  // h_class_t *class = NULL;
-
-  // if (classes) {
-  //   for (class = classes; *class != null; class++)
-  //     n++;
-    
-  // }
-
-  // ret = R_MakeExternalPtr(classes, RHugin_class_tag, R_NilValue);
-
 
   return ret;
 }
@@ -1467,21 +1457,58 @@ SEXP RHugin_node_get_instance_class(SEXP Snode)
   return ret;
 }
 
-SEXP RHugin_class_get_instance(SEXP Snode)
+SEXP RHugin_class_get_instances(SEXP Sclass)
 {
-  // SEXP ret = R_NilValue, names = R_NilValue;
-  // h_node_t* nodes = NULL;
-  // h_node_t node = NULL;
-  // node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
-  // nodes = h_class_get_instances(node);
-  // PROTECT(ret = allocVector(VECSXP, 1));
-  // PROTECT(names = allocVector(STRSXP, 1));
-  // SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr(nodes, RHugin_node_tag, R_NilValue));  
-  // SET_STRING_ELT(names, 0, mkChar( (char*) h_node_get_name(nodes)));
-  // setAttrib(ret, R_NamesSymbol, names);
-  // UNPROTECT(2);
-  // return nodes;
-  return R_NilValue;
+  SEXP ret = R_NilValue, names = R_NilValue;
+  h_class_t class = NULL;
+  h_node_t *instances = NULL;
+  h_node_t *instance = NULL;
+  h_error_t error_code = h_error_none;
+  R_len_t i = 0, n = 0;
+  class = classPointerFromSEXP(Sclass);
+  RHugin_handle_error();
+  instances = h_class_get_instances(class);
+
+  if (instances)
+  {
+    for (instance = instances; *instance != NULL; instance++)
+      n++;
+
+    PROTECT(ret = allocVector(VECSXP, n));
+
+    for (i = 0; i < n; i++)
+    {
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(instances[i], RHugin_node_tag, R_NilValue));
+    }
+
+    UNPROTECT(1);
+  }
+
+  // if (instances)
+  // {
+  // for (instance = instances; *instance != NULL; instance++)
+  //   n++;
+
+  //   PROTECT(ret = allocVector(VECSXP, n));
+  //   PROTECT(names = allocVector(STRSXP, n));
+
+  //   for (i = 0; i < n; i++)
+  //   {
+  //     SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(instances[i], RHugin_node_tag, R_NilValue));
+  //     SET_STRING_ELT(names, i, mkChar((char *)h_node_get_name(instances[i])));
+  //     error_code = h_error_code();
+  //     if (error_code != h_error_none)
+  //     {
+  //       UNPROTECT(2);
+  //       RHugin_handle_error_code(error_code);
+  //     }
+  //   }
+  //   setAttrib(ret, R_NamesSymbol, names);
+
+  //   UNPROTECT(2);
+  // }
+
+  return ret;
 }
 
 SEXP RHugin_node_get_master(SEXP Snode)
