@@ -78,6 +78,7 @@ export(
   "set.label",
   "set.logfile",
   "set.model",
+  "set.position",
   "set.states",
   "set.table",
   "set.class.name",
