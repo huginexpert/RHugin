@@ -604,7 +604,7 @@ DLLEXPORT SEXP RHugin_node_get_position(SEXP Snode);
 
 DLLEXPORT SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize);
 DLLEXPORT SEXP RHugin_domain_get_node_size(SEXP Sdomain);
-// SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
+DLLEXPORT SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
 // SEXP RHugin_class_get_node_size(SEXP Sclass);
 
 

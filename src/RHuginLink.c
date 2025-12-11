@@ -5660,7 +5660,20 @@ SEXP RHugin_domain_get_node_size(SEXP Sdomain)
 }
 
 
-// SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
+SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize) 
+{
+  size_t width = -1, height = -1;
+  h_class_t class = classPointerFromSEXP(Sclass);
+  
+  PROTECT(Ssize = AS_NUMERIC(Ssize));
+  width = (size_t) REAL(Ssize)[0];
+  height = (size_t) REAL(Ssize)[1];
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(h_class_set_node_size(class, width, height));
+
+  return R_NilValue;
+}
 // SEXP RHugin_class_get_node_size(SEXP Sclass);
 
 

@@ -74,6 +74,8 @@ export(
   "RHugin.control",
   "score",
   "set.cases",
+  "set.class.size",
+  "set.domain.size",
   "set.finding",
   "set.label",
   "set.logfile",

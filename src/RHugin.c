@@ -842,6 +842,7 @@ void R_init_RHugin(DllInfo *info)
     /* 14.3 The size of a node */
     {"RHugin_domain_set_node_size", (DL_FUNC) RHugin_domain_set_node_size, 2},
     {"RHugin_domain_get_node_size", (DL_FUNC) RHugin_domain_get_node_size, 1},
+    {"RHugin_class_set_node_size", (DL_FUNC) RHugin_class_set_node_size, 2},
     // SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
     // SEXP RHugin_class_get_node_size(SEXP Sclass);    
     {NULL, NULL, 0}};
