@@ -12,26 +12,39 @@ if(nchar(hugins <- Sys.getenv("RHUGIN_HUGINHOME"))) {
   hugins <- list.files(HEDir)
 }
 
+hugins_raw <- hugins # store original folder names for logging
 hugins <- strsplit(hugins, split = " ", fixed = TRUE)
-l4 <- sapply(hugins, length) == 3
-isHugin <- sapply(hugins, function(u) u[1]) == "HUGIN"
-hugins <- hugins[l4 & isHugin]
+
+isHugin <- vapply(hugins, function(u) toupper(u[1]) == "HUGIN", logical(1))
+hugins <- hugins[isHugin]
+hugins_raw <- hugins_raw[isHugin]
 
 if(!length(hugins))
   stop("Hugin not found in ", HEDir)
 
-types <- sapply(hugins, function(u) u[2])
+# extract version.
+# Selection examples: 1.2, 1.2.3, 12.13.14.15
+get_ver <- function(u) {
+  hit <- grep("^\\d+(?:\\.\\d+){1,3}$", u, perl = TRUE)
+  if (length(hit)) u[hit[1]] else NA_character_
+}
+versions <- vapply(hugins, get_ver, character(1))
+
+if (all(is.na(versions)))
+  stop("Hugin installations found but could not parse version: ", paste(hugins_raw, collapse = ", "))
+
+latest <- which.max(versions)
 #DorR <- types == "Developer" || types == "Researcher"
 #if(sum(DorR)) {
 #  hugins <- hugins[DorR]
 #  types <- types[DorR]
 #}
-versions <- (sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
+# versions <- (sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
 #versions <- as.numeric(sapply(hugins, function(u) u[2])) #OBS Change u[2] to u[3] if hugin is not found
-latest <- which.max(versions)
+# latest <- which.max(versions)
 
 hugin <- paste(hugins[[latest]], collapse = " ")
-type <- types[latest]
+cat(paste("Using installation:", hugin,"\n"))
 version <- versions[latest]
 HuginCHDEDir <- file.path(HEDir, hugin, paste("HDE", version, "C", sep = ""))
 HuginIncludeDir <- file.path(HuginCHDEDir, "Include")
