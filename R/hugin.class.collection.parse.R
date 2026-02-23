@@ -1,6 +1,8 @@
-hugin.class.collection.parse <- function(file_name)
+hugin.class.collection.parse <- function(net_string_or_file_name, class_collection = NULL)
 {
-    cc <- .Call(RHugin_net_parse_classes, file_name)
-    oldClass(cc) <- "RHuginClassCollection"
-    cc
+    ccOrNull <- .Call(RHugin_net_parse_classes, net_string_or_file_name, class_collection)
+    if (!is.null(ccOrNull)) {
+        oldClass(ccOrNull) <- "RHuginClassCollection"
+    }
+    ccOrNull
 }

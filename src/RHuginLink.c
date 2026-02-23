@@ -1459,11 +1459,10 @@ SEXP RHugin_node_get_instance_class(SEXP Snode)
 
 SEXP RHugin_class_get_instances(SEXP Sclass)
 {
-  SEXP ret = R_NilValue, names = R_NilValue;
+  SEXP ret = R_NilValue;
   h_class_t class = NULL;
   h_node_t *instances = NULL;
   h_node_t *instance = NULL;
-  h_error_t error_code = h_error_none;
   R_len_t i = 0, n = 0;
   class = classPointerFromSEXP(Sclass);
   RHugin_handle_error();
@@ -1545,7 +1544,7 @@ SEXP RHugin_node_get_output(SEXP Snode1, SEXP Snode2)
 {
   // Snode1 is the instance node.
   // Snode2 is the class node
-  SEXP ret = R_NilValue, names = R_NilValue;
+  SEXP ret = R_NilValue;
   h_node_t instance_node = NULL, output_node = NULL;
   instance_node = nodePointerFromSEXP(Snode1);
   output_node = nodePointerFromSEXP(Snode2);
@@ -1994,7 +1993,7 @@ SEXP RHugin_node_get_predicted_value(SEXP Snode, SEXP Stime)
 /* 4.5 The Boyen-Koller approximation algorithm */
 SEXP RHugin_domain_triangulate_dbn_for_bk(SEXP Sdomain, SEXP Smethod)
 {
-  SEXP ret = R_NilValue;
+  //SEXP ret = R_NilValue;
   h_status_t status = 0;
   h_domain_t domain = NULL;
   h_triangulation_method_t method = h_tm_best_greedy;
@@ -5488,24 +5487,28 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
   return ret;
 }
 
-
-SEXP RHugin_net_parse_classes(SEXP Sfile_name) 
+SEXP RHugin_net_parse_classes(SEXP Sfile_name, SEXP Sclass_collection) 
 {
   SEXP ret = R_NilValue;
   h_status_t status = 0;
   h_class_collection_t cc = NULL;
-  cc = h_new_class_collection();
+  if (Sclass_collection == R_NilValue) {
+    cc = h_new_class_collection();
+  } else {
+    cc = classCollectionPointerFromSEXP(Sclass_collection);
+  }
 
   // PROTECT(Sfile_name = CHAR(asChar(Sfile_name)));
   PROTECT(Sfile_name = AS_CHARACTER(Sfile_name));
   status = h_net_parse_classes((h_string_t) CHAR(asChar(Sfile_name)), cc, NULL, 
                                 RHuginFileParseError, NULL);
   UNPROTECT(1);
-
   RHugin_handle_status_code(status);
 
-  ret = R_MakeExternalPtr(cc, RHugin_class_collection_tag, R_NilValue);
-  R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_class_collection_finalizer, TRUE);
+  if (Sclass_collection == R_NilValue) {
+    ret = R_MakeExternalPtr(cc, RHugin_class_collection_tag, R_NilValue);
+    R_RegisterCFinalizerEx(ret, (R_CFinalizer_t) RHugin_class_collection_finalizer, TRUE);
+  }
 
   return ret;
 }
@@ -5553,6 +5556,23 @@ SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name) {
 
   return R_NilValue;
 }
+
+SEXP RHugin_class_to_net_string(SEXP Sclass) {
+  SEXP ret = R_NilValue;
+  h_string_t net = NULL;
+  h_class_t class = classPointerFromSEXP(Sclass);
+
+  if (class != NULL) {
+    PROTECT(ret = allocVector(STRSXP, 1));
+    net = h_class_to_net_string(class);
+    SET_STRING_ELT(ret, 0, mkChar((char *)net));
+    UNPROTECT(1);
+  }
+
+  RHugin_handle_error();
+  return ret;
+}
+
 // SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 // SEXP RHugin_class_get_file_name(SEXP Sclass);
 // SEXP RHugin_domain_get_file_name(SEXP Sdomain);

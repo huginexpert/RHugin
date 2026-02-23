@@ -821,7 +821,7 @@ void R_init_RHugin(DllInfo *info)
 
     /* 13.8 parsing NET files */
     {"RHugin_net_parse_domain", (DL_FUNC) RHugin_net_parse_domain, 1},
-    {"RHugin_net_parse_classes", (DL_FUNC) RHugin_net_parse_classes, 1},
+    {"RHugin_net_parse_classes", (DL_FUNC) RHugin_net_parse_classes, 2},
     {"RHugin_domain_save_as_net", (DL_FUNC) RHugin_domain_save_as_net, 2},
 
     /* 13.9 Saving class collections, classes, and domains as NET files */
@@ -830,6 +830,9 @@ void R_init_RHugin(DllInfo *info)
     // SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
     // SEXP RHugin_class_get_file_name(SEXP Sclass);
     // SEXP RHugin_domain_get_file_name(SEXP Sdomain);
+
+    /* 13.10 Generating NET specifications */
+    {"RHugin_class_to_net_string", (DL_FUNC) RHugin_class_to_net_string, 1},
 
     /* 14.1 The label of a node */
     {"RHugin_node_set_label", (DL_FUNC) RHugin_node_set_label, 2},

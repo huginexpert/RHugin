@@ -12,5 +12,5 @@ hugin.class.instance <- function(classPeer, classToInstance, instanceName) {
         .Call(RHugin_node_set_name, c(clone.ptr), new_clone_name)
     }
 
-    invisible()
+    instance
 }

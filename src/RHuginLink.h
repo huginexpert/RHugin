@@ -575,7 +575,7 @@ DLLEXPORT SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain);
 /* 13.8 parsing NET files */
 
 DLLEXPORT SEXP RHugin_net_parse_domain(SEXP Sfile_name);
-DLLEXPORT SEXP RHugin_net_parse_classes(SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_net_parse_classes(SEXP Sfile_name, SEXP Sclass_collection);
 DLLEXPORT SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
 
 
@@ -587,6 +587,9 @@ DLLEXPORT SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
 // SEXP RHugin_class_get_file_name(SEXP Sclass);
 // SEXP RHugin_domain_get_file_name(SEXP Sdomain);
 
+// DLLEXPORT SEXP RHugin_domain_to_net_string(SEXP Sclass);
+DLLEXPORT SEXP RHugin_class_to_net_string(SEXP Sclass);
+// DLLEXPORT SEXP RHugin_cc_to_net_string(SEXP Sclass);
 
 /* 14.1 The label of a node */
 
