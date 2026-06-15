@@ -1,0 +1,15 @@
+pkg <- meta$Package
+ver <- meta$Version
+date <- meta$Date
+year <- sub("-.*", "", date)
+title <- meta$Title
+url <- meta$URL
+
+bibentry(
+  bibtype = "Manual",
+  title = pkg,
+  author = person(family = "{Hugin Expert A/S}"),
+  year = year,
+  note = sprintf("%s package version %s; Maintained by Hugin Expert A/S; Originally maintained by Kjell Konis", pkg, ver),
+  url = url
+)
